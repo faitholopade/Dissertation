@@ -118,3 +118,131 @@ None yet; may add exclusions after manual review.
 
 ---
 
+## 3. US Federal AI Use Case Inventory
+
+**File:** `2024_consolidated_ai_inventory_raw_v2.csv`  
+**Script:** `us_fed_ai.py`
+
+### 3.1 Search columns
+
+- `Use Case Name`  
+- `"What is the intended purpose and expected benefits of the AI?"`  
+- `"Describe the AI system’s outputs."`
+
+### 3.2 Keyword groups
+
+Employment:
+
+- recruitment, recruiting, hiring, hire  
+- hr, human resources  
+- personnel, workforce, employee, staffing  
+
+Benefits:
+
+- benefits, welfare, eligibility  
+- medicaid, medicare  
+- social security, pension  
+- unemployment, public assistance  
+- healthcare, health care  
+
+### 3.3 Selection logic
+
+1. Keyword match on:
+   - name  
+   - purpose text  
+   - output text  
+
+2. Restrict to Annex III–aligned topic areas:
+   - Education & Workforce  
+   - Government Services (includes Benefits and Service Delivery)  
+   - Mission-Enabling (internal agency support)  
+
+3. Export first 10 rows as:
+   - `us_federal_subset_first10.csv`
+
+### 3.4 Geography
+
+- US dataset used for *structural analogy* to Annex III, not for legal equivalence.
+
+### 3.5 Negative filters
+
+None implemented yet.
+
+---
+
+## 4. ECtHR Case-Law (rights backbone)
+
+**File:** `final_for_viz.csv`  
+**Script:** `echr.py`
+
+### 4.1 Columns used
+
+- `Document_Title`
+- `Application_Number`
+- `Article`
+- `Conclusion`
+- `Country`
+- `year`
+
+### 4.2 Target rights
+
+The backbone focuses on:
+
+- **Article 14** (non-discrimination)  
+- **Protocol 1** (social-benefit / welfare relevance)
+
+### 4.3 Selection logic
+
+1. Retain rows where `Article` == "14" OR "P1"  
+2. Require `Conclusion` containing `"violation"`  
+3. Deduplicate by:
+   - `Document_Title`
+   - `Application_Number`
+4. Export first 20 rows to:
+   - `case_law_subset.csv`
+
+### 4.4 Geography
+
+- ECtHR covers Council of Europe, broader than EU  
+- Rights framework sufficiently aligned for Annex III mapping  
+
+### 4.5 Negative filters
+
+- Excludes non-violation cases  
+- Subject-matter refinement planned for manual annotation stage  
+
+---
+
+## 5. Reproducibility
+
+To regenerate my subsets:
+
+```bash
+python aiaaic_incidents.py
+python us_fed_ai.py
+python echr.py
+```
+
+Then generate unified annotated table:
+
+```bash
+python annotate_records.py
+```
+
+Outputs:
+
+- `aiaaic_subset_broad_first10.csv`  
+- `aiaaic_subset_llm_first10.csv`  
+- `us_federal_subset_first10.csv`  
+- `case_law_subset.csv`  
+- `master_annotation_table.csv`  
+
+---
+
+## 6. Planned refinements
+
+- Add explicit synonym lists  
+- Add negative filters  
+- Introduce geography constraints  
+- Compare keyword-based vs LLM-assisted selection  
+- Build small gold-standard manual annotations  
