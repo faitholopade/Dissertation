@@ -1,0 +1,83 @@
+                    employment  essential_services  unknown
+employment                   4                   1        6
+essential_services           0                  36       24
+unknown                      0                  13        6
+
+Classification report (keyword as reference, LLM as prediction):
+                    precision    recall  f1-score   support
+
+        employment       1.00      0.36      0.53        11
+essential_services       0.72      0.60      0.65        60
+           unknown       0.17      0.32      0.22        19
+
+          accuracy                           0.51        90
+         macro avg       0.63      0.43      0.47        90
+      weighted avg       0.64      0.51      0.55        90
+
+                        chatbot  llm_assisted_screening  llm_decision_support  not_llm  summary_assistant  unknown
+chatbot                       0                       0                     0        0                  0        0
+llm_assisted_screening        0                       0                     0        1                  0        2
+llm_decision_support          0                       0                     1        0                  1        0
+not_llm                       0                       0                     0        0                  0       20
+summary_assistant             0                       0                     0        0                  0        0
+unknown                       1                       0                     1       30                  2       31
+
+Classification report (system pattern):
+                        precision    recall  f1-score   support
+
+               chatbot       0.00      0.00      0.00         0
+llm_assisted_screening       0.00      0.00      0.00         3
+  llm_decision_support       0.50      0.50      0.50         2
+               not_llm       0.00      0.00      0.00        20
+     summary_assistant       0.00      0.00      0.00         0
+               unknown       0.58      0.48      0.53        65
+
+              accuracy                           0.36        90
+             macro avg       0.18      0.16      0.17        90
+          weighted avg       0.43      0.36      0.39        90
+
+
+============================================================
+DOMAIN DISAGREEMENT EXAMPLES (keyword vs LLM)
+============================================================
+Total disagreements: 44 / 90
+
+  Title: TSA Contact Center Virtual Assistant
+  Keyword: unknown  |  LLM: essential_services
+  Desc: The three goals for TSAs virtual assistant are:  1) Improve Ease / Efficiency  deliver timely, accurate responses to c...
+
+  Title: ELIS Evidence Classifier Machine Learning (ML) Tagging Solution
+  Keyword: unknown  |  LLM: essential_services
+  Desc: To enable end users to navigate directly to the page(s) containing evidence documents of interest instead of sifting thr...
+
+  Title: Automated Change Detection
+  Keyword: unknown  |  LLM: essential_services
+  Desc: As part of the Census Bureau's efforts to maintain and update the Geographic Frame ahead of the 2030 Decennial Census, t...
+
+  Title: Linkage and Matching Program (LaMP)
+  Keyword: unknown  |  LLM: essential_services
+  Desc: This use case involves probabilistic record linkage to link multiple person-level datasets. The predicted links are used...
+
+  Title: Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipe
+  Keyword: essential_services  |  LLM: unknown
+  Desc: The purpose of this AI-driven pipeline is to tackle the challenge of processing non-English, short-text responses in lar...
+
+  Title: FAQ for SMaRT
+  Keyword: essential_services  |  LLM: unknown
+  Desc: The purpose of the FAQ search tool is to find the correct Census Bureau-provided answers to common questions from the pu...
+
+  Title: UK government accused of COVID-19 recovery funding algorithmic "cultural elitism
+  Keyword: essential_services  |  LLM: unknown
+  Desc: https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/uk-government-accused-of-covid-19-recov...
+
+  Title: UK govt Spotlight fund application assessments
+  Keyword: unknown  |  LLM: essential_services
+  Desc: https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/uk-government-spotlight-algorithm Accur...
+
+  Title: DOGE uses faulty AI to cut Veterans Affairs contracts
+  Keyword: essential_services  |  LLM: unknown
+  Desc: https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/doge-uses-faulty-ai-to-cut-veterans-aff...
+
+  Title: NDIS independent assessments ditched by Australian government
+  Keyword: unknown  |  LLM: essential_services
+  Desc: https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/ndis-independent-assessments-robo-plann...
