@@ -1,0 +1,14 @@
+n,percent_agreement,kappa,dataset,label
+61,0.5738,0.0411,AIAAIC_pilot,employment
+62,0.7742,0.5011,AIAAIC_pilot,essential_services
+69,1.0,undefined (single label),AIAAIC_pilot,non_discrimination
+69,0.5942,0.0262,AIAAIC_pilot,privacy
+90,0.5111,0.0942,master_table,annex_domain
+90,0.3556,-0.295,master_table,system_pattern
+90,0.4778,-0.0057,master_table,right_privacy_data_protection
+90,0.5889,0.1953,master_table,right_non_discrimination
+90,0.6222,0.2817,master_table,right_access_social_protection
+90,0.7111,0.4009,master_table,harm_unfair_exclusion
+90,0.8889,0.6928,master_table,harm_privacy_breach
+90,0.6667,0.0816,master_table,harm_misinformation_error
+90,0.5778,0.0962,master_table,harm_procedural_unfairness
