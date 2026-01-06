@@ -1,0 +1,5 @@
+For the ECtHR case-law backbone, I’ve programmatically filtered the full 54,566-row HUDOC-derived dataset (final_for_viz.csv) to identify cases involving non-discrimination (Article 14) and social-benefit / property-related rights (Protocol 1). I applied an additional filter to keep only cases where the court found a violation, to ensure the examples reflect clear, established rights-harms that are relevant for Annex III(4) and Annex III(5)(a).
+
+After deduplication across multi-article entries, this produced 2,493 unique ECtHR judgments involving these fundamental rights. From this, I generated a smaller, manageable 20-case sample, saved as case_law_subset.csv, which contains key metadata (case name, application number, year, country, articles, and conclusions).
+
+This subset gives me a rights-aligned reference backbone that I can manually inspect and then annotate using my emerging schema, helping link LLM-related risks and incidents to the underlying fundamental rights obligations that Annex III deployers must consider during FRIA.
