@@ -178,3 +178,86 @@ def annotate_rights(text):
 
 def annotate_harms(text):
     text = text.lower()
+    h = []
+    if any(kw in text for kw in ["exclud", "denied", "reject", "wrongly flag", "false positive"]): h.append("unfair_exclusion")
+    if any(kw in text for kw in ["data breach", "leak", "hack"]): h.append("privacy_breach")
+    if any(kw in text for kw in ["misinformation", "hallucin", "inaccura", "error", "incorrect"]): h.append("misinformation_error")
+    if any(kw in text for kw in ["procedural", "no appeal", "opaque", "black box"]): h.append("procedural_unfairness")
+    return ";".join(h) if h else "other"
+
+new_rows = []
+for _, row in expansion.iterrows():
+    full_text = " ".join([
+        str(row.get("Headline", "")),
+        str(row.get("Sector(s)", "")),
+        str(row.get("Purpose(s)", "")),
+        str(row.get("Issue(s)", "")),
+        str(row.get("Technology(ies)", "")),
+    ])
+    # Also grab Summary/links for the description
+    summary = str(row.get("Summary/links", ""))
+    desc = full_text
+    if summary and summary != "nan":
+        desc = summary[:200] + " | " + full_text
+
+    new_rows.append({
+        "source": "AIAAIC",
+        "source_id": str(row.get("AIAAIC ID#", "")),
+        "title": str(row.get("Headline", ""))[:120],
+        "description": desc[:500],
+        "annex_domain": annotate_domain(full_text),
+        "system_pattern": annotate_pattern(full_text),
+        "rights": annotate_rights(full_text),
+        "harms": annotate_harms(full_text),
+        "actor_role": "deployer",
+        "notes": "Auto annotation v0.5 expansion",
+    })
+
+# ═══════════════════════════════════════════════════════════════
+# 7. COMBINE: existing master + new AIAAIC + USFED expansion
+# ═══════════════════════════════════════════════════════════════
+all_rows = list(master.to_dict("records"))
+
+# Add new AIAAIC
+all_rows.extend(new_rows)
+print(f"\n  Added {len(new_rows)} new AIAAIC records")
+
+# Add USFED expansion if it exists and rows aren't already present
+if os.path.exists("data/usfed/usfed_expansion.csv"):
+    usfed = pd.read_csv("data/usfed/usfed_expansion.csv", encoding="utf-8", low_memory=False)
+    existing_titles_now = {r["title"].strip().lower() for r in all_rows if "title" in r}
+
+    name_cols = [c for c in usfed.columns if "name" in c.lower()]
+    name_col = name_cols[0] if name_cols else usfed.columns[0]
+    text_cols = [c for c in usfed.columns if usfed[c].dtype == object]
+
+    added_usfed = 0
+    for _, row in usfed.iterrows():
+        title = str(row.get(name_col, ""))[:80]
+        if title.strip().lower() not in existing_titles_now:
+            full_text = " ".join(str(row.get(c, "")) for c in text_cols)
+            all_rows.append({
+                "source": "USFED", "source_id": title, "title": title,
+                "description": full_text[:500],
+                "annex_domain": annotate_domain(full_text),
+                "system_pattern": annotate_pattern(full_text),
+                "rights": annotate_rights(full_text),
+                "harms": annotate_harms(full_text),
+                "actor_role": "deployer",
+                "notes": "Auto annotation v0.5 USFED expansion",
+            })
+            added_usfed += 1
+    print(f"  Added {added_usfed} new USFED records")
+
+final = pd.DataFrame(all_rows)
+final.to_csv("data/master_annotation_table_v05.csv", index=False, encoding="utf-8")
+print(f"\n{'='*60}")
+print(f"✅ Saved master_annotation_table_v05.csv with {len(final)} records")
+print(f"{'='*60}")
+
+print(f"\n-- Source distribution --")
+print(final["source"].value_counts().to_string())
+print(f"\n-- Domain distribution --")
+print(final["annex_domain"].value_counts().to_string())
+print(f"\n-- System pattern distribution --")
+print(final["system_pattern"].value_counts().to_string())
