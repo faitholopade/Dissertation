@@ -88,3 +88,93 @@ def score_row(row):
     if any(kw in text for kw in EMPLOYMENT_KW): s += 2
     if any(kw in text for kw in BENEFITS_KW): s += 2
     if any(kw in text for kw in PUBLIC_KW): s += 1
+    return s
+
+aiaaic["_score"] = aiaaic.apply(score_row, axis=1)
+
+# ═══════════════════════════════════════════════════════════════
+# 4. DEDUPLICATE (fuzzy title matching)
+# ═══════════════════════════════════════════════════════════════
+def is_duplicate(headline):
+    """Check if headline matches any existing title."""
+    if not isinstance(headline, str) or not headline.strip():
+        return True  # skip blank rows
+    h = headline.strip().lower()
+    for et in used_titles:
+        if h[:35] == et[:35]:
+            return True
+        if len(h) > 10 and len(et) > 10:
+            if h in et or et in h:
+                return True
+    return False
+
+aiaaic["_is_dup"] = aiaaic["Headline"].astype(str).apply(is_duplicate)
+candidates = aiaaic[~aiaaic["_is_dup"]].copy()
+candidates = candidates.sort_values("_score", ascending=False)
+
+print(f"\n  After dedup: {len(candidates)} candidates (removed {aiaaic['_is_dup'].sum()} duplicates)")
+print(f"  Score distribution of candidates:")
+print(f"    Score 5: {(candidates['_score'] == 5).sum()}")
+print(f"    Score 4: {(candidates['_score'] == 4).sum()}")
+print(f"    Score 3: {(candidates['_score'] == 3).sum()}")
+print(f"    Score 2: {(candidates['_score'] == 2).sum()}")
+print(f"    Score 1: {(candidates['_score'] == 1).sum()}")
+
+# ═══════════════════════════════════════════════════════════════
+# 5. SELECT TOP 40 NEW RECORDS
+# ═══════════════════════════════════════════════════════════════
+# Take highest-scoring that aren't dupes, ensuring variety
+target = 40
+expansion = candidates.head(target)
+
+print(f"\n  Selected {len(expansion)} new AIAAIC records")
+print(f"  Score range: {expansion['_score'].min()} – {expansion['_score'].max()}")
+print(f"\n  Selected records:")
+for i, (_, row) in enumerate(expansion.iterrows()):
+    print(f"    [{row['_score']}] {str(row['AIAAIC ID#']):12s} {str(row['Headline'])[:70]}")
+
+# ═══════════════════════════════════════════════════════════════
+# 6. ANNOTATE NEW RECORDS
+# ═══════════════════════════════════════════════════════════════
+PATTERN_RULES = {
+    "profiling_scoring": ["profil", "scor", "risk assess", "credit scor",
+        "fraud detect", "anomaly", "predictive polic", "recidivism", "predict"],
+    "surveillance_monitor": ["surveillance", "monitor", "track", "camera",
+        "cctv", "facial recogn", "biometric", "body cam", "recogniti"],
+    "classification_triage": ["classif", "triage", "categori", "prioriti", "screen"],
+    "resource_allocation": ["resource alloc", "benefit calcul", "schedul",
+        "disburs", "allocat", "automat.*assign"],
+    "chatbot": ["chatbot", "virtual assistant", "conversational"],
+    "summary_assistant": ["summari", "report generat", "document generat"],
+}
+
+def annotate_domain(text):
+    text = text.lower()
+    emp = any(kw in text for kw in EMPLOYMENT_KW)
+    ben = any(kw in text for kw in BENEFITS_KW)
+    if emp and not ben: return "employment"
+    if ben: return "essential_services"
+    if emp: return "employment"
+    return "unknown"
+
+def annotate_pattern(text):
+    text = text.lower()
+    for pattern, rules in PATTERN_RULES.items():
+        if any(re.search(r, text) for r in rules): return pattern
+    llm_kw = ["llm", "large language", "chatgpt", "gpt", "generative ai", "genai"]
+    if any(kw in text for kw in llm_kw): return "llm_decision_support"
+    nonllm = ["algorithm", "machine learning", "neural network", "automat"]
+    if any(kw in text for kw in nonllm): return "not_llm"
+    return "unknown"
+
+def annotate_rights(text):
+    text = text.lower()
+    r = []
+    if any(kw in text for kw in ["bias", "discriminat", "unfair", "racial", "gender", "ethnic"]): r.append("non_discrimination")
+    if any(kw in text for kw in ["privacy", "data protection", "surveillance", "gdpr", "personal data"]): r.append("privacy_data_protection")
+    if any(kw in text for kw in ["welfare", "benefit", "eligibility", "pension", "social protection"]): r.append("access_social_protection")
+    if any(kw in text for kw in ["transparency", "accountability", "redress", "appeal", "opaque"]): r.append("good_administration")
+    return ";".join(r) if r else "other"
+
+def annotate_harms(text):
+    text = text.lower()
