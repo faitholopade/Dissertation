@@ -98,3 +98,113 @@ CLASSIFICATION SCHEMA:
 3. rights (MULTI-LABEL, semicolon-separated):
    - "non_discrimination": Evidence of bias, unfair treatment of protected groups, disparate
      impact, or algorithmic discrimination.
+   - "privacy_data_protection": Excessive data collection, surveillance, GDPR concerns, profiling
+     without consent, data breaches.
+   - "access_social_protection": Barriers to benefits, welfare, healthcare, social services, or
+     public assistance.
+   - "good_administration": Lack of transparency, no right to explanation, opaque decision-making,
+     no appeal/redress mechanism.
+   - "other": Only if none of the above apply.
+
+4. harms (MULTI-LABEL, semicolon-separated):
+   - "unfair_exclusion": People wrongly denied services, benefits, or opportunities.
+   - "privacy_breach": Actual data breach, leak, or unauthorised surveillance.
+   - "misinformation_error": System produced incorrect/misleading information or hallucinations.
+   - "procedural_unfairness": Decisions made without due process, human oversight, or explanation.
+   - "other": Only if none of the above apply.
+
+RULES:
+- REDUCE "unknown" labels. Most real-world AI incidents CAN be classified.
+- For system_pattern, if the system is clearly algorithmic but not generative/LLM, use
+  the most specific non-LLM pattern (profiling_scoring, surveillance_monitor, etc.),
+  then fall back to "not_llm" only if no specific pattern fits.
+- Always provide a brief rationale.
+
+Return ONLY valid JSON with keys:
+  annex_domain, system_pattern, rights, harms, confidence (0-1), rationale (2 sentences max)
+"""
+
+FEW_SHOT_EXAMPLES = [
+    {
+        "role": "user",
+        "content": """Incident: Michigan MiDAS unemployment insurance fraud detection
+Description: Michigan's automated system MiDAS wrongly accused over 40,000 people of unemployment insurance fraud, leading to wage garnishments and financial ruin for innocent claimants."""
+    },
+    {
+        "role": "assistant",
+        "content": json.dumps({
+            "annex_domain": "essential_services",
+            "system_pattern": "profiling_scoring",
+            "rights": "access_social_protection;non_discrimination;good_administration",
+            "harms": "unfair_exclusion;procedural_unfairness",
+            "confidence": 0.95,
+            "rationale": "System evaluated eligibility for unemployment benefits and wrongly flagged claimants as fraudulent, directly affecting access to social protection. It used algorithmic scoring/profiling without adequate human oversight."
+        })
+    },
+    {
+        "role": "user",
+        "content": """Incident: Starbucks automated shift scheduling system
+Description: Starbucks used an automated scheduling algorithm that assigned unpredictable shifts to workers, disrupting their personal lives, childcare, and second jobs."""
+    },
+    {
+        "role": "assistant",
+        "content": json.dumps({
+            "annex_domain": "employment",
+            "system_pattern": "resource_allocation",
+            "rights": "non_discrimination;privacy_data_protection",
+            "harms": "procedural_unfairness",
+            "confidence": 0.9,
+            "rationale": "System allocated work shifts to employees based on algorithmic optimisation, falling under Annex III(4) worker management. The resource allocation pattern is most specific as it assigns tasks/schedules to workers."
+        })
+    },
+    {
+        "role": "user",
+        "content": """Incident: Netherlands SyRI welfare fraud detection automation
+Description: The Dutch government used SyRI (System Risk Indication) to detect welfare fraud by combining and analysing large datasets of personal information from various government agencies."""
+    },
+    {
+        "role": "assistant",
+        "content": json.dumps({
+            "annex_domain": "essential_services",
+            "system_pattern": "profiling_scoring",
+            "rights": "privacy_data_protection;non_discrimination;access_social_protection",
+            "harms": "unfair_exclusion;privacy_breach",
+            "confidence": 0.95,
+            "rationale": "SyRI profiled citizens using government data to detect welfare fraud, directly impacting access to social protection. The system is a profiling/scoring tool that assessed risk of fraud among benefit recipients."
+        })
+    },
+]
+
+
+def annotate_record(title, description, source=""):
+    """Send a single record to the LLM for annotation."""
+    user_msg = f"""Incident: {title}
+Source: {source}
+Description: {description[:1500]}"""
+
+    key = cache_key(user_msg)
+    if key in cache:
+        return cache[key]
+
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+    ] + FEW_SHOT_EXAMPLES + [
+        {"role": "user", "content": user_msg}
+    ]
+
+    try:
+        response = client.chat.completions.create(
+            model=MODEL,
+            messages=messages,
+            response_format={"type": "json_object"},
+            temperature=0.1,
+            max_tokens=500,
+        )
+        result = json.loads(response.choices[0].message.content)
+        save_cache(key, result)
+        return result
+
+    except Exception as e:
+        print(f"    ⚠ API error: {e}")
+        time.sleep(2)
+        return {
