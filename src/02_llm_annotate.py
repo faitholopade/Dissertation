@@ -208,3 +208,102 @@ Description: {description[:1500]}"""
         print(f"    ⚠ API error: {e}")
         time.sleep(2)
         return {
+            "annex_domain": "unknown", "system_pattern": "unknown",
+            "rights": "other", "harms": "other",
+            "confidence": 0, "rationale": f"API error: {str(e)[:100]}"
+        }
+
+
+def main():
+    # Load input table
+    for path in ["data/master_annotation_table_v05.csv", "data/master_annotation_table_v01.csv"]:
+        if os.path.exists(path):
+            df = pd.read_csv(path)
+            print(f"Loaded {len(df)} rows from {path}")
+            break
+    else:
+        print("⚠ No master annotation table found!")
+        sys.exit(1)
+
+    # Determine columns
+    title_col = "title" if "title" in df.columns else df.columns[0]
+    desc_cols = [c for c in df.columns if c.lower() in
+                 ["description", "desc", "summary", "text", "summary/links"]]
+    if not desc_cols:
+        desc_cols = [c for c in df.columns if df[c].dtype == object and c != title_col][:1]
+
+    source_col = "source" if "source" in df.columns else None
+
+    # Annotate each record
+    llm_results = []
+    for i, row in df.iterrows():
+        title = str(row.get(title_col, ""))
+        desc = " ".join(str(row.get(c, "")) for c in desc_cols)
+        source = str(row.get(source_col, "")) if source_col else ""
+
+        result = annotate_record(title, desc, source)
+        llm_results.append(result)
+
+        domain = result.get("annex_domain", "unknown")
+        pattern = result.get("system_pattern", "unknown")
+        print(f"  [{i+1}/{len(df)}] {source} / {title[:50]} -> {domain} | {pattern}")
+
+        # Rate limiting
+        if cache_key(f"Incident: {title}\nSource: {source}\nDescription: {desc[:1500]}") not in cache:
+            time.sleep(0.5)
+
+    # Merge results into dataframe
+    df["llm_v2_annex_domain"] = [r.get("annex_domain", "unknown") for r in llm_results]
+    df["llm_v2_system_pattern"] = [r.get("system_pattern", "unknown") for r in llm_results]
+    df["llm_v2_rights"] = [r.get("rights", "other") for r in llm_results]
+    df["llm_v2_harms"] = [r.get("harms", "other") for r in llm_results]
+    df["llm_v2_confidence"] = [r.get("confidence", 0) for r in llm_results]
+    df["llm_v2_rationale"] = [r.get("rationale", "") for r in llm_results]
+
+    # Build hybrid v2 columns
+    df["hybrid_v2_annex_domain"] = df.apply(
+        lambda r: r["llm_v2_annex_domain"]
+        if r.get("annex_domain") == "unknown" or r.get("annex_domain") == r["llm_v2_annex_domain"]
+        else (r.get("annex_domain") if r["llm_v2_annex_domain"] == "unknown"
+              else r["llm_v2_annex_domain"]),  # LLM wins on disagreement
+        axis=1
+    )
+    df["hybrid_v2_system_pattern"] = df.apply(
+        lambda r: r["llm_v2_system_pattern"]
+        if r.get("system_pattern") == "unknown" or r.get("system_pattern") == r["llm_v2_system_pattern"]
+        else (r.get("system_pattern") if r["llm_v2_system_pattern"] == "unknown"
+              else r["llm_v2_system_pattern"]),
+        axis=1
+    )
+
+    out_path = "output/master_annotation_table_llm_v2.csv"
+    df.to_csv(out_path, index=False)
+    print(f"\n✅ Saved {out_path}")
+
+    # Print summary stats
+    print(f"\n-- LLM v2 Domain Distribution --")
+    print(df["llm_v2_annex_domain"].value_counts().to_string())
+    print(f"\n-- LLM v2 System Pattern Distribution --")
+    print(df["llm_v2_system_pattern"].value_counts().to_string())
+    print(f"\n-- Hybrid v2 Domain Distribution --")
+    print(df["hybrid_v2_annex_domain"].value_counts().to_string())
+    print(f"\n-- Hybrid v2 System Pattern Distribution --")
+    print(df["hybrid_v2_system_pattern"].value_counts().to_string())
+
+    # Unknown rates comparison
+    print(f"\n-- Unknown Rates --")
+    for col_label, col_name in [
+        ("Keyword domain", "annex_domain"),
+        ("LLM v2 domain", "llm_v2_annex_domain"),
+        ("Hybrid v2 domain", "hybrid_v2_annex_domain"),
+        ("Keyword pattern", "system_pattern"),
+        ("LLM v2 pattern", "llm_v2_system_pattern"),
+        ("Hybrid v2 pattern", "hybrid_v2_system_pattern"),
+    ]:
+        if col_name in df.columns:
+            unk = (df[col_name] == "unknown").sum()
+            print(f"  {col_label}: {unk}/{len(df)} ({unk/len(df):.1%})")
+
+
+if __name__ == "__main__":
+    main()
