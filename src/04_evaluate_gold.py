@@ -138,3 +138,143 @@ def main():
         mask = m.notna() & l.notna()
         m, l = m[mask], l[mask]
 
+        pa = pct_agree(m, l)
+        k = safe_kappa(m, l)
+        p = precision_score(m, l, pos_label="yes", zero_division=0)
+        r = recall_score(m, l, pos_label="yes", zero_division=0)
+        f = f1_score(m, l, pos_label="yes", zero_division=0)
+
+        results.append({
+            "comparison": "manual_vs_llm", "dimension": "employment",
+            "n": len(m), "pct_agree": round(pa, 4), "kappa": round(k, 4),
+            "precision": round(p, 4), "recall": round(r, 4), "f1": round(f, 4),
+        })
+        print(f"\n  Employment: n={len(m)}, agree={pa:.3f}, κ={k:.3f}, F1={f:.3f}")
+        report_lines.append(f"Employment (manual vs LLM): agree={pa:.3f}, κ={k:.3f}, F1={f:.3f}")
+
+    if manual_ess_col and llm_ess_col:
+        m = gold[manual_ess_col].apply(normalise_binary)
+        l = gold[llm_ess_col].apply(normalise_binary)
+        mask = m.notna() & l.notna()
+        m, l = m[mask], l[mask]
+
+        pa = pct_agree(m, l)
+        k = safe_kappa(m, l)
+        p = precision_score(m, l, pos_label="yes", zero_division=0)
+        r = recall_score(m, l, pos_label="yes", zero_division=0)
+        f = f1_score(m, l, pos_label="yes", zero_division=0)
+
+        results.append({
+            "comparison": "manual_vs_llm", "dimension": "essential_services",
+            "n": len(m), "pct_agree": round(pa, 4), "kappa": round(k, 4),
+            "precision": round(p, 4), "recall": round(r, 4), "f1": round(f, 4),
+        })
+        print(f"  Essential:  n={len(m)}, agree={pa:.3f}, κ={k:.3f}, F1={f:.3f}")
+        report_lines.append(f"Essential (manual vs LLM): agree={pa:.3f}, κ={k:.3f}, F1={f:.3f}")
+
+    # ═══════════════════════════════════════════════════════════
+    # PART B: Gold vs Keyword (matched via AIAAIC_ID)
+    # ═══════════════════════════════════════════════════════════
+    print("\n" + "=" * 60)
+    print("PART B: Gold (Manual) vs Keyword (matched on AIAAIC_ID)")
+    print("=" * 60)
+
+    # Load automated tables
+    auto_tables = {}
+    for name, candidates in [
+        ("keyword", ["data/master_annotation_table_v01.csv"]),
+        ("hybrid", ["output/master_annotation_table_hybrid.csv", "output/master_annotation_table_final.csv"]),
+        ("llm_v2", ["output/master_annotation_table_llm_v2.csv"]),
+    ]:
+        for path in candidates:
+            if os.path.exists(path):
+                auto_tables[name] = pd.read_csv(path, encoding="utf-8")
+                print(f"  Loaded {name}: {len(auto_tables[name])} rows from {path}")
+                break
+
+    def match_and_compare(gold_df, auto_df, auto_name, gold_id_col, auto_id_col,
+                          manual_emp, manual_ess, auto_domain_col):
+        """Match gold rows to auto rows by ID and compare domains."""
+        if gold_id_col is None or auto_domain_col not in auto_df.columns:
+            print(f"  ⚠ Cannot match: missing columns")
+            return []
+
+        # Try to find matching ID column in auto table
+        auto_id = None
+        for c in auto_df.columns:
+            if "source_id" in c.lower() or "aiaaic_id" in c.lower():
+                auto_id = c
+                break
+        if auto_id is None and "source_id" in auto_df.columns:
+            auto_id = "source_id"
+        if auto_id is None:
+            # Try title matching instead
+            return match_by_title(gold_df, auto_df, auto_name, manual_emp, manual_ess, auto_domain_col)
+
+        # Normalise IDs
+        gold_ids = gold_df[gold_id_col].astype(str).str.strip()
+        auto_ids = auto_df[auto_id].astype(str).str.strip()
+
+        matched_results = []
+        gold_domains = []
+        auto_domains = []
+
+        for gi, gid in gold_ids.items():
+            # Find matching auto row
+            auto_match = auto_df[auto_ids == gid]
+            if auto_match.empty:
+                # Try partial match
+                auto_match = auto_df[auto_ids.str.contains(gid, na=False)]
+            if auto_match.empty:
+                continue
+
+            auto_row = auto_match.iloc[0]
+
+            # Derive gold domain from binary labels
+            emp = normalise_binary(gold_df.loc[gi, manual_emp]) if manual_emp else "no"
+            ess = normalise_binary(gold_df.loc[gi, manual_ess]) if manual_ess else "no"
+
+            if emp == "yes":
+                gold_domain = "employment"
+            elif ess == "yes":
+                gold_domain = "essential_services"
+            else:
+                gold_domain = "unknown"
+
+            auto_domain = str(auto_row.get(auto_domain_col, "unknown"))
+
+            gold_domains.append(gold_domain)
+            auto_domains.append(auto_domain)
+
+        if len(gold_domains) < 3:
+            print(f"  ⚠ Only {len(gold_domains)} matches found for {auto_name}")
+            return []
+
+        pa = pct_agree(gold_domains, auto_domains)
+        k = safe_kappa(gold_domains, auto_domains)
+
+        result = {
+            "comparison": f"manual_vs_{auto_name}", "dimension": "annex_domain",
+            "n": len(gold_domains), "pct_agree": round(pa, 4), "kappa": round(k, 4),
+        }
+        print(f"  {auto_name} domain: n={len(gold_domains)}, agree={pa:.3f}, κ={k:.3f}")
+
+        # Also print confusion matrix
+        labels = sorted(set(gold_domains + auto_domains))
+        cm = confusion_matrix(gold_domains, auto_domains, labels=labels)
+        print(f"  Confusion matrix (rows=manual, cols={auto_name}):")
+        cm_df = pd.DataFrame(cm, index=labels, columns=labels)
+        print(cm_df.to_string())
+        print()
+
+        return [result]
+
+    def match_by_title(gold_df, auto_df, auto_name, manual_emp, manual_ess, auto_domain_col):
+        """Fallback: match by headline/title similarity."""
+        if title_col is None:
+            return []
+        auto_title_col = "title" if "title" in auto_df.columns else None
+        if auto_title_col is None:
+            return []
+
+        gold_titles = gold_df[title_col].astype(str).str.lower().str.strip()
