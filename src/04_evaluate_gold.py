@@ -278,3 +278,133 @@ def main():
             return []
 
         gold_titles = gold_df[title_col].astype(str).str.lower().str.strip()
+        auto_titles = auto_df[auto_title_col].astype(str).str.lower().str.strip()
+
+        gold_domains = []
+        auto_domains = []
+
+        for gi, gt in gold_titles.items():
+            gt_short = gt[:40]
+            for ai, at in auto_titles.items():
+                if gt_short in at or at[:40] in gt:
+                    emp = normalise_binary(gold_df.loc[gi, manual_emp]) if manual_emp else "no"
+                    ess = normalise_binary(gold_df.loc[gi, manual_ess]) if manual_ess else "no"
+
+                    if emp == "yes":
+                        gold_domain = "employment"
+                    elif ess == "yes":
+                        gold_domain = "essential_services"
+                    else:
+                        gold_domain = "unknown"
+
+                    gold_domains.append(gold_domain)
+                    auto_domains.append(str(auto_df.loc[ai, auto_domain_col]))
+                    break
+
+        if len(gold_domains) < 3:
+            return []
+
+        pa = pct_agree(gold_domains, auto_domains)
+        k = safe_kappa(gold_domains, auto_domains)
+        result = {
+            "comparison": f"manual_vs_{auto_name}", "dimension": "annex_domain",
+            "n": len(gold_domains), "pct_agree": round(pa, 4), "kappa": round(k, 4),
+        }
+        print(f"  {auto_name} domain (title-matched): n={len(gold_domains)}, agree={pa:.3f}, κ={k:.3f}")
+        return [result]
+
+    # Run comparisons against each automated method
+    for auto_name, domain_col_options in [
+        ("keyword", ["annex_domain"]),
+        ("hybrid", ["hybrid_annex_domain", "annex_domain"]),
+        ("llm_v2", ["llm_v2_annex_domain", "llm_annex_domain"]),
+    ]:
+        if auto_name not in auto_tables:
+            continue
+        adf = auto_tables[auto_name]
+        dcol = None
+        for dc in domain_col_options:
+            if dc in adf.columns:
+                dcol = dc
+                break
+        if dcol is None:
+            continue
+
+        r = match_and_compare(gold, adf, auto_name, id_col, None,
+                              manual_emp_col, manual_ess_col, dcol)
+        results.extend(r)
+
+    # ═══════════════════════════════════════════════════════════
+    # PART C: Gold vs Keyword (binary employment/essential)
+    # ═══════════════════════════════════════════════════════════
+    print("=" * 60)
+    print("PART C: Gold (Manual) vs Keyword Hits (from comparison file)")
+    print("=" * 60)
+
+    # The gold file has kw_emp_hits, kw_ben_hits which we can threshold
+    if "kw_emp_hits" in gold.columns and manual_emp_col:
+        kw_emp = (gold["kw_emp_hits"] > 0).map({True: "yes", False: "no"})
+        m_emp = gold[manual_emp_col].apply(normalise_binary)
+
+        pa = pct_agree(m_emp, kw_emp)
+        k = safe_kappa(m_emp, kw_emp)
+        results.append({
+            "comparison": "manual_vs_keyword_hits", "dimension": "employment",
+            "n": len(m_emp), "pct_agree": round(pa, 4), "kappa": round(k, 4),
+        })
+        print(f"  Employment (kw_hits>0): n={len(m_emp)}, agree={pa:.3f}, κ={k:.3f}")
+
+    if "kw_ben_hits" in gold.columns and manual_ess_col:
+        kw_ess = (gold["kw_ben_hits"] > 0).map({True: "yes", False: "no"})
+        m_ess = gold[manual_ess_col].apply(normalise_binary)
+
+        pa = pct_agree(m_ess, kw_ess)
+        k = safe_kappa(m_ess, kw_ess)
+        results.append({
+            "comparison": "manual_vs_keyword_hits", "dimension": "essential_services",
+            "n": len(m_ess), "pct_agree": round(pa, 4), "kappa": round(k, 4),
+        })
+        print(f"  Essential (kw_hits>0):  n={len(m_ess)}, agree={pa:.3f}, κ={k:.3f}")
+
+    # ═══════════════════════════════════════════════════════════
+    # SUMMARY
+    # ═══════════════════════════════════════════════════════════
+    print("\n" + "=" * 60)
+    print("SUMMARY: All Methods vs Gold Standard")
+    print("=" * 60)
+
+    results_df = pd.DataFrame(results)
+    if len(results_df) > 0:
+        print(results_df.to_string(index=False))
+        results_df.to_csv("output/gold_evaluation_results.csv", index=False, encoding="utf-8")
+        print("output/gold_evaluation_results.csv")
+
+        # Dissertation-ready summary
+        summary_df = results_df.copy()
+        summary_df["pct_agree"] = summary_df["pct_agree"].apply(lambda x: f"{x:.1%}")
+        summary_df["kappa"] = summary_df["kappa"].apply(lambda x: f"{x:.3f}")
+        for col in ["precision", "recall", "f1"]:
+            if col in summary_df.columns:
+                summary_df[col] = summary_df[col].apply(
+                    lambda x: f"{x:.3f}" if pd.notna(x) else "–")
+
+        summary_df.to_csv("output/gold_evaluation_summary.csv", index=False, encoding="utf-8")
+        print("output/gold_evaluation_summary.csv")
+    else:
+        print("⚠ No evaluation results produced!")
+        print("  Check that gold file columns match expected format.")
+
+    # Save text report
+    with open("output/gold_confusion_matrices.txt", "w", encoding="utf-8") as f:
+        f.write("GOLD-STANDARD EVALUATION REPORT\n")
+        f.write("=" * 60 + "\n\n")
+        for line in report_lines:
+            f.write(line + "\n")
+        f.write("\nFull results:\n")
+        if len(results_df) > 0:
+            f.write(results_df.to_string(index=False))
+    print("output/gold_confusion_matrices.txt")
+
+
+if __name__ == "__main__":
+    main()
