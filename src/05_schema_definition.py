@@ -138,3 +138,143 @@ TURTLE_SCHEMA = """@prefix fria: <https://example.org/fria-risk-schema#> .
 @prefix dpv-rights: <https://w3id.org/dpv/legal/eu/rights#> .
 @prefix aiact: <https://w3id.org/dpv/legal/eu/aiact#> .
 @prefix vair: <https://w3id.org/vair#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# ── Ontology header ────────────────────────────────────────────
+<https://example.org/fria-risk-schema>
+    a owl:Ontology ;
+    dct:title "FRIA Risk Record Schema"@en ;
+    dct:description "An ontology for representing AI risk records aligned with EU AI Act Annex III, designed to support Fundamental Rights Impact Assessments (FRIA). Developed as part of MSc dissertation research at Trinity College Dublin."@en ;
+    dct:creator "Faith Olopade" ;
+    dct:created "2026"^^xsd:gYear ;
+    owl:imports <https://w3id.org/dpv> ;
+    rdfs:seeAlso <https://w3id.org/dpv/legal/eu/aiact> ,
+                 <https://w3id.org/vair> .
+
+# ── Core class ─────────────────────────────────────────────────
+fria:RiskRecord
+    a owl:Class ;
+    rdfs:label "Risk Record"@en ;
+    rdfs:comment "A single documented AI incident or use case annotated for fundamental rights risk assessment."@en ;
+    rdfs:subClassOf dpv-risk:RiskAssessment .
+
+# ── Properties ─────────────────────────────────────────────────
+fria:annexDomain
+    a owl:ObjectProperty ;
+    rdfs:label "Annex III Domain"@en ;
+    rdfs:comment "The EU AI Act Annex III high-risk application domain."@en ;
+    rdfs:domain fria:RiskRecord ;
+    rdfs:range fria:AnnexDomain .
+
+fria:systemPattern
+    a owl:ObjectProperty ;
+    rdfs:label "System Pattern"@en ;
+    rdfs:comment "The AI system architecture or deployment pattern."@en ;
+    rdfs:domain fria:RiskRecord ;
+    rdfs:range fria:SystemPattern .
+
+fria:rightsImpacted
+    a owl:ObjectProperty ;
+    rdfs:label "Rights Impacted"@en ;
+    rdfs:comment "Fundamental rights affected by the AI system."@en ;
+    rdfs:domain fria:RiskRecord ;
+    rdfs:range dpv:Right .
+
+fria:harmsIdentified
+    a owl:ObjectProperty ;
+    rdfs:label "Harms Identified"@en ;
+    rdfs:comment "Specific harms documented in the risk record."@en ;
+    rdfs:domain fria:RiskRecord ;
+    rdfs:range dpv-risk:Harm .
+
+fria:annotationMethod
+    a owl:ObjectProperty ;
+    rdfs:label "Annotation Method"@en ;
+    rdfs:comment "The method used to produce this annotation."@en ;
+    rdfs:domain fria:RiskRecord ;
+    rdfs:range fria:AnnotationMethod .
+
+fria:confidence
+    a owl:DatatypeProperty ;
+    rdfs:label "Confidence Score"@en ;
+    rdfs:domain fria:RiskRecord ;
+    rdfs:range xsd:float .
+
+# ── Annex III Domain individuals ───────────────────────────────
+fria:AnnexDomain a owl:Class ;
+    rdfs:label "Annex III Domain"@en .
+
+fria:Employment
+    a fria:AnnexDomain ;
+    rdfs:label "Employment, workers management"@en ;
+    skos:notation "Annex III(4)" ;
+    rdfs:comment "AI systems for recruitment, selection, workplace monitoring, task allocation, performance evaluation (Art. 6(2), Annex III(4))."@en ;
+    owl:sameAs aiact:HighRiskAI-Employment .
+
+fria:EssentialServices
+    a fria:AnnexDomain ;
+    rdfs:label "Essential public services and benefits"@en ;
+    skos:notation "Annex III(5a)" ;
+    rdfs:comment "AI systems evaluating eligibility for public assistance, healthcare, benefits; credit scoring; emergency dispatch (Art. 6(2), Annex III(5a))."@en ;
+    owl:sameAs aiact:HighRiskAI-EssentialServices .
+
+# ── System Pattern individuals ─────────────────────────────────
+fria:SystemPattern a owl:Class ;
+    rdfs:label "AI System Pattern"@en ;
+    rdfs:comment "Taxonomy of AI system architectures relevant to risk assessment."@en .
+
+fria:LLMDecisionSupport a fria:SystemPattern ;
+    rdfs:label "LLM Decision Support"@en ;
+    rdfs:comment "System uses a large language model to assist or automate decisions."@en .
+
+fria:LLMAssistedScreening a fria:SystemPattern ;
+    rdfs:label "LLM-Assisted Screening"@en ;
+    rdfs:comment "System uses LLM for screening, filtering, or ranking."@en .
+
+fria:Chatbot a fria:SystemPattern ;
+    rdfs:label "Chatbot / Virtual Assistant"@en ;
+    rdfs:comment "Conversational AI system interacting with users."@en .
+
+fria:SummaryAssistant a fria:SystemPattern ;
+    rdfs:label "Summary Assistant"@en ;
+    rdfs:comment "System that generates summaries or reports."@en .
+
+fria:SurveillanceMonitor a fria:SystemPattern ;
+    rdfs:label "Surveillance / Monitor"@en ;
+    rdfs:comment "System that monitors or surveils individuals."@en .
+
+fria:ProfilingScoring a fria:SystemPattern ;
+    rdfs:label "Profiling / Scoring"@en ;
+    rdfs:comment "System that creates profiles or risk scores."@en .
+
+fria:ClassificationTriage a fria:SystemPattern ;
+    rdfs:label "Classification / Triage"@en ;
+    rdfs:comment "System that classifies or triages cases."@en .
+
+fria:ResourceAllocation a fria:SystemPattern ;
+    rdfs:label "Resource Allocation"@en ;
+    rdfs:comment "System that allocates resources or benefits."@en .
+
+fria:TraditionalML a fria:SystemPattern ;
+    rdfs:label "Traditional ML (non-LLM)"@en ;
+    rdfs:comment "System using conventional machine learning without LLM components."@en .
+
+# ── Annotation Method individuals ──────────────────────────────
+fria:AnnotationMethod a owl:Class ;
+    rdfs:label "Annotation Method"@en .
+
+fria:KeywordAnnotation a fria:AnnotationMethod ;
+    rdfs:label "Keyword-based Annotation"@en ;
+    rdfs:comment "Classification via keyword/regex matching against predefined dictionaries."@en .
+
+fria:LLMAnnotation a fria:AnnotationMethod ;
+    rdfs:label "LLM-based Annotation"@en ;
+    rdfs:comment "Classification via prompted large language model (GPT-4o)."@en .
+
+fria:HybridAnnotation a fria:AnnotationMethod ;
+    rdfs:label "Hybrid Annotation"@en ;
+    rdfs:comment "Union of keyword and LLM annotations, prioritising non-unknown labels."@en .
