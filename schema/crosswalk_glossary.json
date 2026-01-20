@@ -1,0 +1,18 @@
+{
+  "Annex III/4": "AI Act high-risk category covering AI systems used in employment, workers management, and access to self-employment (Article 6(2) read with Annex III, point 4).",
+  "Annex III/5a": "AI Act high-risk category covering AI systems used by public authorities or on their behalf to evaluate eligibility for essential public services and benefits, and to grant, reduce, revoke, or reclaim such services (Article 6(2) read with Annex III, point 5(a)).",
+  "FRIA": "Fundamental Rights Impact Assessment — mandatory under AI Act Article 27 for deployers of high-risk AI systems that are public bodies or provide essential public services.",
+  "Non-discrimination": "The right to equal treatment without distinction based on protected characteristics (sex, race, colour, ethnic or social origin, genetic features, language, religion, political opinion, disability, age, sexual orientation). EU Charter Article 21.",
+  "Privacy / Data Protection": "The right to respect for private and family life (EU Charter Art. 7) and the right to the protection of personal data (EU Charter Art. 8; GDPR).",
+  "Profiling": "Any form of automated processing of personal data to evaluate certain personal aspects, in particular to analyse or predict aspects concerning performance at work, economic situation, health, personal preferences, interests, reliability, behaviour, location, or movements (GDPR Art. 4(4)).",
+  "Automated decision-making": "A decision based solely on automated processing, including profiling, which produces legal effects or similarly significantly affects the data subject (GDPR Art. 22).",
+  "Deployer": "Any natural or legal person, public authority, agency, or other body using an AI system under its authority (AI Act Art. 3(4)).",
+  "Provider": "A natural or legal person, public authority, agency, or other body that develops an AI system or has an AI system developed with a view to placing it on the market or putting it into service (AI Act Art. 3(3)).",
+  "High-risk AI system": "An AI system referred to in Article 6(2) of the AI Act and listed in Annex III, subject to the requirements in Chapter III, Section 2.",
+  "Disparate impact": "When a facially neutral policy, practice, or algorithmic output disproportionately and negatively affects members of a protected group, even absent discriminatory intent.",
+  "DPIA": "Data Protection Impact Assessment — required under GDPR Article 35 when processing is likely to result in a high risk to the rights and freedoms of natural persons.",
+  "Human-in-the-loop": "A design pattern where a human operator reviews, validates, or can override AI system outputs before they take effect on individuals.",
+  "Special category data": "Personal data revealing racial or ethnic origin, political opinions, religious or philosophical beliefs, trade union membership, genetic data, biometric data, health data, or data concerning sex life or sexual orientation (GDPR Art. 9).",
+  "Proxy discrimination": "Discrimination that occurs indirectly when a seemingly neutral variable (e.g., postal code, language) is statistically correlated with a protected characteristic (e.g., ethnicity).",
+  "Essential public service": "A service provided by or on behalf of a public authority that individuals depend on for basic needs, including welfare, healthcare, social housing, and utilities access."
+}
