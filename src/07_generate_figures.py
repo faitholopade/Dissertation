@@ -358,3 +358,179 @@ def fig_rights_harms_heatmap(df):
         else:
             for r, col in rights_cols.items():
                 if col in row.index and row[col] == 1:
+                    active_rights.add(r)
+
+        # Get active harms
+        active_harms = set()
+        if harms_field and harms_field in row.index:
+            for h in str(row[harms_field]).split(";"):
+                h = h.strip()
+                if h in harms_labels:
+                    active_harms.add(h)
+        else:
+            for h, col in harms_cols.items():
+                if col in row.index and row[col] == 1:
+                    active_harms.add(h)
+
+        for ri, r in enumerate(rights_labels):
+            for hi, h in enumerate(harms_labels):
+                if r in active_rights and h in active_harms:
+                    cooc[ri, hi] += 1
+
+    if cooc.sum() == 0:
+        print("  ⚠ No co-occurrence data for rights×harms heatmap")
+        return
+
+    fig, ax = plt.subplots(figsize=(9, 6))
+    short_rights = ["Non-\ndiscrimination", "Privacy &\nData Prot.", "Social\nProtection", "Good\nAdmin."]
+    short_harms = ["Unfair\nExclusion", "Privacy\nBreach", "Misinfo /\nError", "Procedural\nUnfairness"]
+
+    sns.heatmap(cooc, annot=True, fmt=".0f", cmap="YlOrRd",
+                xticklabels=short_harms, yticklabels=short_rights, ax=ax)
+    ax.set_title("Rights × Harms Co-occurrence Matrix")
+    ax.set_xlabel("Harms")
+    ax.set_ylabel("Rights Impacted")
+
+    plt.tight_layout()
+    plt.savefig("figures/fig_rights_harms_heatmap.png", bbox_inches="tight")
+    plt.close()
+    print("figures/fig_rights_harms_heatmap.png")
+
+
+def fig_agreement_bars(df, dimension="rights"):
+    """Per-label agreement bars for rights or harms."""
+    if dimension == "rights":
+        labels = ["non_discrimination", "privacy_data_protection",
+                  "access_social_protection", "good_administration"]
+        title = "Per-Label Agreement: Fundamental Rights"
+        filename = "figures/fig_rights_agreement.png"
+    else:
+        labels = ["unfair_exclusion", "privacy_breach",
+                  "misinformation_error", "procedural_unfairness"]
+        title = "Per-Label Agreement: Harms"
+        filename = "figures/fig_harms_agreement.png"
+
+    # Try loading from error analysis
+    for path in [f"error_analysis_{dimension}.csv"]:
+        if os.path.exists(path):
+            edf = pd.read_csv(path)
+            if "agree" in edf.columns:
+                fig, ax = plt.subplots(figsize=(9, 5))
+                label_col = edf.columns[0]
+                edf.plot(x=label_col, y="agree", kind="bar", ax=ax,
+                         color=COLORS["hybrid"], edgecolor="white", legend=False)
+                ax.set_ylabel("Agreement Rate")
+                ax.set_title(title)
+                ax.set_ylim(0, 1)
+                ax.axhline(y=0.5, color="red", linestyle="--", alpha=0.4)
+                for i, v in enumerate(edf["agree"]):
+                    ax.text(i, v + 0.02, f"{v:.2f}", ha="center", fontsize=9)
+                plt.xticks(rotation=30, ha="right")
+                plt.tight_layout()
+                plt.savefig(filename, bbox_inches="tight")
+                plt.close()
+                print(f"  ✅ {filename}")
+                return
+
+    # Calculate from columns if no file
+    agreements = {}
+    for label in labels:
+        kw_col = [c for c in df.columns if label in c.lower() and
+                  "llm" not in c.lower() and "hybrid" not in c.lower()]
+        llm_col = [c for c in df.columns if label in c.lower() and "llm" in c.lower()]
+
+        if kw_col and llm_col:
+            agree = (df[kw_col[0]] == df[llm_col[0]]).mean()
+            agreements[label.replace("_", "\n")] = agree
+
+    if agreements:
+        fig, ax = plt.subplots(figsize=(9, 5))
+        ax.bar(agreements.keys(), agreements.values(),
+               color=COLORS["hybrid"], edgecolor="white")
+        ax.set_ylabel("Agreement Rate")
+        ax.set_title(title)
+        ax.set_ylim(0, 1)
+        ax.axhline(y=0.5, color="red", linestyle="--", alpha=0.4)
+        for i, (k, v) in enumerate(agreements.items()):
+            ax.text(i, v + 0.02, f"{v:.2f}", ha="center", fontsize=9)
+        plt.tight_layout()
+        plt.savefig(filename, bbox_inches="tight")
+        plt.close()
+        print(f"  ✅ {filename}")
+    else:
+        print(f"  ⚠ Insufficient data for {filename}")
+
+
+def fig_pipeline_flow():
+    """Create a pipeline flow diagram."""
+    fig, ax = plt.subplots(figsize=(14, 4))
+    ax.set_xlim(0, 14)
+    ax.set_ylim(0, 4)
+    ax.axis("off")
+
+    boxes = [
+        (0.5, 1.5, "Data\nSources", "#E8F5E9", "AIAAIC\nUSFED\nECtHR"),
+        (2.8, 1.5, "Keyword\nFilter", "#E3F2FD", "Employment\nBenefits\nPublic sector"),
+        (5.1, 1.5, "Annotation\nTable", "#FFF3E0", f"≥150 records\n6 dimensions"),
+        (7.4, 1.5, "LLM\nAnnotation", "#F3E5F5", "GPT-4o\nFew-shot\nJSON mode"),
+        (9.7, 1.5, "Hybrid\nMerge", "#E8EAF6", "KW ∪ LLM\nReduce unknowns"),
+        (12.0, 1.5, "Evaluation\n& Export", "#FFEBEE", "Gold eval\nJSON-LD\nFigures"),
+    ]
+
+    for x, y, label, color, detail in boxes:
+        rect = mpatches.FancyBboxPatch((x, y - 0.6), 1.8, 1.2,
+                                        boxstyle="round,pad=0.1",
+                                        facecolor=color, edgecolor="#333")
+        ax.add_patch(rect)
+        ax.text(x + 0.9, y + 0.15, label, ha="center", va="center",
+                fontsize=10, fontweight="bold")
+        ax.text(x + 0.9, y - 0.9, detail, ha="center", va="top",
+                fontsize=7, color="#666")
+
+    # Arrows
+    for i in range(len(boxes) - 1):
+        x1 = boxes[i][0] + 1.8
+        x2 = boxes[i+1][0]
+        y = 1.5
+        ax.annotate("", xy=(x2, y), xytext=(x1, y),
+                     arrowprops=dict(arrowstyle="->", color="#333", lw=1.5))
+
+    ax.set_title("Annotation Pipeline Overview", fontsize=14, pad=20)
+    plt.tight_layout()
+    plt.savefig("figures/fig_pipeline_flow.png", bbox_inches="tight")
+    plt.close()
+    print("figures/fig_pipeline_flow.png")
+
+
+def main():
+    df = load_data()
+    print(f"\nGenerating figures from {len(df)} records...\n")
+
+    fig_domain_distribution(df)
+    fig_pattern_distribution(df)
+    fig_unknown_rates(df)
+    fig_source_breakdown(df)
+    fig_kappa_summary(df)
+    fig_rights_harms_heatmap(df)
+    fig_agreement_bars(df, "rights")
+    fig_agreement_bars(df, "harms")
+    fig_pipeline_flow()
+
+    # Confusion matrices
+    llm_domain = [c for c in df.columns if "llm" in c.lower() and "domain" in c.lower()]
+    llm_pattern = [c for c in df.columns if "llm" in c.lower() and "pattern" in c.lower()]
+
+    if llm_domain:
+        fig_confusion_heatmap(df, "annex_domain", llm_domain[-1],
+                              "Confusion Matrix: Annex Domain (Keyword vs LLM)",
+                              "figures/fig_confusion_domain.png")
+    if llm_pattern:
+        fig_confusion_heatmap(df, "system_pattern", llm_pattern[-1],
+                              "Confusion Matrix: System Pattern (Keyword vs LLM)",
+                              "figures/fig_confusion_pattern.png")
+
+    print("\n✅ Done! All figures saved.")
+
+
+if __name__ == "__main__":
+    main()
