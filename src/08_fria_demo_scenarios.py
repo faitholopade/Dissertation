@@ -148,3 +148,153 @@ SHOW_COLS = ["source", "source_id", "title", "annex_domain",
 
 def _show(subset, report):
     """Print and log a markdown table of up to 15 hits."""
+    cols = [c for c in SHOW_COLS if c in subset.columns]
+    # Add hybrid columns if available
+    for extra in ["hybrid_v2_annex_domain", "hybrid_v2_system_pattern"]:
+        if extra in subset.columns:
+            cols.append(extra)
+
+    table = subset[cols].head(15).to_markdown(index=False)
+    print(table)
+    report.append(table)
+    report.append(f"\n  → {len(subset)} total matching records\n")
+    print(f"\n  → {len(subset)} total matching records\n")
+
+
+def _show_distributions(subset, report):
+    """Show domain, pattern, and source distributions for a hit set."""
+    if subset.empty:
+        return
+
+    dom_col = next((c for c in reversed(DOMAIN_COLS) if c in subset.columns), None)
+    pat_col = next((c for c in reversed(PATTERN_COLS) if c in subset.columns), None)
+
+    if dom_col:
+        dist = subset[dom_col].value_counts().to_dict()
+        line = f"  Domain distribution:  {dist}"
+        print(line); report.append(line)
+
+    if pat_col:
+        dist = subset[pat_col].value_counts().to_dict()
+        line = f"  Pattern distribution: {dist}"
+        print(line); report.append(line)
+
+    if "source" in subset.columns:
+        dist = subset["source"].value_counts().to_dict()
+        line = f"  Source breakdown:     {dist}"
+        print(line); report.append(line)
+
+
+# ══════════════════════════════════════════════════════════════
+#  SCENARIO DEFINITIONS
+# ══════════════════════════════════════════════════════════════
+
+SCENARIOS = [
+    {
+        "id":        "A",
+        "name":      "Welfare / Benefits Eligibility Deployer",
+        "annex_ref": "Annex III/5(a)",
+        "narrative": (
+            "A public-sector body is deploying an AI system to assist in "
+            "determining eligibility for social welfare benefits (Annex III/5a). "
+            "Under Article 27, they must conduct a Fundamental Rights Impact "
+            "Assessment.  The FRIA team queries the framework for precedent "
+            "incidents where similar profiling/scoring or resource-allocation "
+            "systems in essential services caused discrimination or denied access."
+        ),
+        "query_params": {
+            "annex_domain":      "essential_services",
+            "pattern_contains":  ["profiling_scoring", "resource_allocation",
+                                  "classification_triage"],
+        },
+        "fallback_params": {
+            "annex_domain": "essential_services",
+        },
+    },
+    {
+        "id":        "B",
+        "name":      "Public-Sector Recruitment AI (Annex III/4)",
+        "annex_ref": "Annex III/4(a)",
+        "narrative": (
+            "A government HR department plans to use an LLM-assisted tool for "
+            "CV screening and candidate shortlisting (Annex III/4).  They need "
+            "to surface past incidents of bias or unfair exclusion in "
+            "employment AI to inform their risk assessment."
+        ),
+        "query_params": {
+            "annex_domain":      "employment",
+            "right_contains":    "non_discrimination",
+        },
+        "fallback_params": {
+            "annex_domain": "employment",
+        },
+    },
+    {
+        "id":        "C",
+        "name":      "Surveillance / Biometric Monitoring in Public Services",
+        "annex_ref": "Annex III/1 (Biometrics) + Annex III/5(a)",
+        "narrative": (
+            "A city council is evaluating facial-recognition cameras for public "
+            "housing security.  They need evidence of surveillance harms, "
+            "privacy breaches, and disproportionate monitoring in public-sector "
+            "or essential-service contexts."
+        ),
+        "query_params": {
+            "pattern_contains": ["surveillance_monitor"],
+        },
+        "fallback_params": None,
+    },
+    {
+        "id":        "D",
+        "name":      "LLM Decision-Support for Case Workers",
+        "annex_ref": "Annex III/5(a)",
+        "narrative": (
+            "A social-services agency wants to deploy an LLM chatbot to help "
+            "case workers draft eligibility summaries.  The deployer needs "
+            "incidents where LLM-based, chatbot, or summary-assistant systems "
+            "caused errors, misinformation, or procedural unfairness."
+        ),
+        "query_params": {
+            "pattern_contains": ["llm_decision_support", "llm_assisted_screening",
+                                 "chatbot", "summary_assistant",
+                                 "misinformation_error"],
+        },
+        "fallback_params": None,
+    },
+    {
+        "id":        "E",
+        "name":      "Profiling & Scoring — Cross-Domain Thematic Review",
+        "annex_ref": "Cross-domain (Annex III/4 + III/5a)",
+        "narrative": (
+            "A national AI regulator is conducting a thematic review of all "
+            "profiling/scoring systems across Annex III domains to identify "
+            "systemic discrimination patterns and common failure modes."
+        ),
+        "query_params": {
+            "pattern_contains": ["profiling_scoring"],
+        },
+        "fallback_params": None,
+    },
+]
+
+
+# ══════════════════════════════════════════════════════════════
+#  SCENARIO RUNNER
+# ══════════════════════════════════════════════════════════════
+
+def run_scenarios(df):
+    """Execute all scenarios and return (all_hits_df, report_text, counts)."""
+    all_hits   = []
+    report     = []
+    counts     = {}
+
+    report.append("=" * 68)
+    report.append("  FRIA-STYLE DEMONSTRATION SCENARIOS")
+    report.append(f"  Dataset: {len(df)} records")
+    report.append("=" * 68)
+
+    for sc in SCENARIOS:
+        report.append("")
+        report.append("-" * 68)
+        report.append(f"  Scenario {sc['id']}: {sc['name']}")
+        report.append(f"  Annex Reference: {sc['annex_ref']}")
