@@ -298,3 +298,138 @@ def run_scenarios(df):
         report.append("-" * 68)
         report.append(f"  Scenario {sc['id']}: {sc['name']}")
         report.append(f"  Annex Reference: {sc['annex_ref']}")
+        report.append("-" * 68)
+
+        # Wrap narrative nicely
+        for line in textwrap.wrap(sc["narrative"], width=66):
+            report.append(f"  {line}")
+        print(f"\n{'─' * 68}")
+        print(f"  Scenario {sc['id']}: {sc['name']}")
+        print(f"{'─' * 68}")
+        print(f"  {sc['narrative']}\n")
+
+        # Primary query
+        hits = search_cases(df, **sc["query_params"])
+
+        # Fallback if primary returns empty
+        if hits.empty and sc.get("fallback_params"):
+            report.append(f"\n  (Primary query returned 0 — broadening to domain-only)")
+            print(f"  (Primary query returned 0 — broadening to domain-only)")
+            hits = search_cases(df, **sc["fallback_params"])
+
+        n = len(hits)
+        counts[sc["id"]] = n
+
+        report.append(f"\n  Hits: {n} / {len(df)}")
+        print(f"  Hits: {n} / {len(df)}")
+
+        if n > 0:
+            report.append("")
+            _show(hits, report)
+            _show_distributions(hits, report)
+        else:
+            report.append("  (No matching records)")
+            print("  (No matching records)")
+
+        # Tag for CSV
+        hits = hits.copy()
+        hits["scenario_id"]   = sc["id"]
+        hits["scenario_name"] = sc["name"]
+        all_hits.append(hits)
+
+    # ── Summary ───────────────────────────────────────────────
+    report.append(f"\n{'=' * 68}")
+    report.append("  SCENARIO HIT SUMMARY")
+    report.append(f"{'=' * 68}")
+    for sc in SCENARIOS:
+        c = counts[sc["id"]]
+        report.append(f"    Scenario {sc['id']} ({sc['name'][:42]:42s})  {c:3d} hits")
+
+    if all_hits:
+        combined = pd.concat(all_hits, ignore_index=True)
+        # Deduplicate by first available ID column
+        id_col = next((c for c in ("source_id", "AIAAIC_ID", "title")
+                       if c in combined.columns), None)
+        if id_col:
+            unique_n = combined[id_col].nunique()
+        else:
+            unique_n = len(combined)
+        report.append(f"\n  Total unique records surfaced: {unique_n} / {len(df)}")
+        report.append(f"  Coverage: {unique_n / len(df) * 100:.1f}%")
+    else:
+        combined = pd.DataFrame()
+
+    return combined, "\n".join(report), counts
+
+
+# ══════════════════════════════════════════════════════════════
+#  FIGURE
+# ══════════════════════════════════════════════════════════════
+
+def make_figure(counts):
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+    except ImportError:
+        print("  ⚠  matplotlib not available — skipping figure")
+        return
+
+    FIG_OUT.parent.mkdir(parents=True, exist_ok=True)
+
+    ids    = list(counts.keys())
+    values = list(counts.values())
+    labels = [f"Scenario {i}" for i in ids]
+    names  = [sc["name"] for sc in SCENARIOS]
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    bars = ax.barh(labels[::-1], values[::-1], color="#4A90D9")
+    ax.set_xlabel(f"Number of matching records (n = 150)")
+    ax.set_title("FRIA-Style Scenario Retrieval Hits")
+
+    # Annotate bars with scenario names
+    for bar, name, val in zip(bars, names[::-1], values[::-1]):
+        ax.text(bar.get_width() + 0.5, bar.get_y() + bar.get_height() / 2,
+                f"{name[:38]}  ({val})", va="center", fontsize=8)
+
+    plt.tight_layout()
+    fig.savefig(FIG_OUT, dpi=150)
+    plt.close(fig)
+    print(f"  ✅ {FIG_OUT}")
+
+
+# ══════════════════════════════════════════════════════════════
+#  MAIN
+# ══════════════════════════════════════════════════════════════
+
+def main():
+    print("=" * 60)
+    print("  STEP 8: FRIA-Style Demonstration Scenarios")
+    print("=" * 60)
+
+    df = load_table()
+    all_hits_df, report_text, counts = run_scenarios(df)
+
+    # Print full report
+    print(report_text)
+
+    # Save CSV
+    OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
+    if not all_hits_df.empty:
+        all_hits_df.to_csv(OUT_CSV, index=False)
+        print(f"  ✅ {OUT_CSV}")
+    else:
+        print("  ⚠  No hits to save")
+
+    # Save text report
+    OUT_TXT.write_text(report_text, encoding="utf-8")
+    print(f"  ✅ {OUT_TXT}")
+
+    # Figure
+    make_figure(counts)
+
+    print(f"\n✅ FRIA demonstration complete.")
+
+
+if __name__ == "__main__":
+    main()
