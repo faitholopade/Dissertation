@@ -508,3 +508,167 @@ def make_figures(error_counter, disagreements):
                             va="center", fontsize=10,
                             color="white" if ct.values[i, j] > ct.values.max()/2
                             else "black")
+            ax.set_title("Error Types by Annotation Method")
+            plt.colorbar(im, ax=ax, label="Count")
+            plt.tight_layout()
+            out = FIG_DIR / "fig_error_heatmap.png"
+            fig.savefig(out, dpi=150)
+            plt.close(fig)
+            print(f"  ✅ {out}")
+
+
+# ══════════════════════════════════════════════════════════════
+#  MAIN
+# ══════════════════════════════════════════════════════════════
+
+def main():
+    print("=" * 60)
+    print("  STEP 9: Error Analysis (Section 5.3)")
+    print("=" * 60)
+
+    report = []  # accumulate everything for the text report
+
+    # ── Load all data sources ─────────────────────────────────
+    gold = pd.read_csv(GOLD_CSV) if GOLD_CSV.exists() else pd.DataFrame()
+    print(f"  Gold:    {len(gold)} rows from {GOLD_CSV.name}")
+
+    kw     = pd.read_csv(KW_CSV)     if KW_CSV.exists()     else pd.DataFrame()
+    llm    = pd.read_csv(LLM_CSV)    if LLM_CSV.exists()    else pd.DataFrame()
+    hybrid = pd.read_csv(HYBRID_CSV) if HYBRID_CSV.exists() else pd.DataFrame()
+
+    if not kw.empty:     print(f"  Keyword: {len(kw)} rows")
+    if not llm.empty:    print(f"  LLM v2:  {len(llm)} rows")
+    if not hybrid.empty: print(f"  Hybrid:  {len(hybrid)} rows")
+
+    # Pick the best full table for Part B
+    full_df = hybrid if not hybrid.empty else (llm if not llm.empty else kw)
+    full_df = full_df.fillna("")
+
+    report.append("=" * 68)
+    report.append("  ERROR ANALYSIS REPORT (Section 5.3)")
+    report.append(f"  Gold rows: {len(gold)}   Full table: {len(full_df)} rows")
+    report.append("=" * 68)
+
+    # ── Part A ────────────────────────────────────────────────
+    report.append(f"\n{'=' * 68}")
+    report.append("  PART A: GOLD-STANDARD vs AUTOMATED METHODS")
+    report.append(f"{'=' * 68}")
+
+    disagreements, error_counter = part_a_gold_analysis(gold, kw, llm, hybrid)
+
+    # Report Part A
+    by_method = defaultdict(list)
+    for d in disagreements:
+        by_method[d["method"]].append(d)
+
+    for method, items in sorted(by_method.items()):
+        report.append(f"\n  Method: {method}  ({len(items)} disagreements)")
+        report.append(f"  {'─' * 50}")
+        by_cat = defaultdict(list)
+        for item in items:
+            by_cat[item["error_category"]].append(item)
+        for cat, cat_items in sorted(by_cat.items(), key=lambda x: -len(x[1])):
+            report.append(f"    [{len(cat_items):2d}] {cat}")
+            for ci in cat_items[:3]:
+                report.append(f"         {ci['record_id']:14s}  {ci['title'][:55]}")
+                report.append(f"           manual: {ci['manual_label']}  →  pred: {ci['predicted_label']}")
+            if len(cat_items) > 3:
+                report.append(f"         ... and {len(cat_items) - 3} more")
+
+    report.append(f"\n  Error category distribution (all methods combined):")
+    for cat, count in error_counter.most_common():
+        report.append(f"    {count:3d}  {cat}")
+
+    print(f"\n  Part A: {len(disagreements)} total disagreements across "
+          f"{len(by_method)} methods")
+
+    # ── Part B ────────────────────────────────────────────────
+    cm_domain, cm_pattern, disag = part_b_full_table(full_df, report)
+
+    # ── Part C ────────────────────────────────────────────────
+    rights_labels = [
+        "privacy_data_protection", "non_discrimination",
+        "access_social_protection", "good_administration", "other",
+    ]
+    harms_labels = [
+        "unfair_exclusion", "privacy_breach",
+        "misinformation_error", "procedural_unfairness", "other",
+    ]
+
+    # Find the right column names
+    llm_rights_col = next((c for c in ("llm_v2_rights", "llm_rights")
+                           if c in full_df.columns), "llm_rights")
+    llm_harms_col  = next((c for c in ("llm_v2_harms", "llm_harms")
+                           if c in full_df.columns), "llm_harms")
+    kw_rights_col  = "rights" if "rights" in full_df.columns else None
+    kw_harms_col   = "harms"  if "harms"  in full_df.columns else None
+
+    rights_df = pd.DataFrame()
+    harms_df  = pd.DataFrame()
+    if kw_rights_col:
+        rights_df = rights_harms_analysis(
+            full_df, kw_rights_col, llm_rights_col, rights_labels, "Rights", report,
+        )
+    if kw_harms_col:
+        harms_df = rights_harms_analysis(
+            full_df, kw_harms_col, llm_harms_col, harms_labels, "Harms", report,
+        )
+
+    # ── Part D ────────────────────────────────────────────────
+    part_d_themes(error_counter, report)
+
+    # ── Save everything ───────────────────────────────────────
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    FIG_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Part A CSV
+    if disagreements:
+        fields = list(disagreements[0].keys())
+        out_a = OUT_DIR / "error_analysis_disagreements.csv"
+        with open(out_a, "w", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=fields)
+            w.writeheader()
+            w.writerows(disagreements)
+        print(f"  ✅ {out_a}")
+
+    # Part B CSVs
+    if not cm_domain.empty:
+        out_b1 = OUT_DIR / "confusion_matrix_domain.csv"
+        cm_domain.to_csv(out_b1)
+        print(f"  ✅ {out_b1}")
+    if not cm_pattern.empty:
+        out_b2 = OUT_DIR / "confusion_matrix_pattern.csv"
+        cm_pattern.to_csv(out_b2)
+        print(f"  ✅ {out_b2}")
+    if not disag.empty:
+        out_b3 = OUT_DIR / "disagreement_examples.csv"
+        disag.to_csv(out_b3, index=False)
+        print(f"  ✅ {out_b3}")
+
+    # Part C CSVs
+    if not rights_df.empty:
+        out_c1 = OUT_DIR / "error_analysis_rights.csv"
+        rights_df.to_csv(out_c1, index=False)
+        print(f"  ✅ {out_c1}")
+    if not harms_df.empty:
+        out_c2 = OUT_DIR / "error_analysis_harms.csv"
+        harms_df.to_csv(out_c2, index=False)
+        print(f"  ✅ {out_c2}")
+
+    # Full report
+    out_report = OUT_DIR / "error_analysis_report.txt"
+    out_report.write_text("\n".join(report), encoding="utf-8")
+    print(f"  ✅ {out_report}")
+
+    # Figures
+    make_figures(error_counter, disagreements)
+
+    print(f"\n✅ Error analysis complete.")
+    print(f"   Part A: {len(disagreements)} gold-vs-automated disagreements")
+    print(f"   Part B: Full-table confusion matrices + {len(disag)} domain disagreements")
+    print(f"   Part C: Per-label rights ({len(rights_df)} labels) + harms ({len(harms_df)} labels)")
+    print(f"   Part D: Qualitative themes synthesised")
+
+
+if __name__ == "__main__":
+    main()
