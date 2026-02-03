@@ -128,3 +128,133 @@ def call_llm(prompt: str) -> Dict[str, Any]:
     for attempt in range(MAX_RETRIES):
         try:
             resp = client.messages.create(
+                model=MODEL_NAME,
+                max_tokens=256,
+                temperature=0,
+                system=SYSTEM_MSG,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            text = ""
+            for block in resp.content:
+                if block.type == "text":
+                    text = block.text
+            obj = json.loads(text)
+            return {
+                "root_cause":          obj.get("root_cause", "unknown"),
+                "mitigation_reported": obj.get("mitigation_reported", "none_reported"),
+                "source_type":         obj.get("source_type", "unknown"),
+            }
+        except json.JSONDecodeError:
+            return {"root_cause": "unknown", "mitigation_reported": "none_reported",
+                    "source_type": "unknown"}
+        except Exception as e:
+            if attempt < MAX_RETRIES - 1:
+                print(f"  Retry {attempt+1} after error: {e}")
+                time.sleep(RETRY_DELAY)
+            else:
+                print(f"  Failed after {MAX_RETRIES} attempts: {e}")
+                return {"root_cause": "unknown", "mitigation_reported": "none_reported",
+                        "source_type": "unknown"}
+
+
+# ── Source-type heuristic (zero LLM calls for obvious cases) ─────────────────
+def heuristic_source_type(source: str) -> str:
+    s = str(source).strip().upper()
+    if s == "USFED":
+        return "government_inventory"
+    if s == "ECTHR":
+        return "court_case"
+    return ""
+
+
+# ── Main ─────────────────────────────────────────────────────────────────────
+def run_causal_extraction():
+    if not INPUT_CSV.exists():
+        print(f"ERROR: Cannot find {INPUT_CSV}")
+        print(f"  Expected at: {INPUT_CSV.resolve()}")
+        print(f"  Contents of output/:")
+        out_dir = PROJECT_ROOT / "output"
+        if out_dir.exists():
+            for f in sorted(out_dir.glob("master_annotation*")):
+                print(f"    {f.name}")
+        sys.exit(1)
+
+    df = pd.read_csv(INPUT_CSV)
+    print(f"Loaded {len(df)} rows from {INPUT_CSV.name}")
+
+    # Load cache
+    cache = {}
+    if CACHE_JSON.exists():
+        with open(CACHE_JSON, "r") as f:
+            cache = json.load(f)
+        print(f"Loaded {len(cache)} cached causal annotations")
+
+    new_rows = []
+    with open(LOG_JSONL, "w", encoding="utf-8") as logf:
+        for idx, row in df.iterrows():
+            sid = str(row.get("source_id", row.get("sourceid", "")))
+            source = str(row.get("source", ""))
+            title  = str(row.get("title", ""))[:200]
+            desc   = str(row.get("description", ""))[:800]
+
+            if sid in cache:
+                result = cache[sid]
+            else:
+                h_st = heuristic_source_type(source)
+
+                prompt = FEW_SHOT + "\n" + PROMPT_TEMPLATE.format(
+                    source=source, title=title, description=desc
+                )
+                result = call_llm(prompt)
+
+                if h_st:
+                    result["source_type"] = h_st
+
+                cache[sid] = result
+
+                log_entry = {
+                    "idx": int(idx), "source_id": sid,
+                    "raw_response": result,
+                    "timestamp": time.time(), "model": MODEL_NAME,
+                }
+                logf.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
+
+            rc = result.get("root_cause", "unknown").lower().strip()
+            if rc not in ROOT_CAUSE_LABELS:
+                rc = "unknown"
+
+            st = result.get("source_type", "unknown").lower().strip()
+            if st not in SOURCE_TYPE_LABELS:
+                st = "unknown"
+
+            new_rows.append({
+                "root_cause":          rc,
+                "mitigation_reported": result.get("mitigation_reported", "none_reported"),
+                "source_type":         st,
+            })
+            print(f"  {idx+1}/{len(df)}  {source:<7} {title[:50]:<52} -> {rc}")
+
+    # Save cache
+    with open(CACHE_JSON, "w") as f:
+        json.dump(cache, f, ensure_ascii=False, indent=1)
+
+    causal_df = pd.DataFrame(new_rows)
+    merged = pd.concat([df.reset_index(drop=True), causal_df], axis=1)
+    merged.to_csv(OUTPUT_CSV, index=False)
+    print(f"\nSaved {OUTPUT_CSV.name}  ({len(merged)} rows, {len(merged.columns)} cols)")
+
+    print("\n-- Root Cause Distribution --")
+    print(merged["root_cause"].value_counts().to_string())
+    print("\n-- Source Type Distribution --")
+    print(merged["source_type"].value_counts().to_string())
+    mit = merged[merged["mitigation_reported"] != "none_reported"]
+    print(f"\nRecords with mitigation reported: {len(mit)}/{len(merged)} "
+          f"({100*len(mit)/len(merged):.1f}%)")
+
+    summary = merged.groupby(["root_cause", "source_type"]).size().reset_index(name="count")
+    summary.to_csv(PROJECT_ROOT / "output" / "causal_summary.csv", index=False)
+    print("output/causal_summary.csv")
+
+
+if __name__ == "__main__":
+    run_causal_extraction()
