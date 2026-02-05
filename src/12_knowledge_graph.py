@@ -278,3 +278,147 @@ def export_ttl(G: nx.DiGraph, outpath: Path):
         obj  = URIRef(FRIA + slugify(v))
         pred = REL_MAP.get(data.get("relation", ""), fria["relatedTo"])
         g.add((subj, pred, obj))
+
+    for node, data in G.nodes(data=True):
+        uri = URIRef(FRIA + slugify(node))
+        g.add((uri, RDFS.label, Literal(data.get("label", node))))
+        ntype = data.get("node_type", "")
+        if ntype:
+            g.add((uri, RDF.type, fria[ntype]))
+
+    g.serialize(destination=str(outpath), format="turtle")
+    print(f"  {outpath.name}  ({len(g)} triples)")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  VISUALISATION
+# ══════════════════════════════════════════════════════════════════════════════
+NODE_COLOURS = {
+    "Incident":         "#4A90D9",
+    "AnnexDomain":      "#E57373",
+    "SystemPattern":    "#FFB74D",
+    "FundamentalRight": "#81C784",
+    "HarmType":         "#CE93D8",
+    "RootCause":        "#FFD54F",
+    "Mitigation":       "#4DB6AC",
+    "SourceType":       "#A1887F",
+    "Actor":            "#90A4AE",
+}
+
+def visualise(G: nx.DiGraph, outpath: Path):
+    concept_nodes = [n for n, d in G.nodes(data=True)
+                     if d.get("node_type") != "Incident"]
+
+    C = nx.Graph()
+    for cn in concept_nodes:
+        d = G.nodes[cn]
+        C.add_node(cn, **d)
+
+    concept_incidents = defaultdict(set)
+    for u, v, d in G.edges(data=True):
+        utype = G.nodes[u].get("node_type", "")
+        vtype = G.nodes[v].get("node_type", "")
+        if utype == "Incident" and vtype != "Incident":
+            concept_incidents[v].add(u)
+        elif vtype == "Incident" and utype != "Incident":
+            concept_incidents[u].add(v)
+
+    concept_list = list(concept_incidents.keys())
+    for i, a in enumerate(concept_list):
+        for b in concept_list[i+1:]:
+            shared = len(concept_incidents[a] & concept_incidents[b])
+            if shared >= 3:
+                C.add_edge(a, b, weight=shared)
+
+    if len(C.nodes) == 0:
+        print("  No concept-level co-occurrence edges -- skipping figure")
+        return
+
+    fig, ax = plt.subplots(1, 1, figsize=(16, 12))
+    pos = nx.spring_layout(C, k=2.5, iterations=80, seed=42)
+
+    sizes = [min(max(len(concept_incidents.get(n, set())), 1) * 80, 3000)
+             for n in C.nodes]
+    colors = [NODE_COLOURS.get(C.nodes[n].get("node_type", ""), "#BDBDBD")
+              for n in C.nodes]
+
+    widths = [C.edges[e].get("weight", 1) * 0.3 for e in C.edges]
+
+    nx.draw_networkx_edges(C, pos, ax=ax, width=widths,
+                           alpha=0.25, edge_color="#999999")
+    nx.draw_networkx_nodes(C, pos, ax=ax, node_size=sizes,
+                           node_color=colors, alpha=0.85, edgecolors="white",
+                           linewidths=0.5)
+
+    labels = {n: C.nodes[n].get("label", n)[:20] for n in C.nodes}
+    nx.draw_networkx_labels(C, pos, labels=labels, font_size=7, ax=ax)
+
+    from matplotlib.patches import Patch
+    legend_items = [Patch(facecolor=c, label=t)
+                    for t, c in NODE_COLOURS.items()
+                    if any(C.nodes[n].get("node_type") == t for n in C.nodes)]
+    ax.legend(handles=legend_items, loc="upper left", fontsize=8, framealpha=0.9)
+
+    ax.set_title("FRIA Knowledge Graph — Concept Co-occurrence\n"
+                 "(edges = shared incidents >= 3; node size = incident count)",
+                 fontsize=12, fontweight="bold")
+    ax.axis("off")
+    fig.tight_layout()
+    os.makedirs(outpath.parent, exist_ok=True)
+    fig.savefig(str(outpath), dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    print(f"  {outpath.name}")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  MAIN
+# ══════════════════════════════════════════════════════════════════════════════
+def main():
+    csv_path = INPUT_CSV if INPUT_CSV.exists() else FALLBACK
+
+    if not csv_path.exists():
+        print(f"ERROR: Cannot find input CSV")
+        print(f"  Tried:    {INPUT_CSV}")
+        print(f"  Fallback: {FALLBACK}")
+        print(f"\n  Contents of output/:")
+        out_dir = PROJECT_ROOT / "output"
+        if out_dir.exists():
+            for f in sorted(out_dir.glob("master_annotation*")):
+                print(f"    {f.name}")
+        import sys
+        sys.exit(1)
+
+    df = pd.read_csv(csv_path)
+    print(f"STEP 12  Knowledge Graph Construction")
+    print(f"  Loaded {len(df)} rows from {csv_path.name}")
+    has_causal = "root_cause" in df.columns
+    if not has_causal:
+        print("  (No root_cause column -- run 11_chain_of_events.py first for full graph)")
+
+    G, node_types, edge_types = build_graph(df)
+    print(f"\n  Graph:  {G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
+    print(f"\n  -- Node types --")
+    for t, c in node_types.most_common():
+        print(f"    {t:<20} {c}")
+    print(f"\n  -- Edge types --")
+    for t, c in edge_types.most_common():
+        print(f"    {t:<20} {c}")
+
+    export_ttl(G, TTL_OUT)
+
+    rows = []
+    for t, c in node_types.most_common():
+        rows.append({"category": "node_type", "label": t, "count": c})
+    for t, c in edge_types.most_common():
+        rows.append({"category": "edge_type", "label": t, "count": c})
+    pd.DataFrame(rows).to_csv(SUMMARY_OUT, index=False)
+    print(f"  {SUMMARY_OUT.name}")
+
+    os.makedirs(PROJECT_ROOT / "figures", exist_ok=True)
+    visualise(G, FIG_OUT)
+
+    print("\nKnowledge graph complete.")
+
+
+if __name__ == "__main__":
+    main()
