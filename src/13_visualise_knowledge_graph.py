@@ -318,3 +318,156 @@ function searchNode(query) {{
         f.write(html)
     print(f"  {outpath.name}  (open in browser)")
 
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  STATIC PNG — publication-quality radial layout
+# ══════════════════════════════════════════════════════════════════════════════
+def export_png(G, outpath):
+    """Radial layout: concept hubs in center ring, incidents in outer ring."""
+
+    # Separate concept vs incident nodes
+    concepts = {n: d for n, d in G.nodes(data=True) if d.get("node_type") != "Incident"}
+    incidents = {n: d for n, d in G.nodes(data=True) if d.get("node_type") == "Incident"}
+
+    # Count edges per concept (hub weight)
+    concept_degree = {n: G.degree(n) for n in concepts}
+
+    # Position concepts in inner ring, sorted by type then degree
+    concept_list = sorted(concepts.keys(),
+                          key=lambda n: (concepts[n].get("node_type", ""), -concept_degree.get(n, 0)))
+
+    pos = {}
+    # Inner ring for concepts
+    n_concepts = len(concept_list)
+    for i, node in enumerate(concept_list):
+        angle = 2 * np.pi * i / max(n_concepts, 1)
+        r = 3.0
+        pos[node] = (r * np.cos(angle), r * np.sin(angle))
+
+    # Outer ring for incidents — position near their primary concept
+    concept_angles = {}
+    for i, node in enumerate(concept_list):
+        concept_angles[node] = 2 * np.pi * i / max(n_concepts, 1)
+
+    for inc_node in incidents:
+        # Find connected concepts
+        neighbors = [n for n in G.neighbors(inc_node) if n in concepts]
+        if not neighbors:
+            neighbors = [n for n in G.predecessors(inc_node) if n in concepts]
+
+        if neighbors:
+            # Average angle of connected concepts
+            angles = [concept_angles.get(n, 0) for n in neighbors]
+            avg_angle = np.mean(angles)
+        else:
+            avg_angle = np.random.uniform(0, 2 * np.pi)
+
+        r = 6.0 + np.random.uniform(-0.5, 0.5)
+        jitter = np.random.uniform(-0.15, 0.15)
+        pos[inc_node] = (r * np.cos(avg_angle + jitter),
+                         r * np.sin(avg_angle + jitter))
+
+    # ── Draw ─────────────────────────────────────────────────────────────────
+    fig, ax = plt.subplots(1, 1, figsize=(20, 20))
+    ax.set_facecolor("#0f0f23")
+    fig.patch.set_facecolor("#0f0f23")
+
+    # Draw edges (incidents → concepts only, skip source_type for clarity)
+    for u, v, d in G.edges(data=True):
+        rel = d.get("relation", "")
+        if rel == "hasSourceType":
+            continue
+        if u in pos and v in pos:
+            style = EDGE_STYLE.get(rel, {"color": "#444", "width": 0.3})
+            ax.plot([pos[u][0], pos[v][0]], [pos[u][1], pos[v][1]],
+                    color=style["color"], linewidth=style["width"] * 0.4,
+                    alpha=0.15, zorder=1)
+
+    # Draw incident nodes (small, semi-transparent)
+    for node, data in incidents.items():
+        if node in pos:
+            src = data.get("source", "")
+            c = "#3a6fb5" if src == "AIAAIC" else "#5a8a5a" if src == "ECtHR" else "#8a7a5a"
+            ax.scatter(*pos[node], s=15, c=c, alpha=0.5, zorder=2, edgecolors="none")
+
+    # Draw concept nodes (large, prominent)
+    for node, data in concepts.items():
+        if node in pos:
+            ntype = data.get("node_type", "")
+            style = NODE_STYLE.get(ntype, {"color": "#999", "size": 15})
+            size = concept_degree.get(node, 1) * 8
+            size = max(size, 40)
+            size = min(size, 800)
+            ax.scatter(*pos[node], s=size, c=style["color"],
+                       alpha=0.9, zorder=3, edgecolors="white", linewidths=0.5)
+            ax.annotate(data.get("label", node),
+                        pos[node], fontsize=7, color="white",
+                        ha="center", va="bottom",
+                        xytext=(0, 8), textcoords="offset points",
+                        fontweight="bold", zorder=4,
+                        bbox=dict(boxstyle="round,pad=0.15",
+                                  facecolor="#000000", alpha=0.5, edgecolor="none"))
+
+    # Legend
+    legend_handles = []
+    for ntype, style in NODE_STYLE.items():
+        legend_handles.append(mpatches.Patch(facecolor=style["color"],
+                                              edgecolor="white", label=ntype))
+    # Source legend
+    legend_handles.append(mpatches.Patch(facecolor="#3a6fb5", label="AIAAIC incident"))
+    legend_handles.append(mpatches.Patch(facecolor="#5a8a5a", label="ECtHR case"))
+    legend_handles.append(mpatches.Patch(facecolor="#8a7a5a", label="USFED use case"))
+
+    leg = ax.legend(handles=legend_handles, loc="upper left", fontsize=9,
+                    facecolor="#1a1a2e", edgecolor="#333", labelcolor="white",
+                    framealpha=0.9, title="Node Types",
+                    title_fontsize=10)
+    leg.get_title().set_color("white")
+
+    ax.set_title("FRIA Knowledge Graph — AI Incident Risk Linkages\n"
+                 "Inner ring: concept hubs (domains, rights, harms, root causes)  ·  "
+                 "Outer ring: 150 incident records",
+                 fontsize=13, fontweight="bold", color="white", pad=20)
+    ax.axis("off")
+    ax.set_aspect("equal")
+
+    fig.tight_layout()
+    fig.savefig(str(outpath), dpi=250, bbox_inches="tight",
+                facecolor=fig.get_facecolor())
+    plt.close(fig)
+    print(f"  {outpath.name}  ({250} DPI)")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  MAIN
+# ══════════════════════════════════════════════════════════════════════════════
+def main():
+    csv_path = INPUT_CSV if INPUT_CSV.exists() else FALLBACK
+    if not csv_path.exists():
+        print(f"ERROR: No input CSV found")
+        import sys; sys.exit(1)
+
+    df = pd.read_csv(csv_path)
+    print(f"STEP 13  Visual Knowledge Graph")
+    print(f"  Loaded {len(df)} rows from {csv_path.name}")
+
+    G = build_full_graph(df)
+    print(f"  Graph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
+
+    # 1. Interactive HTML
+    print("\n  Building interactive HTML graph...")
+    export_html(G, HTML_OUT)
+
+    # 2. Static PNG for submission
+    print("\n  Building static PNG for dissertation...")
+    export_png(G, PNG_OUT)
+
+    print(f"\n  DONE!")
+    print(f"  Interactive:  {HTML_OUT}")
+    print(f"    → Open in browser: start {HTML_OUT}")
+    print(f"  Static PNG:   {PNG_OUT}")
+    print(f"    → Include in dissertation as a figure")
+
+
+if __name__ == "__main__":
+    main()
