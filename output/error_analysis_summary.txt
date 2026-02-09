@@ -1,0 +1,178 @@
+====================================================================
+  ERROR ANALYSIS: Manual vs Automated Methods
+  Gold-standard rows examined: 69
+  Total disagreements found: 81
+====================================================================
+
+────────────────────────────────────────────────────────────────────
+  Method: LLM_gold_file   (81 disagreements)
+────────────────────────────────────────────────────────────────────
+
+  [31] LLM_gold_rights_over_under
+       AIAAIC2125      Chinese hackers use Anthropic AI agent to attack foreig
+         manual: PRIVACY
+         pred:   OTHER
+         reason: The summary does not provide any information related to employment or essential services.
+       AIAAIC2125      Chinese hackers use Anthropic AI agent to attack foreig
+         manual: PRIVACY
+         pred:   OTHER
+         reason: The summary does not provide any information related to employment or essential services.
+       AIAAIC2125      Chinese hackers use Anthropic AI agent to attack foreig
+         manual: PRIVACY
+         pred:   OTHER
+         reason: The summary does not provide any information related to employment or essential services.
+       AIAAIC2054      Claude Opus 4 AI agent blackmails supervisor to prevent
+         manual: NON_DISCRIMINATION;PRIVACY
+         pred:   OTHER
+         reason: The summary does not provide any information related to employment or essential services.
+       AIAAIC2054      Claude Opus 4 AI agent blackmails supervisor to prevent
+         manual: NON_DISCRIMINATION;PRIVACY
+         pred:   OTHER
+         reason: The summary does not provide any information related to employment or essential services.
+       ... and 26 more
+
+  [16] LLM_gold_rights_over
+       AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+         manual: OTHER
+         pred:   NON_DISCRIMINATION;OTHER
+         reason: The incident involves a government report that likely affects public services, indicating relevance 
+       AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+         manual: OTHER
+         pred:   NON_DISCRIMINATION;OTHER
+         reason: The incident involves a government report that likely affects public services, indicating relevance 
+       AIAAIC1935      White House appears to use AI to calculate tariff rates
+         manual: NON_DISCRIMINATION
+         pred:   NON_DISCRIMINATION;OTHER
+         reason: The incident involves tariff calculations rather than employment decisions or essential services eli
+       AIAAIC1935      White House appears to use AI to calculate tariff rates
+         manual: NON_DISCRIMINATION
+         pred:   NON_DISCRIMINATION;OTHER
+         reason: The incident involves tariff calculations rather than employment decisions or essential services eli
+       AIAAIC1840      UK welfare fraud AI system criticised as biased and opa
+         manual: NON_DISCRIMINATION
+         pred:   NON_DISCRIMINATION;OTHER
+         reason: The incident involves a welfare fraud AI system that affects eligibility for public assistance, clas
+       ... and 11 more
+
+  [15] LLM_gold_misses_employment
+       AIAAIC2054      Claude Opus 4 AI agent blackmails supervisor to prevent
+         manual: emp=Yes, ess=No
+         pred:   unknown
+         reason: The summary does not provide any information related to employment or essential services.
+       AIAAIC2054      Claude Opus 4 AI agent blackmails supervisor to prevent
+         manual: emp=Yes, ess=No
+         pred:   unknown
+         reason: The summary does not provide any information related to employment or essential services.
+       AIAAIC2054      Claude Opus 4 AI agent blackmails supervisor to prevent
+         manual: emp=Yes, ess=No
+         pred:   unknown
+         reason: The summary does not provide any information related to employment or essential services.
+       AIAAIC2053      AI office vending agent incurs losses, runs amok
+         manual: emp=Yes, ess=nan
+         pred:   unknown
+         reason: The summary does not provide any information related to employment or essential services.
+       AIAAIC2053      AI office vending agent incurs losses, runs amok
+         manual: emp=Yes, ess=nan
+         pred:   unknown
+         reason: The summary does not provide any information related to employment or essential services.
+       ... and 10 more
+
+  [ 8] LLM_gold_misses_essential_services
+       AIAAIC1935      White House appears to use AI to calculate tariff rates
+         manual: emp=nan, ess=Yes
+         pred:   unknown
+         reason: The incident involves tariff calculations rather than employment decisions or essential services eli
+       AIAAIC1935      White House appears to use AI to calculate tariff rates
+         manual: emp=nan, ess=Yes
+         pred:   unknown
+         reason: The incident involves tariff calculations rather than employment decisions or essential services eli
+       AIAAIC1642      Utah online dispute resolution system benefits lenders 
+         manual: emp=No, ess=Yes
+         pred:   unknown
+         reason: The incident relates to fairness in a dispute resolution system, impacting litigants and lenders, bu
+       AIAAIC2125      Chinese hackers use Anthropic AI agent to attack foreig
+         manual: emp=No, ess=Yes
+         pred:   unknown
+         reason: The summary does not provide any information related to employment or essential services.
+       AIAAIC2125      Chinese hackers use Anthropic AI agent to attack foreig
+         manual: emp=No, ess=Yes
+         pred:   unknown
+         reason: The summary does not provide any information related to employment or essential services.
+       ... and 3 more
+
+  [ 5] LLM_gold_partial_match
+       AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+         manual: emp=Yes, ess=Yes
+         pred:   essential_services
+         reason: The incident involves cutting contracts related to Veterans Affairs, which pertains to essential ser
+       AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+         manual: emp=Yes, ess=Yes
+         pred:   essential_services
+         reason: The incident involves cutting contracts related to Veterans Affairs, which pertains to essential ser
+       AIAAIC1647      UK government accused of COVID-19 recovery funding algo
+         manual: emp=Yes, ess=Yes
+         pred:   essential_services
+         reason: The incident involves algorithmic bias in funding allocation, which affects access to public service
+       AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+         manual: emp=Yes, ess=Yes
+         pred:   essential_services
+         reason: The incident involves cutting contracts related to Veterans Affairs, which pertains to essential ser
+       AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+         manual: emp=Yes, ess=Yes
+         pred:   essential_services
+         reason: The incident involves cutting contracts related to Veterans Affairs, which pertains to essential ser
+
+  [ 4] LLM_gold_domain_swap
+       AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+         manual: emp=Yes, ess=No
+         pred:   essential_services
+         reason: The incident involves a government report that likely affects public services, indicating relevance 
+       AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+         manual: emp=Yes, ess=No
+         pred:   essential_services
+         reason: The incident involves a government report that likely affects public services, indicating relevance 
+       AIAAIC1768      Inaccuracies reveal child protection worker used ChatGP
+         manual: emp=Yes, ess=No
+         pred:   essential_services
+         reason: The incident involves a child protection worker using AI in a context that affects essential service
+       AIAAIC1768      Inaccuracies reveal child protection worker used ChatGP
+         manual: emp=Yes, ess=No
+         pred:   essential_services
+         reason: The incident involves a child protection worker using AI in a context that affects essential service
+
+  [ 2] LLM_gold_misses_both
+       AIAAIC1935      White House appears to use AI to calculate tariff rates
+         manual: emp=Yes, ess=Yes
+         pred:   unknown
+         reason: The incident involves tariff calculations rather than employment decisions or essential services eli
+       AIAAIC1935      White House appears to use AI to calculate tariff rates
+         manual: emp=Yes, ess=Yes
+         pred:   unknown
+         reason: The incident involves tariff calculations rather than employment decisions or essential services eli
+
+====================================================================
+  ERROR CATEGORY DISTRIBUTION (all methods combined)
+====================================================================
+     31  LLM_gold_rights_over_under
+     16  LLM_gold_rights_over
+     15  LLM_gold_misses_employment
+      8  LLM_gold_misses_essential_services
+      5  LLM_gold_partial_match
+      4  LLM_gold_domain_swap
+      2  LLM_gold_misses_both
+
+====================================================================
+  QUALITATIVE THEMES
+====================================================================
+
+  2. Under-classification / Missed domains (25 instances)
+     The automated method labelled 'unknown' when the manual annotator
+     identified a clear Annex III domain.  Common causes include
+     sparse incident descriptions and implicit rather than explicit
+     domain language (e.g. 'public assistance' rather than 'welfare').
+
+  3. Domain boundary confusion (4 instances)
+     The automated method confused employment with essential services
+     or vice versa.  This reflects the genuine ambiguity at the Annex III
+     boundary — e.g. a government HR tool could plausibly fall under
+     either Annex III/4 (employment) or Annex III/5a (public service).

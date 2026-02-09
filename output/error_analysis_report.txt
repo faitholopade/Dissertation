@@ -1,0 +1,327 @@
+====================================================================
+  ERROR ANALYSIS REPORT (Section 5.3)
+  Gold rows: 69   Full table: 150 rows
+====================================================================
+
+====================================================================
+  PART A: GOLD-STANDARD vs AUTOMATED METHODS
+====================================================================
+
+  Method: LLM_gold_file  (81 disagreements)
+  ──────────────────────────────────────────────────
+    [31] LLM_gold_rights_over_under
+         AIAAIC2125      Chinese hackers use Anthropic AI agent to attack foreig
+           manual: PRIVACY  →  pred: OTHER
+         AIAAIC2125      Chinese hackers use Anthropic AI agent to attack foreig
+           manual: PRIVACY  →  pred: OTHER
+         AIAAIC2125      Chinese hackers use Anthropic AI agent to attack foreig
+           manual: PRIVACY  →  pred: OTHER
+         ... and 28 more
+    [16] LLM_gold_rights_over
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: OTHER  →  pred: NON_DISCRIMINATION;OTHER
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: OTHER  →  pred: NON_DISCRIMINATION;OTHER
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: NON_DISCRIMINATION  →  pred: NON_DISCRIMINATION;OTHER
+         ... and 13 more
+    [15] LLM_gold_misses_employment
+         AIAAIC2054      Claude Opus 4 AI agent blackmails supervisor to prevent
+           manual: employment  →  pred: unknown
+         AIAAIC2054      Claude Opus 4 AI agent blackmails supervisor to prevent
+           manual: employment  →  pred: unknown
+         AIAAIC2054      Claude Opus 4 AI agent blackmails supervisor to prevent
+           manual: employment  →  pred: unknown
+         ... and 12 more
+    [ 8] LLM_gold_misses_essential_services
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: essential_services  →  pred: unknown
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: essential_services  →  pred: unknown
+         AIAAIC1642      Utah online dispute resolution system benefits lenders 
+           manual: essential_services  →  pred: unknown
+         ... and 5 more
+    [ 5] LLM_gold_partial_match
+         AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+           manual: both  →  pred: essential_services
+         AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+           manual: both  →  pred: essential_services
+         AIAAIC1647      UK government accused of COVID-19 recovery funding algo
+           manual: both  →  pred: essential_services
+         ... and 2 more
+    [ 4] LLM_gold_domain_swap
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: employment  →  pred: essential_services
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: employment  →  pred: essential_services
+         AIAAIC1768      Inaccuracies reveal child protection worker used ChatGP
+           manual: employment  →  pred: essential_services
+         ... and 1 more
+    [ 2] LLM_gold_misses_both
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: both  →  pred: unknown
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: both  →  pred: unknown
+
+  Method: LLM_v2  (17 disagreements)
+  ──────────────────────────────────────────────────
+    [ 5] LLM_v2_misses_essential_services
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: essential_services  →  pred: unknown
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: essential_services  →  pred: unknown
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: essential_services  →  pred: unknown
+         ... and 2 more
+    [ 5] LLM_v2_partial_match
+         AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+           manual: both  →  pred: essential_services
+         AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+           manual: both  →  pred: essential_services
+         AIAAIC1647      UK government accused of COVID-19 recovery funding algo
+           manual: both  →  pred: essential_services
+         ... and 2 more
+    [ 3] LLM_v2_domain_swap
+         AIAAIC1648      DWP Kickstart "gateway" firms with no trading history a
+           manual: employment  →  pred: essential_services
+         AIAAIC1768      Inaccuracies reveal child protection worker used ChatGP
+           manual: employment  →  pred: essential_services
+         AIAAIC1768      Inaccuracies reveal child protection worker used ChatGP
+           manual: employment  →  pred: essential_services
+    [ 2] LLM_v2_misses_employment
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: employment  →  pred: unknown
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: employment  →  pred: unknown
+    [ 2] LLM_v2_misses_both
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: both  →  pred: unknown
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: both  →  pred: unknown
+
+  Method: hybrid  (16 disagreements)
+  ──────────────────────────────────────────────────
+    [ 7] hybrid_partial_match
+         AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+           manual: both  →  pred: essential_services
+         AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+           manual: both  →  pred: essential_services
+         AIAAIC1647      UK government accused of COVID-19 recovery funding algo
+           manual: both  →  pred: essential_services
+         ... and 4 more
+    [ 5] hybrid_domain_swap
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: essential_services  →  pred: employment
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: essential_services  →  pred: employment
+         AIAAIC1648      DWP Kickstart "gateway" firms with no trading history a
+           manual: employment  →  pred: essential_services
+         ... and 2 more
+    [ 2] hybrid_misses_essential_services
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: essential_services  →  pred: unknown
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: essential_services  →  pred: unknown
+    [ 2] hybrid_misses_employment
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: employment  →  pred: unknown
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: employment  →  pred: unknown
+
+  Method: keyword  (16 disagreements)
+  ──────────────────────────────────────────────────
+    [ 7] keyword_partial_match
+         AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+           manual: both  →  pred: essential_services
+         AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
+           manual: both  →  pred: essential_services
+         AIAAIC1647      UK government accused of COVID-19 recovery funding algo
+           manual: both  →  pred: essential_services
+         ... and 4 more
+    [ 4] keyword_domain_swap
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: essential_services  →  pred: employment
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: essential_services  →  pred: employment
+         AIAAIC1768      Inaccuracies reveal child protection worker used ChatGP
+           manual: employment  →  pred: essential_services
+         ... and 1 more
+    [ 3] keyword_misses_employment
+         AIAAIC1648      DWP Kickstart "gateway" firms with no trading history a
+           manual: employment  →  pred: unknown
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: employment  →  pred: unknown
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: employment  →  pred: unknown
+    [ 2] keyword_misses_essential_services
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: essential_services  →  pred: unknown
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: essential_services  →  pred: unknown
+
+  Error category distribution (all methods combined):
+     31  LLM_gold_rights_over_under
+     16  LLM_gold_rights_over
+     15  LLM_gold_misses_employment
+      8  LLM_gold_misses_essential_services
+      7  keyword_partial_match
+      7  hybrid_partial_match
+      5  LLM_v2_misses_essential_services
+      5  LLM_gold_partial_match
+      5  LLM_v2_partial_match
+      5  hybrid_domain_swap
+      4  keyword_domain_swap
+      4  LLM_gold_domain_swap
+      3  keyword_misses_employment
+      3  LLM_v2_domain_swap
+      2  keyword_misses_essential_services
+      2  hybrid_misses_essential_services
+      2  LLM_v2_misses_employment
+      2  hybrid_misses_employment
+      2  LLM_gold_misses_both
+      2  LLM_v2_misses_both
+
+====================================================================
+  PART B: KEYWORD vs LLM — FULL-TABLE ANALYSIS (150 rows)
+====================================================================
+
+  CONFUSION MATRIX: Annex Domain (rows=keyword, cols=LLM)
+  ──────────────────────────────────────────────────
+                    employment  essential_services  unknown
+employment                  10                   0        6
+essential_services           2                  61       32
+unknown                      0                   4       35
+
+  Classification report (keyword=reference, LLM=prediction):
+                    precision    recall  f1-score   support
+
+        employment       0.83      0.62      0.71        16
+essential_services       0.94      0.64      0.76        95
+           unknown       0.48      0.90      0.62        39
+
+          accuracy                           0.71       150
+         macro avg       0.75      0.72      0.70       150
+      weighted avg       0.81      0.71      0.72       150
+
+  Cohen's κ (domain): 0.503
+
+  Domain disagreements: 44 / 150
+    Title:   Policy Analyst Assistant
+    Keyword: essential_services  |  LLM: unknown
+    Desc:    The Student and Exchange Visitor Program (SEVP) uses AI to help policy analysts quickly find and summarize information a...
+
+    Title:   Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipe
+    Keyword: essential_services  |  LLM: unknown
+    Desc:    The purpose of this AI-driven pipeline is to tackle the challenge of processing non-English, short-text responses in lar...
+
+    Title:   FAQ for SMaRT
+    Keyword: essential_services  |  LLM: unknown
+    Desc:    The purpose of the FAQ search tool is to find the correct Census Bureau-provided answers to common questions from the pu...
+
+    Title:   UK govt Spotlight fund application assessments
+    Keyword: unknown  |  LLM: essential_services
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/uk-government-spotlight-algorithm Accur...
+
+    Title:   NDIS independent assessments ditched by Australian government
+    Keyword: unknown  |  LLM: essential_services
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/ndis-independent-assessments-robo-plann...
+
+    Title:   DWP Kickstart "gateway" firms with no trading history approved by algorithm
+    Keyword: unknown  |  LLM: essential_services
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/dwp-kickstart-gateway-firms-with-no-tra...
+
+    Title:   Roermond 'Sensing Project' predictive policing pilot
+    Keyword: essential_services  |  LLM: unknown
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/roermond-sensing-project-predictive-pol...
+
+    Title:   New Orleans predictive policing
+    Keyword: essential_services  |  LLM: unknown
+    Desc:    Privacy/surveillance  New Orleans predictive policing...
+
+    Title:   Knightscope security robot ignores woman reporting crime
+    Keyword: employment  |  LLM: unknown
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/knightscope-hp-robocop-ignores-woman-re...
+
+    Title:   Utah online dispute resolution system benefits lenders not litigants
+    Keyword: essential_services  |  LLM: unknown
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/utah-dispute-resolution-system-benefits...
+
+
+  CONFUSION MATRIX: System Pattern (rows=keyword, cols=LLM)
+  ──────────────────────────────────────────────────
+                        chatbot  classification_triage  llm_assisted_screening  llm_decision_support  misinformation_error  not_llm  profiling_scoring  resource_allocation  summary_assistant  surveillance_monitor  unknown
+chatbot                       0                      0                       0                     0                     0        0                  0                    0                  0                     0        0
+classification_triage         0                      0                       0                     0                     0        0                  0                    0                  0                     0        0
+llm_assisted_screening        0                      1                       0                     0                     0        1                  1                    0                  0                     0        0
+llm_decision_support          0                      0                       0                     2                     0        0                  0                    0                  1                     0        0
+misinformation_error          0                      0                       0                     0                     0        0                  0                    0                  0                     0        0
+not_llm                       0                      0                       0                     0                     0        3                  1                    0                  0                     1       20
+profiling_scoring             0                      0                       0                     0                     0        0                 14                    0                  0                     1        0
+resource_allocation           0                      0                       0                     0                     0        0                  0                    0                  0                     0        0
+summary_assistant             0                      0                       0                     0                     0        0                  0                    0                  0                     0        0
+surveillance_monitor          0                      0                       1                     0                     0        1                  1                    0                  0                     7        2
+unknown                       1                      7                       0                     0                     2        3                 28                   11                  3                    14       23
+
+  Classification report (system pattern):
+                        precision    recall  f1-score   support
+
+               chatbot       0.00      0.00      0.00         0
+ classification_triage       0.00      0.00      0.00         0
+llm_assisted_screening       0.00      0.00      0.00         3
+  llm_decision_support       1.00      0.67      0.80         3
+  misinformation_error       0.00      0.00      0.00         0
+               not_llm       0.38      0.12      0.18        25
+     profiling_scoring       0.31      0.93      0.47        15
+   resource_allocation       0.00      0.00      0.00         0
+     summary_assistant       0.00      0.00      0.00         0
+  surveillance_monitor       0.30      0.58      0.40        12
+               unknown       0.51      0.25      0.34        92
+
+              accuracy                           0.33       150
+             macro avg       0.23      0.23      0.20       150
+          weighted avg       0.45      0.33      0.33       150
+
+  Cohen's κ (pattern): 0.119
+
+====================================================================
+  PER-LABEL AGREEMENT: Rights
+====================================================================
+  privacy_data_protection         agree=0.660  both=31  kw_only=31  llm_only=20
+  non_discrimination              agree=0.860  both=67  kw_only=9  llm_only=12
+  access_social_protection        agree=0.780  both=39  kw_only=31  llm_only=2
+  good_administration             agree=0.653  both=35  kw_only=6  llm_only=46
+  other                           agree=0.887  both=23  kw_only=13  llm_only=4
+
+====================================================================
+  PER-LABEL AGREEMENT: Harms
+====================================================================
+  unfair_exclusion                agree=0.613  both=24  kw_only=5  llm_only=53
+  privacy_breach                  agree=0.867  both=19  kw_only=7  llm_only=13
+  misinformation_error            agree=0.900  both=8  kw_only=2  llm_only=13
+  procedural_unfairness           agree=0.540  both=24  kw_only=14  llm_only=55
+  other                           agree=0.673  both=26  kw_only=48  llm_only=1
+
+====================================================================
+  QUALITATIVE ERROR THEMES (for Section 5.3 discussion)
+====================================================================
+
+  2. Under-classification / Missed domains (43 instances)
+     The automated method labelled 'unknown' when the manual
+     annotator identified a clear Annex III domain.  Common causes:
+     sparse incident descriptions and implicit rather than explicit
+     domain language (e.g. 'public assistance' not 'welfare').
+
+  3. Domain boundary confusion (16 instances)
+     Employment ↔ essential services swaps.  Reflects genuine
+     ambiguity at the Annex III boundary — e.g. a government HR
+     tool could fall under Annex III/4 or Annex III/5a.
+
+  4. Partial match — dual-domain records (24 instances)
+     Manual annotator marked BOTH employment AND essential services
+     but automated method only predicted one.  Suggests the LLM
+     defaults to a single-label framing.
+
+  5. Rights label disagreements (78 instances)
+     Most common pattern: LLM predicts 'OTHER' where manual found
+     specific rights (NON-DISCRIMINATION, PRIVACY), or LLM adds
+     extra rights categories the manual annotator did not flag.
