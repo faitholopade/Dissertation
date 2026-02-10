@@ -1,0 +1,752 @@
+{
+ "Individual Assistance (IA) & Public Assistance (PA) Projections": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Policy Analyst Assistant": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Conversation Training and Feedback Simulator": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "TSA Contact Center Virtual Assistant": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "ELIS Evidence Classifier Machine Learning (ML) Tagging Solution": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Automated Change Detection": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Linkage and Matching Program (LaMP)": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipeline for Efficient Language Detection and Translation for Short-Text": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "FAQ for SMaRT": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Enriched Citation": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "AIAAIC0654": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0410": {
+  "root_cause": "context_of_use",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1647": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0598": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC2020": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0826": {
+  "root_cause": "context_of_use",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0412": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0554": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0990": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC015": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0524": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1840": {
+  "root_cause": "data_quality",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1509": {
+  "root_cause": "data_quality",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1388": {
+  "root_cause": "data_quality",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0605": {
+  "root_cause": "unknown",
+  "mitigation_reported": "NDIS independent assessments ditched by government",
+  "source_type": "news_article"
+ },
+ "AIAAIC1648": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0803": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1768": {
+  "root_cause": "human_error",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1576": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0411": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1288": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1311": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC053": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0268": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1481": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC007": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0415": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0171": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0652": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0260": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1352": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "System ended due to unreliability concerns",
+  "source_type": "news_article"
+ },
+ "AIAAIC0887": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "Oregon dropped the Safety at Screening tool",
+  "source_type": "news_article"
+ },
+ "AIAAIC0350": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "Robodebt scheme scrapped by Australian government",
+  "source_type": "news_article"
+ },
+ "AIAAIC0107": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1642": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1313": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0939": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0890": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0136": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1970": {
+  "root_cause": "data_quality",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1986": {
+  "root_cause": "human_error",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC025": {
+  "root_cause": "context_of_use",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0612": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1326": {
+  "root_cause": "unknown",
+  "mitigation_reported": "Robot trial ended by NYPD",
+  "source_type": "news_article"
+ },
+ "AIAAIC1051": {
+  "root_cause": "unknown",
+  "mitigation_reported": "Safe City video surveillance programme discontinued",
+  "source_type": "news_article"
+ },
+ "AIAAIC0556": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0534": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0441": {
+  "root_cause": "context_of_use",
+  "mitigation_reported": "Social civility score system withdrawn after public backlash",
+  "source_type": "news_article"
+ },
+ "AIAAIC057": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC056": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC2087": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC2078": {
+  "root_cause": "policy_gap",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC2049": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "Deloitte Australia fined for AI errors in government report",
+  "source_type": "news_article"
+ },
+ "AIAAIC2003": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1962": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1935": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1923": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1855": {
+  "root_cause": "data_quality",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1820": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1809": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "10012/03": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10108/02": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10122/04": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10143/07": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10230/05": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10245/02": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10250/02": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10319/04": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10346/03;10893/04": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10368/05": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10441/06": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "1046/12": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10535/09": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10543/02": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10557/03": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10613/16": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "1065/06": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10652/02;12373/06;13553/06;21532/05;23003/06;23446/06;25473/06;28978/06;29693/06;29698/06;29699/06;29704/06;37211/05;6723/06": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10699/05": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "10721/02": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "AIAAIC0269": {
+  "root_cause": "data_quality",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1055": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0409": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1321": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1927": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1270": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1285": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0579": {
+  "root_cause": "context_of_use",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC2114": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "regulator_opinion"
+ },
+ "AIAAIC024": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1745": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1720": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC042": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1609": {
+  "root_cause": "data_quality",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1389": {
+  "root_cause": "context_of_use",
+  "mitigation_reported": "Legal challenge launched against the algorithm",
+  "source_type": "news_article"
+ },
+ "AIAAIC1446": {
+  "root_cause": "unknown",
+  "mitigation_reported": "Greece fined for the monitoring system",
+  "source_type": "news_article"
+ },
+ "AIAAIC1450": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0253": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1510": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1551": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1578": {
+  "root_cause": "data_quality",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1579": {
+  "root_cause": "data_quality",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1175": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1183": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0265": {
+  "root_cause": "data_quality",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0267": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0264": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC2074": {
+  "root_cause": "policy_gap",
+  "mitigation_reported": "none_reported",
+  "source_type": "court_case"
+ },
+ "AIAAIC1265": {
+  "root_cause": "context_of_use",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1185": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1018": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0886": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0863": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC1945": {
+  "root_cause": "human_error",
+  "mitigation_reported": "Six people arrested by Spanish police",
+  "source_type": "news_article"
+ },
+ "AIAAIC0793": {
+  "root_cause": "policy_gap",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0791": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0777": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0761": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0379": {
+  "root_cause": "human_error",
+  "mitigation_reported": "none_reported",
+  "source_type": "news_article"
+ },
+ "AIAAIC0339": {
+  "root_cause": "technology_failure",
+  "mitigation_reported": "System scrapped by government",
+  "source_type": "news_article"
+ },
+ "Recovery Engagement and Coordination for Health – Veterans Enhanced Treatment (R": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Elastic Machine Learning Threat Detection - Phase 2": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "USA Class": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "PINGOO.AI": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Smart AI Bot Assistant": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Login.gov": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "PreCheck Touchless Identity Solution (TIS)": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Credential Authentication Technology with Camera System (CAT-2) and AutoCAT (CAT": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "I-765 - USCIS Facial Recognition through IDENT (1:1 Face Recognition/Validation)": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "CESASolarModel": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "EnergyRightDERPortfolioEvaluation": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "GET": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "GMET": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "ICI camera ": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Hurricane Score": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Stratification Tool for Opioid Risk Mitigation (STORM) predictive model ": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Care Assessment Needs (CAN) Score": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Low Probability of False Alarm (Low-Pfa) Algorithm for on-person screening.": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "CR intelligent search": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ },
+ "Materials tracking": {
+  "root_cause": "unknown",
+  "mitigation_reported": "none_reported",
+  "source_type": "government_inventory"
+ }
+}

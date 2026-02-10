@@ -1,0 +1,11 @@
+root_cause,source_type,count
+context_of_use,news_article,7
+data_quality,news_article,10
+human_error,news_article,4
+policy_gap,court_case,1
+policy_gap,news_article,2
+technology_failure,news_article,37
+technology_failure,regulator_opinion,1
+unknown,court_case,20
+unknown,government_inventory,30
+unknown,news_article,38
