@@ -1,0 +1,2882 @@
+{
+  "@context": {
+    "fria": "https://example.org/fria-risk-schema#",
+    "dpv": "https://w3id.org/dpv#",
+    "dpv-risk": "https://w3id.org/dpv/risk#",
+    "dpv-rights": "https://w3id.org/dpv/legal/eu/rights#",
+    "dpv-tech": "https://w3id.org/dpv/tech#",
+    "vair": "https://w3id.org/vair#",
+    "airo": "https://w3id.org/airo#",
+    "aiact": "https://w3id.org/dpv/legal/eu/aiact#",
+    "dct": "http://purl.org/dc/terms/",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "RiskRecord": "fria:RiskRecord",
+    "source": {
+      "@id": "dct:source",
+      "@type": "xsd:string"
+    },
+    "sourceId": {
+      "@id": "dct:identifier",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "dct:title",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "dct:description",
+      "@type": "xsd:string"
+    },
+    "dateRecorded": {
+      "@id": "dct:date",
+      "@type": "xsd:date"
+    },
+    "annexDomain": {
+      "@id": "fria:annexDomain",
+      "@type": "@vocab",
+      "@context": {
+        "employment": "aiact:HighRiskAI-Employment",
+        "essential_services": "aiact:HighRiskAI-EssentialServices",
+        "unknown": "fria:UnclassifiedDomain"
+      }
+    },
+    "systemPattern": {
+      "@id": "fria:systemPattern",
+      "@type": "@vocab",
+      "@context": {
+        "llm_decision_support": "fria:LLMDecisionSupport",
+        "llm_assisted_screening": "fria:LLMAssistedScreening",
+        "chatbot": "fria:Chatbot",
+        "summary_assistant": "fria:SummaryAssistant",
+        "surveillance_monitor": "fria:SurveillanceMonitor",
+        "profiling_scoring": "fria:ProfilingScoring",
+        "classification_triage": "fria:ClassificationTriage",
+        "resource_allocation": "fria:ResourceAllocation",
+        "not_llm": "fria:TraditionalML",
+        "unknown": "fria:UnclassifiedPattern"
+      }
+    },
+    "rightsImpacted": {
+      "@id": "fria:rightsImpacted",
+      "@container": "@set",
+      "@context": {
+        "non_discrimination": "dpv-rights:A21-NonDiscrimination",
+        "privacy_data_protection": "dpv-rights:A8-ProtectionOfPersonalData",
+        "access_social_protection": "dpv-rights:A34-SocialSecurityAndAssistance",
+        "good_administration": "dpv-rights:A41-RightToGoodAdministration",
+        "other": "fria:OtherRight"
+      }
+    },
+    "harmsIdentified": {
+      "@id": "fria:harmsIdentified",
+      "@container": "@set",
+      "@context": {
+        "unfair_exclusion": "dpv-risk:Discrimination",
+        "privacy_breach": "dpv-risk:DataBreach",
+        "misinformation_error": "dpv-risk:MisinformationDissemination",
+        "procedural_unfairness": "dpv-risk:ViolationOfRights",
+        "other": "dpv-risk:Harm"
+      }
+    },
+    "actorRole": {
+      "@id": "fria:actorRole",
+      "@type": "@vocab",
+      "@context": {
+        "provider": "aiact:AIProvider",
+        "deployer": "aiact:AIDeployer",
+        "affected_person": "aiact:AffectedPerson"
+      }
+    },
+    "annotationMethod": {
+      "@id": "fria:annotationMethod",
+      "@type": "@vocab",
+      "@context": {
+        "keyword": "fria:KeywordAnnotation",
+        "llm": "fria:LLMAnnotation",
+        "hybrid": "fria:HybridAnnotation",
+        "manual": "fria:ManualAnnotation"
+      }
+    },
+    "confidence": {
+      "@id": "fria:confidence",
+      "@type": "xsd:float"
+    },
+    "annotatorNote": {
+      "@id": "fria:annotatorNote",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Individual_Assistance_(IA)_&_Public_Assistance_(PA)_Projections",
+      "source": "USFED",
+      "sourceId": "Individual Assistance (IA) & Public Assistance (PA) Projections",
+      "title": "Individual Assistance (IA) & Public Assistance (PA) Projections",
+      "annexDomain": "essential_services",
+      "systemPattern": "resource_allocation",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Policy_Analyst_Assistant",
+      "source": "USFED",
+      "sourceId": "Policy Analyst Assistant",
+      "title": "Policy Analyst Assistant",
+      "annexDomain": "essential_services",
+      "systemPattern": "summary_assistant",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Conversation_Training_and_Feedback_Simulator",
+      "source": "USFED",
+      "sourceId": "Conversation Training and Feedback Simulator",
+      "title": "Conversation Training and Feedback Simulator",
+      "annexDomain": "employment",
+      "systemPattern": "llm_decision_support",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-TSA_Contact_Center_Virtual_Assistant",
+      "source": "USFED",
+      "sourceId": "TSA Contact Center Virtual Assistant",
+      "title": "TSA Contact Center Virtual Assistant",
+      "annexDomain": "unknown",
+      "systemPattern": "chatbot",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-ELIS_Evidence_Classifier_Machine_Learning_(ML)_Tagging_Solution",
+      "source": "USFED",
+      "sourceId": "ELIS Evidence Classifier Machine Learning (ML) Tagging Solution",
+      "title": "ELIS Evidence Classifier Machine Learning (ML) Tagging Solution",
+      "annexDomain": "unknown",
+      "systemPattern": "classification_triage",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Automated_Change_Detection",
+      "source": "USFED",
+      "sourceId": "Automated Change Detection",
+      "title": "Automated Change Detection",
+      "annexDomain": "unknown",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Linkage_and_Matching_Program_(LaMP)",
+      "source": "USFED",
+      "sourceId": "Linkage and Matching Program (LaMP)",
+      "title": "Linkage and Matching Program (LaMP)",
+      "annexDomain": "unknown",
+      "systemPattern": "classification_triage",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Automating_Multilingual_Census_Data_Processing:_An_AI_and_Transformer-Based_Pipeline_for_Efficient_Language_Detection_and_Translation_for_Short-Text",
+      "source": "USFED",
+      "sourceId": "Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipeline for Efficient Language Detection and Translation for Short-Text",
+      "title": "Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipeline for Efficient Language Detection and Translation for Short-Text",
+      "annexDomain": "essential_services",
+      "systemPattern": "classification_triage",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-FAQ_for_SMaRT",
+      "source": "USFED",
+      "sourceId": "FAQ for SMaRT",
+      "title": "FAQ for SMaRT",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.8
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Enriched_Citation",
+      "source": "USFED",
+      "sourceId": "Enriched Citation",
+      "title": "Enriched Citation",
+      "annexDomain": "unknown",
+      "systemPattern": "summary_assistant",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0654",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0654",
+      "title": "ID.me unemployment benefit facial recognition",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "privacy_breach",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0410",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0410",
+      "title": "Netherlands SyRI welfare fraud detection automation",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.95
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1647",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1647",
+      "title": "UK government accused of COVID-19 recovery funding algorithmic \"cultural elitism\"",
+      "annexDomain": "essential_services",
+      "systemPattern": "resource_allocation",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0598",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0598",
+      "title": "UK govt Spotlight fund application assessments",
+      "annexDomain": "essential_services",
+      "systemPattern": "classification_triage",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC2020",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC2020",
+      "title": "DOGE uses faulty AI to cut Veterans Affairs contracts",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0826",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0826",
+      "title": "UK DWP sued for 'unfair' disability benefits fraud detection algorithm",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0412",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0412",
+      "title": "Unemployment risk assessment",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0554",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0554",
+      "title": "Netherlands childcare benefits fraud assessments automation",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection",
+        "access_social_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.95
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0990",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0990",
+      "title": "Rotterdam welfare fraud risk algorithm ",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.95
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC015",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC015",
+      "title": "Michigan MiDAS unemployment insurance fraud detection",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "access_social_protection",
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.95
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0524",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0524",
+      "title": "Serbia Social Card excludes thousands of welfare beneficiaries",
+      "annexDomain": "essential_services",
+      "systemPattern": "resource_allocation",
+      "rightsImpacted": [
+        "access_social_protection",
+        "non_discrimination",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.95
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1840",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1840",
+      "title": "UK welfare fraud AI system criticised as biased and opaque",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1509",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1509",
+      "title": "US Veterans Affairs suicide prevention algorithm favours white men",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1388",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1388",
+      "title": "UK robo review 'unfairly' targets Bulgarians, Poles for benefit fraud investigation",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0605",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0605",
+      "title": "NDIS independent assessments ditched by Australian government",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1648",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1648",
+      "title": "DWP Kickstart \"gateway\" firms with no trading history approved by algorithm",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "good_administration",
+        "non_discrimination"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness",
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0803",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0803",
+      "title": "Trelleborg welfare management automation",
+      "annexDomain": "essential_services",
+      "systemPattern": "resource_allocation",
+      "rightsImpacted": [
+        "access_social_protection",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1768",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1768",
+      "title": "Inaccuracies reveal child protection worker used ChatGPT to draft court report",
+      "annexDomain": "essential_services",
+      "systemPattern": "summary_assistant",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "misinformation_error",
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1576",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1576",
+      "title": "DWP algorithm wrongly flags 200,000 people for possible fraud and error",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "access_social_protection",
+        "good_administration",
+        "non_discrimination"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.95
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0411",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0411",
+      "title": "Flawed' UK welfare algorithm 'pushes people into poverty'",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "access_social_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1288",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1288",
+      "title": "Thomson Reuters Fraud Detect 'incorrectly' identifies fraud",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "good_administration",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1311",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1311",
+      "title": "Samagra Vedika system pilot deprives citizens of rations ",
+      "annexDomain": "essential_services",
+      "systemPattern": "resource_allocation",
+      "rightsImpacted": [
+        "access_social_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC053",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC053",
+      "title": "Arkansas ARChoices Medicaid resource allocation system",
+      "annexDomain": "essential_services",
+      "systemPattern": "resource_allocation",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.95
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0268",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0268",
+      "title": "PSZ Syriusz unemployment worker profiling",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "privacy_breach",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1481",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1481",
+      "title": "Thai auntie unable to buy food after Poor Card facial recognition failure",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "access_social_protection",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC007",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC007",
+      "title": "Idaho Medicaid disability Resource Allocation Model",
+      "annexDomain": "essential_services",
+      "systemPattern": "resource_allocation",
+      "rightsImpacted": [
+        "access_social_protection",
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0415",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0415",
+      "title": "Roermond 'Sensing Project' predictive policing pilot",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "non_discrimination"
+      ],
+      "harmsIdentified": [
+        "privacy_breach",
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0171",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0171",
+      "title": "New Orleans predictive policing",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0652",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0652",
+      "title": "NYPD Domain Awareness System",
+      "annexDomain": "unknown",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "non_discrimination"
+      ],
+      "harmsIdentified": [
+        "privacy_breach",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0260",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0260",
+      "title": "Knightscope security robot ignores woman reporting crime",
+      "annexDomain": "employment",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1352",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1352",
+      "title": "lllinois ends 'unreliable' child abuse predictive system",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "misinformation_error",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0887",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0887",
+      "title": "Oregon drops 'unfair' child abuse Safety at Screening tool",
+      "annexDomain": "essential_services",
+      "systemPattern": "classification_triage",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0350",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0350",
+      "title": "Australia scraps \"robodebt\" welfare debt recovery scheme",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "access_social_protection",
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.95
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0107",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0107",
+      "title": "Australia Robodebt welfare debt recovery",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "access_social_protection",
+        "good_administration",
+        "non_discrimination"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.95
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1642",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1642",
+      "title": "Utah online dispute resolution system benefits lenders not litigants",
+      "annexDomain": "essential_services",
+      "systemPattern": "classification_triage",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.8
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1313",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1313",
+      "title": "Parivar Pehchan Patra algorithm declares living people dead",
+      "annexDomain": "essential_services",
+      "systemPattern": "classification_triage",
+      "rightsImpacted": [
+        "good_administration",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0939",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0939",
+      "title": "Iarpa Janus Benchmark-C (IJP-C) dataset",
+      "annexDomain": "unknown",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0890",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0890",
+      "title": "India Human Efficiency Tracking System sanitation worker surveillance",
+      "annexDomain": "employment",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "non_discrimination"
+      ],
+      "harmsIdentified": [
+        "privacy_breach",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0136",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0136",
+      "title": "Amazon employees, investors protest US government Rekognition sales",
+      "annexDomain": "employment",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1970",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1970",
+      "title": "Sweden fraud prediction algorithm found to discriminate against women, migrants",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1986",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1986",
+      "title": "North Korea uses AI to covertly place IT workers in western tech companies",
+      "annexDomain": "employment",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "good_administration",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness",
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC025",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC025",
+      "title": "Starbucks automated shift scheduling system ruins employees' lives",
+      "annexDomain": "employment",
+      "systemPattern": "resource_allocation",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0612",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0612",
+      "title": "UK Post Office Horizon payment system",
+      "annexDomain": "employment",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1326",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1326",
+      "title": "NYPD ends Knightscope K5 security robot trial",
+      "annexDomain": "unknown",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1051",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1051",
+      "title": "Malta ditches 'Safe City' video surveillance programme",
+      "annexDomain": "unknown",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "privacy_breach",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0556",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0556",
+      "title": "NYPD 'digidog' hostage response draws complaints",
+      "annexDomain": "unknown",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "non_discrimination"
+      ],
+      "harmsIdentified": [
+        "privacy_breach",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0534",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0534",
+      "title": "Rikers Island prisoner risk classification system increases violence",
+      "annexDomain": "unknown",
+      "systemPattern": "classification_triage",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness",
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0441",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0441",
+      "title": "Suzhou algorithmic social 'civility score' withdrawn after backlash",
+      "annexDomain": "unknown",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "non_discrimination"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC057",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC057",
+      "title": "LAPD predictive policing",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC056",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC056",
+      "title": "LAPD 'hot spot' predictive policing",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC2087",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC2087",
+      "title": "Study: Uber dynamic pricing increases passenger fares, lowers driver earnings",
+      "annexDomain": "employment",
+      "systemPattern": "resource_allocation",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC2078",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC2078",
+      "title": "Brian Cranston voice, likeness used without consent to train Sora video generation tool",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.7
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC2049",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC2049",
+      "title": "Deloitte Australia fined for AI error-strewn government report",
+      "annexDomain": "unknown",
+      "systemPattern": "summary_assistant",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC2003",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC2003",
+      "title": "White House chief of staff targeted in AI-powered security breach",
+      "annexDomain": "employment",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1962",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1962",
+      "title": "Brazilian AI-powered welfare app accused of unfairly denying claims",
+      "annexDomain": "essential_services",
+      "systemPattern": "resource_allocation",
+      "rightsImpacted": [
+        "access_social_protection",
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1935",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1935",
+      "title": "White House appears to use AI to calculate tariff rates",
+      "annexDomain": "employment",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.7
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1923",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1923",
+      "title": "Optifye roasted for shop floor AI surveillance",
+      "annexDomain": "employment",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "privacy_breach",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1855",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1855",
+      "title": "Taiwanese AI repeats Chinese government line",
+      "annexDomain": "unknown",
+      "systemPattern": "misinformation_error",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.7
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1820",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1820",
+      "title": "Report: Denmark AI welfare system \"profoundly affects\" mental health",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "privacy_breach",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1809",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1809",
+      "title": "Nevada AI student risk model prompts funding controversy",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10012/03",
+      "source": "ECtHR",
+      "sourceId": "10012/03",
+      "title": "CASE OF HALMAGIU AND BELLU v. ROMANIA",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10108/02",
+      "source": "ECtHR",
+      "sourceId": "10108/02",
+      "title": "CASE OF TETU v. ROMANIA",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10122/04",
+      "source": "ECtHR",
+      "sourceId": "10122/04",
+      "title": "CASE OF GURGACH v. RUSSIA",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.7
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10143/07",
+      "source": "ECtHR",
+      "sourceId": "10143/07",
+      "title": "CASE OF SOCIEDADE AGRICOLA DO AMEIXIAL; S.A v. PORTUGAL",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.7
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10230/05",
+      "source": "ECtHR",
+      "sourceId": "10230/05",
+      "title": "CASE OF SERSESCU v. ROMANIA",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10245/02",
+      "source": "ECtHR",
+      "sourceId": "10245/02",
+      "title": "CASE OF MOSOIU AND PASARIN v. ROMANIA",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10250/02",
+      "source": "ECtHR",
+      "sourceId": "10250/02",
+      "title": "CASE OF ALİ TAŞ v. TURKEY",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10319/04",
+      "source": "ECtHR",
+      "sourceId": "10319/04",
+      "title": "CASE OF ANDRIANOVA AND OTHERS  v. UKRAINE",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.7
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10346/03;10893/04",
+      "source": "ECtHR",
+      "sourceId": "10346/03;10893/04",
+      "title": "CASE OF DICKMANN AND GION v. ROMANIA",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.7
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10368/05",
+      "source": "ECtHR",
+      "sourceId": "10368/05",
+      "title": "CASE OF MIGALSKA v. POLAND",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10441/06",
+      "source": "ECtHR",
+      "sourceId": "10441/06",
+      "title": "CASE OF PICHKUR v. UKRAINE",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-1046/12",
+      "source": "ECtHR",
+      "sourceId": "1046/12",
+      "title": "CASE OF ZAMMIT AND ATTARD CASSAR v. MALTA",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.6
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10535/09",
+      "source": "ECtHR",
+      "sourceId": "10535/09",
+      "title": "CASE OF INDERKINY v. RUSSIA",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "access_social_protection",
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10543/02",
+      "source": "ECtHR",
+      "sourceId": "10543/02",
+      "title": "CASE OF VACARENCU v. MOLDOVA",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10557/03",
+      "source": "ECtHR",
+      "sourceId": "10557/03",
+      "title": "CASE OF GIGLI COSTRUZIONI S.R.L. v. ITALY",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.6
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10613/16",
+      "source": "ECtHR",
+      "sourceId": "10613/16",
+      "title": "CASE OF SHARXHI AND OTHERS v. ALBANIA",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "good_administration",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness",
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.6
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-1065/06",
+      "source": "ECtHR",
+      "sourceId": "1065/06",
+      "title": "CASE OF ELLIS v. TURKEY",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "access_social_protection",
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10652/02;12373/06;13553/06;21532/05;23003/06;23446/06;25473/06;28978/06;29693/06;29698/06;29699/06;29704/06;37211/05;6723/06",
+      "source": "ECtHR",
+      "sourceId": "10652/02;12373/06;13553/06;21532/05;23003/06;23446/06;25473/06;28978/06;29693/06;29698/06;29699/06;29704/06;37211/05;6723/06",
+      "title": "CASE OF COLLARILE AND OTHERS v. ITALY",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "non_discrimination",
+        "good_administration",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10699/05",
+      "source": "ECtHR",
+      "sourceId": "10699/05",
+      "title": "CASE OF PAULIK v. SLOVAKIA",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.6
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/ECtHR-10721/02",
+      "source": "ECtHR",
+      "sourceId": "10721/02",
+      "title": "CASE OF HARRISON v. THE UNITED KINGDOM",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0269",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0269",
+      "title": "Austria AMS employment service job seeker predictions",
+      "annexDomain": "employment",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1055",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1055",
+      "title": "Netherlands visa applicant over-stay risk assessments",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0409",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0409",
+      "title": "DGFiP tax fraud detection",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1321",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1321",
+      "title": "Deepfake CFO scams finance worker for USD 25 million",
+      "annexDomain": "essential_services",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.6
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1927",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1927",
+      "title": "AI malware scam \"destroys\" Disney employee's life",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.6
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1270",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1270",
+      "title": "Singapore PM Lee Hsien Loong crypto promotion deepfake",
+      "annexDomain": "essential_services",
+      "systemPattern": "misinformation_error",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1285",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1285",
+      "title": "Deepfake Tom Hanks dental ad insurance promotion",
+      "annexDomain": "essential_services",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.6
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0579",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0579",
+      "title": "HireVue recruitment facial analysis screening",
+      "annexDomain": "employment",
+      "systemPattern": "llm_assisted_screening",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC2114",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC2114",
+      "title": "Facebook job ad algorithm ruled sexist by French regulator",
+      "annexDomain": "employment",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC024",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC024",
+      "title": "Inaccurate test finds most English language test students 'cheated'",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "good_administration",
+        "non_discrimination"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1745",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1745",
+      "title": "Starship robot knocks over Arizona State University employee",
+      "annexDomain": "employment",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.6
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1720",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1720",
+      "title": "TennCare automated system accused of illegally denying Medicaid",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "access_social_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC042",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC042",
+      "title": "Facebook illegally lets housing ads exclude ethnic minorities",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1609",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1609",
+      "title": "France welfare fraud detection algorithm accused of exacerbating inequality",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1389",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1389",
+      "title": "Legal challenge launched against 'discriminatory' sham marriage algorithm",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1446",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1446",
+      "title": "Greece fined for AI-powered asylum centre monitoring system",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "privacy_breach",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1450",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1450",
+      "title": "MEP files lawsuit to release iBorderCtrl lie detection system documents",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0253",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0253",
+      "title": "Aadhaar glitches result in villagers' starvation",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "access_social_protection",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1510",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1510",
+      "title": "Youth advocacy worker misidentified by Met Police facial recognition system",
+      "annexDomain": "employment",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "non_discrimination"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1551",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1551",
+      "title": "Danish child protection algorithm criticised for age discrimination",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1578",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1578",
+      "title": "Allegheny child neglect screening system unfairly flags Blacks for investigation",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.95
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1579",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1579",
+      "title": "Allegheny child neglect screening tool may harden bias against people with disabilities",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1175",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1175",
+      "title": "Inaccurate auto translation denies Pashto-speaking refugee asylum",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1183",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1183",
+      "title": "Family-Match adoption algorithm fails to live up to promises",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "misinformation_error",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0265",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0265",
+      "title": "UK visa applications streaming",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0267",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0267",
+      "title": "Atlantic Plaza Towers facial recognition plan blasted as privacy intrusion",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0264",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0264",
+      "title": "UK passport check interprets lips as open mouth",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "misinformation_error",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC2074",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC2074",
+      "title": "US government sued over AI-powered social media surveillance of visa holders",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "privacy_breach",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1265",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1265",
+      "title": "Asylum claim rejected by French authorities using Google Bard",
+      "annexDomain": "essential_services",
+      "systemPattern": "llm_decision_support",
+      "rightsImpacted": [
+        "good_administration",
+        "access_social_protection"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1185",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1185",
+      "title": "AI translations jeopardise US asylum applications",
+      "annexDomain": "essential_services",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "misinformation_error",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1018",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1018",
+      "title": "USPS algorithmic system cuts rural letter carrier pay",
+      "annexDomain": "employment",
+      "systemPattern": "not_llm",
+      "rightsImpacted": [
+        "good_administration",
+        "non_discrimination"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0886",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0886",
+      "title": "Allegheny County child neglect screening system",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0863",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0863",
+      "title": "Microsoft Plataforma Tecnológica de Intervención Social",
+      "annexDomain": "essential_services",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC1945",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC1945",
+      "title": "Spanish police arrest six people for USD 20m AI-powered investment scams",
+      "annexDomain": "essential_services",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "misinformation_error",
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.6
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0793",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0793",
+      "title": "South Korea immigration shares travellers' facial data without consent",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0791",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0791",
+      "title": "Wellington International Airport facial recognition trial is exposed",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0777",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0777",
+      "title": "BOSCO electricity subsidy assessment",
+      "annexDomain": "essential_services",
+      "systemPattern": "resource_allocation",
+      "rightsImpacted": [
+        "non_discrimination",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0761",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0761",
+      "title": "Chinese government facial recognition system hacked by tax fraudsters",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0379",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0379",
+      "title": "Deepfake romance scammer swindles California widow",
+      "annexDomain": "essential_services",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach",
+        "misinformation_error"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.7
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/AIAAIC-AIAAIC0339",
+      "source": "AIAAIC",
+      "sourceId": "AIAAIC0339",
+      "title": "Poland forced to scrap unemployed worker profiling system",
+      "annexDomain": "employment",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "non_discrimination",
+        "privacy_data_protection",
+        "good_administration"
+      ],
+      "harmsIdentified": [
+        "unfair_exclusion",
+        "procedural_unfairness"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.9
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Recovery_Engagement_and_Coordination_for_Health_–_Veterans_Enhanced_Treatment_(R",
+      "source": "USFED",
+      "sourceId": "Recovery Engagement and Coordination for Health – Veterans Enhanced Treatment (R",
+      "title": "Recovery Engagement and Coordination for Health – Veterans Enhanced Treatment (R",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.2
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Elastic_Machine_Learning_Threat_Detection_-_Phase_2",
+      "source": "USFED",
+      "sourceId": "Elastic Machine Learning Threat Detection - Phase 2",
+      "title": "Elastic Machine Learning Threat Detection - Phase 2",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.2
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-USA_Class",
+      "source": "USFED",
+      "sourceId": "USA Class",
+      "title": "USA Class",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.1
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-PINGOO.AI",
+      "source": "USFED",
+      "sourceId": "PINGOO.AI",
+      "title": "PINGOO.AI",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.1
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Smart_AI_Bot_Assistant",
+      "source": "USFED",
+      "sourceId": "Smart AI Bot Assistant",
+      "title": "Smart AI Bot Assistant",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.2
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Login.gov",
+      "source": "USFED",
+      "sourceId": "Login.gov",
+      "title": "Login.gov",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.2
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-PreCheck_Touchless_Identity_Solution_(TIS)",
+      "source": "USFED",
+      "sourceId": "PreCheck Touchless Identity Solution (TIS)",
+      "title": "PreCheck Touchless Identity Solution (TIS)",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.3
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Credential_Authentication_Technology_with_Camera_System_(CAT-2)_and_AutoCAT_(CAT",
+      "source": "USFED",
+      "sourceId": "Credential Authentication Technology with Camera System (CAT-2) and AutoCAT (CAT",
+      "title": "Credential Authentication Technology with Camera System (CAT-2) and AutoCAT (CAT",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.2
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-I-765_-_USCIS_Facial_Recognition_through_IDENT_(1:1_Face_Recognition/Validation)",
+      "source": "USFED",
+      "sourceId": "I-765 - USCIS Facial Recognition through IDENT (1:1 Face Recognition/Validation)",
+      "title": "I-765 - USCIS Facial Recognition through IDENT (1:1 Face Recognition/Validation)",
+      "annexDomain": "unknown",
+      "systemPattern": "surveillance_monitor",
+      "rightsImpacted": [
+        "privacy_data_protection"
+      ],
+      "harmsIdentified": [
+        "privacy_breach"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.85
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-CESASolarModel",
+      "source": "USFED",
+      "sourceId": "CESASolarModel",
+      "title": "CESASolarModel",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.5
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-EnergyRightDERPortfolioEvaluation",
+      "source": "USFED",
+      "sourceId": "EnergyRightDERPortfolioEvaluation",
+      "title": "EnergyRightDERPortfolioEvaluation",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.2
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-GET",
+      "source": "USFED",
+      "sourceId": "GET",
+      "title": "GET",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.1
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-GMET",
+      "source": "USFED",
+      "sourceId": "GMET",
+      "title": "GMET",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.1
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-ICI_camera_",
+      "source": "USFED",
+      "sourceId": "ICI camera ",
+      "title": "ICI camera ",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.2
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Hurricane_Score",
+      "source": "USFED",
+      "sourceId": "Hurricane Score",
+      "title": "Hurricane Score",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.2
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Stratification_Tool_for_Opioid_Risk_Mitigation_(STORM)_predictive_model_",
+      "source": "USFED",
+      "sourceId": "Stratification Tool for Opioid Risk Mitigation (STORM) predictive model ",
+      "title": "Stratification Tool for Opioid Risk Mitigation (STORM) predictive model ",
+      "annexDomain": "unknown",
+      "systemPattern": "profiling_scoring",
+      "rightsImpacted": [
+        "unknown"
+      ],
+      "harmsIdentified": [
+        "unknown"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.6
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Care_Assessment_Needs_(CAN)_Score",
+      "source": "USFED",
+      "sourceId": "Care Assessment Needs (CAN) Score",
+      "title": "Care Assessment Needs (CAN) Score",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.3
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Low_Probability_of_False_Alarm_(Low-Pfa)_Algorithm_for_on-person_screening.",
+      "source": "USFED",
+      "sourceId": "Low Probability of False Alarm (Low-Pfa) Algorithm for on-person screening.",
+      "title": "Low Probability of False Alarm (Low-Pfa) Algorithm for on-person screening.",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.5
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-CR_intelligent_search",
+      "source": "USFED",
+      "sourceId": "CR intelligent search",
+      "title": "CR intelligent search",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.2
+    },
+    {
+      "@type": "RiskRecord",
+      "@id": "fria:record/USFED-Materials_tracking",
+      "source": "USFED",
+      "sourceId": "Materials tracking",
+      "title": "Materials tracking",
+      "annexDomain": "unknown",
+      "systemPattern": "unknown",
+      "rightsImpacted": [
+        "other"
+      ],
+      "harmsIdentified": [
+        "other"
+      ],
+      "annotationMethod": "hybrid",
+      "confidence": 0.2
+    }
+  ]
+}
