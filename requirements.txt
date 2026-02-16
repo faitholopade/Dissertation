@@ -1,0 +1,27 @@
+# requirements.txt — FRIA Semantic Framework
+# MSc Dissertation — Faith Olopade, Trinity College Dublin
+# Generated: February 2026
+#
+# Install:  pip install -r requirements.txt
+# Python:   3.12+
+
+# ── Core data ────────────────────────────────────────────────────────────────
+pandas>=2.1
+numpy>=1.26
+
+# ── LLM annotation (Steps 02, 11) ───────────────────────────────────────────
+anthropic>=0.40
+
+# ── Evaluation metrics (Steps 05, 06, 07) ────────────────────────────────────
+scikit-learn>=1.4
+
+# ── Figures (Step 09, 13) ────────────────────────────────────────────────────
+matplotlib>=3.8
+seaborn>=0.13
+
+# ── Knowledge graph (Steps 12, 13, query) ────────────────────────────────────
+rdflib>=7.0
+networkx>=3.2
+
+# ── Interactive KG visualisation (Step 13, optional) ─────────────────────────
+pyvis>=0.3.2
