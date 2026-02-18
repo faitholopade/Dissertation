@@ -1,1 +1,6 @@
-*_pycache/
+__pycache__/
+*.pyc
+.env
+llm_predictions_cache*.jsonl
+*.tmp
+.venv/
