@@ -1,0 +1,117 @@
+#!/usr/bin/env python3
+"""
+run_all.py  –  Run the full dissertation pipeline after cleanup.
+
+This script runs from the project root (Dissertation/) and handles
+all path resolution so the src/ scripts can find data/ and output/.
+
+Usage:
+    python run_all.py          # Run everything
+    python run_all.py --check  # Verify files only, don't run
+"""
+
+import subprocess, sys, os
+
+# Ensure we're in the project root
+ROOT = os.path.dirname(os.path.abspath(__file__))
+os.chdir(ROOT)
+print(f"Working directory: {ROOT}\n")
+
+# ═══════════════════════════════════════════════════════════════
+# STEP 0: Verify all required files exist
+# ═══════════════════════════════════════════════════════════════
+required_files = {
+    "src/01_expand_corpus.py":      "Corpus expansion",
+    "src/02_llm_annotate.py":       "LLM annotation",
+    "src/03_compare_methods.py":    "Method comparison",
+    "src/04_evaluate_gold.py":      "Gold-standard evaluation",
+    "src/05_schema_definition.py":  "Schema generation",
+    "src/06_export_semantic.py":    "JSON-LD export",
+    "src/07_generate_figures.py":   "Figure generation",
+}
+
+required_data = {
+    "data/master_annotation_table_v01.csv":  "Original 90-row master table",
+    "data/master_annotation_table_v05.csv":  "Expanded 150-row master table",
+    "data/aiaaic/AIAAIC_Repository_Incidents.csv": "Full AIAAIC incidents",
+    "data/aiaaic/manual_vs_llm_comparison.csv":    "Gold-standard annotations",
+}
+
+print("=" * 60)
+print("  STEP 0: Checking required files")
+print("=" * 60)
+
+all_ok = True
+for path, desc in {**required_files, **required_data}.items():
+    exists = os.path.exists(path)
+    status = "✅" if exists else "❌"
+    print(f"  {status} {path:50s} {desc}")
+    if not exists:
+        all_ok = False
+
+if not all_ok:
+    print("\n⚠ Some files are missing! Fix before running.")
+    sys.exit(1)
+
+if "--check" in sys.argv:
+    print("\n✅ All files present. Run without --check to execute pipeline.")
+    sys.exit(0)
+
+# ═══════════════════════════════════════════════════════════════
+# PIPELINE STEPS
+# ═══════════════════════════════════════════════════════════════
+steps = [
+    ("STEP 1: Expand corpus → 150 records",        "src/01_expand_corpus.py"),
+    ("STEP 2: LLM annotation (uses cache)",         "src/02_llm_annotate.py"),
+    ("STEP 3: Compare keyword vs LLM methods",      "src/03_compare_methods.py"),
+    ("STEP 4: Gold-standard evaluation",            "src/04_evaluate_gold.py"),
+    ("STEP 5: Generate schema artefacts",           "src/05_schema_definition.py"),
+    ("STEP 6: Export JSON-LD records",              "src/06_export_semantic.py"),
+    ("STEP 7: Generate dissertation figures",       "src/07_generate_figures.py"),
+]
+
+results = []
+for desc, script in steps:
+    print(f"\n{'=' * 60}")
+    print(f"  {desc}")
+    print(f"{'=' * 60}")
+
+    result = subprocess.run(
+        [sys.executable, script],
+        cwd=ROOT,
+    )
+
+    success = result.returncode == 0
+    results.append((desc, success))
+
+    if not success:
+        print(f"\n⚠ {script} failed with exit code {result.returncode}")
+        print("  Stopping pipeline. Fix the error above and re-run.")
+        sys.exit(1)
+
+# ═══════════════════════════════════════════════════════════════
+# FINAL SUMMARY
+# ═══════════════════════════════════════════════════════════════
+print(f"\n{'=' * 60}")
+print(f"  PIPELINE COMPLETE")
+print(f"{'=' * 60}")
+for desc, ok in results:
+    print(f"  {'✅' if ok else '❌'} {desc}")
+
+# Verify outputs exist
+print(f"\n  Output files:")
+outputs = [
+    "output/master_annotation_table_final.csv",
+    "output/master_annotation_table_llm_v2.csv",
+    "output/gold_evaluation_summary.csv",
+    "output/risk_records_v2.jsonld",
+    "schema/fria_risk_schema.jsonld",
+    "schema/fria_risk_schema.ttl",
+]
+for f in outputs:
+    print(f"    {'✅' if os.path.exists(f) else '❌'} {f}")
+
+fig_count = len([f for f in os.listdir("figures") if f.endswith(".png")])
+print(f"    {'✅' if fig_count >= 11 else '❌'} figures/ ({fig_count} PNGs)")
+
+print(f"\n✅ All done! Your dissertation artefacts are ready.")
