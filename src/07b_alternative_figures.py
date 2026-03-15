@@ -1,22 +1,4 @@
-
-"""
-07b_alternative_figures.py
-──────────────────────────
-Generates alternative visualisations for the two figures that
-07_generate_figures.py could not produce due to insufficient data:
-  - fig_rights_agreement.png  →  fig_rights_distribution.png
-  - fig_harms_agreement.png   →  fig_harms_distribution.png
-
-Instead of agreement charts (which require paired annotations),
-these show the *distribution* of rights and harms labels across
-the corpus, which is still informative for Sections 5.2 / 5.3.
-
-Also generates:
-  - fig_rights_by_domain.png  – stacked bar: rights × domain
-  - fig_harms_by_pattern.png  – heatmap: harms × system pattern
-
-Outputs to figures/.
-"""
+# Alternative rights/harms figures (distribution-based, replacing agreement charts).
 
 import os, sys, re
 from pathlib import Path
@@ -47,7 +29,6 @@ def load():
 
 
 def _explode_multi(series, sep=","):
-    """Split multi-label strings and return a flat Counter."""
     c = Counter()
     for val in series.dropna():
         for part in str(val).split(sep):
@@ -57,12 +38,7 @@ def _explode_multi(series, sep=","):
     return c
 
 
-# ── Figure A: Rights distribution across corpus ──────────────
 def fig_rights_distribution(df, gold):
-    """
-    Combine rights labels from gold file and from the LLM v2 table
-    (if a rights column exists) into a single distribution bar chart.
-    """
     rights_counts = Counter()
 
     # Gold file has manual_rights and llm_rights
@@ -108,12 +84,7 @@ def fig_rights_distribution(df, gold):
     print(f"  [OK] {out}")
 
 
-# ── Figure B: Harms distribution ─────────────────────────────
 def fig_harms_distribution(df, gold):
-    """
-    Show distribution of harm categories.  If explicit harms columns
-    are empty, derive harms from system_pattern / domain combinations.
-    """
     harms_counts = Counter()
 
     # Try explicit harms columns
@@ -167,12 +138,7 @@ def fig_harms_distribution(df, gold):
     print(f"  [OK] {out}")
 
 
-# ── Figure C: Rights × Domain cross-tabulation ───────────────
 def fig_rights_by_domain(gold):
-    """
-    Stacked bar showing which rights appear in employment vs essential-services
-    gold cases.
-    """
     if not {"manual_annex_employment", "manual_annex_essential", "manual_rights"}.issubset(gold.columns):
         print("  ⚠  Skipping rights × domain (missing columns)")
         return
@@ -207,12 +173,7 @@ def fig_rights_by_domain(gold):
     print(f"  [OK] {out}")
 
 
-# ── Figure D: Harms × System Pattern heatmap ─────────────────
 def fig_harms_by_pattern(df):
-    """
-    Heatmap showing domain × system pattern (a proxy for harm risk
-    surface area).
-    """
     dom_col = None
     pat_col = None
     for c in ("hybrid_v2_annex_domain", "llm_v2_annex_domain", "annex_domain"):
@@ -248,7 +209,6 @@ def fig_harms_by_pattern(df):
     print(f"  [OK] {out}")
 
 
-# ── main ──────────────────────────────────────────────────────
 def main():
     print("=" * 60)
     print("  STEP 7b: Alternative Rights & Harms Figures")

@@ -1,21 +1,4 @@
-
-"""
-improved_llm_annotate.py – v2 LLM annotation with improved prompts.
-
-Key improvements over v1:
-- Expanded system_pattern taxonomy with concrete definitions
-- Few-shot examples for each pattern category
-- Chain-of-thought reasoning for better domain classification
-- Improved disambiguation between employment and essential_services
-- Explicit instructions to reduce "unknown" rate
-
-Run:
-    python improved_llm_annotate.py
-Inputs:
-    master_annotation_table_v05.csv (or master_annotation_table.csv)
-Outputs:
-    master_annotation_table_llm_v2.csv
-"""
+# LLM annotation with few-shot prompts and chain-of-thought reasoning.
 
 import pandas as pd
 import json, os, sys, time, hashlib
@@ -30,7 +13,6 @@ except ImportError:
 MODEL = "claude-sonnet-4-20250514"
 CACHE_FILE = "output/llm_predictions_cache_v2.jsonl"
 
-# ─── Load cache ─────────────────────────────────────────────────────
 cache = {}
 if os.path.exists(CACHE_FILE):
     with open(CACHE_FILE, "r") as f:
@@ -47,7 +29,6 @@ def save_cache(key, result):
     with open(CACHE_FILE, "a") as f:
         f.write(json.dumps({"key": key, "result": result}) + "\n")
 
-# ─── Improved system prompt ─────────────────────────────────────────
 SYSTEM_PROMPT = """You are an expert legal-technical annotator for an MSc dissertation on the EU AI Act.
 Your task is to classify AI incident/use-case records against the EU AI Act Annex III framework.
 
@@ -173,7 +154,6 @@ Description: The Dutch government used SyRI (System Risk Indication) to detect w
 ]
 
 def annotate_record(title, description, source=""):
-    """Send a single record to the LLM for annotation."""
     user_msg = f"""Incident: {title}
 Source: {source}
 Description: {description[:1500]}"""
@@ -208,7 +188,6 @@ Description: {description[:1500]}"""
         }
 
 def main():
-    # Load input table
     for path in ["data/master_annotation_table_v05.csv", "data/master_annotation_table_v01.csv"]:
         if os.path.exists(path):
             df = pd.read_csv(path)
@@ -218,7 +197,6 @@ def main():
         print("⚠  No master annotation table found!")
         sys.exit(1)
 
-    # Determine columns
     title_col = "title" if "title" in df.columns else df.columns[0]
     desc_cols = [c for c in df.columns if c.lower() in
                  ["description", "desc", "summary", "text", "summary/links"]]
@@ -227,7 +205,6 @@ def main():
 
     source_col = "source" if "source" in df.columns else None
 
-    # Annotate each record
     llm_results = []
     for i, row in df.iterrows():
         title = str(row.get(title_col, ""))
@@ -241,11 +218,9 @@ def main():
         pattern = result.get("system_pattern", "unknown")
         print(f"  [{i+1}/{len(df)}] {source} / {title[:50]} -> {domain} | {pattern}")
 
-        # Rate limiting
         if cache_key(f"Incident: {title}\nSource: {source}\nDescription: {desc[:1500]}") not in cache:
             time.sleep(0.5)
 
-    # Merge results into dataframe
     df["llm_v2_annex_domain"] = [r.get("annex_domain", "unknown") for r in llm_results]
     df["llm_v2_system_pattern"] = [r.get("system_pattern", "unknown") for r in llm_results]
     df["llm_v2_rights"] = [r.get("rights", "other") for r in llm_results]
@@ -253,12 +228,12 @@ def main():
     df["llm_v2_confidence"] = [r.get("confidence", 0) for r in llm_results]
     df["llm_v2_rationale"] = [r.get("rationale", "") for r in llm_results]
 
-    # Build hybrid v2 columns
+    # Build hybrid columns: LLM wins on disagreement, unless LLM says unknown
     df["hybrid_v2_annex_domain"] = df.apply(
         lambda r: r["llm_v2_annex_domain"]
         if r.get("annex_domain") == "unknown" or r.get("annex_domain") == r["llm_v2_annex_domain"]
         else (r.get("annex_domain") if r["llm_v2_annex_domain"] == "unknown"
-              else r["llm_v2_annex_domain"]),  # LLM wins on disagreement
+              else r["llm_v2_annex_domain"]),
         axis=1
     )
     df["hybrid_v2_system_pattern"] = df.apply(
@@ -273,7 +248,6 @@ def main():
     df.to_csv(out_path, index=False)
     print(f"\n[OK] Saved {out_path}")
 
-    # Print summary stats
     print(f"\n-- LLM v2 Domain Distribution --")
     print(df["llm_v2_annex_domain"].value_counts().to_string())
     print(f"\n-- LLM v2 System Pattern Distribution --")
@@ -283,7 +257,6 @@ def main():
     print(f"\n-- Hybrid v2 System Pattern Distribution --")
     print(df["hybrid_v2_system_pattern"].value_counts().to_string())
 
-    # Unknown rates comparison
     print(f"\n-- Unknown Rates --")
     for col_label, col_name in [
         ("Keyword domain", "annex_domain"),

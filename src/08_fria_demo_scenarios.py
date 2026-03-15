@@ -1,20 +1,4 @@
-
-"""
-08_fria_demo_scenarios.py — FRIA-Style Retrieval Demonstrations (Section 5.4)
-─────────────────────────────────────────────────────────────────────────────
-Queries the hybrid-annotated CSV table to surface relevant incidents for
-five hypothetical deployer FRIA scenarios.  Searches across ALL domain,
-pattern, rights, and harms columns (keyword, LLM v2, and hybrid) to
-maximise retrieval recall.
-
-Outputs
-  output/fria_scenario_results.csv    – all matched rows with scenario tags
-  output/fria_scenario_summary.txt    – full human-readable report
-  figures/fig_fria_scenario_hits.png  – bar chart of hits per scenario
-
-Usage
-  python src/08_fria_demo_scenarios.py
-"""
+# FRIA-style retrieval demonstrations (Section 5.4).
 
 import os, sys, csv, textwrap
 from pathlib import Path
@@ -22,7 +6,6 @@ from collections import Counter
 
 import pandas as pd
 
-# ── paths ─────────────────────────────────────────────────────
 BASE = Path(__file__).resolve().parent.parent
 SRC  = Path(__file__).resolve().parent
 
@@ -39,12 +22,7 @@ OUT_TXT = BASE / "output" / "fria_scenario_summary.txt"
 FIG_OUT = BASE / "figures" / "fig_fria_scenario_hits.png"
 
 
-# ══════════════════════════════════════════════════════════════
-#  DATA LOADING
-# ══════════════════════════════════════════════════════════════
-
 def load_table():
-    """Load the best available annotation table (CSV)."""
     for path in CSV_CANDIDATES:
         if path.exists():
             df = pd.read_csv(path).fillna("")
@@ -52,12 +30,6 @@ def load_table():
             return df
     sys.exit("ERROR: No annotation table CSV found. Run steps 1-2 first.")
 
-
-# ══════════════════════════════════════════════════════════════
-#  MULTI-COLUMN SEARCH HELPERS
-#  Each helper checks ALL column variants (keyword, LLM, hybrid)
-#  so a record matches if ANY annotation layer tagged it.
-# ══════════════════════════════════════════════════════════════
 
 DOMAIN_COLS  = ["annex_domain", "llm_annex_domain", "llm_v2_annex_domain",
                 "hybrid_annex_domain", "hybrid_v2_annex_domain"]
@@ -68,7 +40,6 @@ HARMS_COLS   = ["harms", "llm_harms", "llm_v2_harms"]
 
 
 def _any_col_equals(row, col_names, target):
-    """True if any of the listed columns exactly equals `target`."""
     for col in col_names:
         if col in row.index and str(row[col]).strip().lower() == target.lower():
             return True
@@ -76,7 +47,6 @@ def _any_col_equals(row, col_names, target):
 
 
 def _any_col_contains(row, col_names, targets):
-    """True if any column contains any of the target substrings."""
     if isinstance(targets, str):
         targets = [targets]
     for col in col_names:
@@ -90,10 +60,6 @@ def _any_col_contains(row, col_names, targets):
 
 def search_cases(df, annex_domain=None, pattern_contains=None,
                  right_contains=None, harm_contains=None):
-    """
-    Filter the DataFrame using multi-column OR logic.
-    Mirrors the approach in fria_demo.py but extended to v2 columns.
-    """
     out = df.copy()
 
     if annex_domain:
@@ -130,7 +96,6 @@ def search_cases(df, annex_domain=None, pattern_contains=None,
 
 
 def _best_val(row, col_names, fallback="unknown"):
-    """Return first non-empty, non-unknown value from a list of columns."""
     for col in col_names:
         if col in row.index:
             v = str(row[col]).strip().lower()
@@ -139,15 +104,10 @@ def _best_val(row, col_names, fallback="unknown"):
     return fallback
 
 
-# ══════════════════════════════════════════════════════════════
-#  DISPLAY HELPERS
-# ══════════════════════════════════════════════════════════════
-
 SHOW_COLS = ["source", "source_id", "title", "annex_domain",
              "system_pattern", "rights", "harms"]
 
 def _show(subset, report):
-    """Print and log a markdown table of up to 15 hits."""
     cols = [c for c in SHOW_COLS if c in subset.columns]
     # Add hybrid columns if available
     for extra in ["hybrid_v2_annex_domain", "hybrid_v2_system_pattern"]:
@@ -162,7 +122,6 @@ def _show(subset, report):
 
 
 def _show_distributions(subset, report):
-    """Show domain, pattern, and source distributions for a hit set."""
     if subset.empty:
         return
 
@@ -184,10 +143,6 @@ def _show_distributions(subset, report):
         line = f"  Source breakdown:     {dist}"
         print(line); report.append(line)
 
-
-# ══════════════════════════════════════════════════════════════
-#  SCENARIO DEFINITIONS
-# ══════════════════════════════════════════════════════════════
 
 SCENARIOS = [
     {
@@ -278,12 +233,7 @@ SCENARIOS = [
 ]
 
 
-# ══════════════════════════════════════════════════════════════
-#  SCENARIO RUNNER
-# ══════════════════════════════════════════════════════════════
-
 def run_scenarios(df):
-    """Execute all scenarios and return (all_hits_df, report_text, counts)."""
     all_hits   = []
     report     = []
     counts     = {}
@@ -337,7 +287,6 @@ def run_scenarios(df):
         hits["scenario_name"] = sc["name"]
         all_hits.append(hits)
 
-    # ── Summary ───────────────────────────────────────────────
     report.append(f"\n{'=' * 68}")
     report.append("  SCENARIO HIT SUMMARY")
     report.append(f"{'=' * 68}")
@@ -361,10 +310,6 @@ def run_scenarios(df):
 
     return combined, "\n".join(report), counts
 
-
-# ══════════════════════════════════════════════════════════════
-#  FIGURE
-# ══════════════════════════════════════════════════════════════
 
 def make_figure(counts):
     try:
@@ -397,10 +342,6 @@ def make_figure(counts):
     plt.close(fig)
     print(f"  [OK] {FIG_OUT}")
 
-
-# ══════════════════════════════════════════════════════════════
-#  MAIN
-# ══════════════════════════════════════════════════════════════
 
 def main():
     print("=" * 60)

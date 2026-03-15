@@ -1,24 +1,4 @@
-
-"""
-generate_figures_v2.py  –  Generate all dissertation figures.
-
-Produces:
-  fig_domain_distribution.png       – Annex III domain distribution (3 methods)
-  fig_pattern_distribution.png      – System pattern distribution (3 methods)
-  fig_unknown_rates.png             – Unknown rates comparison across methods
-  fig_confusion_domain.png          – Confusion matrix heatmap (domain)
-  fig_confusion_pattern.png         – Confusion matrix heatmap (system pattern)
-  fig_rights_agreement.png          – Per-label agreement for rights
-  fig_harms_agreement.png           – Per-label agreement for harms
-  fig_source_breakdown.png          – Records per data source
-  fig_kappa_summary.png             – Cohen's kappa across all dimensions
-  fig_method_comparison_radar.png   – Radar chart comparing methods
-  fig_pipeline_flow.png             – Annotation pipeline flow diagram
-  fig_rights_harms_heatmap.png      – Co-occurrence of rights × harms
-
-Run:
-    python generate_figures_v2.py
-"""
+# Generate all dissertation figures.
 
 import pandas as pd
 import numpy as np
@@ -31,7 +11,6 @@ from matplotlib.gridspec import GridSpec
 import os, sys, warnings
 warnings.filterwarnings("ignore")
 
-# ─── Style config ────────────────────────────────────────────────────
 plt.rcParams.update({
     "figure.dpi": 150,
     "savefig.dpi": 200,
@@ -42,7 +21,6 @@ plt.rcParams.update({
     "figure.figsize": (10, 6),
 })
 
-# TCD-friendly colour palette
 COLORS = {
     "keyword": "#2C6FAD",
     "llm": "#E07B39",
@@ -53,7 +31,6 @@ PAL = sns.color_palette("Set2", 8)
 
 
 def load_data():
-    """Load the best available annotation table."""
     for path in [
         "output/master_annotation_table_llm_v2.csv",
         "output/master_annotation_table_hybrid.csv",
@@ -69,7 +46,6 @@ def load_data():
 
 
 def fig_domain_distribution(df):
-    """Bar chart comparing domain distribution across methods."""
     fig, axes = plt.subplots(1, 3, figsize=(14, 5), sharey=True)
 
     methods = [
@@ -110,7 +86,6 @@ def fig_domain_distribution(df):
 
 
 def fig_pattern_distribution(df):
-    """Bar chart for system pattern distribution."""
     fig, axes = plt.subplots(1, 3, figsize=(14, 6), sharey=True)
 
     method_cols = [
@@ -144,7 +119,6 @@ def fig_pattern_distribution(df):
 
 
 def fig_unknown_rates(df):
-    """Grouped bar chart of unknown rates across methods."""
     data = {}
 
     for col in df.columns:
@@ -195,7 +169,6 @@ def fig_unknown_rates(df):
 
 
 def fig_confusion_heatmap(df, kw_col, llm_col, title, filename):
-    """Confusion matrix heatmap."""
     if kw_col not in df.columns or llm_col not in df.columns:
         print(f"  ⚠ Skipping {filename}: columns not found")
         return
@@ -218,7 +191,6 @@ def fig_confusion_heatmap(df, kw_col, llm_col, title, filename):
 
 
 def fig_source_breakdown(df):
-    """Pie/bar chart of records per source."""
     if "source" not in df.columns:
         return
 
@@ -245,7 +217,6 @@ def fig_source_breakdown(df):
 
 
 def fig_kappa_summary(df):
-    """Bar chart of Cohen's kappa across all evaluation dimensions."""
     # Try to load evaluation results
     eval_data = []
     for path in ["evaluate_results.csv", "output/gold_evaluation_results.csv"]:
@@ -319,7 +290,6 @@ def fig_kappa_summary(df):
 
 
 def fig_rights_harms_heatmap(df):
-    """Co-occurrence matrix of rights × harms."""
     rights_labels = ["non_discrimination", "privacy_data_protection",
                      "access_social_protection", "good_administration"]
     harms_labels = ["unfair_exclusion", "privacy_breach",
@@ -398,7 +368,6 @@ def fig_rights_harms_heatmap(df):
 
 
 def fig_agreement_bars(df, dimension="rights"):
-    """Per-label agreement bars for rights or harms."""
     if dimension == "rights":
         labels = ["non_discrimination", "privacy_data_protection",
                   "access_social_protection", "good_administration"]
@@ -462,7 +431,6 @@ def fig_agreement_bars(df, dimension="rights"):
 
 
 def fig_pipeline_flow():
-    """Create a pipeline flow diagram."""
     fig, ax = plt.subplots(figsize=(14, 4))
     ax.set_xlim(0, 14)
     ax.set_ylim(0, 4)

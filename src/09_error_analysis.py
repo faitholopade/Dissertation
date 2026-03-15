@@ -1,40 +1,4 @@
-
-"""
-09_error_analysis.py — Comprehensive Error Analysis (Section 5.3)
-─────────────────────────────────────────────────────────────────
-Merges TWO complementary analyses into one pipeline step:
-
-  Part A: Gold-standard (manual) vs all automated methods
-          — from manual_vs_llm_comparison.csv matched against
-            keyword, LLM v2, and hybrid tables
-          — categorises WHY each disagreement occurred
-
-  Part B: Keyword vs LLM on the full 150-row master table
-          — confusion matrices for domain + system pattern
-          — per-label precision / recall / F1
-          — disagreement example extraction
-
-  Part C: Per-label rights and harms agreement
-          — keyword vs LLM on rights and harms multi-label fields
-
-  Part D: Qualitative theme summary
-          — synthesises error patterns into narrative themes
-            suitable for the dissertation discussion
-
-Outputs
-  output/error_analysis_disagreements.csv   – Part A rows
-  output/error_analysis_report.txt          – full text report
-  output/confusion_matrix_domain.csv        – Part B domain CM
-  output/confusion_matrix_pattern.csv       – Part B pattern CM
-  output/disagreement_examples.csv          – Part B domain disagreements
-  output/error_analysis_rights.csv          – Part C rights agreement
-  output/error_analysis_harms.csv           – Part C harms agreement
-  figures/fig_error_categories.png          – Part A bar chart
-  figures/fig_error_heatmap.png             – Part A method × error-type
-
-Usage
-  python src/09_error_analysis.py
-"""
+# 09_error_analysis.py — Error analysis for Section 5.3 (Parts A–D)
 
 import os, sys, csv, textwrap
 from pathlib import Path
@@ -53,7 +17,6 @@ except ImportError:
     print("  ⚠  sklearn not available — Part B metrics will be limited")
 
 
-# ── paths ─────────────────────────────────────────────────────
 BASE = Path(__file__).resolve().parent.parent
 
 GOLD_CSV   = BASE / "data"   / "aiaaic" / "manual_vs_llm_comparison.csv"
@@ -64,18 +27,11 @@ HYBRID_CSV = BASE / "output" / "master_annotation_table_final.csv"
 OUT_DIR = BASE / "output"
 FIG_DIR = BASE / "figures"
 
-
-# ══════════════════════════════════════════════════════════════
-#  PART A: GOLD VS AUTOMATED — CATEGORISED DISAGREEMENTS
-# ══════════════════════════════════════════════════════════════
-
 def _flag(val):
-    """Normalise a boolean-ish field to True/False."""
     return str(val).strip().upper() in ("YES", "TRUE", "1", "Y")
 
 
 def _manual_domain(row):
-    """Derive manual domain label from binary flags."""
     emp = _flag(row.get("manual_annex_employment", ""))
     ess = _flag(row.get("manual_annex_essential", ""))
     if emp and ess:
@@ -88,7 +44,6 @@ def _manual_domain(row):
 
 
 def _pred_domain(emp_val, ess_val):
-    """Derive predicted domain from binary flags."""
     emp = _flag(emp_val)
     ess = _flag(ess_val)
     if emp and ess:
@@ -101,7 +56,6 @@ def _pred_domain(emp_val, ess_val):
 
 
 def categorise_domain_error(manual_domain, pred_domain, method):
-    """Return (category, explanation) for a domain disagreement."""
     if manual_domain == pred_domain:
         return None, None
 
@@ -135,7 +89,6 @@ def categorise_domain_error(manual_domain, pred_domain, method):
 
 
 def _parse_rights(s):
-    """Parse multi-label string into a set."""
     return set(
         t.strip().upper()
         for t in str(s).replace(";", ",").split(",")
@@ -144,7 +97,6 @@ def _parse_rights(s):
 
 
 def categorise_rights_error(manual_str, pred_str, method):
-    """Return (category, explanation) for a rights disagreement."""
     m = _parse_rights(manual_str)
     p = _parse_rights(pred_str)
     if m == p:
@@ -167,7 +119,6 @@ def categorise_rights_error(manual_str, pred_str, method):
 
 
 def _id_col(df):
-    """Find the ID column in a DataFrame."""
     for c in ("AIAAIC_ID", "AIAAIC ID#", "AIAAIC_ID#", "id",
               "record_id", "source_id"):
         if c in df.columns:
@@ -176,10 +127,6 @@ def _id_col(df):
 
 
 def part_a_gold_analysis(gold, kw, llm, hybrid):
-    """
-    Compare manual gold-standard labels against every automated method.
-    Returns (list_of_disagreement_dicts, Counter_of_categories).
-    """
     disagreements = []
     error_counter = Counter()
 
@@ -188,7 +135,6 @@ def part_a_gold_analysis(gold, kw, llm, hybrid):
         title = str(row.get("manual_headline", ""))[:80]
         m_dom = _manual_domain(row)
 
-        # ── Gold vs LLM (from the comparison file itself) ─────
         llm_dom = _pred_domain(
             row.get("llm_annex_employment", ""),
             row.get("llm_annex_essential", ""),
@@ -205,7 +151,6 @@ def part_a_gold_analysis(gold, kw, llm, hybrid):
             })
             error_counter[cat] += 1
 
-        # Rights check
         m_rights = row.get("manual_rights", "")
         l_rights = row.get("llm_rights", "")
         rcat, rexpl = categorise_rights_error(m_rights, l_rights, "LLM_gold")
@@ -221,7 +166,6 @@ def part_a_gold_analysis(gold, kw, llm, hybrid):
             })
             error_counter[rcat] += 1
 
-        # ── Gold vs Keyword / LLM v2 / Hybrid (matched on ID) ─
         for label, ext_df, dom_col in [
             ("keyword", kw,     "annex_domain"),
             ("LLM_v2",  llm,    "llm_v2_annex_domain"),
@@ -250,12 +194,7 @@ def part_a_gold_analysis(gold, kw, llm, hybrid):
     return disagreements, error_counter
 
 
-# ══════════════════════════════════════════════════════════════
-#  PART B: KEYWORD vs LLM — FULL-TABLE CONFUSION MATRICES
-# ══════════════════════════════════════════════════════════════
-
 def _print_confusion(gold, pred, labels, title=""):
-    """Build a confusion matrix DataFrame and print it."""
     if not HAS_SKLEARN:
         return pd.DataFrame()
     cm = confusion_matrix(gold, pred, labels=labels)
@@ -265,7 +204,6 @@ def _print_confusion(gold, pred, labels, title=""):
 
 def analyse_disagreements(df, kw_col, llm_col,
                           title_col="title", desc_col="description"):
-    """Return rows where keyword != LLM."""
     mask = df[kw_col].astype(str) != df[llm_col].astype(str)
     cols = [c for c in [title_col, kw_col, llm_col, desc_col]
             if c in df.columns]
@@ -273,10 +211,6 @@ def analyse_disagreements(df, kw_col, llm_col,
 
 
 def part_b_full_table(df, report):
-    """
-    Keyword vs LLM confusion matrices + classification reports
-    on the full 150-row master table.
-    """
     def log(msg):
         print(msg)
         report.append(msg)
@@ -285,7 +219,6 @@ def part_b_full_table(df, report):
     log("  PART B: KEYWORD vs LLM — FULL-TABLE ANALYSIS (150 rows)")
     log(f"{'=' * 68}")
 
-    # Determine which LLM columns exist
     llm_dom_col = next((c for c in ("llm_v2_annex_domain", "llm_annex_domain")
                         if c in df.columns), None)
     llm_pat_col = next((c for c in ("llm_v2_system_pattern", "llm_system_pattern")
@@ -295,7 +228,6 @@ def part_b_full_table(df, report):
     cm_pattern = pd.DataFrame()
     disag      = pd.DataFrame()
 
-    # ── Domain confusion matrix ───────────────────────────────
     if llm_dom_col and "annex_domain" in df.columns and HAS_SKLEARN:
         domain_labels = ["employment", "essential_services", "unknown"]
         cm_domain = _print_confusion(
@@ -316,7 +248,6 @@ def part_b_full_table(df, report):
         kappa = cohen_kappa_score(df["annex_domain"], df[llm_dom_col])
         log(f"  Cohen's κ (domain): {kappa:.3f}")
 
-        # Domain disagreements
         disag = analyse_disagreements(df, "annex_domain", llm_dom_col)
         log(f"\n  Domain disagreements: {len(disag)} / {len(df)}")
         if not disag.empty:
@@ -328,7 +259,6 @@ def part_b_full_table(df, report):
                     log(f"    Desc:    {desc}...")
                 log("")
 
-    # ── Pattern confusion matrix ──────────────────────────────
     if llm_pat_col and "system_pattern" in df.columns and HAS_SKLEARN:
         pattern_labels = sorted(set(
             df["system_pattern"].tolist() + df[llm_pat_col].tolist()
@@ -354,12 +284,7 @@ def part_b_full_table(df, report):
     return cm_domain, cm_pattern, disag
 
 
-# ══════════════════════════════════════════════════════════════
-#  PART C: PER-LABEL RIGHTS & HARMS AGREEMENT
-# ══════════════════════════════════════════════════════════════
-
 def rights_harms_analysis(df, kw_col, llm_col, all_labels, name, report):
-    """Per-label agreement for multi-label fields (comma/semicolon separated)."""
     if kw_col not in df.columns or llm_col not in df.columns:
         report.append(f"\n  ⚠  Skipping {name} — columns not found")
         return pd.DataFrame()
@@ -394,12 +319,7 @@ def rights_harms_analysis(df, kw_col, llm_col, all_labels, name, report):
     return pd.DataFrame(results)
 
 
-# ══════════════════════════════════════════════════════════════
-#  PART D: QUALITATIVE THEME SYNTHESIS
-# ══════════════════════════════════════════════════════════════
-
 def part_d_themes(error_counter, report):
-    """Build qualitative narrative from error category counts."""
     def log(msg):
         print(msg)
         report.append(msg)
@@ -450,10 +370,6 @@ def part_d_themes(error_counter, report):
         log("     extra rights categories the manual annotator did not flag.")
 
 
-# ══════════════════════════════════════════════════════════════
-#  FIGURES
-# ══════════════════════════════════════════════════════════════
-
 def make_figures(error_counter, disagreements):
     try:
         import matplotlib
@@ -465,7 +381,6 @@ def make_figures(error_counter, disagreements):
 
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-    # ── Figure 1: Error category bar chart ────────────────────
     cats = error_counter.most_common(15)
     if cats:
         labels, values = zip(*cats)
@@ -481,7 +396,6 @@ def make_figures(error_counter, disagreements):
         plt.close(fig)
         print(f"  [OK] {out}")
 
-    # ── Figure 2: Method × error-type heatmap ─────────────────
     if disagreements:
         df = pd.DataFrame(disagreements)
         if "method" in df.columns and "error_category" in df.columns:
@@ -517,18 +431,13 @@ def make_figures(error_counter, disagreements):
             print(f"  [OK] {out}")
 
 
-# ══════════════════════════════════════════════════════════════
-#  MAIN
-# ══════════════════════════════════════════════════════════════
-
 def main():
     print("=" * 60)
     print("  STEP 9: Error Analysis (Section 5.3)")
     print("=" * 60)
 
-    report = []  # accumulate everything for the text report
+    report = []
 
-    # ── Load all data sources ─────────────────────────────────
     gold = pd.read_csv(GOLD_CSV) if GOLD_CSV.exists() else pd.DataFrame()
     print(f"  Gold:    {len(gold)} rows from {GOLD_CSV.name}")
 
@@ -540,7 +449,6 @@ def main():
     if not llm.empty:    print(f"  LLM v2:  {len(llm)} rows")
     if not hybrid.empty: print(f"  Hybrid:  {len(hybrid)} rows")
 
-    # Pick the best full table for Part B
     full_df = hybrid if not hybrid.empty else (llm if not llm.empty else kw)
     full_df = full_df.fillna("")
 
@@ -549,14 +457,12 @@ def main():
     report.append(f"  Gold rows: {len(gold)}   Full table: {len(full_df)} rows")
     report.append("=" * 68)
 
-    # ── Part A ────────────────────────────────────────────────
     report.append(f"\n{'=' * 68}")
     report.append("  PART A: GOLD-STANDARD vs AUTOMATED METHODS")
     report.append(f"{'=' * 68}")
 
     disagreements, error_counter = part_a_gold_analysis(gold, kw, llm, hybrid)
 
-    # Report Part A
     by_method = defaultdict(list)
     for d in disagreements:
         by_method[d["method"]].append(d)
@@ -582,10 +488,8 @@ def main():
     print(f"\n  Part A: {len(disagreements)} total disagreements across "
           f"{len(by_method)} methods")
 
-    # ── Part B ────────────────────────────────────────────────
     cm_domain, cm_pattern, disag = part_b_full_table(full_df, report)
 
-    # ── Part C ────────────────────────────────────────────────
     rights_labels = [
         "privacy_data_protection", "non_discrimination",
         "access_social_protection", "good_administration", "other",
@@ -595,7 +499,6 @@ def main():
         "misinformation_error", "procedural_unfairness", "other",
     ]
 
-    # Find the right column names
     llm_rights_col = next((c for c in ("llm_v2_rights", "llm_rights")
                            if c in full_df.columns), "llm_rights")
     llm_harms_col  = next((c for c in ("llm_v2_harms", "llm_harms")
@@ -614,14 +517,11 @@ def main():
             full_df, kw_harms_col, llm_harms_col, harms_labels, "Harms", report,
         )
 
-    # ── Part D ────────────────────────────────────────────────
     part_d_themes(error_counter, report)
 
-    # ── Save everything ───────────────────────────────────────
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     FIG_DIR.mkdir(parents=True, exist_ok=True)
 
-    # Part A CSV
     if disagreements:
         fields = list(disagreements[0].keys())
         out_a = OUT_DIR / "error_analysis_disagreements.csv"
@@ -631,7 +531,6 @@ def main():
             w.writerows(disagreements)
         print(f"  [OK] {out_a}")
 
-    # Part B CSVs
     if not cm_domain.empty:
         out_b1 = OUT_DIR / "confusion_matrix_domain.csv"
         cm_domain.to_csv(out_b1)
@@ -645,7 +544,6 @@ def main():
         disag.to_csv(out_b3, index=False)
         print(f"  [OK] {out_b3}")
 
-    # Part C CSVs
     if not rights_df.empty:
         out_c1 = OUT_DIR / "error_analysis_rights.csv"
         rights_df.to_csv(out_c1, index=False)
@@ -655,12 +553,10 @@ def main():
         harms_df.to_csv(out_c2, index=False)
         print(f"  [OK] {out_c2}")
 
-    # Full report
     out_report = OUT_DIR / "error_analysis_report.txt"
     out_report.write_text("\n".join(report), encoding="utf-8")
     print(f"  [OK] {out_report}")
 
-    # Figures
     make_figures(error_counter, disagreements)
 
     print(f"\n[OK] Error analysis complete.")

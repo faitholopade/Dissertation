@@ -1,20 +1,5 @@
 
-"""
-evaluate_gold.py  –  Compare Label Studio gold annotations against
-                     keyword, LLM, and hybrid automated annotations.
-
-Expects:
-  - manual_vs_llm_comparison.csv  (Label Studio pilot export with manual labels)
-  - master_annotation_table_llm.csv / _llm_v2.csv  (keyword + LLM labels)
-  - master_annotation_table_hybrid.csv  (hybrid labels)
-
-Run:
-    python evaluate_gold.py
-Outputs:
-    gold_evaluation_results.csv
-    gold_evaluation_summary.csv
-    gold_confusion_matrices.txt
-"""
+# Compare Label Studio gold annotations against keyword, LLM, and hybrid automated annotations.
 
 import pandas as pd
 import numpy as np
@@ -42,7 +27,6 @@ def pct_agree(y1, y2):
 
 
 def normalise_binary(val):
-    """Convert various yes/no/1/0/True/False to 'yes'/'no'."""
     if pd.isna(val):
         return "no"
     val = str(val).strip().lower()
@@ -51,9 +35,7 @@ def normalise_binary(val):
     return "no"
 
 
-# ─── Find gold file ────────────────────────────────────────────
 def find_gold_file():
-    """Search for the manual_vs_llm_comparison.csv file."""
     candidates = [
         "data/aiaaic/manual_vs_llm_comparison.csv",
         "data/aiaaic/manual_vs_llm_comparison.csv",
@@ -63,7 +45,6 @@ def find_gold_file():
         matches = glob.glob(pattern)
         if matches:
             return matches[0]
-    # Recursive search
     for root, dirs, files in os.walk("."):
         for f in files:
             if f == "data/aiaaic/manual_vs_llm_comparison.csv":
@@ -76,7 +57,6 @@ def main():
     print("GOLD-STANDARD EVALUATION: Manual vs Automated Methods")
     print("=" * 60 + "\n")
 
-    # ── Load gold data ──
     gold_path = find_gold_file()
     if not gold_path:
         print("⚠ Could not find manual_vs_llm_comparison.csv!")
@@ -90,9 +70,6 @@ def main():
     results = []
     report_lines = []
 
-    # ── Identify columns explicitly ──
-    # Based on actual file: manual_annex_employment, manual_annex_essential,
-    #   llm_annex_employment, llm_annex_essential, manual_headline, AIAAIC_ID
     manual_emp_col = None
     manual_ess_col = None
     llm_emp_col = None
@@ -102,19 +79,16 @@ def main():
 
     for c in gold.columns:
         cl = c.lower()
-        # Manual columns: must start with 'manual' and NOT be headline/rights
         if cl.startswith("manual") and "employ" in cl:
             manual_emp_col = c
         elif cl.startswith("manual") and ("essential" in cl or "annex_essential" in cl):
             manual_ess_col = c
         elif cl.startswith("manual") and "headline" in cl:
             title_col = c
-        # LLM columns: must start with 'llm'
         elif cl.startswith("llm") and "employ" in cl:
             llm_emp_col = c
         elif cl.startswith("llm") and ("essential" in cl or "annex_essential" in cl):
             llm_ess_col = c
-        # ID column
         elif "aiaaic" in cl and "id" in cl:
             id_col = c
 
@@ -125,9 +99,6 @@ def main():
     print(f"  Title col:             {title_col}")
     print(f"  ID col:                {id_col}\n")
 
-    # ═══════════════════════════════════════════════════════════
-    # PART A: Gold vs LLM (from the comparison file itself)
-    # ═══════════════════════════════════════════════════════════
     print("=" * 60)
     print("PART A: Gold (Manual) vs LLM (from comparison file)")
     print("=" * 60)
@@ -172,14 +143,10 @@ def main():
         print(f"  Essential:  n={len(m)}, agree={pa:.3f}, κ={k:.3f}, F1={f:.3f}")
         report_lines.append(f"Essential (manual vs LLM): agree={pa:.3f}, κ={k:.3f}, F1={f:.3f}")
 
-    # ═══════════════════════════════════════════════════════════
-    # PART B: Gold vs Keyword (matched via AIAAIC_ID)
-    # ═══════════════════════════════════════════════════════════
     print("\n" + "=" * 60)
     print("PART B: Gold (Manual) vs Keyword (matched on AIAAIC_ID)")
     print("=" * 60)
 
-    # Load automated tables
     auto_tables = {}
     for name, candidates in [
         ("keyword", ["data/master_annotation_table_v01.csv"]),
@@ -194,12 +161,10 @@ def main():
 
     def match_and_compare(gold_df, auto_df, auto_name, gold_id_col, auto_id_col,
                           manual_emp, manual_ess, auto_domain_col):
-        """Match gold rows to auto rows by ID and compare domains."""
         if gold_id_col is None or auto_domain_col not in auto_df.columns:
             print(f"  ⚠ Cannot match: missing columns")
             return []
 
-        # Try to find matching ID column in auto table
         auto_id = None
         for c in auto_df.columns:
             if "source_id" in c.lower() or "aiaaic_id" in c.lower():
@@ -208,10 +173,8 @@ def main():
         if auto_id is None and "source_id" in auto_df.columns:
             auto_id = "source_id"
         if auto_id is None:
-            # Try title matching instead
             return match_by_title(gold_df, auto_df, auto_name, manual_emp, manual_ess, auto_domain_col)
 
-        # Normalise IDs
         gold_ids = gold_df[gold_id_col].astype(str).str.strip()
         auto_ids = auto_df[auto_id].astype(str).str.strip()
 
@@ -220,17 +183,14 @@ def main():
         auto_domains = []
 
         for gi, gid in gold_ids.items():
-            # Find matching auto row
             auto_match = auto_df[auto_ids == gid]
             if auto_match.empty:
-                # Try partial match
                 auto_match = auto_df[auto_ids.str.contains(gid, na=False)]
             if auto_match.empty:
                 continue
 
             auto_row = auto_match.iloc[0]
 
-            # Derive gold domain from binary labels
             emp = normalise_binary(gold_df.loc[gi, manual_emp]) if manual_emp else "no"
             ess = normalise_binary(gold_df.loc[gi, manual_ess]) if manual_ess else "no"
 
@@ -259,7 +219,6 @@ def main():
         }
         print(f"  {auto_name} domain: n={len(gold_domains)}, agree={pa:.3f}, κ={k:.3f}")
 
-        # Also print confusion matrix
         labels = sorted(set(gold_domains + auto_domains))
         cm = confusion_matrix(gold_domains, auto_domains, labels=labels)
         print(f"  Confusion matrix (rows=manual, cols={auto_name}):")
@@ -270,7 +229,6 @@ def main():
         return [result]
 
     def match_by_title(gold_df, auto_df, auto_name, manual_emp, manual_ess, auto_domain_col):
-        """Fallback: match by headline/title similarity."""
         if title_col is None:
             return []
         auto_title_col = "title" if "title" in auto_df.columns else None
@@ -313,7 +271,6 @@ def main():
         print(f"  {auto_name} domain (title-matched): n={len(gold_domains)}, agree={pa:.3f}, κ={k:.3f}")
         return [result]
 
-    # Run comparisons against each automated method
     for auto_name, domain_col_options in [
         ("keyword", ["annex_domain"]),
         ("hybrid", ["hybrid_annex_domain", "annex_domain"]),
@@ -334,14 +291,10 @@ def main():
                               manual_emp_col, manual_ess_col, dcol)
         results.extend(r)
 
-    # ═══════════════════════════════════════════════════════════
-    # PART C: Gold vs Keyword (binary employment/essential)
-    # ═══════════════════════════════════════════════════════════
     print("=" * 60)
     print("PART C: Gold (Manual) vs Keyword Hits (from comparison file)")
     print("=" * 60)
 
-    # The gold file has kw_emp_hits, kw_ben_hits which we can threshold
     if "kw_emp_hits" in gold.columns and manual_emp_col:
         kw_emp = (gold["kw_emp_hits"] > 0).map({True: "yes", False: "no"})
         m_emp = gold[manual_emp_col].apply(normalise_binary)
@@ -366,9 +319,6 @@ def main():
         })
         print(f"  Essential (kw_hits>0):  n={len(m_ess)}, agree={pa:.3f}, κ={k:.3f}")
 
-    # ═══════════════════════════════════════════════════════════
-    # SUMMARY
-    # ═══════════════════════════════════════════════════════════
     print("\n" + "=" * 60)
     print("SUMMARY: All Methods vs Gold Standard")
     print("=" * 60)
@@ -379,7 +329,6 @@ def main():
         results_df.to_csv("output/gold_evaluation_results.csv", index=False, encoding="utf-8")
         print("output/gold_evaluation_results.csv")
 
-        # Dissertation-ready summary
         summary_df = results_df.copy()
         summary_df["pct_agree"] = summary_df["pct_agree"].apply(lambda x: f"{x:.1%}")
         summary_df["kappa"] = summary_df["kappa"].apply(lambda x: f"{x:.3f}")
@@ -394,7 +343,6 @@ def main():
         print("⚠ No evaluation results produced!")
         print("  Check that gold file columns match expected format.")
 
-    # Save text report
     with open("output/gold_confusion_matrices.txt", "w", encoding="utf-8") as f:
         f.write("GOLD-STANDARD EVALUATION REPORT\n")
         f.write("=" * 60 + "\n\n")

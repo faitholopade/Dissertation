@@ -1,18 +1,4 @@
-
-"""
-compare_methods_v2.py  –  Extended method comparison for v2 annotations.
-
-Compares keyword vs LLM v2 vs hybrid v2, including the expanded
-system_pattern taxonomy.
-
-Run:
-    python compare_methods_v2.py
-Inputs:
-    master_annotation_table_llm_v2.csv
-Outputs:
-    method_comparison_results_v2.csv
-    master_annotation_table_final.csv
-"""
+# Compare keyword vs LLM vs hybrid annotation methods.
 
 import pandas as pd
 import numpy as np
@@ -32,7 +18,6 @@ def safe_kappa(y1, y2):
 
 
 def compare_single(df, col1, col2, label):
-    """Compare two columns and return metrics."""
     mask = df[col1].notna() & df[col2].notna()
     y1 = df.loc[mask, col1].astype(str).values
     y2 = df.loc[mask, col2].astype(str).values
@@ -66,7 +51,6 @@ def main():
 
     results = []
 
-    # ── Domain comparisons ──
     print("\n" + "=" * 60)
     print("DOMAIN COMPARISONS")
     print("=" * 60)
@@ -81,7 +65,6 @@ def main():
             results.append(r)
             print(f"  {label}: agree={r['pct_agree']:.3f}, κ={r['kappa']:.3f}")
 
-    # ── Pattern comparisons ──
     print("\n" + "=" * 60)
     print("SYSTEM PATTERN COMPARISONS")
     print("=" * 60)
@@ -96,7 +79,6 @@ def main():
             results.append(r)
             print(f"  {label}: agree={r['pct_agree']:.3f}, κ={r['kappa']:.3f}")
 
-    # ── Distribution summaries ──
     print("\n" + "=" * 60)
     print("DISTRIBUTION SUMMARIES")
     print("=" * 60)
@@ -107,7 +89,6 @@ def main():
             print(f"\n{col}:")
             print(df[col].value_counts().to_string())
 
-    # ── Unknown rate improvement ──
     print("\n" + "=" * 60)
     print("UNKNOWN RATE COMPARISON (v1 vs v2)")
     print("=" * 60)
@@ -124,12 +105,10 @@ def main():
         if rates:
             print(f"  {dim}: " + " → ".join(f"{k}: {v}" for k, v in rates.items()))
 
-    # Save results
     results_df = pd.DataFrame(results)
     results_df.to_csv("output/method_comparison_results_v2.csv", index=False)
     print(f"output/method_comparison_results_v2.csv")
 
-    # Save final combined table
     df.to_csv("output/master_annotation_table_final.csv", index=False)
     print(f"[OK] Saved master_annotation_table_final.csv ({len(df)} rows)")
 

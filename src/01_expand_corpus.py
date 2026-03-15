@@ -1,20 +1,8 @@
-"""
-expand_corpus_final.py  –  Definitively expand corpus to ≥150 records.
-
-Reads AIAAIC Repository - Incidents.csv (header on ROW 1, not row 0),
-deduplicates against your existing master_annotation_table.csv,
-and adds ~40 new high-relevance AIAAIC records.
-
-Run:
-    python expand_corpus_final.py
-"""
+# Expand corpus to >=150 records by adding deduplicated AIAAIC entries.
 
 import pandas as pd
 import re, os, sys
 
-# ═══════════════════════════════════════════════════════════════
-# 1. LOAD EXISTING MASTER TABLE
-# ═══════════════════════════════════════════════════════════════
 if not os.path.exists("data/master_annotation_table_v01.csv"):
     print("⚠ master_annotation_table.csv not found!")
     sys.exit(1)
@@ -23,16 +11,11 @@ master = pd.read_csv("data/master_annotation_table_v01.csv", encoding="utf-8")
 print(f"Existing master: {len(master)} rows")
 print(f"  Sources: {master['source'].value_counts().to_dict()}")
 
-# Collect ALL existing titles for dedup (lowercase, stripped)
 used_titles = set(master["title"].astype(str).str.strip().str.lower())
 print(f"  Unique titles: {len(used_titles)}")
 
-# ═══════════════════════════════════════════════════════════════
-# 2. LOAD AIAAIC CSV (header=1 because row 0 is a merged banner)
-# ═══════════════════════════════════════════════════════════════
 aiaaic_path = "data/aiaaic/AIAAIC_Repository_Incidents.csv"
 if not os.path.exists(aiaaic_path):
-    # Try alternate name
     import glob
     matches = glob.glob("*AIAAIC*Incidents*.csv")
     if matches:
@@ -46,12 +29,8 @@ aiaaic = pd.read_csv(aiaaic_path, header=1, encoding="utf-8",
 print(f"\nAIAAIC CSV: {len(aiaaic)} rows")
 print(f"  Columns: {list(aiaaic.columns[:8])}")
 
-# Verify we got the right header
 assert "Headline" in aiaaic.columns, f"Expected 'Headline' column, got: {list(aiaaic.columns[:5])}"
 
-# ═══════════════════════════════════════════════════════════════
-# 3. KEYWORD SCORING (Annex III relevance)
-# ═══════════════════════════════════════════════════════════════
 EMPLOYMENT_KW = [
     "employment", "employee", "worker", "workforce", "recruitment", "hiring",
     "applicant", "candidate", "cv", "resume", "hr ", "human resources",
@@ -91,13 +70,9 @@ def score_row(row):
 
 aiaaic["_score"] = aiaaic.apply(score_row, axis=1)
 
-# ═══════════════════════════════════════════════════════════════
-# 4. DEDUPLICATE (fuzzy title matching)
-# ═══════════════════════════════════════════════════════════════
 def is_duplicate(headline):
-    """Check if headline matches any existing title."""
     if not isinstance(headline, str) or not headline.strip():
-        return True  # skip blank rows
+        return True
     h = headline.strip().lower()
     for et in used_titles:
         if h[:35] == et[:35]:
@@ -119,10 +94,6 @@ print(f"    Score 3: {(candidates['_score'] == 3).sum()}")
 print(f"    Score 2: {(candidates['_score'] == 2).sum()}")
 print(f"    Score 1: {(candidates['_score'] == 1).sum()}")
 
-# ═══════════════════════════════════════════════════════════════
-# 5. SELECT TOP 40 NEW RECORDS
-# ═══════════════════════════════════════════════════════════════
-# Take highest-scoring that aren't dupes, ensuring variety
 target = 40
 expansion = candidates.head(target)
 
@@ -132,9 +103,6 @@ print(f"\n  Selected records:")
 for i, (_, row) in enumerate(expansion.iterrows()):
     print(f"    [{row['_score']}] {str(row['AIAAIC ID#']):12s} {str(row['Headline'])[:70]}")
 
-# ═══════════════════════════════════════════════════════════════
-# 6. ANNOTATE NEW RECORDS
-# ═══════════════════════════════════════════════════════════════
 PATTERN_RULES = {
     "profiling_scoring": ["profil", "scor", "risk assess", "credit scor",
         "fraud detect", "anomaly", "predictive polic", "recidivism", "predict"],
@@ -193,7 +161,6 @@ for _, row in expansion.iterrows():
         str(row.get("Issue(s)", "")),
         str(row.get("Technology(ies)", "")),
     ])
-    # Also grab Summary/links for the description
     summary = str(row.get("Summary/links", ""))
     desc = full_text
     if summary and summary != "nan":
@@ -209,19 +176,15 @@ for _, row in expansion.iterrows():
         "rights": annotate_rights(full_text),
         "harms": annotate_harms(full_text),
         "actor_role": "deployer",
-        "notes": "Auto annotation v0.5 expansion",
+        "notes": "rule-based annotation",
     })
 
-# ═══════════════════════════════════════════════════════════════
-# 7. COMBINE: existing master + new AIAAIC + USFED expansion
-# ═══════════════════════════════════════════════════════════════
 all_rows = list(master.to_dict("records"))
 
-# Add new AIAAIC
 all_rows.extend(new_rows)
 print(f"\n  Added {len(new_rows)} new AIAAIC records")
 
-# Add USFED expansion if it exists and rows aren't already present
+# Add USFED expansion if available
 if os.path.exists("data/usfed/usfed_expansion.csv"):
     usfed = pd.read_csv("data/usfed/usfed_expansion.csv", encoding="utf-8", low_memory=False)
     existing_titles_now = {r["title"].strip().lower() for r in all_rows if "title" in r}
@@ -243,7 +206,7 @@ if os.path.exists("data/usfed/usfed_expansion.csv"):
                 "rights": annotate_rights(full_text),
                 "harms": annotate_harms(full_text),
                 "actor_role": "deployer",
-                "notes": "Auto annotation v0.5 USFED expansion",
+                "notes": "rule-based annotation",
             })
             added_usfed += 1
     print(f"  Added {added_usfed} new USFED records")

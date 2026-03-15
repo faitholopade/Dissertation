@@ -1,29 +1,10 @@
 
-"""
-schema_definition.py  –  Generate formal schema artefacts for the dissertation.
-
-Outputs:
-  1. fria_risk_schema.jsonld     – JSON-LD context defining the ontology
-  2. fria_risk_schema.ttl        – Turtle/OWL serialisation
-  3. schema_documentation.md     – Human-readable schema docs for Chapter 4
-
-The schema aligns with:
-  - DPV (Data Privacy Vocabulary) v2 – https://w3id.org/dpv
-  - VAIR (Vocabulary for AI Risk) – https://w3id.org/vair
-  - AIRO (AI Risk Ontology) – https://w3id.org/airo
-  - EU AI Act Annex III categories
-
-Run:
-    python schema_definition.py
-"""
+# Generate formal schema artefacts (JSON-LD, Turtle/OWL, docs) for the FRIA risk ontology.
 
 import json, os
 
-# ─── JSON-LD Context ─────────────────────────────────────────────────
-
 JSONLD_CONTEXT = {
     "@context": {
-        # Namespace prefixes
         "fria": "https://example.org/fria-risk-schema#",
         "dpv": "https://w3id.org/dpv#",
         "dpv-risk": "https://w3id.org/dpv/risk#",
@@ -39,7 +20,6 @@ JSONLD_CONTEXT = {
         "owl": "http://www.w3.org/2002/07/owl#",
         "skos": "http://www.w3.org/2004/02/skos/core#",
 
-        # Core record properties
         "RiskRecord": "fria:RiskRecord",
         "source": {"@id": "dct:source", "@type": "xsd:string"},
         "sourceId": {"@id": "dct:identifier", "@type": "xsd:string"},
@@ -47,7 +27,6 @@ JSONLD_CONTEXT = {
         "description": {"@id": "dct:description", "@type": "xsd:string"},
         "dateRecorded": {"@id": "dct:date", "@type": "xsd:date"},
 
-        # AI Act alignment
         "annexDomain": {
             "@id": "fria:annexDomain",
             "@type": "@vocab",
@@ -58,7 +37,6 @@ JSONLD_CONTEXT = {
             }
         },
 
-        # System characterisation
         "systemPattern": {
             "@id": "fria:systemPattern",
             "@type": "@vocab",
@@ -76,7 +54,6 @@ JSONLD_CONTEXT = {
             }
         },
 
-        # Fundamental rights (aligned with EU Charter + DPV)
         "rightsImpacted": {
             "@id": "fria:rightsImpacted",
             "@container": "@set",
@@ -89,7 +66,6 @@ JSONLD_CONTEXT = {
             }
         },
 
-        # Harms (aligned with DPV Risk extension)
         "harmsIdentified": {
             "@id": "fria:harmsIdentified",
             "@container": "@set",
@@ -102,7 +78,6 @@ JSONLD_CONTEXT = {
             }
         },
 
-        # Actor roles
         "actorRole": {
             "@id": "fria:actorRole",
             "@type": "@vocab",
@@ -113,7 +88,6 @@ JSONLD_CONTEXT = {
             }
         },
 
-        # Annotation metadata
         "annotationMethod": {
             "@id": "fria:annotationMethod",
             "@type": "@vocab",
@@ -130,8 +104,6 @@ JSONLD_CONTEXT = {
 }
 
 
-# ─── Turtle / OWL Schema ────────────────────────────────────────────
-
 TURTLE_SCHEMA = """@prefix fria: <https://example.org/fria-risk-schema#> .
 @prefix dpv: <https://w3id.org/dpv#> .
 @prefix dpv-risk: <https://w3id.org/dpv/risk#> .
@@ -144,7 +116,6 @@ TURTLE_SCHEMA = """@prefix fria: <https://example.org/fria-risk-schema#> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-# ── Ontology header ────────────────────────────────────────────
 <https://example.org/fria-risk-schema>
     a owl:Ontology ;
     dct:title "FRIA Risk Record Schema"@en ;
@@ -155,14 +126,12 @@ TURTLE_SCHEMA = """@prefix fria: <https://example.org/fria-risk-schema#> .
     rdfs:seeAlso <https://w3id.org/dpv/legal/eu/aiact> ,
                  <https://w3id.org/vair> .
 
-# ── Core class ─────────────────────────────────────────────────
 fria:RiskRecord
     a owl:Class ;
     rdfs:label "Risk Record"@en ;
     rdfs:comment "A single documented AI incident or use case annotated for fundamental rights risk assessment."@en ;
     rdfs:subClassOf dpv-risk:RiskAssessment .
 
-# ── Properties ─────────────────────────────────────────────────
 fria:annexDomain
     a owl:ObjectProperty ;
     rdfs:label "Annex III Domain"@en ;
@@ -204,7 +173,6 @@ fria:confidence
     rdfs:domain fria:RiskRecord ;
     rdfs:range xsd:float .
 
-# ── Annex III Domain individuals ───────────────────────────────
 fria:AnnexDomain a owl:Class ;
     rdfs:label "Annex III Domain"@en .
 
@@ -222,7 +190,6 @@ fria:EssentialServices
     rdfs:comment "AI systems evaluating eligibility for public assistance, healthcare, benefits; credit scoring; emergency dispatch (Art. 6(2), Annex III(5a))."@en ;
     owl:sameAs aiact:HighRiskAI-EssentialServices .
 
-# ── System Pattern individuals ─────────────────────────────────
 fria:SystemPattern a owl:Class ;
     rdfs:label "AI System Pattern"@en ;
     rdfs:comment "Taxonomy of AI system architectures relevant to risk assessment."@en .
@@ -263,7 +230,6 @@ fria:TraditionalML a fria:SystemPattern ;
     rdfs:label "Traditional ML (non-LLM)"@en ;
     rdfs:comment "System using conventional machine learning without LLM components."@en .
 
-# ── Annotation Method individuals ──────────────────────────────
 fria:AnnotationMethod a owl:Class ;
     rdfs:label "Annotation Method"@en .
 
@@ -284,8 +250,6 @@ fria:ManualAnnotation a fria:AnnotationMethod ;
     rdfs:comment "Human expert annotation via Label Studio."@en .
 """
 
-
-# ─── Schema documentation for Chapter 4 ─────────────────────────────
 
 SCHEMA_DOCS = """# FRIA Risk Record Schema – Design Documentation
 
@@ -366,8 +330,6 @@ be validated against this schema using standard JSON-LD processors.
 """
 
 
-# ─── Example record ──────────────────────────────────────────────────
-
 EXAMPLE_RECORD = {
     "@context": JSONLD_CONTEXT["@context"],
     "@type": "RiskRecord",
@@ -404,8 +366,6 @@ def main():
         json.dump(EXAMPLE_RECORD, f, indent=2)
     print("schema/example_risk_record.jsonld")
 
-
-    # 5. Updated export function (replaces export_semantic.py)
     print("\n  To re-export all records with the new schema, run:")
     print("    python export_semantic_v2.py")
 

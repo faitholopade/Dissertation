@@ -1,19 +1,4 @@
-
-"""
-run_all.py  –  Run the complete dissertation pipeline end-to-end.
-
-Execute this from your Dissertation directory:
-    python run_all.py
-
-Pipeline order:
-  1. expand_corpus.py        → Expand to ≥150 records
-  2. improved_llm_annotate.py → Re-annotate with v2 prompts (needs OpenAI key)
-  3. compare_methods_v2.py   → Compare all methods
-  4. evaluate_gold.py        → Gold-standard evaluation
-  5. schema_definition.py    → Generate schema artefacts
-  6. export_semantic_v2.py   → Export JSON-LD
-  7. generate_figures_v2.py  → Generate all figures
-"""
+# run_all.py — Run the complete dissertation pipeline end-to-end
 
 import subprocess, sys, os
 
