@@ -111,11 +111,11 @@ def main():
     # Save comparison CSV
     out_df = pd.DataFrame(results)
     out_df.to_csv("method_comparison_results.csv", index=False)
-    print(f"\n✅ Saved method_comparison_results.csv")
+    print(f"\n[OK] Saved method_comparison_results.csv")
 
     # Save enriched table with hybrid columns
     df.to_csv("master_annotation_table_hybrid.csv", index=False)
-    print(f"✅ Saved master_annotation_table_hybrid.csv")
+    print(f"[OK] Saved master_annotation_table_hybrid.csv")
 
 
 if __name__ == "__main__":

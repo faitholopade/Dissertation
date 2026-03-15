@@ -149,7 +149,7 @@ def main():
     if all_results:
         out = pd.DataFrame(all_results)
         out.to_csv("evaluate_results.csv", index=False)
-        print(f"\n✅ Saved evaluate_results.csv with {len(out)} rows")
+        print(f"\n[OK] Saved evaluate_results.csv with {len(out)} rows")
 
 
 if __name__ == "__main__":

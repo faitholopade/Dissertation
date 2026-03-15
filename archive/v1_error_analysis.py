@@ -140,9 +140,9 @@ def main():
     with open("error_analysis_report.txt", "w", encoding="utf-8") as f:
         f.write("\n".join(report_lines))
 
-    print(f"\n✅ Saved: confusion_matrix_domain.csv, confusion_matrix_pattern.csv")
-    print(f"✅ Saved: disagreement_examples.csv, error_analysis_report.txt")
-    print(f"✅ Saved: error_analysis_rights.csv, error_analysis_harms.csv")
+    print(f"\n[OK] Saved: confusion_matrix_domain.csv, confusion_matrix_pattern.csv")
+    print(f"[OK] Saved: disagreement_examples.csv, error_analysis_report.txt")
+    print(f"[OK] Saved: error_analysis_rights.csv, error_analysis_harms.csv")
 
 
 if __name__ == "__main__":
