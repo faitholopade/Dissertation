@@ -1,17 +1,8 @@
-"""
-run_steps_11_12.py  —  Run chain-of-events extraction + knowledge graph build.
-
-Can be run from anywhere — scripts auto-resolve the project root.
-
-Usage:
-    python run_steps_11_12.py                 (from src/)
-    python src/run_steps_11_12.py             (from project root)
-"""
+# Run steps 11 (causal extraction) and 12 (knowledge graph) in sequence
 
 import subprocess, sys, os
 from pathlib import Path
 
-# Auto-resolve project root
 SCRIPT_DIR = Path(__file__).resolve().parent
 if SCRIPT_DIR.name == "src":
     PROJECT_ROOT = SCRIPT_DIR.parent
@@ -24,7 +15,6 @@ os.chdir(PROJECT_ROOT)
 print(f"Project root: {PROJECT_ROOT}")
 
 def run(label, script_name):
-    # Try src/ first, then current dir
     script = SRC_DIR / script_name
     if not script.exists():
         script = PROJECT_ROOT / script_name

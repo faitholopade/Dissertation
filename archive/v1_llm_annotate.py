@@ -1,10 +1,4 @@
-"""
-llm_annotate.py — LLM-assisted annotation using Claude (v0.4).
-
-Changes from v0.3:
-  - Updated Example 1 few-shot to reinforce unemployment → essential_services.
-  - Added Example 4 showing good_administration rights.
-"""
+# LLM-assisted annotation using Claude
 
 import json
 import time
@@ -17,13 +11,11 @@ from schema import (
     AnnexDomain, SystemPattern, RightCategory, HarmCategory,
 )
 
-# ── Config ────────────────────────────────────────────────────
 client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 MODEL_NAME = "claude-sonnet-4-20250514"
 MAX_RETRIES = 3
-RETRY_DELAY = 5  # seconds
+RETRY_DELAY = 5
 
-# ── Few-shot examples ─────────────────────────────────────────
 FEW_SHOT_EXAMPLES = """
 EXAMPLE 1:
 TEXT: "Sweden's social insurance agency Försäkringskassan used a prediction algorithm to flag welfare fraud. The system was found to discriminate against women and migrants, applying higher scrutiny to these groups. Privacy advocates raised concerns about surveillance of benefit recipients."

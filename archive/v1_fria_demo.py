@@ -1,17 +1,10 @@
-"""
-fria_demo.py — FRIA-style retrieval demonstrations (v0.3).
-
-Queries the hybrid-annotated table to surface relevant incidents
-for hypothetical deployer scenarios. Uses LLM-enriched labels
-when available for richer retrieval.
-"""
+# FRIA-style retrieval demos — query annotated incidents by scenario
 
 import os
 import pandas as pd
 
 
 def load_table() -> pd.DataFrame:
-    """Load the best available annotation table."""
     for path in ["master_annotation_table_hybrid.csv",
                   "master_annotation_table_llm.csv",
                   "master_annotation_table.csv"]:
@@ -22,7 +15,6 @@ def load_table() -> pd.DataFrame:
 
 
 def _best_domain(row):
-    """Return hybrid domain if available, else keyword domain."""
     if "hybrid_annex_domain" in row.index:
         return row["hybrid_annex_domain"]
     if "llm_annex_domain" in row.index and row.get("annex_domain") == "unknown":
@@ -40,7 +32,6 @@ def search_cases(
     out = df.copy()
 
     if annex_domain:
-        # Search across keyword, LLM, and hybrid domain columns
         domain_cols = [c for c in ["annex_domain", "llm_annex_domain", "hybrid_annex_domain"]
                        if c in out.columns]
         mask = pd.Series(False, index=out.index)
@@ -87,7 +78,6 @@ def _show(subset, extra_cols=None):
 
 
 def scenario_1():
-    """Deployer building an LLM chatbot for welfare eligibility queries."""
     print("\n" + "=" * 70)
     print("SCENARIO 1: Welfare eligibility chatbot — privacy risks")
     print("=" * 70)
@@ -100,7 +90,6 @@ def scenario_1():
 
 
 def scenario_2():
-    """Deployer procuring an LLM-based CV screening tool."""
     print("\n" + "=" * 70)
     print("SCENARIO 2: LLM-assisted recruitment screening — discrimination")
     print("=" * 70)
@@ -113,7 +102,6 @@ def scenario_2():
 
 
 def scenario_3():
-    """Cross-cutting: any incident involving an LLM pattern."""
     print("\n" + "=" * 70)
     print("SCENARIO 3: All LLM-related incidents (any domain)")
     print("=" * 70)
@@ -123,7 +111,6 @@ def scenario_3():
 
 
 def scenario_4():
-    """Any record flagged for unfair exclusion / bias."""
     print("\n" + "=" * 70)
     print("SCENARIO 4: Unfair exclusion / bias harms (any domain)")
     print("=" * 70)
@@ -133,7 +120,6 @@ def scenario_4():
 
 
 def scenario_5():
-    """Misinformation / hallucination risks in essential services."""
     print("\n" + "=" * 70)
     print("SCENARIO 5: Misinformation risks in essential services")
     print("=" * 70)

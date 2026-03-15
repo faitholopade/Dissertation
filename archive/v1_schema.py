@@ -1,11 +1,4 @@
-"""
-schema.py — Semantic schema for the dissertation annotation pipeline.
-
-Defines enums for Annex III domains, actor roles, system patterns,
-rights categories, harm categories, and a RiskRecord dataclass.
-
-v0.3 — Added DPV/VAIR vocabulary alignment maps for JSON-LD export.
-"""
+# Schema definitions for the annotation pipeline
 
 from dataclasses import dataclass
 from enum import Enum
@@ -13,8 +6,8 @@ from typing import List, Dict, Any
 
 
 class AnnexDomain(Enum):
-    EMPLOYMENT         = "employment"          # Annex III(4)
-    ESSENTIAL_SERVICES = "essential_services"   # Annex III(5a)
+    EMPLOYMENT         = "employment"
+    ESSENTIAL_SERVICES = "essential_services"
     UNKNOWN            = "unknown"
 
 class ActorRole(Enum):
@@ -45,9 +38,7 @@ class HarmCategory(Enum):
     OTHER                  = "other"
 
 
-# ── Vocabulary alignment maps ─────────────────────────────────
-# Maps local enum values → published DPV / VAIR / EU-Rights URIs
-
+# Vocabulary alignment maps (DPV / VAIR / EU-Rights URIs)
 DOMAIN_URI_MAP = {
     "employment":         "https://w3id.org/vair#Employment",
     "essential_services": "https://w3id.org/vair#EssentialPublicServices",
@@ -85,7 +76,6 @@ HARM_URI_MAP = {
     "other":                 "https://w3id.org/dpv/risk#Harm",
 }
 
-# ── Standard JSON-LD @context ─────────────────────────────────
 JSONLD_CONTEXT = {
     "@vocab":    "https://w3id.org/vair#",
     "vair":      "https://w3id.org/vair#",
@@ -134,7 +124,6 @@ class RiskRecord:
         }
 
     def to_jsonld(self, base_iri: str = "https://example.org/risk-record/") -> Dict[str, Any]:
-        """Export as JSON-LD node with vocabulary-aligned URIs."""
         rec_id = (self.source_id or "unknown").replace(" ", "_")
         return {
             "@context":      JSONLD_CONTEXT,

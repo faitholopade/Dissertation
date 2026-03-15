@@ -1,18 +1,4 @@
-"""
-Hybrid experiment for AIAAIC selection:
-- Step 3: Scale + rank keyword-filtered candidates (Top 10/30/50/100 exports)
-- Step 4: LLM-assisted selection on the manually annotated subset (Label Studio JSON)
-          + compare manual vs LLM results.
-
-Inputs:
-- AIAAIC Repository - Incidents.csv
-- Label Studio export JSON (manual annotations)
-
-Outputs:
-- aiaaic_ranked_top10.csv / top30 / top50 / top100
-- llm_predictions_cache.jsonl (cache)
-- manual_vs_llm_comparison.csv
-"""
+# Hybrid keyword + LLM experiment for AIAAIC selection and ranking
 
 import os
 import json
@@ -23,10 +9,6 @@ from typing import Dict, Any, List, Optional
 import pandas as pd
 from openai import OpenAI
 
-
-# ----------------------------
-# Config
-# ----------------------------
 
 AIAAIC_CSV = "AIAAIC Repository - Incidents.csv"
 
@@ -39,13 +21,10 @@ RANKED_PREFIX = "aiaaic_ranked_top"
 TOP_K_EXPORTS = [10, 30, 50, 100]
 LLM_MAX_ITEMS = 40  # protect against accidental big spend
 
-MODEL_NAME = os.getenv("OPENAI_MODEL", "gpt-4o-mini")  # good default, cheap-ish
+MODEL_NAME = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 TEMPERATURE = 0
 
 
-# ----------------------------
-# Keyword lists (refined)
-# ----------------------------
 
 EMPLOYMENT_KWS = [
     "employ", "employment", "employer", "employee", "employees",
@@ -93,9 +72,6 @@ LLM_KWS = [
 ]
 
 
-# ----------------------------
-# AIAAIC load + normalize
-# ----------------------------
 
 def normalize(col: str) -> str:
     mapping = {
@@ -157,9 +133,6 @@ def matches_emp_or_benefit(row: pd.Series) -> bool:
     return (count_hits(t, EMPLOYMENT_KWS) > 0) or (count_hits(t, BENEFITS_KWS) > 0)
 
 
-# ----------------------------
-# Step 3: rank candidates
-# ----------------------------
 
 def build_ranked_candidates(df: pd.DataFrame) -> pd.DataFrame:
     broad = df[df.apply(matches_emp_or_benefit, axis=1) & df.apply(is_public_sector, axis=1)].copy()
@@ -182,12 +155,8 @@ def build_ranked_candidates(df: pd.DataFrame) -> pd.DataFrame:
     return broad
 
 
-# ----------------------------
-# Manual annotations loader (Label Studio JSON) + normalization
-# ----------------------------
 
 def normalize_manual_choice(choice: str, which: str) -> str:
-    """Map Label Studio UI choice -> 'Yes'/'No'."""
     if not isinstance(choice, str):
         return ""
     c = choice.strip().lower()
@@ -256,9 +225,6 @@ def load_labelstudio_manual(json_path: str) -> pd.DataFrame:
     return df[df["AIAAIC_ID"].str.len() > 0].copy()
 
 
-# ----------------------------
-# OpenAI call (Chat Completions JSON mode) + caching
-# ----------------------------
 
 def openai_client() -> OpenAI:
     return OpenAI()
@@ -315,7 +281,6 @@ annex_iii_4_employment, annex_iii_5a_essential_services, rights, confidence, rat
 """
 
 def validate_prediction(obj: Dict[str, Any]) -> Dict[str, Any]:
-    """Coerce/validate output into expected schema."""
     def yesno(x):
         if isinstance(x, str):
             xl = x.strip().lower()
@@ -358,7 +323,6 @@ def validate_prediction(obj: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 def llm_classify(client: OpenAI, headline: str, summary: str, issues: str) -> Dict[str, Any]:
-    # Chat Completions JSON mode (stable across SDK versions)
     resp = client.chat.completions.create(
         model=MODEL_NAME,
         temperature=TEMPERATURE,
@@ -393,9 +357,6 @@ def safe_llm_call(client: OpenAI, aiaaic_id: str, headline: str, summary: str, i
     raise RuntimeError(f"LLM call failed after {max_retries} retries for {aiaaic_id}")
 
 
-# ----------------------------
-# Main
-# ----------------------------
 
 def main():
     df = load_aiaaic()
@@ -420,7 +381,7 @@ def main():
 
     merged = manual.merge(ranked, how="left", on="AIAAIC_ID", suffixes=("_manual", ""))
 
-    # Headline fallback for rows not matched by ID
+    # Fallback: match by headline if ID didn't work
     missing = merged["Headline"].isna()
     if missing.any():
         lookup = ranked.set_index("headline_norm")

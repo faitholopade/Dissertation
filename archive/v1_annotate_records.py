@@ -1,13 +1,4 @@
-"""
-annotate_records.py — Rule-based annotation pipeline (v0.4).
-
-Changes from v0.3:
-  Fix 1: ECtHR column names (case_name, application_number) + fallback ID.
-  Fix 2: Moved "unemployment" from EMPLOYMENT_KWS to BENEFIT_KWS;
-         check BENEFIT_KWS first so unemployment → essential_services.
-  Fix 3: Added misinformation keywords (error, wrong, faulty, flawed, unreliable).
-  Fix 4: Added good_administration keywords + keyword-driven rights detection.
-"""
+# Rule-based annotation pipeline for building the master annotation table
 
 import os
 import pandas as pd
@@ -17,7 +8,6 @@ from schema import (
     RightCategory, HarmCategory,
 )
 
-# ── Paths ─────────────────────────────────────────────────────
 AIAAIC_DIR = "AIAAIC (AI, algorithmic and automation incidents and controversies)"
 USFED_DIR  = "Federal AI Use Case Inventory"
 ECHR_DIR   = "European Court of Human Rights"
@@ -29,9 +19,6 @@ USFED_SUBSET   = os.path.join(USFED_DIR, "us_federal_subset_first10.csv")
 ECHR_CSV       = os.path.join(ECHR_DIR, "case_law_subset.csv")
 OUTPUT_CSV     = "master_annotation_table.csv"
 
-# ── Keyword sets ──────────────────────────────────────────────
-
-# FIX 2: Removed "unemployment" — it belongs in BENEFIT_KWS
 EMPLOYMENT_KWS = [
     "employment", "employ", "employer", "employee", "employees",
     "worker", "workers", "workforce", "staff", "staffing",
@@ -45,7 +32,6 @@ EMPLOYMENT_KWS = [
     "human resources", "hr screening", "job",
 ]
 
-# FIX 2: "unemployment" lives here; also added policing, fraud, child protection
 BENEFIT_KWS = [
     "benefit", "benefits", "welfare",
     "social security", "social assistance", "public assistance",
@@ -83,7 +69,6 @@ CHATBOT_KWS   = ["chatbot", "virtual assistant", "helpdesk", "copilot", "convers
 BIAS_KWS      = ["bias", "discrim", "unequal", "unfair", "racist", "sexist", "disparate"]
 PRIVACY_KWS   = ["leak", "privacy", "data breach", "breached", "exposed", "surveillance"]
 
-# FIX 3: Extended misinformation keywords
 MISINFO_KWS   = [
     "incorrect", "false", "misleading", "hallucination", "fabricated", "inaccura",
     "error", "wrong", "faulty", "flawed", "unreliable", "erroneous",
@@ -94,7 +79,6 @@ PROC_UNFAIR_KWS = [
     "opaque", "transparency",
 ]
 
-# FIX 4: New keyword set for good_administration rights
 GOOD_ADMIN_KWS = [
     "opaque", "transparency", "explainab", "accountab",
     "due process", "right to explanation", "automated decision",
@@ -107,8 +91,7 @@ def classify_text(text: str) -> Tuple[
 ]:
     t = (text or "").lower()
 
-    # ── Domain ────────────────────────────────────────────────
-    # FIX 2: Check BENEFIT_KWS *first* so "unemployment" → essential_services
+    # Check benefits first so "unemployment" maps to essential_services
     if any(k in t for k in BENEFIT_KWS):
         domain = AnnexDomain.ESSENTIAL_SERVICES
     elif any(k in t for k in EMPLOYMENT_KWS):
@@ -116,7 +99,6 @@ def classify_text(text: str) -> Tuple[
     else:
         domain = AnnexDomain.UNKNOWN
 
-    # ── System pattern ────────────────────────────────────────
     if any(k in t for k in LLM_KWS):
         if any(k in t for k in SCREENING_KWS):
             pattern = SystemPattern.LLM_ASSISTED_SCREENING
@@ -129,7 +111,6 @@ def classify_text(text: str) -> Tuple[
     else:
         pattern = SystemPattern.UNKNOWN
 
-    # ── Rights (domain-driven + keyword-driven) ───────────────
     rights: List[RightCategory] = []
 
     if domain == AnnexDomain.EMPLOYMENT:
@@ -139,17 +120,14 @@ def classify_text(text: str) -> Tuple[
         rights.extend([RightCategory.ACCESS_SOCIAL_PROTECTION,
                        RightCategory.PRIVACY_DATA_PROTECTION])
 
-    # FIX 4: Keyword-driven good_administration detection
     if any(k in t for k in GOOD_ADMIN_KWS):
         if RightCategory.GOOD_ADMINISTRATION not in rights:
             rights.append(RightCategory.GOOD_ADMINISTRATION)
 
-    # Also detect non-discrimination from text even for non-employment domains
     if any(k in t for k in BIAS_KWS):
         if RightCategory.NON_DISCRIMINATION not in rights:
             rights.append(RightCategory.NON_DISCRIMINATION)
 
-    # ── Harms (keyword-driven) ────────────────────────────────
     harms: List[HarmCategory] = []
     if any(k in t for k in BIAS_KWS):
         harms.append(HarmCategory.UNFAIR_EXCLUSION)
@@ -169,7 +147,6 @@ def classify_text(text: str) -> Tuple[
 
 
 def _get(row, *candidates, default=""):
-    """Try multiple column names, return first non-null hit."""
     for col in candidates:
         val = row.get(col)
         if val is not None and pd.notna(val):
@@ -180,7 +157,7 @@ def _get(row, *candidates, default=""):
 def build_records() -> list[RiskRecord]:
     records: list[RiskRecord] = []
 
-    # ── 1. US Federal AI use cases ────────────────────────────
+    # US Federal AI use cases
     if os.path.exists(USFED_SUBSET):
         us = pd.read_csv(USFED_SUBSET)
         purpose_col = [c for c in us.columns if c.startswith("What is the intended purpose")]
@@ -201,13 +178,13 @@ def build_records() -> list[RiskRecord]:
                 system_pattern=pattern,
                 rights=rights,
                 harms=harms,
-                notes="Auto annotation v0.4 rule-based",
+                notes="rule-based annotation",
             ))
         print(f"  USFED: {len(us)} rows loaded")
     else:
         print(f"  Warning: {USFED_SUBSET} not found, skipping US Federal")
 
-    # ── 2. AIAAIC ranked top-50 + manual extras ───────────────
+    # AIAAIC ranked top-50 + manual extras
     aiaaic_files = [AIAAIC_RANKED, AIAAIC_EXTRA]
     for fname in aiaaic_files:
         if not os.path.exists(fname):
@@ -232,22 +209,17 @@ def build_records() -> list[RiskRecord]:
                 system_pattern=pattern,
                 rights=rights,
                 harms=harms,
-                notes="Auto annotation v0.4 rule-based",
+                notes="rule-based annotation",
             ))
         print(f"  AIAAIC: {len(aia)} rows from {os.path.basename(fname)}")
 
-    # ── 3. ECtHR case-law backbone ────────────────────────────
-    # FIX 1: Actual CSV columns are case_name and application_number
-    #         (not casename / applicationnumber). Also use row index
-    #         as fallback ID to prevent dedup from collapsing rows.
+    # ECtHR case-law backbone
     if os.path.exists(ECHR_CSV):
         echr = pd.read_csv(ECHR_CSV)
         for idx, row in echr.iterrows():
-            # Try both naming conventions
             app_no = _get(row, "application_number", "applicationnumber", "appno")
             case_nm = _get(row, "case_name", "casename")
 
-            # Fallback: use row index if application_number is empty
             if not app_no or app_no == "nan":
                 app_no = f"echr_row_{idx}"
 
@@ -284,9 +256,7 @@ if __name__ == "__main__":
     df = pd.DataFrame([r.to_row() for r in records])
     df = df.fillna("")
 
-    # Dedup: prefer non-empty source_id, then first occurrence
     df = df.drop_duplicates(subset=["source_id", "source"], keep="first")
-    # Also dedup by title+source for rows that had empty source_id
     mask_empty_id = (df["source_id"] == "") | (df["source_id"] == "nan")
     df_with_id  = df[~mask_empty_id]
     df_no_id    = df[mask_empty_id].drop_duplicates(subset=["title", "source"], keep="first")

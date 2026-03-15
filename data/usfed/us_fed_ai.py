@@ -1,4 +1,4 @@
-# Extracts and filters US Federal AI use cases to a subset aligned with Annex III employment and essential service domains.
+# Filter US Federal AI use cases to Annex III employment/essential service domains
 
 import pandas as pd
 
@@ -8,13 +8,11 @@ df = pd.read_csv(csv_path, encoding="latin-1")
 print("Columns:", df.columns.tolist())
 print("Number of rows:", len(df))
 
-# --- Identify the long-text description columns programmatically ---
 purpose_col = [c for c in df.columns if c.startswith("What is the intended purpose")][0]
 output_col  = [c for c in df.columns if c.startswith("Describe the AI system")][0]
 
 print("Using description columns:", purpose_col, "and", output_col)
 
-# --- Define Annex-III-ish keyword sets ---
 EMPLOYMENT_KEYWORDS = [
     "recruitment", "recruiting", "hiring", "hire", "hr",
     "human resources", "personnel", "workforce", "employee", "staffing"
@@ -34,7 +32,6 @@ def matches_keywords(text: str, keywords):
 
 name_col = "Use Case Name"
 
-# --- First pass: keyword filter (employment + benefits) ---
 mask_employment = (
     df[name_col].apply(matches_keywords, args=(EMPLOYMENT_KEYWORDS,)) |
     df[purpose_col].apply(matches_keywords, args=(EMPLOYMENT_KEYWORDS,)) |
@@ -50,18 +47,17 @@ mask_benefits = (
 subset_keywords = df[mask_employment | mask_benefits].copy()
 print("Subset size after keyword filter:", len(subset_keywords))
 
-# --- Second pass: restrict to topic areas closest to Annex III slice ---
+# Only keep topic areas relevant to Annex III
 allowed_topics = [
     "Education & Workforce",
     "Government Services (includes Benefits and Service Delivery)",
-    " Government Services (includes Benefits and Service Delivery)",  # same but with leading space
-    "Mission-Enabling (internal agency support)",  # for internal HR / workforce tools
+    " Government Services (includes Benefits and Service Delivery)",  # leading space variant
+    "Mission-Enabling (internal agency support)",
 ]
 
 subset = subset_keywords[subset_keywords["Use Case Topic Area"].isin(allowed_topics)].copy()
 print("Subset size after topic-area filter:", len(subset))
 
-# --- Keep a few relevant columns for manual annotation ---
 cols_of_interest = [
     "Agency",
     name_col,
