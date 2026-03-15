@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 expand_corpus.py  –  Expand the master annotation corpus to ≥150 records.
 
@@ -405,7 +405,7 @@ def build_expanded_table():
     df = pd.DataFrame(records)
     out_path = "master_annotation_table_v05.csv"
     df.to_csv(out_path, index=False)
-    print(f"\n✅ Saved {out_path} with {len(df)} records.")
+    print(f"\n[OK] Saved {out_path} with {len(df)} records.")
     print(f"\n-- Domain distribution --")
     print(df["annex_domain"].value_counts().to_string())
     print(f"\n-- Source distribution --")

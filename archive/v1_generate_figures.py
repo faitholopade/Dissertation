@@ -41,7 +41,7 @@ def fig_domain_distribution(df):
     plt.tight_layout()
     plt.savefig("fig_domain_distribution.png", dpi=150)
     plt.close()
-    print("✅ fig_domain_distribution.png")
+    print("[OK] fig_domain_distribution.png")
 
 
 def fig_pattern_comparison(df):
@@ -56,7 +56,7 @@ def fig_pattern_comparison(df):
     plt.tight_layout()
     plt.savefig("fig_pattern_distribution.png", dpi=150)
     plt.close()
-    print("✅ fig_pattern_distribution.png")
+    print("[OK] fig_pattern_distribution.png")
 
 
 def fig_unknown_rates(df):
@@ -76,7 +76,7 @@ def fig_unknown_rates(df):
     plt.tight_layout()
     plt.savefig("fig_unknown_rates.png", dpi=150)
     plt.close()
-    print("✅ fig_unknown_rates.png")
+    print("[OK] fig_unknown_rates.png")
 
 
 def fig_confusion_domain(df):
@@ -92,7 +92,7 @@ def fig_confusion_domain(df):
     plt.tight_layout()
     plt.savefig("fig_confusion_domain.png", dpi=150)
     plt.close()
-    print("✅ fig_confusion_domain.png")
+    print("[OK] fig_confusion_domain.png")
 
 
 def fig_rights_agreement(df):
@@ -114,7 +114,7 @@ def fig_rights_agreement(df):
     plt.tight_layout()
     plt.savefig("fig_rights_agreement.png", dpi=150)
     plt.close()
-    print("✅ fig_rights_agreement.png")
+    print("[OK] fig_rights_agreement.png")
 
 
 def fig_harms_agreement(df):
@@ -136,7 +136,7 @@ def fig_harms_agreement(df):
     plt.tight_layout()
     plt.savefig("fig_harms_agreement.png", dpi=150)
     plt.close()
-    print("✅ fig_harms_agreement.png")
+    print("[OK] fig_harms_agreement.png")
 
 
 if __name__ == "__main__":

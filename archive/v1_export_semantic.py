@@ -49,7 +49,7 @@ def export_jsonld(csv_path: str, jsonld_path: str):
     }
     with open(jsonld_path, "w", encoding="utf-8") as f:
         json.dump(doc, f, indent=2, ensure_ascii=False)
-    print(f"✅ Wrote {len(records)} JSON-LD records to {jsonld_path}")
+    print(f"[OK] Wrote {len(records)} JSON-LD records to {jsonld_path}")
 
 
 if __name__ == "__main__":

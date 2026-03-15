@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 expand_aiaaic_fix.py  –  Diagnose and expand AIAAIC records robustly.
 
@@ -202,7 +202,7 @@ out_cols = [c for c in out_cols if c in expansion.columns]
 out_cols += ["_score"]
 
 expansion[out_cols].to_csv("aiaaic_expansion.csv", index=False, encoding="utf-8")
-print(f"\n✅ Saved aiaaic_expansion.csv with {len(expansion)} rows")
+print(f"\n[OK] Saved aiaaic_expansion.csv with {len(expansion)} rows")
 
 # ── Now rebuild the master table ──
 print(f"\n{'='*60}")
@@ -330,7 +330,7 @@ if os.path.exists("usfed_expansion.csv"):
 
 final = pd.DataFrame(records)
 final.to_csv("master_annotation_table_v05.csv", index=False, encoding="utf-8")
-print(f"\n✅ Saved master_annotation_table_v05.csv with {len(final)} records")
+print(f"\n[OK] Saved master_annotation_table_v05.csv with {len(final)} records")
 print(f"\n-- Source distribution --")
 print(final["source"].value_counts().to_string())
 print(f"\n-- Domain distribution --")
