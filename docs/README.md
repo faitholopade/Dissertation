@@ -18,7 +18,7 @@ The purpose of this pipeline is to:
 
 ------------------------------------------------------------------------
 
-## 📁 Repository Structure
+##  Repository Structure
 
     DISSERTATION/
     │

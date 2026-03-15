@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 run_all_patch.py
 ────────────────
@@ -29,7 +29,7 @@ def run_step(label, script, description):
     print(f"{'=' * 60}")
     result = subprocess.run([sys.executable, str(path)], cwd=str(BASE))
     if result.returncode != 0:
-        print(f"  ❌ {label} failed (exit code {result.returncode})")
+        print(f"  [FAIL] {label} failed (exit code {result.returncode})")
         return False
     return True
 
@@ -46,5 +46,5 @@ if __name__ == "__main__":
     print("  ADDITIONAL STEPS SUMMARY")
     print("=" * 60)
     for label, ok in results.items():
-        print(f"  {'✅' if ok else '❌'} {label}")
+        print(f"  {'[OK]' if ok else '[FAIL]'} {label}")
     print()

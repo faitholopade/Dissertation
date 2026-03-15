@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 run_all.py  –  Run the full dissertation pipeline after cleanup.
 
@@ -44,7 +44,7 @@ print("=" * 60)
 all_ok = True
 for path, desc in {**required_files, **required_data}.items():
     exists = os.path.exists(path)
-    status = "✅" if exists else "❌"
+    status = "[OK]" if exists else "[FAIL]"
     print(f"  {status} {path:50s} {desc}")
     if not exists:
         all_ok = False
@@ -54,7 +54,7 @@ if not all_ok:
     sys.exit(1)
 
 if "--check" in sys.argv:
-    print("\n✅ All files present. Run without --check to execute pipeline.")
+    print("\n[OK] All files present. Run without --check to execute pipeline.")
     sys.exit(0)
 
 # ═══════════════════════════════════════════════════════════════
@@ -96,7 +96,7 @@ print(f"\n{'=' * 60}")
 print(f"  PIPELINE COMPLETE")
 print(f"{'=' * 60}")
 for desc, ok in results:
-    print(f"  {'✅' if ok else '❌'} {desc}")
+    print(f"  {'[OK]' if ok else '[FAIL]'} {desc}")
 
 # Verify outputs exist
 print(f"\n  Output files:")
@@ -109,9 +109,9 @@ outputs = [
     "schema/fria_risk_schema.ttl",
 ]
 for f in outputs:
-    print(f"    {'✅' if os.path.exists(f) else '❌'} {f}")
+    print(f"    {'[OK]' if os.path.exists(f) else '[FAIL]'} {f}")
 
 fig_count = len([f for f in os.listdir("figures") if f.endswith(".png")])
-print(f"    {'✅' if fig_count >= 11 else '❌'} figures/ ({fig_count} PNGs)")
+print(f"    {'[OK]' if fig_count >= 11 else '[FAIL]'} figures/ ({fig_count} PNGs)")
 
-print(f"\n✅ All done! Your dissertation artefacts are ready.")
+print(f"\n[OK] All done! Your dissertation artefacts are ready.")
