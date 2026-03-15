@@ -1,16 +1,4 @@
-"""
-13_visualise_knowledge_graph.py  —  Visual knowledge graph for dissertation
-
-Produces:
-  1. figures/fig_knowledge_graph_full.html   Interactive browser-based graph
-  2. figures/fig_knowledge_graph_full.png    High-res static figure for submission
-
-The HTML version is zoomable, draggable, and searchable — great for viva demos.
-The PNG version is a clean, publication-ready layout for the dissertation PDF.
-
-Usage:
-    python src/13_visualise_knowledge_graph.py
-"""
+# Step 13: Generate interactive HTML and static PNG knowledge graph visualisations
 
 import os, re, json
 from pathlib import Path
@@ -23,7 +11,6 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
 
-# ── Auto-resolve project root ────────────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).resolve().parent
 if SCRIPT_DIR.name == "src":
     PROJECT_ROOT = SCRIPT_DIR.parent
@@ -32,7 +19,6 @@ else:
 os.chdir(PROJECT_ROOT)
 print(f"Working directory: {PROJECT_ROOT}")
 
-# ── Config ───────────────────────────────────────────────────────────────────
 INPUT_CSV = PROJECT_ROOT / "output" / "master_annotation_table_causal.csv"
 FALLBACK  = PROJECT_ROOT / "output" / "master_annotation_table_final.csv"
 FIG_DIR   = PROJECT_ROOT / "figures"
@@ -41,8 +27,6 @@ FIG_DIR.mkdir(exist_ok=True)
 HTML_OUT  = FIG_DIR / "fig_knowledge_graph_full.html"
 PNG_OUT   = FIG_DIR / "fig_knowledge_graph_full.png"
 
-
-# ── Styling ──────────────────────────────────────────────────────────────────
 NODE_STYLE = {
     "Incident":         {"color": "#4A90D9", "shape": "dot",      "size": 10},
     "AnnexDomain":      {"color": "#E53935", "shape": "diamond",  "size": 30},
@@ -65,7 +49,6 @@ EDGE_STYLE = {
 }
 
 
-# ── Helpers ──────────────────────────────────────────────────────────────────
 def slugify(text, max_len=60):
     s = re.sub(r"[^a-zA-Z0-9]+", "_", str(text).strip())
     return s[:max_len].strip("_") or "unknown"
@@ -80,9 +63,6 @@ def nice_label(text, max_len=30):
     return (text[:max_len-1] + "…") if len(text) > max_len else text
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  BUILD FULL GRAPH
-# ══════════════════════════════════════════════════════════════════════════════
 def build_full_graph(df):
     G = nx.DiGraph()
 
@@ -97,7 +77,6 @@ def build_full_graph(df):
                    full_title=title, description=desc,
                    node_type="Incident", source=source)
 
-        # Domain
         domain = str(row.get("hybrid_v2_annex_domain",
                      row.get("hybridv2annexdomain",
                      row.get("annex_domain",
@@ -107,7 +86,6 @@ def build_full_graph(df):
             G.add_node(dn, label=nice_label(domain), node_type="AnnexDomain")
             G.add_edge(inc_id, dn, relation="hasDomain")
 
-        # Pattern
         pattern = str(row.get("hybrid_v2_system_pattern",
                       row.get("hybridv2systempattern",
                       row.get("system_pattern",
@@ -117,7 +95,6 @@ def build_full_graph(df):
             G.add_node(pn, label=nice_label(pattern), node_type="SystemPattern")
             G.add_edge(inc_id, pn, relation="hasPattern")
 
-        # Rights
         for r in split_multi(row.get("rights", row.get("llmrights", ""))):
             rk = r.lower().strip()
             if rk and rk != "nan":
@@ -125,7 +102,6 @@ def build_full_graph(df):
                 G.add_node(rn, label=nice_label(rk), node_type="FundamentalRight")
                 G.add_edge(inc_id, rn, relation="hasRight")
 
-        # Harms
         for h in split_multi(row.get("harms", row.get("llmharms", ""))):
             hk = h.lower().strip()
             if hk and hk != "nan":
@@ -133,21 +109,18 @@ def build_full_graph(df):
                 G.add_node(hn, label=nice_label(hk), node_type="HarmType")
                 G.add_edge(inc_id, hn, relation="hasHarm")
 
-        # Root cause
         rc = str(row.get("root_cause", "")).lower().strip()
         if rc and rc not in ("nan", "", "unknown"):
             rcn = f"cause:{rc}"
             G.add_node(rcn, label=nice_label(rc), node_type="RootCause")
             G.add_edge(inc_id, rcn, relation="hasRootCause")
 
-        # Mitigation
         mit = str(row.get("mitigation_reported", "")).strip()
         if mit and mit.lower() not in ("nan", "", "none_reported"):
             mn = f"mit:{slugify(mit, 40)}"
             G.add_node(mn, label=nice_label(mit, 45), node_type="Mitigation")
             G.add_edge(inc_id, mn, relation="hasMitigation")
 
-        # Source type
         st = str(row.get("source_type", "")).lower().strip()
         if st and st not in ("nan", ""):
             sn = f"srctype:{st}"
@@ -157,9 +130,6 @@ def build_full_graph(df):
     return G
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  INTERACTIVE HTML (pyvis)
-# ══════════════════════════════════════════════════════════════════════════════
 def export_html(G, outpath):
     try:
         from pyvis.network import Network
@@ -172,7 +142,6 @@ def export_html(G, outpath):
                   bgcolor="#1a1a2e", font_color="white",
                   notebook=False, cdn_resources="remote")
 
-    # Physics settings for good layout
     net.set_options(json.dumps({
         "physics": {
             "forceAtlas2Based": {
@@ -220,7 +189,6 @@ def export_html(G, outpath):
                      width=style["width"],
                      arrows="to")
 
-    # Add legend as HTML overlay
     legend_html = '<div style="position:fixed;top:10px;right:10px;background:rgba(0,0,0,0.7);padding:12px;border-radius:8px;z-index:999;">'
     legend_html += '<b style="color:white;font-size:14px;">FRIA Knowledge Graph</b><br>'
     for ntype, style in NODE_STYLE.items():
@@ -230,7 +198,6 @@ def export_html(G, outpath):
 
     net.save_graph(str(outpath))
 
-    # Inject legend
     with open(outpath, "r", encoding="utf-8") as f:
         html = f.read()
     html = html.replace("</body>", legend_html + "</body>")
@@ -241,7 +208,6 @@ def export_html(G, outpath):
 
 
 def export_html_standalone(G, outpath):
-    """Fallback: generate vis.js HTML without pyvis."""
     nodes_js = []
     for node, data in G.nodes(data=True):
         ntype = data.get("node_type", "Incident")
@@ -319,44 +285,33 @@ function searchNode(query) {{
     print(f"  {outpath.name}  (open in browser)")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  STATIC PNG — publication-quality radial layout
-# ══════════════════════════════════════════════════════════════════════════════
 def export_png(G, outpath):
-    """Radial layout: concept hubs in center ring, incidents in outer ring."""
-
-    # Separate concept vs incident nodes
     concepts = {n: d for n, d in G.nodes(data=True) if d.get("node_type") != "Incident"}
     incidents = {n: d for n, d in G.nodes(data=True) if d.get("node_type") == "Incident"}
 
-    # Count edges per concept (hub weight)
     concept_degree = {n: G.degree(n) for n in concepts}
 
-    # Position concepts in inner ring, sorted by type then degree
+    # Inner ring = concepts, outer ring = incidents
     concept_list = sorted(concepts.keys(),
                           key=lambda n: (concepts[n].get("node_type", ""), -concept_degree.get(n, 0)))
 
     pos = {}
-    # Inner ring for concepts
     n_concepts = len(concept_list)
     for i, node in enumerate(concept_list):
         angle = 2 * np.pi * i / max(n_concepts, 1)
         r = 3.0
         pos[node] = (r * np.cos(angle), r * np.sin(angle))
 
-    # Outer ring for incidents — position near their primary concept
     concept_angles = {}
     for i, node in enumerate(concept_list):
         concept_angles[node] = 2 * np.pi * i / max(n_concepts, 1)
 
     for inc_node in incidents:
-        # Find connected concepts
         neighbors = [n for n in G.neighbors(inc_node) if n in concepts]
         if not neighbors:
             neighbors = [n for n in G.predecessors(inc_node) if n in concepts]
 
         if neighbors:
-            # Average angle of connected concepts
             angles = [concept_angles.get(n, 0) for n in neighbors]
             avg_angle = np.mean(angles)
         else:
@@ -367,12 +322,10 @@ def export_png(G, outpath):
         pos[inc_node] = (r * np.cos(avg_angle + jitter),
                          r * np.sin(avg_angle + jitter))
 
-    # ── Draw ─────────────────────────────────────────────────────────────────
     fig, ax = plt.subplots(1, 1, figsize=(20, 20))
     ax.set_facecolor("#0f0f23")
     fig.patch.set_facecolor("#0f0f23")
 
-    # Draw edges (incidents → concepts only, skip source_type for clarity)
     for u, v, d in G.edges(data=True):
         rel = d.get("relation", "")
         if rel == "hasSourceType":
@@ -383,14 +336,12 @@ def export_png(G, outpath):
                     color=style["color"], linewidth=style["width"] * 0.4,
                     alpha=0.15, zorder=1)
 
-    # Draw incident nodes (small, semi-transparent)
     for node, data in incidents.items():
         if node in pos:
             src = data.get("source", "")
             c = "#3a6fb5" if src == "AIAAIC" else "#5a8a5a" if src == "ECtHR" else "#8a7a5a"
             ax.scatter(*pos[node], s=15, c=c, alpha=0.5, zorder=2, edgecolors="none")
 
-    # Draw concept nodes (large, prominent)
     for node, data in concepts.items():
         if node in pos:
             ntype = data.get("node_type", "")
@@ -408,12 +359,10 @@ def export_png(G, outpath):
                         bbox=dict(boxstyle="round,pad=0.15",
                                   facecolor="#000000", alpha=0.5, edgecolor="none"))
 
-    # Legend
     legend_handles = []
     for ntype, style in NODE_STYLE.items():
         legend_handles.append(mpatches.Patch(facecolor=style["color"],
                                               edgecolor="white", label=ntype))
-    # Source legend
     legend_handles.append(mpatches.Patch(facecolor="#3a6fb5", label="AIAAIC incident"))
     legend_handles.append(mpatches.Patch(facecolor="#5a8a5a", label="ECtHR case"))
     legend_handles.append(mpatches.Patch(facecolor="#8a7a5a", label="USFED use case"))
@@ -438,9 +387,6 @@ def export_png(G, outpath):
     print(f"  {outpath.name}  ({250} DPI)")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  MAIN
-# ══════════════════════════════════════════════════════════════════════════════
 def main():
     csv_path = INPUT_CSV if INPUT_CSV.exists() else FALLBACK
     if not csv_path.exists():
@@ -454,19 +400,14 @@ def main():
     G = build_full_graph(df)
     print(f"  Graph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
 
-    # 1. Interactive HTML
     print("\n  Building interactive HTML graph...")
     export_html(G, HTML_OUT)
 
-    # 2. Static PNG for submission
-    print("\n  Building static PNG for dissertation...")
+    print("\n  Building static PNG...")
     export_png(G, PNG_OUT)
 
-    print(f"\n  DONE!")
-    print(f"  Interactive:  {HTML_OUT}")
-    print(f"    → Open in browser: start {HTML_OUT}")
-    print(f"  Static PNG:   {PNG_OUT}")
-    print(f"    → Include in dissertation as a figure")
+    print(f"\n  Done! HTML: {HTML_OUT}")
+    print(f"  PNG: {PNG_OUT}")
 
 
 if __name__ == "__main__":

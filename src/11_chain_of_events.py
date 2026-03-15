@@ -1,18 +1,4 @@
-"""
-11_chain_of_events.py  —  Chain-of-events + mitigation extraction (Step 11)
-
-Adds three new columns to each record by prompting Claude:
-  - root_cause       : technology_failure | context_of_use | missing_mitigation |
-                        human_error | data_quality | policy_gap | unknown
-  - mitigation_reported : free-text summary of any post-incident response, or "none_reported"
-  - source_type       : news_article | court_case | regulator_opinion | government_inventory | unknown
-
-Aligned with the AI Office incident-reporting template's focus on causal chains.
-
-Usage:
-    python src/11_chain_of_events.py          (from project root)
-    python 11_chain_of_events.py              (from src/)
-"""
+# Step 11: Extract root cause, mitigation, and source type using Claude
 
 import json, time, os, sys
 from pathlib import Path
@@ -20,9 +6,7 @@ from typing import Dict, Any
 import anthropic
 import pandas as pd
 
-# ── Auto-resolve project root ────────────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).resolve().parent
-# If we're inside src/, go up one level; otherwise stay put
 if SCRIPT_DIR.name == "src":
     PROJECT_ROOT = SCRIPT_DIR.parent
 else:
@@ -30,7 +14,6 @@ else:
 os.chdir(PROJECT_ROOT)
 print(f"Working directory: {PROJECT_ROOT}")
 
-# ── Config ───────────────────────────────────────────────────────────────────
 client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 MODEL_NAME = "claude-sonnet-4-20250514"
 MAX_RETRIES = 3
@@ -41,7 +24,6 @@ OUTPUT_CSV = PROJECT_ROOT / "output" / "master_annotation_table_causal.csv"
 LOG_JSONL  = PROJECT_ROOT / "output" / "causal_annotation_log.jsonl"
 CACHE_JSON = PROJECT_ROOT / "output" / "causal_cache.json"
 
-# ── Root-cause categories (aligned with AI Office template) ──────────────────
 ROOT_CAUSE_LABELS = [
     "technology_failure",
     "context_of_use",
@@ -60,7 +42,6 @@ SOURCE_TYPE_LABELS = [
     "unknown",
 ]
 
-# ── System prompt ────────────────────────────────────────────────────────────
 SYSTEM_MSG = """You are an expert risk analyst extracting causal information from
 AI incident reports and public-sector AI use-case descriptions, aligned with
 the EU AI Office serious-incident reporting template.
@@ -93,6 +74,7 @@ No extra text."""
 
 PROMPT_TEMPLATE = """Analyse the following AI incident or use-case record.
 
+
 SOURCE: {source}
 TITLE:  {title}
 DESCRIPTION (may be truncated):
@@ -100,7 +82,6 @@ DESCRIPTION (may be truncated):
 
 Return STRICTLY a JSON object with keys "root_cause", "mitigation_reported", "source_type"."""
 
-# ── Few-shot examples ────────────────────────────────────────────────────────
 FEW_SHOT = """Here are annotated examples:
 
 EXAMPLE 1
@@ -123,7 +104,7 @@ ANSWER: {"root_cause": "context_of_use", "mitigation_reported": "Facial analysis
 
 Now analyse the following record:"""
 
-# ── LLM call ─────────────────────────────────────────────────────────────────
+
 def call_llm(prompt: str) -> Dict[str, Any]:
     for attempt in range(MAX_RETRIES):
         try:
@@ -157,7 +138,8 @@ def call_llm(prompt: str) -> Dict[str, Any]:
                         "source_type": "unknown"}
 
 
-# ── Source-type heuristic (zero LLM calls for obvious cases) ─────────────────
+
+# Skip LLM call for sources where type is obvious
 def heuristic_source_type(source: str) -> str:
     s = str(source).strip().upper()
     if s == "USFED":
@@ -167,7 +149,6 @@ def heuristic_source_type(source: str) -> str:
     return ""
 
 
-# ── Main ─────────────────────────────────────────────────────────────────────
 def run_causal_extraction():
     if not INPUT_CSV.exists():
         print(f"ERROR: Cannot find {INPUT_CSV}")
@@ -182,7 +163,6 @@ def run_causal_extraction():
     df = pd.read_csv(INPUT_CSV)
     print(f"Loaded {len(df)} rows from {INPUT_CSV.name}")
 
-    # Load cache
     cache = {}
     if CACHE_JSON.exists():
         with open(CACHE_JSON, "r") as f:
@@ -234,7 +214,6 @@ def run_causal_extraction():
             })
             print(f"  {idx+1}/{len(df)}  {source:<7} {title[:50]:<52} -> {rc}")
 
-    # Save cache
     with open(CACHE_JSON, "w") as f:
         json.dump(cache, f, ensure_ascii=False, indent=1)
 

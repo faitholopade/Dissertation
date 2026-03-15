@@ -1,26 +1,4 @@
-"""
-12_knowledge_graph.py  —  Knowledge-graph construction (Step 12)
-
-Builds a multi-layer knowledge graph from the causal-annotated master table:
-
-    Incident --hasDomain-->      AnnexDomain
-    Incident --hasRootCause-->   RootCause
-    Incident --hasRight-->       FundamentalRight
-    Incident --hasHarm-->        HarmType
-    Incident --hasPattern-->     SystemPattern
-    Incident --hasSource-->      SourceDocument
-    Incident --hasMitigation-->  Mitigation
-    Incident --involvedActor-->  Actor
-
-Outputs:
-  - output/knowledge_graph.ttl          RDF/Turtle
-  - output/knowledge_graph_summary.csv  Node + edge counts
-  - figures/fig_knowledge_graph.png     NetworkX visualisation
-
-Usage:
-    python src/12_knowledge_graph.py      (from project root)
-    python 12_knowledge_graph.py          (from src/)
-"""
+# Step 12: Build knowledge graph from the causal-annotated master table
 
 import os, json, re
 from pathlib import Path
@@ -31,7 +9,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-# ── Auto-resolve project root ────────────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).resolve().parent
 if SCRIPT_DIR.name == "src":
     PROJECT_ROOT = SCRIPT_DIR.parent
@@ -40,7 +17,6 @@ else:
 os.chdir(PROJECT_ROOT)
 print(f"Working directory: {PROJECT_ROOT}")
 
-# ── Try rdflib; fall back to pure-networkx if not installed ──────────────────
 try:
     from rdflib import Graph as RDFGraph, Namespace, Literal, URIRef, RDF, RDFS
     from rdflib.namespace import DCTERMS
@@ -49,14 +25,12 @@ except ImportError:
     HAS_RDFLIB = False
     print("  rdflib not installed -- skipping .ttl export (NetworkX graph still built)")
 
-# ── Config ───────────────────────────────────────────────────────────────────
 INPUT_CSV  = PROJECT_ROOT / "output" / "master_annotation_table_causal.csv"
 FALLBACK   = PROJECT_ROOT / "output" / "master_annotation_table_final.csv"
 TTL_OUT    = PROJECT_ROOT / "output" / "knowledge_graph.ttl"
 SUMMARY_OUT= PROJECT_ROOT / "output" / "knowledge_graph_summary.csv"
 FIG_OUT    = PROJECT_ROOT / "figures" / "fig_knowledge_graph.png"
 
-# Namespaces
 VAIR    = "https://w3id.org/vair/"
 DPV     = "https://w3id.org/dpv/"
 DPVR    = "https://w3id.org/dpv/risk/"
@@ -64,7 +38,6 @@ EUR     = "https://w3id.org/dpv/legal/eu/rights/"
 FRIA    = "https://example.org/fria-kg/"
 
 
-# ── Helpers ──────────────────────────────────────────────────────────────────
 def slugify(text: str, max_len: int = 60) -> str:
     s = re.sub(r"[^a-zA-Z0-9]+", "_", str(text).strip())
     return s[:max_len].strip("_") or "unknown"
@@ -76,7 +49,6 @@ def split_multi(val) -> list:
     return [v.strip() for v in re.split(r"[|,;]+", str(val)) if v.strip()]
 
 
-# ── URI maps ─────────────────────────────────────────────────────────────────
 DOMAIN_URI = {
     "employment":        VAIR + "Employment",
     "essentialservices": VAIR + "EssentialPublicServices",
@@ -128,9 +100,6 @@ PATTERN_URI = {
 }
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  BUILD NETWORKX GRAPH
-# ══════════════════════════════════════════════════════════════════════════════
 def build_graph(df: pd.DataFrame):
     G = nx.DiGraph()
     node_types = Counter()
@@ -142,12 +111,10 @@ def build_graph(df: pd.DataFrame):
         title    = str(row.get("title", ""))[:80]
         inc_id   = f"inc:{sid}" if sid and sid != "nan" else f"inc:{slugify(title, 30)}"
 
-        # ── Incident node
         G.add_node(inc_id, label=title[:40], node_type="Incident",
                    full_title=title, source=source)
         node_types["Incident"] += 1
 
-        # ── Domain
         domain = str(row.get("hybrid_v2_annex_domain",
                      row.get("hybridv2annexdomain",
                      row.get("annex_domain",
@@ -159,7 +126,6 @@ def build_graph(df: pd.DataFrame):
             node_types["AnnexDomain"] += 1
             edge_types["hasDomain"] += 1
 
-        # ── System pattern
         pattern = str(row.get("hybrid_v2_system_pattern",
                       row.get("hybridv2systempattern",
                       row.get("system_pattern",
@@ -171,7 +137,6 @@ def build_graph(df: pd.DataFrame):
             node_types["SystemPattern"] += 1
             edge_types["hasPattern"] += 1
 
-        # ── Rights
         rights_col = str(row.get("rights", row.get("llm_rights", row.get("llmrights", ""))))
         for r in split_multi(rights_col):
             r_key = r.lower().strip()
@@ -182,7 +147,6 @@ def build_graph(df: pd.DataFrame):
                 node_types["FundamentalRight"] += 1
                 edge_types["hasRight"] += 1
 
-        # ── Harms
         harms_col = str(row.get("harms", row.get("llm_harms", row.get("llmharms", ""))))
         for h in split_multi(harms_col):
             h_key = h.lower().strip()
@@ -193,7 +157,6 @@ def build_graph(df: pd.DataFrame):
                 node_types["HarmType"] += 1
                 edge_types["hasHarm"] += 1
 
-        # ── Root cause (from Step 11)
         rc = str(row.get("root_cause", "")).lower().strip()
         if rc and rc not in ("nan", "", "unknown"):
             rc_node = f"cause:{rc}"
@@ -202,7 +165,6 @@ def build_graph(df: pd.DataFrame):
             node_types["RootCause"] += 1
             edge_types["hasRootCause"] += 1
 
-        # ── Mitigation (from Step 11)
         mit = str(row.get("mitigation_reported", "")).strip()
         if mit and mit.lower() not in ("nan", "", "none_reported"):
             mit_node = f"mit:{slugify(mit, 40)}"
@@ -211,7 +173,6 @@ def build_graph(df: pd.DataFrame):
             node_types["Mitigation"] += 1
             edge_types["hasMitigation"] += 1
 
-        # ── Source type
         st = str(row.get("source_type", "")).lower().strip()
         if st and st not in ("nan", ""):
             src_node = f"srctype:{st}"
@@ -220,7 +181,6 @@ def build_graph(df: pd.DataFrame):
             node_types["SourceType"] += 1
             edge_types["hasSourceType"] += 1
 
-        # ── Deployer / Developer (if available)
         for col, rel in [("Deployers", "involvedDeployer"),
                          ("Developers", "involvedDeveloper"),
                          ("deployers", "involvedDeployer"),
@@ -239,9 +199,6 @@ def build_graph(df: pd.DataFrame):
     return G, node_types, edge_types
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  EXPORT RDF/TURTLE
-# ══════════════════════════════════════════════════════════════════════════════
 def export_ttl(G: nx.DiGraph, outpath: Path):
     if not HAS_RDFLIB:
         print("  Skipping .ttl export (rdflib not installed)")
@@ -290,9 +247,6 @@ def export_ttl(G: nx.DiGraph, outpath: Path):
     print(f"  {outpath.name}  ({len(g)} triples)")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  VISUALISATION
-# ══════════════════════════════════════════════════════════════════════════════
 NODE_COLOURS = {
     "Incident":         "#4A90D9",
     "AnnexDomain":      "#E57373",
@@ -370,9 +324,6 @@ def visualise(G: nx.DiGraph, outpath: Path):
     print(f"  {outpath.name}")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  MAIN
-# ══════════════════════════════════════════════════════════════════════════════
 def main():
     csv_path = INPUT_CSV if INPUT_CSV.exists() else FALLBACK
 
