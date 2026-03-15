@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 09_error_analysis.py — Comprehensive Error Analysis (Section 5.3)
 ─────────────────────────────────────────────────────────────────
@@ -479,7 +479,7 @@ def make_figures(error_counter, disagreements):
         out = FIG_DIR / "fig_error_categories.png"
         fig.savefig(out, dpi=150)
         plt.close(fig)
-        print(f"  ✅ {out}")
+        print(f"  [OK] {out}")
 
     # ── Figure 2: Method × error-type heatmap ─────────────────
     if disagreements:
@@ -514,7 +514,7 @@ def make_figures(error_counter, disagreements):
             out = FIG_DIR / "fig_error_heatmap.png"
             fig.savefig(out, dpi=150)
             plt.close(fig)
-            print(f"  ✅ {out}")
+            print(f"  [OK] {out}")
 
 
 # ══════════════════════════════════════════════════════════════
@@ -629,41 +629,41 @@ def main():
             w = csv.DictWriter(f, fieldnames=fields)
             w.writeheader()
             w.writerows(disagreements)
-        print(f"  ✅ {out_a}")
+        print(f"  [OK] {out_a}")
 
     # Part B CSVs
     if not cm_domain.empty:
         out_b1 = OUT_DIR / "confusion_matrix_domain.csv"
         cm_domain.to_csv(out_b1)
-        print(f"  ✅ {out_b1}")
+        print(f"  [OK] {out_b1}")
     if not cm_pattern.empty:
         out_b2 = OUT_DIR / "confusion_matrix_pattern.csv"
         cm_pattern.to_csv(out_b2)
-        print(f"  ✅ {out_b2}")
+        print(f"  [OK] {out_b2}")
     if not disag.empty:
         out_b3 = OUT_DIR / "disagreement_examples.csv"
         disag.to_csv(out_b3, index=False)
-        print(f"  ✅ {out_b3}")
+        print(f"  [OK] {out_b3}")
 
     # Part C CSVs
     if not rights_df.empty:
         out_c1 = OUT_DIR / "error_analysis_rights.csv"
         rights_df.to_csv(out_c1, index=False)
-        print(f"  ✅ {out_c1}")
+        print(f"  [OK] {out_c1}")
     if not harms_df.empty:
         out_c2 = OUT_DIR / "error_analysis_harms.csv"
         harms_df.to_csv(out_c2, index=False)
-        print(f"  ✅ {out_c2}")
+        print(f"  [OK] {out_c2}")
 
     # Full report
     out_report = OUT_DIR / "error_analysis_report.txt"
     out_report.write_text("\n".join(report), encoding="utf-8")
-    print(f"  ✅ {out_report}")
+    print(f"  [OK] {out_report}")
 
     # Figures
     make_figures(error_counter, disagreements)
 
-    print(f"\n✅ Error analysis complete.")
+    print(f"\n[OK] Error analysis complete.")
     print(f"   Part A: {len(disagreements)} gold-vs-automated disagreements")
     print(f"   Part B: Full-table confusion matrices + {len(disag)} domain disagreements")
     print(f"   Part C: Per-label rights ({len(rights_df)} labels) + harms ({len(harms_df)} labels)")

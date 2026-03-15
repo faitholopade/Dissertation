@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 generate_figures_v2.py  –  Generate all dissertation figures.
 
@@ -214,7 +214,7 @@ def fig_confusion_heatmap(df, kw_col, llm_col, title, filename):
     plt.tight_layout()
     plt.savefig(filename, bbox_inches="tight")
     plt.close()
-    print(f"  ✅ {filename}")
+    print(f"  [OK] {filename}")
 
 
 def fig_source_breakdown(df):
@@ -429,7 +429,7 @@ def fig_agreement_bars(df, dimension="rights"):
                 plt.tight_layout()
                 plt.savefig(filename, bbox_inches="tight")
                 plt.close()
-                print(f"  ✅ {filename}")
+                print(f"  [OK] {filename}")
                 return
 
     # Calculate from columns if no file
@@ -456,7 +456,7 @@ def fig_agreement_bars(df, dimension="rights"):
         plt.tight_layout()
         plt.savefig(filename, bbox_inches="tight")
         plt.close()
-        print(f"  ✅ {filename}")
+        print(f"  [OK] {filename}")
     else:
         print(f"  ⚠ Insufficient data for {filename}")
 
@@ -529,7 +529,7 @@ def main():
                               "Confusion Matrix: System Pattern (Keyword vs LLM)",
                               "figures/fig_confusion_pattern.png")
 
-    print("\n✅ Done! All figures saved.")
+    print("\n[OK] Done! All figures saved.")
 
 
 if __name__ == "__main__":

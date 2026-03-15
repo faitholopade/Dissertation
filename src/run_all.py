@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 run_all.py  –  Run the complete dissertation pipeline end-to-end.
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 08_fria_demo_scenarios.py — FRIA-Style Retrieval Demonstrations (Section 5.4)
 ─────────────────────────────────────────────────────────────────────────────
@@ -395,7 +395,7 @@ def make_figure(counts):
     plt.tight_layout()
     fig.savefig(FIG_OUT, dpi=150)
     plt.close(fig)
-    print(f"  ✅ {FIG_OUT}")
+    print(f"  [OK] {FIG_OUT}")
 
 
 # ══════════════════════════════════════════════════════════════
@@ -417,18 +417,18 @@ def main():
     OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
     if not all_hits_df.empty:
         all_hits_df.to_csv(OUT_CSV, index=False)
-        print(f"  ✅ {OUT_CSV}")
+        print(f"  [OK] {OUT_CSV}")
     else:
         print("  ⚠  No hits to save")
 
     # Save text report
     OUT_TXT.write_text(report_text, encoding="utf-8")
-    print(f"  ✅ {OUT_TXT}")
+    print(f"  [OK] {OUT_TXT}")
 
     # Figure
     make_figure(counts)
 
-    print(f"\n✅ FRIA demonstration complete.")
+    print(f"\n[OK] FRIA demonstration complete.")
 
 
 if __name__ == "__main__":

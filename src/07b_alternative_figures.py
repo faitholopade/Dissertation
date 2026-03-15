@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 07b_alternative_figures.py
 ──────────────────────────
@@ -105,7 +105,7 @@ def fig_rights_distribution(df, gold):
     out = FIG_DIR / "fig_rights_distribution.png"
     fig.savefig(out, dpi=150)
     plt.close(fig)
-    print(f"  ✅ {out}")
+    print(f"  [OK] {out}")
 
 
 # ── Figure B: Harms distribution ─────────────────────────────
@@ -164,7 +164,7 @@ def fig_harms_distribution(df, gold):
     out = FIG_DIR / "fig_harms_distribution.png"
     fig.savefig(out, dpi=150)
     plt.close(fig)
-    print(f"  ✅ {out}")
+    print(f"  [OK] {out}")
 
 
 # ── Figure C: Rights × Domain cross-tabulation ───────────────
@@ -204,7 +204,7 @@ def fig_rights_by_domain(gold):
     out = FIG_DIR / "fig_rights_by_domain.png"
     fig.savefig(out, dpi=150)
     plt.close(fig)
-    print(f"  ✅ {out}")
+    print(f"  [OK] {out}")
 
 
 # ── Figure D: Harms × System Pattern heatmap ─────────────────
@@ -245,7 +245,7 @@ def fig_harms_by_pattern(df):
     out = FIG_DIR / "fig_harms_by_pattern.png"
     fig.savefig(out, dpi=150)
     plt.close(fig)
-    print(f"  ✅ {out}")
+    print(f"  [OK] {out}")
 
 
 # ── main ──────────────────────────────────────────────────────
@@ -262,7 +262,7 @@ def main():
     fig_rights_by_domain(gold)
     fig_harms_by_pattern(df)
 
-    print("\n✅ Alternative figures complete.")
+    print("\n[OK] Alternative figures complete.")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 export_semantic_v2.py  –  Export all records as JSON-LD using the v2 schema.
 
@@ -92,7 +92,7 @@ def export():
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print(f"✅ Wrote {len(records)} JSON-LD records to {out_path}")
+    print(f"[OK] Wrote {len(records)} JSON-LD records to {out_path}")
 
 
 if __name__ == "__main__":

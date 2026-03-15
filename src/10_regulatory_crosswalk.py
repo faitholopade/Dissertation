@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 10_regulatory_crosswalk.py
 ──────────────────────────
@@ -164,7 +164,7 @@ def save_csv():
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
         w.writerows(CROSSWALK)
-    print(f"  ✅ {OUT_CSV}")
+    print(f"  [OK] {OUT_CSV}")
 
 
 def save_markdown():
@@ -195,13 +195,13 @@ def save_markdown():
         lines.append(f"| **{term}** | {defn} |")
 
     OUT_MD.write_text("\n".join(lines), encoding="utf-8")
-    print(f"  ✅ {OUT_MD}")
+    print(f"  [OK] {OUT_MD}")
 
 
 def save_glossary():
     OUT_GLOSS.parent.mkdir(parents=True, exist_ok=True)
     OUT_GLOSS.write_text(json.dumps(GLOSSARY, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"  ✅ {OUT_GLOSS}")
+    print(f"  [OK] {OUT_GLOSS}")
 
 
 def main():
@@ -215,7 +215,7 @@ def main():
 
     print(f"\n  Crosswalk: {len(CROSSWALK)} rows mapping Annex III obligations → rights")
     print(f"  Glossary:  {len(GLOSSARY)} normalised terms")
-    print("\n✅ Regulatory crosswalk complete.")
+    print("\n[OK] Regulatory crosswalk complete.")
 
 
 if __name__ == "__main__":
