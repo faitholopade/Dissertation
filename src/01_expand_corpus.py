@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 expand_corpus_final.py  –  Definitively expand corpus to ≥150 records.
 
@@ -252,7 +251,7 @@ if os.path.exists("data/usfed/usfed_expansion.csv"):
 final = pd.DataFrame(all_rows)
 final.to_csv("data/master_annotation_table_v05.csv", index=False, encoding="utf-8")
 print(f"\n{'='*60}")
-print(f"✅ Saved master_annotation_table_v05.csv with {len(final)} records")
+print(f"[OK] Saved master_annotation_table_v05.csv with {len(final)} records")
 print(f"{'='*60}")
 
 print(f"\n-- Source distribution --")

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 compare_methods_v2.py  –  Extended method comparison for v2 annotations.
 
@@ -131,7 +131,7 @@ def main():
 
     # Save final combined table
     df.to_csv("output/master_annotation_table_final.csv", index=False)
-    print(f"✅ Saved master_annotation_table_final.csv ({len(df)} rows)")
+    print(f"[OK] Saved master_annotation_table_final.csv ({len(df)} rows)")
 
 
 if __name__ == "__main__":

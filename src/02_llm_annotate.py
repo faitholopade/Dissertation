@@ -1,18 +1,18 @@
-#!/usr/bin/env python3
+
 """
-improved_llm_annotate.py  –  v2 LLM annotation with improved prompts.
+improved_llm_annotate.py – v2 LLM annotation with improved prompts.
 
 Key improvements over v1:
-  - Expanded system_pattern taxonomy with concrete definitions
-  - Few-shot examples for each pattern category
-  - Chain-of-thought reasoning for better domain classification
-  - Improved disambiguation between employment and essential_services
-  - Explicit instructions to reduce "unknown" rate
+- Expanded system_pattern taxonomy with concrete definitions
+- Few-shot examples for each pattern category
+- Chain-of-thought reasoning for better domain classification
+- Improved disambiguation between employment and essential_services
+- Explicit instructions to reduce "unknown" rate
 
 Run:
     python improved_llm_annotate.py
 Inputs:
-    master_annotation_table_v05.csv  (or master_annotation_table.csv)
+    master_annotation_table_v05.csv (or master_annotation_table.csv)
 Outputs:
     master_annotation_table_llm_v2.csv
 """
@@ -21,13 +21,13 @@ import pandas as pd
 import json, os, sys, time, hashlib
 
 try:
-    from openai import OpenAI
-    client = OpenAI()
+    from anthropic import Anthropic
+    client = Anthropic()
 except ImportError:
-    print("⚠ openai package not installed. Run: pip install openai")
+    print("⚠  anthropic package not installed. Run: pip install anthropic")
     sys.exit(1)
 
-MODEL = "gpt-4o"  # or "gpt-4o-mini" for cost savings
+MODEL = "claude-sonnet-4-20250514"
 CACHE_FILE = "output/llm_predictions_cache_v2.jsonl"
 
 # ─── Load cache ─────────────────────────────────────────────────────
@@ -39,16 +39,13 @@ if os.path.exists(CACHE_FILE):
             cache[entry["key"]] = entry["result"]
     print(f"  Loaded {len(cache)} cached predictions")
 
-
 def cache_key(text):
     return hashlib.md5(text.encode()).hexdigest()
-
 
 def save_cache(key, result):
     cache[key] = result
     with open(CACHE_FILE, "a") as f:
         f.write(json.dumps({"key": key, "result": result}) + "\n")
-
 
 # ─── Improved system prompt ─────────────────────────────────────────
 SYSTEM_PROMPT = """You are an expert legal-technical annotator for an MSc dissertation on the EU AI Act.
@@ -121,7 +118,7 @@ RULES:
 - Always provide a brief rationale.
 
 Return ONLY valid JSON with keys:
-  annex_domain, system_pattern, rights, harms, confidence (0-1), rationale (2 sentences max)
+annex_domain, system_pattern, rights, harms, confidence (0-1), rationale (2 sentences max)
 """
 
 FEW_SHOT_EXAMPLES = [
@@ -175,7 +172,6 @@ Description: The Dutch government used SyRI (System Risk Indication) to detect w
     },
 ]
 
-
 def annotate_record(title, description, source=""):
     """Send a single record to the LLM for annotation."""
     user_msg = f"""Incident: {title}
@@ -186,33 +182,30 @@ Description: {description[:1500]}"""
     if key in cache:
         return cache[key]
 
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-    ] + FEW_SHOT_EXAMPLES + [
+    messages = FEW_SHOT_EXAMPLES + [
         {"role": "user", "content": user_msg}
     ]
 
     try:
-        response = client.chat.completions.create(
+        response = client.messages.create(
             model=MODEL,
+            system=SYSTEM_PROMPT,
             messages=messages,
-            response_format={"type": "json_object"},
-            temperature=0.1,
+            temperature=0,
             max_tokens=500,
         )
-        result = json.loads(response.choices[0].message.content)
+        result = json.loads(response.content[0].text)
         save_cache(key, result)
         return result
 
     except Exception as e:
-        print(f"    ⚠ API error: {e}")
+        print(f"  ⚠ API error: {e}")
         time.sleep(2)
         return {
             "annex_domain": "unknown", "system_pattern": "unknown",
             "rights": "other", "harms": "other",
             "confidence": 0, "rationale": f"API error: {str(e)[:100]}"
         }
-
 
 def main():
     # Load input table
@@ -222,7 +215,7 @@ def main():
             print(f"Loaded {len(df)} rows from {path}")
             break
     else:
-        print("⚠ No master annotation table found!")
+        print("⚠  No master annotation table found!")
         sys.exit(1)
 
     # Determine columns
@@ -278,7 +271,7 @@ def main():
 
     out_path = "output/master_annotation_table_llm_v2.csv"
     df.to_csv(out_path, index=False)
-    print(f"\n✅ Saved {out_path}")
+    print(f"\n[OK] Saved {out_path}")
 
     # Print summary stats
     print(f"\n-- LLM v2 Domain Distribution --")
@@ -303,7 +296,6 @@ def main():
         if col_name in df.columns:
             unk = (df[col_name] == "unknown").sum()
             print(f"  {col_label}: {unk}/{len(df)} ({unk/len(df):.1%})")
-
 
 if __name__ == "__main__":
     main()

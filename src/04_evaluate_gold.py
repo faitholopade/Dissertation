@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 evaluate_gold.py  –  Compare Label Studio gold annotations against
                      keyword, LLM, and hybrid automated annotations.

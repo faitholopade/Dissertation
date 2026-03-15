@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 schema_definition.py  –  Generate formal schema artefacts for the dissertation.
 
