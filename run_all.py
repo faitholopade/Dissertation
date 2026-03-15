@@ -51,6 +51,10 @@ steps = [
     ("STEP 5: Generate schema artefacts",           "src/05_schema_definition.py"),
     ("STEP 6: Export JSON-LD records",              "src/06_export_semantic.py"),
     ("STEP 7: Generate dissertation figures",       "src/07_generate_figures.py"),
+    ("STEP 7b: Alternative rights & harms figures", "src/07b_alternative_figures.py"),
+    ("STEP 8: FRIA-style demonstration scenarios",  "src/08_fria_demo_scenarios.py"),
+    ("STEP 9: Error analysis",                      "src/09_error_analysis.py"),
+    ("STEP 10: Regulatory crosswalk",               "src/10_regulatory_crosswalk.py"),
 ]
 
 results = []
@@ -58,6 +62,11 @@ for desc, script in steps:
     print(f"\n{'=' * 60}")
     print(f"  {desc}")
     print(f"{'=' * 60}")
+
+    if not os.path.exists(script):
+        print(f"\n⚠ {script} not found – skipping")
+        results.append((desc, False))
+        continue
 
     result = subprocess.run(
         [sys.executable, script],
