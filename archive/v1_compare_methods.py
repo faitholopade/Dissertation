@@ -1,12 +1,4 @@
-"""
-compare_methods.py — Three-way comparison: keyword vs LLM vs hybrid.
-
-Reads master_annotation_table_llm.csv (which has both keyword and LLM columns)
-and computes agreement metrics for each method against the other, plus a
-hybrid (keyword wins if not unknown, else LLM) column.
-
-Outputs: method_comparison_results.csv
-"""
+# compare_methods.py — Three-way comparison: keyword vs LLM vs hybrid.
 
 import os
 import sys
@@ -15,7 +7,6 @@ from sklearn.metrics import cohen_kappa_score, classification_report
 
 
 def agreement_stats(gold, pred, label=""):
-    """Compute percent agreement and Cohen's kappa."""
     mask = gold.notna() & pred.notna() & (gold != "") & (pred != "")
     g = gold[mask].astype(str)
     p = pred[mask].astype(str)
@@ -41,7 +32,7 @@ def main():
     df = pd.read_csv(csv_path)
     print(f"Loaded {len(df)} rows from {csv_path}\n")
 
-    # ── Build hybrid column (keyword wins if not unknown, else LLM) ──
+    # Build hybrid column (keyword wins if not unknown, else LLM)
     df["hybrid_annex_domain"] = df.apply(
         lambda r: r["annex_domain"] if r["annex_domain"] != "unknown"
                   else r["llm_annex_domain"], axis=1
@@ -53,7 +44,6 @@ def main():
 
     results = []
 
-    # ── Compare keyword vs LLM on annex_domain ───────────────
     print("=" * 60)
     print("ANNEX DOMAIN: Keyword vs LLM")
     print("=" * 60)
@@ -61,13 +51,11 @@ def main():
     print(res)
     results.append(res)
 
-    # Count how often they differ
     diff_mask = df["annex_domain"] != df["llm_annex_domain"]
     print(f"\nDisagreements: {diff_mask.sum()} / {len(df)}")
     if diff_mask.any():
         print(df.loc[diff_mask, ["title", "annex_domain", "llm_annex_domain"]].head(15).to_string())
 
-    # ── Compare keyword vs LLM on system_pattern ──────────────
     print("\n" + "=" * 60)
     print("SYSTEM PATTERN: Keyword vs LLM")
     print("=" * 60)
@@ -75,7 +63,6 @@ def main():
     print(res)
     results.append(res)
 
-    # ── Domain distribution per method ────────────────────────
     print("\n" + "=" * 60)
     print("DOMAIN DISTRIBUTION BY METHOD")
     print("=" * 60)
@@ -85,7 +72,6 @@ def main():
         print(f"\n{name}:")
         print(df[col].value_counts().to_string())
 
-    # ── Pattern distribution per method ───────────────────────
     print("\n" + "=" * 60)
     print("SYSTEM PATTERN DISTRIBUTION BY METHOD")
     print("=" * 60)
@@ -95,7 +81,6 @@ def main():
         print(f"\n{name}:")
         print(df[col].value_counts().to_string())
 
-    # ── Summary of unknown rates ──────────────────────────────
     print("\n" + "=" * 60)
     print("UNKNOWN RATES")
     print("=" * 60)
@@ -108,12 +93,10 @@ def main():
         unk = (df[col] == "unknown").sum()
         print(f"  {name}: {unk}/{len(df)} ({100*unk/len(df):.1f}%)")
 
-    # Save comparison CSV
     out_df = pd.DataFrame(results)
     out_df.to_csv("method_comparison_results.csv", index=False)
     print(f"\n[OK] Saved method_comparison_results.csv")
 
-    # Save enriched table with hybrid columns
     df.to_csv("master_annotation_table_hybrid.csv", index=False)
     print(f"[OK] Saved master_annotation_table_hybrid.csv")
 

@@ -1,10 +1,4 @@
-
-"""
-run_all_patch.py
-────────────────
-Add this to the END of your existing run_all.py to include
-the four new scripts.  Or run standalone after run_all.py.
-"""
+# run_all_patch.py — Run additional pipeline steps (7b, 8-10) after run_all.py
 
 import subprocess, sys
 from pathlib import Path

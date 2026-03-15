@@ -1,21 +1,13 @@
-
-"""
-expand_aiaaic_fix.py  –  Diagnose and expand AIAAIC records robustly.
-
-Run:
-    python expand_aiaaic_fix.py
-"""
+# expand_aiaaic_fix.py — Diagnose and expand AIAAIC records robustly.
 
 import pandas as pd
 import os, sys, glob
 
-# ── Find the AIAAIC CSV ──
 candidates = [
     "AIAAIC Repository - Incidents.csv",
     "AIAAIC Repository - Incidents and Controversies.csv",
 ] + glob.glob("*AIAAIC*.csv") + glob.glob("*aiaaic*.csv")
 
-# Deduplicate
 candidates = list(dict.fromkeys(candidates))
 
 found_path = None
@@ -33,7 +25,6 @@ if not found_path:
 print(f"Found: {found_path}")
 print(f"File size: {os.path.getsize(found_path):,} bytes\n")
 
-# ── Read with encoding fallback ──
 df = None
 for enc in ["utf-8", "cp1252", "latin-1"]:
     for header_row in [0, 1]:
@@ -55,13 +46,11 @@ if df is None:
     print("⚠ Could not read the CSV with any encoding/header combo!")
     sys.exit(1)
 
-# ── Show columns so we know what we're working with ──
 print(f"\n  Columns ({len(df.columns)}):")
 for i, c in enumerate(df.columns[:20]):
     sample = df[c].dropna().iloc[0] if len(df[c].dropna()) > 0 else "N/A"
     print(f"    [{i}] {c!r:40s}  sample: {str(sample)[:60]}")
 
-# ── Find key columns ──
 id_col = None
 title_col = None
 desc_col = None
@@ -79,7 +68,6 @@ for c in df.columns:
         desc_col = c
 
 if id_col is None:
-    # Fallback: first column that looks like an ID
     for c in df.columns:
         if df[c].astype(str).str.match(r"^AIAAIC\d+").any():
             id_col = c
@@ -88,7 +76,6 @@ if id_col is None:
         id_col = df.columns[0]
 
 if title_col is None:
-    # Fallback: second or third text column often is the headline
     for c in text_cols[1:5]:
         if df[c].astype(str).str.len().mean() > 20:
             title_col = c
@@ -100,22 +87,18 @@ print(f"\n  ID col:    {id_col}")
 print(f"  Title col: {title_col}")
 print(f"  Desc col:  {desc_col}")
 
-# ── Load already-used IDs ──
 used_ids = set()
 for f in ["aiaaic_ranked_top50.csv", "aiaaic_manual_extra.csv"]:
     if os.path.exists(f):
         used = pd.read_csv(f, encoding="utf-8")
-        # The ID could be in any column - check first few
         for c in used.columns[:3]:
             ids = used[c].astype(str).str.strip()
             matches = ids[ids.str.match(r"^AIAAIC\d+", na=False)]
             if len(matches) > 0:
                 used_ids.update(matches.tolist())
                 break
-            # Also try just the values
             used_ids.update(ids.tolist())
 
-# Also check the existing master table
 if os.path.exists("master_annotation_table.csv"):
     mt = pd.read_csv("master_annotation_table.csv", encoding="utf-8")
     aiaaic_rows = mt[mt.get("source", pd.Series()) == "AIAAIC"]
@@ -126,7 +109,6 @@ if os.path.exists("master_annotation_table.csv"):
 
 print(f"\n  Already used IDs: {len(used_ids)}")
 
-# ── Keyword scoring ──
 EMPLOYMENT_KW = [
     "employment", "employee", "worker", "workforce", "recruitment", "hiring",
     "applicant", "candidate", "cv", "resume", "hr", "human resources",
@@ -161,11 +143,9 @@ def score_text(text):
     if any(kw in text for kw in PUBLIC_KW): s += 1
     return s
 
-# Combine all text columns for scoring
 df["_fulltext"] = df[text_cols].fillna("").astype(str).agg(" ".join, axis=1)
 df["_score"] = df["_fulltext"].apply(score_text)
 
-# Remove already-used
 df["_id_str"] = df[id_col].astype(str).str.strip()
 df["_title_str"] = df[title_col].astype(str).str.strip() if title_col else ""
 
@@ -177,10 +157,8 @@ print(f"  After removing used: {len(df_new)}")
 print(f"  With score >= 2: {(df_new['_score'] >= 2).sum()}")
 print(f"  With score >= 1: {(df_new['_score'] >= 1).sum()}")
 
-# Take top 40 by score
 df_new = df_new.sort_values("_score", ascending=False)
 
-# If not enough high-scoring, lower threshold
 target = 40
 if (df_new["_score"] >= 2).sum() >= target:
     expansion = df_new[df_new["_score"] >= 2].head(target)
@@ -194,7 +172,6 @@ if len(expansion) > 0:
     for _, row in expansion.head(10).iterrows():
         print(f"    [{row['_score']}] {str(row[title_col])[:80]}")
 
-# ── Save expansion ──
 out_cols = [id_col, title_col]
 if desc_col:
     out_cols.append(desc_col)
@@ -204,7 +181,6 @@ out_cols += ["_score"]
 expansion[out_cols].to_csv("aiaaic_expansion.csv", index=False, encoding="utf-8")
 print(f"\n[OK] Saved aiaaic_expansion.csv with {len(expansion)} rows")
 
-# ── Now rebuild the master table ──
 print(f"\n{'='*60}")
 print("Rebuilding master_annotation_table_v05.csv...")
 
@@ -277,14 +253,12 @@ def annotate_harms(text):
 
 records = []
 
-# Load existing
 if os.path.exists("master_annotation_table.csv"):
     existing = pd.read_csv("master_annotation_table.csv", encoding="utf-8")
     for _, row in existing.iterrows():
         records.append(row.to_dict())
     print(f"  Existing: {len(existing)} rows")
 
-# Add AIAAIC expansion
 for _, row in expansion.iterrows():
     full_text = str(row.get("_fulltext", ""))
     title = str(row.get(title_col, ""))[:80]
@@ -300,10 +274,8 @@ for _, row in expansion.iterrows():
         "harms": annotate_harms(full_text),
     })
 
-# Add USFED expansion if exists
 if os.path.exists("usfed_expansion.csv"):
     usfed = pd.read_csv("usfed_expansion.csv", encoding="utf-8", low_memory=False)
-    # Check if these are already in records
     existing_titles = {r.get("title", "") for r in records}
     text_cols_u = [c for c in usfed.columns if usfed[c].dtype == object]
     name_cols = [c for c in usfed.columns if "name" in c.lower()]

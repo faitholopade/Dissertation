@@ -1,12 +1,4 @@
-"""
-evaluate_annotations.py — Compute agreement metrics (v0.3).
-
-Evaluates TWO datasets:
-  Part A: Original AIAAIC pilot (manual_vs_llm_comparison.csv)
-  Part B: Master table keyword-vs-LLM (master_annotation_table_llm.csv)
-
-Outputs agreement stats for each, saves evaluate_results.csv.
-"""
+# evaluate_annotations.py — Compute agreement metrics.
 
 import os
 import sys
@@ -19,7 +11,6 @@ MASTER_LLM_CSV = "master_annotation_table_llm.csv"
 
 
 def agreement(gold, pred):
-    """Percent agreement and Cohen's kappa on two Series."""
     mask = gold.notna() & pred.notna() & (gold != "") & (pred != "")
     g = gold[mask].astype(str)
     p = pred[mask].astype(str)
@@ -43,7 +34,6 @@ def has_right(rights_str, keyword):
 
 
 def part_a_aiaaic_pilot():
-    """Original AIAAIC manual vs LLM comparison."""
     print("=" * 60)
     print("PART A: AIAAIC Pilot (manual_vs_llm_comparison.csv)")
     print("=" * 60)
@@ -90,7 +80,6 @@ def part_a_aiaaic_pilot():
 
 
 def part_b_master_table():
-    """Master annotation table: keyword vs LLM."""
     print("\n" + "=" * 60)
     print("PART B: Master Table (keyword vs LLM)")
     print("=" * 60)
@@ -116,7 +105,6 @@ def part_b_master_table():
     print(f"  {res}")
     results.append(res)
 
-    # Per-right agreement
     for right_label in ["privacy_data_protection", "non_discrimination",
                         "access_social_protection"]:
         kw  = df["rights"].str.contains(right_label, na=False).map({True: "Yes", False: "No"})
@@ -127,7 +115,6 @@ def part_b_master_table():
         print(f"  {res}")
         results.append(res)
 
-    # Per-harm agreement
     for harm_label in ["unfair_exclusion", "privacy_breach",
                        "misinformation_error", "procedural_unfairness"]:
         kw  = df["harms"].str.contains(harm_label, na=False).map({True: "Yes", False: "No"})

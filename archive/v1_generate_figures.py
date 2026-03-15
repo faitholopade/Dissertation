@@ -1,16 +1,4 @@
-"""
-generate_figures.py — Generate dissertation figures from annotation results.
-
-Produces:
-  - fig_domain_distribution.png    (bar chart by source × domain)
-  - fig_pattern_distribution.png   (bar chart: keyword vs LLM patterns)
-  - fig_unknown_rates.png          (grouped bar: unknown rates by method)
-  - fig_confusion_domain.png       (heatmap: domain confusion matrix)
-  - fig_rights_agreement.png       (bar chart: per-label rights agreement)
-  - fig_harms_agreement.png        (bar chart: per-label harms agreement)
-
-Requires: matplotlib, seaborn, pandas
-"""
+# generate_figures.py — Generate dissertation figures from annotation results.
 
 import os
 import sys
@@ -31,7 +19,6 @@ def ensure_llm_table():
 
 
 def fig_domain_distribution(df):
-    """Bar chart: domain distribution by source."""
     ct = pd.crosstab(df["source"], df["annex_domain"])
     ax = ct.plot(kind="bar", figsize=(8, 5), colormap="Set2")
     ax.set_ylabel("Count")
@@ -45,7 +32,6 @@ def fig_domain_distribution(df):
 
 
 def fig_pattern_comparison(df):
-    """Side-by-side: keyword vs LLM system pattern counts."""
     kw = df["system_pattern"].value_counts().rename("Keyword")
     llm = df["llm_system_pattern"].value_counts().rename("LLM")
     combined = pd.concat([kw, llm], axis=1).fillna(0)
@@ -60,7 +46,6 @@ def fig_pattern_comparison(df):
 
 
 def fig_unknown_rates(df):
-    """Grouped bar: % unknown by method for domain and pattern."""
     n = len(df)
     data = {
         "Keyword domain":  (df["annex_domain"] == "unknown").sum() / n * 100,
@@ -80,7 +65,6 @@ def fig_unknown_rates(df):
 
 
 def fig_confusion_domain(df):
-    """Heatmap confusion matrix for annex domain."""
     labels = ["employment", "essential_services", "unknown"]
     cm = confusion_matrix(df["annex_domain"], df["llm_annex_domain"], labels=labels)
     fig, ax = plt.subplots(figsize=(6, 5))
@@ -96,7 +80,6 @@ def fig_confusion_domain(df):
 
 
 def fig_rights_agreement(df):
-    """Per-label rights agreement bar chart."""
     labels = ["privacy_data_protection", "non_discrimination",
               "access_social_protection", "good_administration"]
     agrees = []
@@ -118,7 +101,6 @@ def fig_rights_agreement(df):
 
 
 def fig_harms_agreement(df):
-    """Per-label harms agreement bar chart."""
     labels = ["unfair_exclusion", "privacy_breach",
               "misinformation_error", "procedural_unfairness"]
     agrees = []

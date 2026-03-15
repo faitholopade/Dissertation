@@ -1,25 +1,11 @@
-
-"""
-run_all.py  –  Run the full dissertation pipeline after cleanup.
-
-This script runs from the project root (Dissertation/) and handles
-all path resolution so the src/ scripts can find data/ and output/.
-
-Usage:
-    python run_all.py          # Run everything
-    python run_all.py --check  # Verify files only, don't run
-"""
+# run_all.py — Run the full dissertation pipeline from project root
 
 import subprocess, sys, os
 
-# Ensure we're in the project root
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
 print(f"Working directory: {ROOT}\n")
 
-# ═══════════════════════════════════════════════════════════════
-# STEP 0: Verify all required files exist
-# ═══════════════════════════════════════════════════════════════
 required_files = {
     "src/01_expand_corpus.py":      "Corpus expansion",
     "src/02_llm_annotate.py":       "LLM annotation",
@@ -57,9 +43,6 @@ if "--check" in sys.argv:
     print("\n[OK] All files present. Run without --check to execute pipeline.")
     sys.exit(0)
 
-# ═══════════════════════════════════════════════════════════════
-# PIPELINE STEPS
-# ═══════════════════════════════════════════════════════════════
 steps = [
     ("STEP 1: Expand corpus → 150 records",        "src/01_expand_corpus.py"),
     ("STEP 2: LLM annotation (uses cache)",         "src/02_llm_annotate.py"),
@@ -89,9 +72,6 @@ for desc, script in steps:
         print("  Stopping pipeline. Fix the error above and re-run.")
         sys.exit(1)
 
-# ═══════════════════════════════════════════════════════════════
-# FINAL SUMMARY
-# ═══════════════════════════════════════════════════════════════
 print(f"\n{'=' * 60}")
 print(f"  PIPELINE COMPLETE")
 print(f"{'=' * 60}")

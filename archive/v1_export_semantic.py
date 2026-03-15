@@ -1,9 +1,4 @@
-"""
-export_semantic.py — Export master_annotation_table.csv to JSON-LD (v0.3).
-
-Produces risk_records.jsonld with vocabulary-aligned URIs from
-DPV, DPV-Risk, VAIR, and EU-Rights.
-"""
+# export_semantic.py — Export master_annotation_table.csv to JSON-LD.
 
 import json
 import pandas as pd

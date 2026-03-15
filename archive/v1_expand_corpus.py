@@ -1,24 +1,8 @@
-
-"""
-expand_corpus.py  –  Expand the master annotation corpus to ≥150 records.
-
-Sources expanded:
-  1. AIAAIC: pull from aiaaic_ranked_top100.csv (rows 51–100, beyond current top50)
-  2. USFED:  pull additional rows from 2024consolidatedaiinventoryrawv2.csv
-  3. OECD AIM (new source): public-sector AI cases from OECD AI policy observatory
-
-Run:
-    python expand_corpus.py
-Outputs:
-    aiaaic_expansion.csv          – 40 additional AIAAIC rows
-    usfed_expansion.csv           – 20 additional USFED rows
-    master_annotation_table_v05.csv – unified ≥150-row table
-"""
+# expand_corpus.py — Expand the master annotation corpus to >=150 records.
 
 import pandas as pd
 import re, os, sys
 
-# ── Keyword dictionaries (v3 – expanded) ────────────────────────────
 EMPLOYMENT_KW = [
     "employment", "employ", "employee", "employer", "worker", "workforce",
     "staffing", "staff", "recruitment", "recruiting", "hiring", "hire",
@@ -103,7 +87,6 @@ SYSTEM_PATTERN_RULES = {
 
 
 def kw_match(text, keywords):
-    """Case-insensitive substring match against keyword list."""
     if not isinstance(text, str):
         return False
     text_lower = text.lower()
@@ -111,7 +94,6 @@ def kw_match(text, keywords):
 
 
 def regex_match(text, patterns):
-    """Case-insensitive regex match."""
     if not isinstance(text, str):
         return False
     text_lower = text.lower()
@@ -119,7 +101,6 @@ def regex_match(text, patterns):
 
 
 def concat_text_cols(row, cols):
-    """Concatenate multiple columns into one searchable string."""
     parts = []
     for c in cols:
         if c in row.index and isinstance(row[c], str):
@@ -127,20 +108,12 @@ def concat_text_cols(row, cols):
     return " ".join(parts)
 
 
-# ─── AIAAIC expansion ───────────────────────────────────────────────
 def expand_aiaaic():
-    """
-    Load the full AIAAIC incidents CSV and select rows 51-100 from the
-    ranked list (already have top 50) plus any new high-relevance rows.
-    Falls back to re-ranking from the full CSV if ranked file unavailable.
-    """
-    # Try ranked file first
     ranked_path = "aiaaic_ranked_top100.csv"
     full_path = "./AIAAIC (AI, algorithmic and automation incidents and controversies)/AIAAIC Repository - Incidents.csv"
 
     if os.path.exists(ranked_path):
         df = pd.read_csv(ranked_path)
-        # Take rows beyond the first 50 (already in corpus)
         existing_ids_path = "aiaaic_ranked_top50.csv"
         if os.path.exists(existing_ids_path):
             existing = pd.read_csv(existing_ids_path)
@@ -151,7 +124,6 @@ def expand_aiaaic():
     elif os.path.exists(full_path):
         df = pd.read_csv(full_path, header=1)
         df = df[df.iloc[:, 0].notna()].copy()
-        # Rename columns for consistency
         col_map = {}
         for c in df.columns:
             if "aiaaic" in c.lower() and "id" in c.lower():
@@ -174,7 +146,6 @@ def expand_aiaaic():
         df["_score"] = df.apply(score_row, axis=1)
         df = df[df["_score"] >= 2].sort_values("_score", ascending=False)
 
-        # Remove already-used IDs
         for f in ["aiaaic_ranked_top50.csv", "aiaaic_manual_extra.csv"]:
             if os.path.exists(f):
                 used = pd.read_csv(f)
@@ -194,16 +165,10 @@ def expand_aiaaic():
     return expansion
 
 
-# ─── USFED expansion ────────────────────────────────────────────────
 def expand_usfed():
-    """
-    Pull additional rows from the 2024 Federal AI Use Case Inventory.
-    Focus on rights-impacting / safety-impacting cases.
-    """
     path = "./Federal AI Use Case Inventory/2024_consolidated_ai_inventory_raw_v2.csv"
     if not os.path.exists(path):
-        # Try alternate name
-        for alt in ["2024consolidatedaiinventoryraw.csv",
+            for alt in ["2024consolidatedaiinventoryraw.csv",
                      "2024-Federal-AI-Use-Case-Inventory.csv"]:
             if os.path.exists(alt):
                 path = alt
@@ -223,7 +188,6 @@ def expand_usfed():
         print(f"⚠ Could not read {path} with any encoding")
         return pd.DataFrame()
 
-    # Identify text columns
     name_col = [c for c in df.columns if "use case name" in c.lower()]
     purpose_col = [c for c in df.columns if "purpose" in c.lower() or "intended" in c.lower()]
     output_col = [c for c in df.columns if "output" in c.lower()]
@@ -239,7 +203,6 @@ def expand_usfed():
         if kw_match(txt, EMPLOYMENT_KW): s += 2
         if kw_match(txt, BENEFITS_KW): s += 2
         if kw_match(txt, LLM_KW): s += 3
-        # Boost rights/safety-impacting
         for c in impact_col:
             if isinstance(row.get(c), str) and "yes" in row[c].lower():
                 s += 2
@@ -248,7 +211,6 @@ def expand_usfed():
     df["_score"] = df.apply(score_row, axis=1)
     df = df[df["_score"] >= 2].sort_values("_score", ascending=False)
 
-    # Remove already-used (first 10)
     if os.path.exists("usfederal_subset_first10.csv"):
         used = pd.read_csv("usfederal_subset_first10.csv")
         if len(used) > 0:
@@ -264,7 +226,6 @@ def expand_usfed():
     return expansion
 
 
-# ─── Annotate new rows (keyword-based) ──────────────────────────────
 def annotate_domain(text):
     if kw_match(text, EMPLOYMENT_KW):
         return "employment"
@@ -279,7 +240,6 @@ def annotate_pattern(text):
             return pattern
     if kw_match(text, LLM_KW):
         return "llm_decision_support"
-    # Check for clear non-LLM signals
     non_llm_signals = ["algorithm", "machine learning", "neural network",
                        "random forest", "logistic regression", "rule-based",
                        "statistical model", "regression"]
@@ -344,12 +304,10 @@ def annotate_harms(text):
 
 
 def build_expanded_table():
-    """Combine existing 90-row table with new expansion rows."""
     print("Building expanded master annotation table (v0.5)...\n")
 
     records = []
 
-    # ── Load existing 90 records ──
     existing_path = "master_annotation_table.csv"
     if os.path.exists(existing_path):
         existing = pd.read_csv(existing_path)
@@ -359,7 +317,6 @@ def build_expanded_table():
     else:
         print("  ⚠ No existing master table found – building from scratch")
 
-    # ── AIAAIC expansion ──
     aiaaic_exp = expand_aiaaic()
     if len(aiaaic_exp) > 0:
         title_col = "Headline" if "Headline" in aiaaic_exp.columns else aiaaic_exp.columns[1] if len(aiaaic_exp.columns) > 1 else aiaaic_exp.columns[0]
@@ -380,7 +337,6 @@ def build_expanded_table():
                 "harms": annotate_harms(full_text),
             })
 
-    # ── USFED expansion ──
     usfed_exp = expand_usfed()
     if len(usfed_exp) > 0:
         name_cols = [c for c in usfed_exp.columns if "name" in c.lower()]
@@ -401,7 +357,6 @@ def build_expanded_table():
                 "harms": annotate_harms(full_text),
             })
 
-    # ── Build final table ──
     df = pd.DataFrame(records)
     out_path = "master_annotation_table_v05.csv"
     df.to_csv(out_path, index=False)
