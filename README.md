@@ -38,15 +38,16 @@ FRIA-style retrieval scenarios and a knowledge graph.
 ├── .gitignore
 ├── README.md
 ├── requirements.txt
-├── run_all.py                        # Orchestrate full pipeline
-├── run_all_patch.py                  # Patched runner (fixes for re-runs)
+├── run_all.py                        # Orchestrate full pipeline (steps 1–10)
 ├── run_steps_11_12.py                # Orchestrate causal + KG steps
+├── LICENSE
 ├── output.txt
+├── output1.txt
 ├── structure.txt
 │
 ├── .venv/                            # Python virtual environment (not committed)
 │
-├── AIAAIC AI, algorithmic and automation incidents and controversies/
+├── AIAAIC (AI, algorithmic and automation incidents and controversies)/
 │   ├── AIAAIC Repository - Incidents.csv
 │   ├── aiaaic_ranked_top10.csv
 │   ├── aiaaic_ranked_top30.csv
@@ -68,7 +69,7 @@ FRIA-style retrieval scenarios and a knowledge graph.
 │   ├── v1_llm_annotate.py
 │   ├── v1_schema.py
 │   ├── v1_run_pipeline.bat
-│   └── v1_*.csv / v1_*.jsonl         # V1 outputs
+│   └── v1_*.csv / v1_*.jsonl / v1_*.jsonld / v1_*.txt   # V1 outputs
 │
 ├── data/
 │   ├── master_annotation_table_v01.csv
@@ -89,7 +90,7 @@ FRIA-style retrieval scenarios and a knowledge graph.
 │   └── usfed/
 │       ├── 2024_consolidated_ai_inventory_raw_v2.csv
 │       ├── usfed_expansion.csv
-│       └── usfed_ai.py
+│       └── us_fed_ai.py
 │
 ├── docs/
 │   ├── README.md
@@ -102,7 +103,7 @@ FRIA-style retrieval scenarios and a knowledge graph.
 │
 ├── Federal AI Use Case Inventory/
 │   ├── Description.md
-│   └── usfederal_subset_first10.csv
+│   └── us_federal_subset_first10.csv
 │
 ├── figures/
 │   ├── fig_confusion_domain.png
@@ -222,15 +223,10 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 ```bash
 python run_all.py
 ```
-### Pipeline (Steps 7b–10)
-
-```bash
-python run_all_patch.py
-```
 
 This runs corpus expansion → LLM annotation → method comparison → gold
-evaluation → schema definition → semantic export → figures → FRIA demos →
-error analysis → regulatory crosswalk.
+evaluation → schema definition → semantic export → figures → alternative
+figures → FRIA demos → error analysis → regulatory crosswalk.
 
 ### Extraction + knowledge graph (Steps 11–13)
 
