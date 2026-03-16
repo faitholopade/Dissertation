@@ -1,5 +1,7 @@
 # Regulatory Crosswalk: AI Act Annex III/4 & III/5a → Fundamental Rights
 
+*Regulatory crosswalk table for dissertation Appendix.*
+
 ## Crosswalk Table
 
 ### Annex III/4(a) — Employment

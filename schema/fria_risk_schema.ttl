@@ -10,7 +10,6 @@
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-# ── Ontology header ────────────────────────────────────────────
 <https://example.org/fria-risk-schema>
     a owl:Ontology ;
     dct:title "FRIA Risk Record Schema"@en ;
@@ -21,14 +20,12 @@
     rdfs:seeAlso <https://w3id.org/dpv/legal/eu/aiact> ,
                  <https://w3id.org/vair> .
 
-# ── Core class ─────────────────────────────────────────────────
 fria:RiskRecord
     a owl:Class ;
     rdfs:label "Risk Record"@en ;
     rdfs:comment "A single documented AI incident or use case annotated for fundamental rights risk assessment."@en ;
     rdfs:subClassOf dpv-risk:RiskAssessment .
 
-# ── Properties ─────────────────────────────────────────────────
 fria:annexDomain
     a owl:ObjectProperty ;
     rdfs:label "Annex III Domain"@en ;
@@ -70,7 +67,6 @@ fria:confidence
     rdfs:domain fria:RiskRecord ;
     rdfs:range xsd:float .
 
-# ── Annex III Domain individuals ───────────────────────────────
 fria:AnnexDomain a owl:Class ;
     rdfs:label "Annex III Domain"@en .
 
@@ -88,7 +84,6 @@ fria:EssentialServices
     rdfs:comment "AI systems evaluating eligibility for public assistance, healthcare, benefits; credit scoring; emergency dispatch (Art. 6(2), Annex III(5a))."@en ;
     owl:sameAs aiact:HighRiskAI-EssentialServices .
 
-# ── System Pattern individuals ─────────────────────────────────
 fria:SystemPattern a owl:Class ;
     rdfs:label "AI System Pattern"@en ;
     rdfs:comment "Taxonomy of AI system architectures relevant to risk assessment."@en .
@@ -129,7 +124,6 @@ fria:TraditionalML a fria:SystemPattern ;
     rdfs:label "Traditional ML (non-LLM)"@en ;
     rdfs:comment "System using conventional machine learning without LLM components."@en .
 
-# ── Annotation Method individuals ──────────────────────────────
 fria:AnnotationMethod a owl:Class ;
     rdfs:label "Annotation Method"@en .
 
