@@ -54,7 +54,7 @@ def fig_domain_distribution(df):
         ("Hybrid", None),
     ]
 
-    # Detect LLM and hybrid columns
+    # Find LLM and hybrid columns
     for col in df.columns:
         if "llm" in col.lower() and "domain" in col.lower() and "v2" not in col.lower():
             methods[1] = ("LLM", col)
@@ -124,7 +124,7 @@ def fig_unknown_rates(df):
     for col in df.columns:
         if "domain" in col.lower() or "pattern" in col.lower():
             unk_rate = (df[col] == "unknown").mean()
-            # Clean up label
+            # Tidy label text
             label = col.replace("_", " ").replace("annex ", "").title()
             data[label] = unk_rate
 
@@ -135,7 +135,7 @@ def fig_unknown_rates(df):
     labels = list(data.keys())
     values = list(data.values())
 
-    # Color by method type
+    # Colour bars by method
     bar_colors = []
     for l in labels:
         if "llm" in l.lower() or "Llm" in l:
@@ -217,7 +217,7 @@ def fig_source_breakdown(df):
 
 
 def fig_kappa_summary(df):
-    # Try to load evaluation results
+    # Load evaluation results if available
     eval_data = []
     for path in ["evaluate_results.csv", "output/gold_evaluation_results.csv"]:
         if os.path.exists(path):
@@ -295,7 +295,7 @@ def fig_rights_harms_heatmap(df):
     harms_labels = ["unfair_exclusion", "privacy_breach",
                     "misinformation_error", "procedural_unfairness"]
 
-    # Detect rights/harms columns
+    # Check for per-label binary columns
     rights_cols = {}
     harms_cols = {}
     for col in df.columns:
@@ -306,7 +306,7 @@ def fig_rights_harms_heatmap(df):
             if h in col.lower() and ("harm" in col.lower() or "hybrid" in col.lower()):
                 harms_cols[h] = col
 
-    # If no separate columns, try parsing semicolon-separated fields
+    # Fall back to semicolon-separated string fields
     rights_field = None
     harms_field = None
     for col in df.columns:
@@ -379,8 +379,8 @@ def fig_agreement_bars(df, dimension="rights"):
         title = "Per-Label Agreement: Harms"
         filename = "figures/fig_harms_agreement.png"
 
-    # Try loading from error analysis
-    for path in [f"error_analysis_{dimension}.csv"]:
+    # Try error analysis CSV first
+    for path in [f"output/error_analysis_{dimension}.csv", f"error_analysis_{dimension}.csv"]:
         if os.path.exists(path):
             edf = pd.read_csv(path)
             if "agree" in edf.columns:
@@ -401,7 +401,7 @@ def fig_agreement_bars(df, dimension="rights"):
                 print(f"  [OK] {filename}")
                 return
 
-    # Calculate from columns if no file
+    # Otherwise compute from dataframe columns
     agreements = {}
     for label in labels:
         kw_col = [c for c in df.columns if label in c.lower() and

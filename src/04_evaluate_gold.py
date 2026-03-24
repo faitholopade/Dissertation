@@ -1,5 +1,5 @@
 
-# Compare Label Studio gold annotations against keyword, LLM, and hybrid automated annotations.
+# Evaluate automated annotations against Label Studio gold standard
 
 import pandas as pd
 import numpy as np

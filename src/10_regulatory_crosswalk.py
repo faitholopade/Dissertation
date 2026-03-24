@@ -1,4 +1,4 @@
-# 10_regulatory_crosswalk.py — Annex III/4 & III/5a regulatory crosswalk
+# Regulatory crosswalk for Annex III/4 and III/5a
 
 import json, csv, os
 from pathlib import Path

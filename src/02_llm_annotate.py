@@ -1,4 +1,4 @@
-# LLM annotation with few-shot prompts and chain-of-thought reasoning.
+# LLM-based annotation using Claude API with few-shot prompting
 
 import pandas as pd
 import json, os, sys, time, hashlib
@@ -228,7 +228,7 @@ def main():
     df["llm_v2_confidence"] = [r.get("confidence", 0) for r in llm_results]
     df["llm_v2_rationale"] = [r.get("rationale", "") for r in llm_results]
 
-    # Build hybrid columns: LLM wins on disagreement, unless LLM says unknown
+    # Hybrid columns: prefer LLM label unless it says unknown
     df["hybrid_v2_annex_domain"] = df.apply(
         lambda r: r["llm_v2_annex_domain"]
         if r.get("annex_domain") == "unknown" or r.get("annex_domain") == r["llm_v2_annex_domain"]

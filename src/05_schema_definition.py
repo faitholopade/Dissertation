@@ -1,5 +1,5 @@
 
-# Generate formal schema artefacts (JSON-LD, Turtle/OWL, docs) for the FRIA risk ontology.
+# Generate schema files (JSON-LD, Turtle, docs) for the FRIA risk ontology
 
 import json, os
 

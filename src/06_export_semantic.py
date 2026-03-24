@@ -1,5 +1,5 @@
 
-# Export all records as JSON-LD using the v2 schema.
+# Export annotated records to JSON-LD
 
 import pandas as pd
 import json, os, sys

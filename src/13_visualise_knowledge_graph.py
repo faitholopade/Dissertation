@@ -1,4 +1,4 @@
-# Step 13: Generate interactive HTML and static PNG knowledge graph visualisations
+# Knowledge graph visualisation (interactive HTML + static PNG)
 
 import os, re, json
 from pathlib import Path

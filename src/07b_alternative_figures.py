@@ -1,4 +1,4 @@
-# Alternative rights/harms figures (distribution-based, replacing agreement charts).
+# Alternative rights/harms distribution figures
 
 import os, sys, re
 from pathlib import Path

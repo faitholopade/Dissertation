@@ -1,4 +1,4 @@
-# 09_error_analysis.py — Error analysis for Section 5.3 (Parts A–D)
+# Error analysis for Section 5.3 (Parts A-D)
 
 import os, sys, csv, textwrap
 from pathlib import Path

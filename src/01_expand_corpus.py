@@ -184,7 +184,7 @@ all_rows = list(master.to_dict("records"))
 all_rows.extend(new_rows)
 print(f"\n  Added {len(new_rows)} new AIAAIC records")
 
-# Add USFED expansion if available
+# Append USFED records if the file exists
 if os.path.exists("data/usfed/usfed_expansion.csv"):
     usfed = pd.read_csv("data/usfed/usfed_expansion.csv", encoding="utf-8", low_memory=False)
     existing_titles_now = {r["title"].strip().lower() for r in all_rows if "title" in r}

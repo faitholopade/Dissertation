@@ -139,7 +139,7 @@ def call_llm(prompt: str) -> Dict[str, Any]:
 
 
 
-# Skip LLM call for sources where type is obvious
+# Known source types don't need LLM classification
 def heuristic_source_type(source: str) -> str:
     s = str(source).strip().upper()
     if s == "USFED":

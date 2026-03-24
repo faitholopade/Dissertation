@@ -1,4 +1,4 @@
-# FRIA-style retrieval demonstrations (Section 5.4).
+# FRIA scenario demonstrations for Section 5.4
 
 import os, sys, csv, textwrap
 from pathlib import Path
