@@ -381,7 +381,7 @@ def main():
 
     merged = manual.merge(ranked, how="left", on="AIAAIC_ID", suffixes=("_manual", ""))
 
-    # Fallback: match by headline if ID didn't work
+    # Try headline matching if ID merge missed rows
     missing = merged["Headline"].isna()
     if missing.any():
         lookup = ranked.set_index("headline_norm")

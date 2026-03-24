@@ -47,7 +47,7 @@ mask_benefits = (
 subset_keywords = df[mask_employment | mask_benefits].copy()
 print("Subset size after keyword filter:", len(subset_keywords))
 
-# Only keep topic areas relevant to Annex III
+# Filter to topic areas that map to Annex III
 allowed_topics = [
     "Education & Workforce",
     "Government Services (includes Benefits and Service Delivery)",

@@ -1,4 +1,4 @@
-# run_all.py — Run the full dissertation pipeline from project root
+# Run the full dissertation pipeline from project root
 
 import subprocess, sys, os
 
@@ -55,6 +55,8 @@ steps = [
     ("STEP 8: FRIA-style demonstration scenarios",  "src/08_fria_demo_scenarios.py"),
     ("STEP 9: Error analysis",                      "src/09_error_analysis.py"),
     ("STEP 10: Regulatory crosswalk",               "src/10_regulatory_crosswalk.py"),
+    ("STEP 11: Chain-of-events + mitigation extraction", "src/11_chain_of_events.py"),
+    ("STEP 12: Knowledge graph construction",        "src/12_knowledge_graph.py"),
 ]
 
 results = []
@@ -87,7 +89,7 @@ print(f"{'=' * 60}")
 for desc, ok in results:
     print(f"  {'[OK]' if ok else '[FAIL]'} {desc}")
 
-# Verify outputs exist
+# Check output files
 print(f"\n  Output files:")
 outputs = [
     "output/master_annotation_table_final.csv",
@@ -96,6 +98,11 @@ outputs = [
     "output/risk_records_v2.jsonld",
     "schema/fria_risk_schema.jsonld",
     "schema/fria_risk_schema.ttl",
+    "output/master_annotation_table_causal.csv",
+    "output/causal_summary.csv",
+    "output/causal_annotation_log.jsonl",
+    "output/knowledge_graph.ttl",
+    "output/knowledge_graph_summary.csv",
 ]
 for f in outputs:
     print(f"    {'[OK]' if os.path.exists(f) else '[FAIL]'} {f}")

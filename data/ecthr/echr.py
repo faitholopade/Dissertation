@@ -8,7 +8,7 @@ df = pd.read_csv(csv_path, encoding="utf-8", low_memory=False)
 print("Columns:", df.columns.tolist())
 print("Number of rows:", len(df))
 
-# Article 14 = discrimination, P1 = protection of property (social benefits)
+# Art 14 (discrimination) and Protocol 1 (property/social benefits)
 TARGET_ARTICLES = ["14", "P1"]
 
 def article_matches(x):
