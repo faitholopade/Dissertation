@@ -105,7 +105,7 @@ data/ecthr/  ──┘         |                                          |
 ├── README.md
 ├── LICENSE                           # CC BY 4.0
 ├── requirements.txt
-├── run_all.py                        # Orchestrate steps 01-10
+├── run_all.py                        # Orchestrate steps 01-12
 │
 ├── data/
 │   ├── aiaaic/                       # AIAAIC incident data and processing
@@ -222,12 +222,8 @@ export ANTHROPIC_API_KEY="sk-ant-..."
 ### 4. Run the pipeline
 
 ```bash
-# Steps 01-10
+# Steps 01-12
 python run_all.py
-
-# Steps 11-12 (causal extraction and knowledge graph)
-python src/11_chain_of_events.py
-python src/12_knowledge_graph.py
 
 # Step 13 (knowledge graph visualisation)
 python src/13_visualise_knowledge_graph.py
