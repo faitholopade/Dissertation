@@ -4,7 +4,6 @@ __pycache__/
 **/llm_predictions_cache*.jsonl
 *.tmp
 .venv/
-.claude/
 structure.txt
 output*.txt
 finaloutput.txt
