@@ -63,16 +63,8 @@
          AIAAIC1935      White House appears to use AI to calculate tariff rates
            manual: both  →  pred: unknown
 
-  Method: LLM_v2  (17 disagreements)
+  Method: LLM_v2  (16 disagreements)
   ──────────────────────────────────────────────────
-    [ 5] LLM_v2_misses_essential_services
-         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: essential_services  →  pred: unknown
-         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: essential_services  →  pred: unknown
-         AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: essential_services  →  pred: unknown
-         ... and 2 more
     [ 5] LLM_v2_partial_match
          AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
            manual: both  →  pred: essential_services
@@ -81,6 +73,14 @@
          AIAAIC1647      UK government accused of COVID-19 recovery funding algo
            manual: both  →  pred: essential_services
          ... and 2 more
+    [ 4] LLM_v2_misses_essential_services
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: essential_services  →  pred: unknown
+         AIAAIC2049      Deloitte Australia fined for AI error-strewn government
+           manual: essential_services  →  pred: unknown
+         AIAAIC1935      White House appears to use AI to calculate tariff rates
+           manual: essential_services  →  pred: unknown
+         ... and 1 more
     [ 3] LLM_v2_domain_swap
          AIAAIC1648      DWP Kickstart "gateway" firms with no trading history a
            manual: employment  →  pred: essential_services
@@ -166,10 +166,10 @@
       8  LLM_gold_misses_essential_services
       7  keyword_partial_match
       7  hybrid_partial_match
-      5  LLM_v2_misses_essential_services
       5  LLM_gold_partial_match
       5  LLM_v2_partial_match
       5  hybrid_domain_swap
+      4  LLM_v2_misses_essential_services
       4  keyword_domain_swap
       4  LLM_gold_domain_swap
       3  keyword_misses_employment
@@ -188,31 +188,27 @@
   CONFUSION MATRIX: Annex Domain (rows=keyword, cols=LLM)
   ──────────────────────────────────────────────────
                     employment  essential_services  unknown
-employment                  10                   0        6
-essential_services           2                  61       32
-unknown                      0                   4       35
+employment                   9                   1        6
+essential_services           2                  74       19
+unknown                      0                   6       33
 
   Classification report (keyword=reference, LLM=prediction):
                     precision    recall  f1-score   support
 
-        employment       0.83      0.62      0.71        16
-essential_services       0.94      0.64      0.76        95
-           unknown       0.48      0.90      0.62        39
+        employment       0.82      0.56      0.67        16
+essential_services       0.91      0.78      0.84        95
+           unknown       0.57      0.85      0.68        39
 
-          accuracy                           0.71       150
-         macro avg       0.75      0.72      0.70       150
-      weighted avg       0.81      0.71      0.72       150
+          accuracy                           0.77       150
+         macro avg       0.77      0.73      0.73       150
+      weighted avg       0.81      0.77      0.78       150
 
-  Cohen's κ (domain): 0.503
+  Cohen's κ (domain): 0.588
 
-  Domain disagreements: 44 / 150
-    Title:   Policy Analyst Assistant
-    Keyword: essential_services  |  LLM: unknown
-    Desc:    The Student and Exchange Visitor Program (SEVP) uses AI to help policy analysts quickly find and summarize information a...
-
-    Title:   Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipe
-    Keyword: essential_services  |  LLM: unknown
-    Desc:    The purpose of this AI-driven pipeline is to tackle the challenge of processing non-English, short-text responses in lar...
+  Domain disagreements: 34 / 150
+    Title:   ELIS Evidence Classifier Machine Learning (ML) Tagging Solution
+    Keyword: unknown  |  LLM: essential_services
+    Desc:    To enable end users to navigate directly to the page(s) containing evidence documents of interest instead of sifting thr...
 
     Title:   FAQ for SMaRT
     Keyword: essential_services  |  LLM: unknown
@@ -242,25 +238,28 @@ essential_services       0.94      0.64      0.76        95
     Keyword: employment  |  LLM: unknown
     Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/knightscope-hp-robocop-ignores-woman-re...
 
-    Title:   Utah online dispute resolution system benefits lenders not litigants
-    Keyword: essential_services  |  LLM: unknown
-    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/utah-dispute-resolution-system-benefits...
+    Title:   Parivar Pehchan Patra algorithm declares living people dead
+    Keyword: unknown  |  LLM: essential_services
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/parivar-pehchan-patra-declares-living-p...
+
+    Title:   Amazon employees, investors protest US government Rekognition sales
+    Keyword: employment  |  LLM: unknown
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/amazon-employees-protest-us-govt-rekogn...
 
 
   CONFUSION MATRIX: System Pattern (rows=keyword, cols=LLM)
   ──────────────────────────────────────────────────
-                        chatbot  classification_triage  llm_assisted_screening  llm_decision_support  misinformation_error  not_llm  profiling_scoring  resource_allocation  summary_assistant  surveillance_monitor  unknown
-chatbot                       0                      0                       0                     0                     0        0                  0                    0                  0                     0        0
-classification_triage         0                      0                       0                     0                     0        0                  0                    0                  0                     0        0
-llm_assisted_screening        0                      1                       0                     0                     0        1                  1                    0                  0                     0        0
-llm_decision_support          0                      0                       0                     2                     0        0                  0                    0                  1                     0        0
-misinformation_error          0                      0                       0                     0                     0        0                  0                    0                  0                     0        0
-not_llm                       0                      0                       0                     0                     0        3                  1                    0                  0                     1       20
-profiling_scoring             0                      0                       0                     0                     0        0                 14                    0                  0                     1        0
-resource_allocation           0                      0                       0                     0                     0        0                  0                    0                  0                     0        0
-summary_assistant             0                      0                       0                     0                     0        0                  0                    0                  0                     0        0
-surveillance_monitor          0                      0                       1                     0                     0        1                  1                    0                  0                     7        2
-unknown                       1                      7                       0                     0                     2        3                 28                   11                  3                    14       23
+                        chatbot  classification_triage  llm_assisted_screening  llm_decision_support  not_llm  profiling_scoring  resource_allocation  summary_assistant  surveillance_monitor  unknown
+chatbot                       0                      0                       0                     0        0                  0                    0                  0                     0        0
+classification_triage         0                      0                       0                     0        0                  0                    0                  0                     0        0
+llm_assisted_screening        0                      0                       0                     0        1                  2                    0                  0                     0        0
+llm_decision_support          0                      0                       0                     2        0                  0                    0                  1                     0        0
+not_llm                       0                      1                       0                     0        2                  1                    1                  0                     0       20
+profiling_scoring             0                      1                       0                     0        1                 12                    0                  0                     1        0
+resource_allocation           0                      0                       0                     0        0                  0                    0                  0                     0        0
+summary_assistant             0                      0                       0                     0        0                  0                    0                  0                     0        0
+surveillance_monitor          0                      0                       1                     1        1                  2                    0                  0                     6        1
+unknown                       2                      8                       0                     8        6                 30                    3                  3                    11       21
 
   Classification report (system pattern):
                         precision    recall  f1-score   support
@@ -268,44 +267,43 @@ unknown                       1                      7                       0  
                chatbot       0.00      0.00      0.00         0
  classification_triage       0.00      0.00      0.00         0
 llm_assisted_screening       0.00      0.00      0.00         3
-  llm_decision_support       1.00      0.67      0.80         3
-  misinformation_error       0.00      0.00      0.00         0
-               not_llm       0.38      0.12      0.18        25
-     profiling_scoring       0.31      0.93      0.47        15
+  llm_decision_support       0.18      0.67      0.29         3
+               not_llm       0.18      0.08      0.11        25
+     profiling_scoring       0.26      0.80      0.39        15
    resource_allocation       0.00      0.00      0.00         0
      summary_assistant       0.00      0.00      0.00         0
-  surveillance_monitor       0.30      0.58      0.40        12
-               unknown       0.51      0.25      0.34        92
+  surveillance_monitor       0.33      0.50      0.40        12
+               unknown       0.50      0.23      0.31        92
 
-              accuracy                           0.33       150
-             macro avg       0.23      0.23      0.20       150
-          weighted avg       0.45      0.33      0.33       150
+              accuracy                           0.29       150
+             macro avg       0.15      0.23      0.15       150
+          weighted avg       0.39      0.29      0.29       150
 
-  Cohen's κ (pattern): 0.119
+  Cohen's κ (pattern): 0.078
 
 ====================================================================
   PER-LABEL AGREEMENT: Rights
 ====================================================================
-  privacy_data_protection         agree=0.660  both=31  kw_only=31  llm_only=20
-  non_discrimination              agree=0.860  both=67  kw_only=9  llm_only=12
-  access_social_protection        agree=0.780  both=39  kw_only=31  llm_only=2
-  good_administration             agree=0.653  both=35  kw_only=6  llm_only=46
-  other                           agree=0.887  both=23  kw_only=13  llm_only=4
+  privacy_data_protection         agree=0.693  both=31  kw_only=31  llm_only=15
+  non_discrimination              agree=0.820  both=66  kw_only=10  llm_only=17
+  access_social_protection        agree=0.833  both=54  kw_only=16  llm_only=9
+  good_administration             agree=0.673  both=34  kw_only=7  llm_only=42
+  other                           agree=0.887  both=26  kw_only=10  llm_only=7
 
 ====================================================================
   PER-LABEL AGREEMENT: Harms
 ====================================================================
-  unfair_exclusion                agree=0.613  both=24  kw_only=5  llm_only=53
-  privacy_breach                  agree=0.867  both=19  kw_only=7  llm_only=13
-  misinformation_error            agree=0.900  both=8  kw_only=2  llm_only=13
-  procedural_unfairness           agree=0.540  both=24  kw_only=14  llm_only=55
-  other                           agree=0.673  both=26  kw_only=48  llm_only=1
+  unfair_exclusion                agree=0.600  both=24  kw_only=5  llm_only=55
+  privacy_breach                  agree=0.860  both=14  kw_only=12  llm_only=9
+  misinformation_error            agree=0.900  both=3  kw_only=7  llm_only=8
+  procedural_unfairness           agree=0.547  both=21  kw_only=17  llm_only=51
+  other                           agree=0.673  both=30  kw_only=44  llm_only=5
 
 ====================================================================
   QUALITATIVE ERROR THEMES (for Section 5.3 discussion)
 ====================================================================
 
-  2. Under-classification / Missed domains (43 instances)
+  2. Under-classification / Missed domains (42 instances)
      The automated method labelled 'unknown' when the manual
      annotator identified a clear Annex III domain.  Common causes:
      sparse incident descriptions and implicit rather than explicit

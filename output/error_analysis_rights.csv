@@ -1,6 +1,6 @@
 label,agree,both,kw_only,llm_only,neither
-privacy_data_protection,0.66,31,31,20,68
-non_discrimination,0.86,67,9,12,62
-access_social_protection,0.78,39,31,2,78
-good_administration,0.653,35,6,46,63
-other,0.887,23,13,4,110
+privacy_data_protection,0.693,31,31,15,73
+non_discrimination,0.82,66,10,17,57
+access_social_protection,0.833,54,16,9,71
+good_administration,0.673,34,7,42,67
+other,0.887,26,10,7,107

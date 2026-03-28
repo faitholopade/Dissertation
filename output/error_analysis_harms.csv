@@ -1,6 +1,6 @@
 label,agree,both,kw_only,llm_only,neither
-unfair_exclusion,0.613,24,5,53,68
-privacy_breach,0.867,19,7,13,111
-misinformation_error,0.9,8,2,13,127
-procedural_unfairness,0.54,24,14,55,57
-other,0.673,26,48,1,75
+unfair_exclusion,0.6,24,5,55,66
+privacy_breach,0.86,14,12,9,115
+misinformation_error,0.9,3,7,8,132
+procedural_unfairness,0.547,21,17,51,61
+other,0.673,30,44,5,71

@@ -263,7 +263,7 @@ fria:inc_AIAAIC0260 a fria:Incident ;
     rdfs:label "Knightscope security robot ignores woman" ;
     fria:hasDomain fria:domain_employment ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_surveillance_monitor ;
+    fria:hasPattern fria:pattern_chatbot ;
     fria:hasRight fria:right_non_discrimination,
         fria:right_privacy_data_protection ;
     fria:hasRootCause fria:cause_technology_failure ;
@@ -273,7 +273,7 @@ fria:inc_AIAAIC0264 a fria:Incident ;
     rdfs:label "UK passport check interprets lips as ope" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_surveillance_monitor ;
+    fria:hasPattern fria:pattern_classification_triage ;
     fria:hasRight fria:right_non_discrimination ;
     fria:hasRootCause fria:cause_technology_failure ;
     fria:hasSourceType fria:srctype_news_article .
@@ -318,7 +318,7 @@ fria:inc_AIAAIC0269 a fria:Incident ;
 
 fria:inc_AIAAIC0339 a fria:Incident ;
     rdfs:label "Poland forced to scrap unemployed worker" ;
-    fria:hasDomain fria:domain_employment ;
+    fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
     fria:hasMitigation fria:mit_System_scrapped_by_government ;
     fria:hasPattern fria:pattern_profiling_scoring ;
@@ -342,7 +342,7 @@ fria:inc_AIAAIC0379 a fria:Incident ;
     rdfs:label "Deepfake romance scammer swindles Califo" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_surveillance_monitor ;
+    fria:hasPattern fria:pattern_llm_decision_support ;
     fria:hasRight fria:right_privacy_data_protection ;
     fria:hasRootCause fria:cause_human_error ;
     fria:hasSourceType fria:srctype_news_article .
@@ -391,7 +391,7 @@ fria:inc_AIAAIC0415 a fria:Incident ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_privacy_breach,
         fria:harm_unfair_exclusion ;
-    fria:hasPattern fria:pattern_surveillance_monitor ;
+    fria:hasPattern fria:pattern_profiling_scoring ;
     fria:hasRight fria:right_access_social_protection,
         fria:right_non_discrimination,
         fria:right_privacy_data_protection ;
@@ -401,7 +401,7 @@ fria:inc_AIAAIC042 a fria:Incident ;
     rdfs:label "Facebook illegally lets housing ads excl" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_unfair_exclusion ;
-    fria:hasPattern fria:pattern_profiling_scoring ;
+    fria:hasPattern fria:pattern_not_llm ;
     fria:hasRight fria:right_good_administration,
         fria:right_non_discrimination ;
     fria:hasRootCause fria:cause_technology_failure ;
@@ -422,7 +422,7 @@ fria:inc_AIAAIC0524 a fria:Incident ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_privacy_breach,
         fria:harm_unfair_exclusion ;
-    fria:hasPattern fria:pattern_resource_allocation ;
+    fria:hasPattern fria:pattern_classification_triage ;
     fria:hasRight fria:right_access_social_protection,
         fria:right_non_discrimination,
         fria:right_privacy_data_protection ;
@@ -504,7 +504,7 @@ fria:inc_AIAAIC0598 a fria:Incident ;
     rdfs:label "UK govt Spotlight fund application asses" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_unfair_exclusion ;
-    fria:hasPattern fria:pattern_classification_triage ;
+    fria:hasPattern fria:pattern_profiling_scoring ;
     fria:hasRight fria:right_non_discrimination ;
     fria:hasSourceType fria:srctype_news_article .
 
@@ -560,7 +560,7 @@ fria:inc_AIAAIC0777 a fria:Incident ;
     rdfs:label "BOSCO electricity subsidy assessment" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_resource_allocation ;
+    fria:hasPattern fria:pattern_classification_triage ;
     fria:hasRight fria:right_access_social_protection,
         fria:right_good_administration,
         fria:right_non_discrimination ;
@@ -589,7 +589,6 @@ fria:inc_AIAAIC0803 a fria:Incident ;
     rdfs:label "Trelleborg welfare management automation" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_privacy_breach ;
-    fria:hasPattern fria:pattern_resource_allocation ;
     fria:hasRight fria:right_access_social_protection,
         fria:right_privacy_data_protection ;
     fria:hasSourceType fria:srctype_news_article .
@@ -633,7 +632,7 @@ fria:inc_AIAAIC0887 a fria:Incident ;
     fria:hasHarm fria:harm_procedural_unfairness,
         fria:harm_unfair_exclusion ;
     fria:hasMitigation fria:mit_Oregon_dropped_the_Safety_at_Screening_t ;
-    fria:hasPattern fria:pattern_classification_triage ;
+    fria:hasPattern fria:pattern_profiling_scoring ;
     fria:hasRight fria:right_access_social_protection,
         fria:right_good_administration,
         fria:right_non_discrimination,
@@ -675,7 +674,7 @@ fria:inc_AIAAIC1018 a fria:Incident ;
     rdfs:label "USPS algorithmic system cuts rural lette" ;
     fria:hasDomain fria:domain_employment ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_not_llm ;
+    fria:hasPattern fria:pattern_resource_allocation ;
     fria:hasRight fria:right_good_administration ;
     fria:hasSourceType fria:srctype_news_article .
 
@@ -740,7 +739,7 @@ fria:inc_AIAAIC1270 a fria:Incident ;
     rdfs:label "Singapore PM Lee Hsien Loong crypto prom" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_misinformation_error ;
+    fria:hasPattern fria:pattern_llm_decision_support ;
     fria:hasRight fria:right_other ;
     fria:hasRootCause fria:cause_technology_failure ;
     fria:hasSourceType fria:srctype_news_article .
@@ -749,6 +748,7 @@ fria:inc_AIAAIC1285 a fria:Incident ;
     rdfs:label "Deepfake Tom Hanks dental ad insurance p" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
+    fria:hasPattern fria:pattern_llm_decision_support ;
     fria:hasRight fria:right_good_administration ;
     fria:hasRootCause fria:cause_technology_failure ;
     fria:hasSourceType fria:srctype_news_article .
@@ -769,7 +769,7 @@ fria:inc_AIAAIC1311 a fria:Incident ;
     rdfs:label "Samagra Vedika system pilot deprives cit" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_procedural_unfairness ;
-    fria:hasPattern fria:pattern_resource_allocation ;
+    fria:hasPattern fria:pattern_classification_triage ;
     fria:hasRight fria:right_access_social_protection,
         fria:right_good_administration,
         fria:right_privacy_data_protection ;
@@ -789,6 +789,7 @@ fria:inc_AIAAIC1321 a fria:Incident ;
     rdfs:label "Deepfake CFO scams finance worker for US" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
+    fria:hasPattern fria:pattern_llm_decision_support ;
     fria:hasRight fria:right_good_administration ;
     fria:hasRootCause fria:cause_technology_failure ;
     fria:hasSourceType fria:srctype_news_article .
@@ -852,7 +853,7 @@ fria:inc_AIAAIC1450 a fria:Incident ;
     rdfs:label "MEP files lawsuit to release iBorderCtrl" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_surveillance_monitor ;
+    fria:hasPattern fria:pattern_profiling_scoring ;
     fria:hasRight fria:right_good_administration,
         fria:right_non_discrimination ;
     fria:hasSourceType fria:srctype_news_article .
@@ -952,7 +953,7 @@ fria:inc_AIAAIC1647 a fria:Incident ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_procedural_unfairness,
         fria:harm_unfair_exclusion ;
-    fria:hasPattern fria:pattern_resource_allocation ;
+    fria:hasPattern fria:pattern_profiling_scoring ;
     fria:hasRight fria:right_access_social_protection,
         fria:right_good_administration,
         fria:right_non_discrimination,
@@ -963,7 +964,7 @@ fria:inc_AIAAIC1648 a fria:Incident ;
     rdfs:label "DWP Kickstart \"gateway\" firms with no tr" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_unfair_exclusion ;
-    fria:hasPattern fria:pattern_profiling_scoring ;
+    fria:hasPattern fria:pattern_classification_triage ;
     fria:hasRight fria:right_non_discrimination ;
     fria:hasRootCause fria:cause_technology_failure ;
     fria:hasSourceType fria:srctype_news_article .
@@ -972,7 +973,7 @@ fria:inc_AIAAIC1720 a fria:Incident ;
     rdfs:label "TennCare automated system accused of ill" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_profiling_scoring ;
+    fria:hasPattern fria:pattern_classification_triage ;
     fria:hasRight fria:right_access_social_protection,
         fria:right_good_administration ;
     fria:hasRootCause fria:cause_technology_failure ;
@@ -982,6 +983,7 @@ fria:inc_AIAAIC1745 a fria:Incident ;
     rdfs:label "Starship robot knocks over Arizona State" ;
     fria:hasDomain fria:domain_employment ;
     fria:hasHarm fria:harm_other ;
+    fria:hasPattern fria:pattern_not_llm ;
     fria:hasRight fria:right_good_administration ;
     fria:hasRootCause fria:cause_technology_failure ;
     fria:hasSourceType fria:srctype_news_article .
@@ -1034,7 +1036,7 @@ fria:inc_AIAAIC1855 a fria:Incident ;
     rdfs:label "Taiwanese AI repeats Chinese government " ;
     fria:hasDomain fria:domain_unknown ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_misinformation_error ;
+    fria:hasPattern fria:pattern_llm_decision_support ;
     fria:hasRight fria:right_other ;
     fria:hasRootCause fria:cause_data_quality ;
     fria:hasSourceType fria:srctype_news_article .
@@ -1073,6 +1075,7 @@ fria:inc_AIAAIC1945 a fria:Incident ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
     fria:hasMitigation fria:mit_Six_people_arrested_by_Spanish_police ;
+    fria:hasPattern fria:pattern_llm_decision_support ;
     fria:hasRight fria:right_other ;
     fria:hasRootCause fria:cause_human_error ;
     fria:hasSourceType fria:srctype_news_article .
@@ -1082,7 +1085,7 @@ fria:inc_AIAAIC1962 a fria:Incident ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_procedural_unfairness,
         fria:harm_unfair_exclusion ;
-    fria:hasPattern fria:pattern_resource_allocation ;
+    fria:hasPattern fria:pattern_profiling_scoring ;
     fria:hasRight fria:right_access_social_protection,
         fria:right_good_administration,
         fria:right_non_discrimination,
@@ -1108,7 +1111,7 @@ fria:inc_AIAAIC1986 a fria:Incident ;
     rdfs:label "North Korea uses AI to covertly place IT" ;
     fria:hasDomain fria:domain_employment ;
     fria:hasHarm fria:harm_procedural_unfairness ;
-    fria:hasPattern fria:pattern_profiling_scoring ;
+    fria:hasPattern fria:pattern_llm_decision_support ;
     fria:hasRight fria:right_good_administration,
         fria:right_non_discrimination,
         fria:right_privacy_data_protection ;
@@ -1119,7 +1122,6 @@ fria:inc_AIAAIC2003 a fria:Incident ;
     rdfs:label "White House chief of staff targeted in A" ;
     fria:hasDomain fria:domain_employment ;
     fria:hasHarm fria:harm_privacy_breach ;
-    fria:hasPattern fria:pattern_surveillance_monitor ;
     fria:hasRight fria:right_non_discrimination,
         fria:right_privacy_data_protection ;
     fria:hasSourceType fria:srctype_news_article .
@@ -1162,6 +1164,7 @@ fria:inc_AIAAIC2078 a fria:Incident ;
     rdfs:label "Brian Cranston voice, likeness used with" ;
     fria:hasDomain fria:domain_unknown ;
     fria:hasHarm fria:harm_procedural_unfairness ;
+    fria:hasPattern fria:pattern_llm_decision_support ;
     fria:hasRight fria:right_good_administration ;
     fria:hasRootCause fria:cause_policy_gap ;
     fria:hasSourceType fria:srctype_news_article .
@@ -1170,7 +1173,7 @@ fria:inc_AIAAIC2087 a fria:Incident ;
     rdfs:label "Study: Uber dynamic pricing increases pa" ;
     fria:hasDomain fria:domain_employment ;
     fria:hasHarm fria:harm_procedural_unfairness ;
-    fria:hasPattern fria:pattern_resource_allocation ;
+    fria:hasPattern fria:pattern_profiling_scoring ;
     fria:hasRight fria:right_good_administration,
         fria:right_non_discrimination,
         fria:right_privacy_data_protection ;
@@ -1180,7 +1183,7 @@ fria:inc_AIAAIC2114 a fria:Incident ;
     rdfs:label "Facebook job ad algorithm ruled sexist b" ;
     fria:hasDomain fria:domain_employment ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_profiling_scoring ;
+    fria:hasPattern fria:pattern_not_llm ;
     fria:hasRight fria:right_good_administration,
         fria:right_non_discrimination ;
     fria:hasRootCause fria:cause_technology_failure ;
@@ -1198,7 +1201,7 @@ fria:inc_Automating_Multilingual_Census_Data_Processing_An_AI_and a fria:Inciden
     rdfs:label "Automating Multilingual Census Data Proc" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_misinformation_error ;
-    fria:hasPattern fria:pattern_classification_triage ;
+    fria:hasPattern fria:pattern_llm_decision_support ;
     fria:hasRight fria:right_access_social_protection,
         fria:right_good_administration,
         fria:right_privacy_data_protection ;
@@ -1243,7 +1246,7 @@ fria:inc_Credential_Authentication_Technology_with_Camera_System a fria:Incident
 
 fria:inc_ELIS_Evidence_Classifier_Machine_Learning_ML_Tagging_Sol a fria:Incident ;
     rdfs:label "ELIS Evidence Classifier Machine Learnin" ;
-    fria:hasDomain fria:domain_unknown ;
+    fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
     fria:hasPattern fria:pattern_classification_triage ;
     fria:hasRight fria:right_other ;
@@ -1310,7 +1313,7 @@ fria:inc_ICI_camera a fria:Incident ;
 
 fria:inc_I_765_USCIS_Facial_Recognition_through_IDENT_1_1_Face_Re a fria:Incident ;
     rdfs:label "I-765 - USCIS Facial Recognition through" ;
-    fria:hasDomain fria:domain_unknown ;
+    fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
     fria:hasPattern fria:pattern_surveillance_monitor ;
     fria:hasRight fria:right_other ;
@@ -1320,7 +1323,7 @@ fria:inc_Individual_Assistance_IA_Public_Assistance_PA_Projection a fria:Inciden
     rdfs:label "Individual Assistance (IA) & Public Assi" ;
     fria:hasDomain fria:domain_essential_services ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_resource_allocation ;
+    fria:hasPattern fria:pattern_profiling_scoring ;
     fria:hasRight fria:right_access_social_protection,
         fria:right_privacy_data_protection ;
     fria:hasSourceType fria:srctype_government_inventory .
@@ -1329,7 +1332,7 @@ fria:inc_Linkage_and_Matching_Program_LaMP a fria:Incident ;
     rdfs:label "Linkage and Matching Program (LaMP)" ;
     fria:hasDomain fria:domain_unknown ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_classification_triage ;
+    fria:hasPattern fria:pattern_not_llm ;
     fria:hasRight fria:right_other ;
     fria:hasSourceType fria:srctype_government_inventory .
 
@@ -1395,7 +1398,6 @@ fria:inc_Stratification_Tool_for_Opioid_Risk_Mitigation_STORM_pre a fria:Inciden
     rdfs:label "Stratification Tool for Opioid Risk Miti" ;
     fria:hasDomain fria:domain_unknown ;
     fria:hasHarm fria:harm_other ;
-    fria:hasPattern fria:pattern_profiling_scoring ;
     fria:hasRight fria:right_other ;
     fria:hasSourceType fria:srctype_government_inventory .
 
@@ -1450,20 +1452,14 @@ fria:mit_System_ended_due_to_unreliability_concer a fria:Mitigation ;
 fria:mit_System_scrapped_by_government a fria:Mitigation ;
     rdfs:label "System scrapped by government" .
 
-fria:pattern_chatbot a fria:SystemPattern ;
-    rdfs:label "chatbot" .
-
 fria:pattern_llm_assisted_screening a fria:SystemPattern ;
     rdfs:label "llm_assisted_screening" .
 
 fria:srctype_regulator_opinion a fria:SourceType ;
     rdfs:label "regulator opinion" .
 
-fria:pattern_llm_decision_support a fria:SystemPattern ;
-    rdfs:label "llm_decision_support" .
-
-fria:pattern_misinformation_error a fria:SystemPattern ;
-    rdfs:label "misinformation_error" .
+fria:pattern_chatbot a fria:SystemPattern ;
+    rdfs:label "chatbot" .
 
 fria:cause_policy_gap a fria:RootCause ;
     rdfs:label "policy gap" .
@@ -1471,14 +1467,14 @@ fria:cause_policy_gap a fria:RootCause ;
 fria:cause_human_error a fria:RootCause ;
     rdfs:label "human error" .
 
+fria:pattern_resource_allocation a fria:SystemPattern ;
+    rdfs:label "resource_allocation" .
+
 fria:pattern_summary_assistant a fria:SystemPattern ;
     rdfs:label "summary_assistant" .
 
 fria:cause_context_of_use a fria:RootCause ;
     rdfs:label "context of use" .
-
-fria:pattern_classification_triage a fria:SystemPattern ;
-    rdfs:label "classification_triage" .
 
 fria:cause_data_quality a fria:RootCause ;
     rdfs:label "data quality" .
@@ -1486,29 +1482,32 @@ fria:cause_data_quality a fria:RootCause ;
 fria:harm_misinformation_error a fria:HarmType ;
     rdfs:label "misinformation_error" .
 
-fria:pattern_resource_allocation a fria:SystemPattern ;
-    rdfs:label "resource_allocation" .
+fria:pattern_classification_triage a fria:SystemPattern ;
+    rdfs:label "classification_triage" .
+
+fria:pattern_llm_decision_support a fria:SystemPattern ;
+    rdfs:label "llm_decision_support" .
 
 fria:domain_employment a fria:AnnexDomain ;
     rdfs:label "employment" .
 
-fria:srctype_court_case a fria:SourceType ;
-    rdfs:label "court case" .
-
 fria:pattern_surveillance_monitor a fria:SystemPattern ;
     rdfs:label "surveillance_monitor" .
 
+fria:srctype_court_case a fria:SourceType ;
+    rdfs:label "court case" .
+
 fria:harm_privacy_breach a fria:HarmType ;
     rdfs:label "privacy_breach" .
-
-fria:pattern_not_llm a fria:SystemPattern ;
-    rdfs:label "not_llm" .
 
 fria:harm_unfair_exclusion a fria:HarmType ;
     rdfs:label "unfair_exclusion" .
 
 fria:srctype_government_inventory a fria:SourceType ;
     rdfs:label "government inventory" .
+
+fria:pattern_not_llm a fria:SystemPattern ;
+    rdfs:label "not_llm" .
 
 fria:domain_unknown a fria:AnnexDomain ;
     rdfs:label "unknown" .
@@ -1540,9 +1539,9 @@ fria:harm_other a fria:HarmType ;
 fria:right_non_discrimination a fria:FundamentalRight ;
     rdfs:label "non_discrimination" .
 
-fria:domain_essential_services a fria:AnnexDomain ;
-    rdfs:label "essential_services" .
-
 fria:srctype_news_article a fria:SourceType ;
     rdfs:label "news article" .
+
+fria:domain_essential_services a fria:AnnexDomain ;
+    rdfs:label "essential_services" .
 

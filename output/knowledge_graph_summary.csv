@@ -4,13 +4,13 @@ node_type,HarmType,177
 node_type,Incident,150
 node_type,AnnexDomain,150
 node_type,SourceType,150
-node_type,SystemPattern,127
+node_type,SystemPattern,129
 node_type,RootCause,62
 node_type,Mitigation,12
 edge_type,hasRight,285
 edge_type,hasHarm,177
 edge_type,hasDomain,150
 edge_type,hasSourceType,150
-edge_type,hasPattern,127
+edge_type,hasPattern,129
 edge_type,hasRootCause,62
 edge_type,hasMitigation,12

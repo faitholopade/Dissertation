@@ -118,12 +118,13 @@
       "sourceId": "Individual Assistance (IA) & Public Assistance (PA) Projections",
       "title": "Individual Assistance (IA) & Public Assistance (PA) Projections",
       "annexDomain": "essential_services",
-      "systemPattern": "resource_allocation",
+      "systemPattern": "profiling_scoring",
       "rightsImpacted": [
+        "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
-        "procedural_unfairness"
+        "other"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.85
@@ -140,7 +141,7 @@
         "good_administration"
       ],
       "harmsIdentified": [
-        "misinformation_error"
+        "other"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.85
@@ -154,7 +155,7 @@
       "annexDomain": "employment",
       "systemPattern": "llm_decision_support",
       "rightsImpacted": [
-        "good_administration"
+        "other"
       ],
       "harmsIdentified": [
         "other"
@@ -171,13 +172,13 @@
       "annexDomain": "unknown",
       "systemPattern": "chatbot",
       "rightsImpacted": [
-        "privacy_data_protection"
+        "other"
       ],
       "harmsIdentified": [
-        "privacy_breach"
+        "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.8
     },
     {
       "@type": "RiskRecord",
@@ -185,7 +186,7 @@
       "source": "USFED",
       "sourceId": "ELIS Evidence Classifier Machine Learning (ML) Tagging Solution",
       "title": "ELIS Evidence Classifier Machine Learning (ML) Tagging Solution",
-      "annexDomain": "unknown",
+      "annexDomain": "essential_services",
       "systemPattern": "classification_triage",
       "rightsImpacted": [
         "good_administration"
@@ -211,7 +212,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.8
     },
     {
       "@type": "RiskRecord",
@@ -220,15 +221,15 @@
       "sourceId": "Linkage and Matching Program (LaMP)",
       "title": "Linkage and Matching Program (LaMP)",
       "annexDomain": "unknown",
-      "systemPattern": "classification_triage",
+      "systemPattern": "not_llm",
       "rightsImpacted": [
-        "privacy_data_protection"
+        "other"
       ],
       "harmsIdentified": [
-        "privacy_breach"
+        "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -237,16 +238,16 @@
       "sourceId": "Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipeline for Efficient Language Detection and Translation for Short-Text",
       "title": "Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipeline for Efficient Language Detection and Translation for Short-Text",
       "annexDomain": "essential_services",
-      "systemPattern": "classification_triage",
+      "systemPattern": "llm_decision_support",
       "rightsImpacted": [
         "non_discrimination",
-        "good_administration"
+        "privacy_data_protection"
       ],
       "harmsIdentified": [
-        "misinformation_error"
+        "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.8
     },
     {
       "@type": "RiskRecord",
@@ -263,7 +264,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.8
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -280,7 +281,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -297,8 +298,7 @@
       ],
       "harmsIdentified": [
         "unfair_exclusion",
-        "privacy_breach",
-        "procedural_unfairness"
+        "privacy_breach"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.9
@@ -314,11 +314,13 @@
       "rightsImpacted": [
         "privacy_data_protection",
         "non_discrimination",
-        "access_social_protection"
+        "access_social_protection",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
-        "privacy_breach"
+        "privacy_breach",
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.95
@@ -330,9 +332,10 @@
       "sourceId": "AIAAIC1647",
       "title": "UK government accused of COVID-19 recovery funding algorithmic \"cultural elitism\"",
       "annexDomain": "essential_services",
-      "systemPattern": "resource_allocation",
+      "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
+        "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -349,9 +352,10 @@
       "sourceId": "AIAAIC0598",
       "title": "UK govt Spotlight fund application assessments",
       "annexDomain": "essential_services",
-      "systemPattern": "classification_triage",
+      "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
+        "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -359,7 +363,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.85
     },
     {
       "@type": "RiskRecord",
@@ -370,11 +374,12 @@
       "annexDomain": "essential_services",
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
+        "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
-        "misinformation_error"
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.85
@@ -389,8 +394,8 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
-        "good_administration",
-        "access_social_protection"
+        "access_social_protection",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
@@ -408,15 +413,14 @@
       "annexDomain": "essential_services",
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
-        "non_discrimination",
+        "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
-        "unfair_exclusion",
-        "procedural_unfairness"
+        "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -437,7 +441,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.95
+      "confidence": 0.9
     },
     {
       "@type": "RiskRecord",
@@ -450,6 +454,7 @@
       "rightsImpacted": [
         "non_discrimination",
         "privacy_data_protection",
+        "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -457,7 +462,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.95
+      "confidence": 0.9
     },
     {
       "@type": "RiskRecord",
@@ -486,18 +491,17 @@
       "sourceId": "AIAAIC0524",
       "title": "Serbia Social Card excludes thousands of welfare beneficiaries",
       "annexDomain": "essential_services",
-      "systemPattern": "resource_allocation",
+      "systemPattern": "classification_triage",
       "rightsImpacted": [
         "access_social_protection",
         "non_discrimination",
         "privacy_data_protection"
       ],
       "harmsIdentified": [
-        "unfair_exclusion",
-        "procedural_unfairness"
+        "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.95
+      "confidence": 0.85
     },
     {
       "@type": "RiskRecord",
@@ -529,11 +533,10 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
-        "good_administration"
+        "access_social_protection"
       ],
       "harmsIdentified": [
-        "unfair_exclusion",
-        "procedural_unfairness"
+        "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.9
@@ -548,15 +551,15 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
-        "good_administration",
-        "access_social_protection"
+        "access_social_protection",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.95
     },
     {
       "@type": "RiskRecord",
@@ -576,7 +579,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.85
     },
     {
       "@type": "RiskRecord",
@@ -585,14 +588,13 @@
       "sourceId": "AIAAIC1648",
       "title": "DWP Kickstart \"gateway\" firms with no trading history approved by algorithm",
       "annexDomain": "essential_services",
-      "systemPattern": "profiling_scoring",
+      "systemPattern": "classification_triage",
       "rightsImpacted": [
         "good_administration",
-        "non_discrimination"
+        "access_social_protection"
       ],
       "harmsIdentified": [
-        "procedural_unfairness",
-        "misinformation_error"
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.85
@@ -604,17 +606,16 @@
       "sourceId": "AIAAIC0803",
       "title": "Trelleborg welfare management automation",
       "annexDomain": "essential_services",
-      "systemPattern": "resource_allocation",
+      "systemPattern": "unknown",
       "rightsImpacted": [
         "access_social_protection",
         "privacy_data_protection"
       ],
       "harmsIdentified": [
-        "unfair_exclusion",
-        "privacy_breach"
+        "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.6
     },
     {
       "@type": "RiskRecord",
@@ -630,7 +631,7 @@
       ],
       "harmsIdentified": [
         "misinformation_error",
-        "privacy_breach"
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.9
@@ -645,15 +646,15 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "access_social_protection",
-        "good_administration",
-        "non_discrimination"
+        "non_discrimination",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.95
+      "confidence": 0.9
     },
     {
       "@type": "RiskRecord",
@@ -665,6 +666,7 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "access_social_protection",
+        "non_discrimination",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -683,15 +685,15 @@
       "annexDomain": "essential_services",
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
-        "good_administration",
-        "privacy_data_protection"
+        "non_discrimination",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
-        "misinformation_error"
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.85
     },
     {
       "@type": "RiskRecord",
@@ -700,17 +702,16 @@
       "sourceId": "AIAAIC1311",
       "title": "Samagra Vedika system pilot deprives citizens of rations ",
       "annexDomain": "essential_services",
-      "systemPattern": "resource_allocation",
+      "systemPattern": "classification_triage",
       "rightsImpacted": [
         "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
-        "unfair_exclusion",
-        "procedural_unfairness"
+        "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.85
     },
     {
       "@type": "RiskRecord",
@@ -721,16 +722,15 @@
       "annexDomain": "essential_services",
       "systemPattern": "resource_allocation",
       "rightsImpacted": [
-        "non_discrimination",
         "access_social_protection",
+        "non_discrimination",
         "good_administration"
       ],
       "harmsIdentified": [
-        "unfair_exclusion",
-        "procedural_unfairness"
+        "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.95
+      "confidence": 0.9
     },
     {
       "@type": "RiskRecord",
@@ -743,11 +743,10 @@
       "rightsImpacted": [
         "non_discrimination",
         "privacy_data_protection",
-        "good_administration"
+        "access_social_protection"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
-        "privacy_breach",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
@@ -766,8 +765,7 @@
         "privacy_data_protection"
       ],
       "harmsIdentified": [
-        "unfair_exclusion",
-        "procedural_unfairness"
+        "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.9
@@ -786,8 +784,7 @@
         "good_administration"
       ],
       "harmsIdentified": [
-        "unfair_exclusion",
-        "procedural_unfairness"
+        "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.9
@@ -799,17 +796,17 @@
       "sourceId": "AIAAIC0415",
       "title": "Roermond 'Sensing Project' predictive policing pilot",
       "annexDomain": "essential_services",
-      "systemPattern": "surveillance_monitor",
+      "systemPattern": "profiling_scoring",
       "rightsImpacted": [
-        "privacy_data_protection",
-        "non_discrimination"
+        "non_discrimination",
+        "privacy_data_protection"
       ],
       "harmsIdentified": [
-        "privacy_breach",
-        "unfair_exclusion"
+        "unfair_exclusion",
+        "privacy_breach"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -820,13 +817,14 @@
       "annexDomain": "essential_services",
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
-        "privacy_data_protection"
+        "privacy_data_protection",
+        "non_discrimination"
       ],
       "harmsIdentified": [
         "privacy_breach"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -845,7 +843,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -854,7 +852,7 @@
       "sourceId": "AIAAIC0260",
       "title": "Knightscope security robot ignores woman reporting crime",
       "annexDomain": "employment",
-      "systemPattern": "surveillance_monitor",
+      "systemPattern": "chatbot",
       "rightsImpacted": [
         "good_administration"
       ],
@@ -862,7 +860,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -873,10 +871,11 @@
       "annexDomain": "essential_services",
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
-        "good_administration"
+        "good_administration",
+        "non_discrimination"
       ],
       "harmsIdentified": [
-        "misinformation_error",
+        "unfair_exclusion",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
@@ -889,10 +888,11 @@
       "sourceId": "AIAAIC0887",
       "title": "Oregon drops 'unfair' child abuse Safety at Screening tool",
       "annexDomain": "essential_services",
-      "systemPattern": "classification_triage",
+      "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
-        "good_administration"
+        "good_administration",
+        "access_social_protection"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
@@ -931,15 +931,15 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "access_social_protection",
-        "good_administration",
-        "non_discrimination"
+        "non_discrimination",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.95
+      "confidence": 0.9
     },
     {
       "@type": "RiskRecord",
@@ -950,9 +950,11 @@
       "annexDomain": "essential_services",
       "systemPattern": "classification_triage",
       "rightsImpacted": [
+        "non_discrimination",
         "good_administration"
       ],
       "harmsIdentified": [
+        "unfair_exclusion",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
@@ -967,15 +969,15 @@
       "annexDomain": "essential_services",
       "systemPattern": "classification_triage",
       "rightsImpacted": [
-        "good_administration",
-        "privacy_data_protection"
+        "access_social_protection",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
         "misinformation_error"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.85
     },
     {
       "@type": "RiskRecord",
@@ -992,7 +994,7 @@
         "privacy_breach"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.6
     },
     {
       "@type": "RiskRecord",
@@ -1022,15 +1024,14 @@
       "annexDomain": "employment",
       "systemPattern": "surveillance_monitor",
       "rightsImpacted": [
-        "non_discrimination",
-        "privacy_data_protection"
+        "privacy_data_protection",
+        "non_discrimination"
       ],
       "harmsIdentified": [
-        "privacy_breach",
-        "procedural_unfairness"
+        "privacy_breach"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1059,17 +1060,17 @@
       "sourceId": "AIAAIC1986",
       "title": "North Korea uses AI to covertly place IT workers in western tech companies",
       "annexDomain": "employment",
-      "systemPattern": "profiling_scoring",
+      "systemPattern": "llm_decision_support",
       "rightsImpacted": [
-        "good_administration",
-        "privacy_data_protection"
+        "non_discrimination",
+        "good_administration"
       ],
       "harmsIdentified": [
-        "procedural_unfairness",
-        "privacy_breach"
+        "misinformation_error",
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1081,7 +1082,7 @@
       "systemPattern": "resource_allocation",
       "rightsImpacted": [
         "non_discrimination",
-        "privacy_data_protection"
+        "good_administration"
       ],
       "harmsIdentified": [
         "procedural_unfairness"
@@ -1098,14 +1099,15 @@
       "annexDomain": "employment",
       "systemPattern": "not_llm",
       "rightsImpacted": [
-        "good_administration"
+        "good_administration",
+        "non_discrimination"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.8
     },
     {
       "@type": "RiskRecord",
@@ -1122,7 +1124,7 @@
         "privacy_breach"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1137,11 +1139,10 @@
         "good_administration"
       ],
       "harmsIdentified": [
-        "privacy_breach",
-        "procedural_unfairness"
+        "privacy_breach"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1152,15 +1153,13 @@
       "annexDomain": "unknown",
       "systemPattern": "surveillance_monitor",
       "rightsImpacted": [
-        "privacy_data_protection",
-        "non_discrimination"
+        "privacy_data_protection"
       ],
       "harmsIdentified": [
-        "privacy_breach",
-        "procedural_unfairness"
+        "privacy_breach"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1175,11 +1174,11 @@
         "good_administration"
       ],
       "harmsIdentified": [
-        "procedural_unfairness",
-        "other"
+        "unfair_exclusion",
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1194,11 +1193,10 @@
         "non_discrimination"
       ],
       "harmsIdentified": [
-        "unfair_exclusion",
-        "privacy_breach"
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1210,14 +1208,14 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
-        "good_administration"
+        "privacy_data_protection"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1229,14 +1227,14 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
-        "good_administration"
+        "privacy_data_protection"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1245,7 +1243,7 @@
       "sourceId": "AIAAIC2087",
       "title": "Study: Uber dynamic pricing increases passenger fares, lowers driver earnings",
       "annexDomain": "employment",
-      "systemPattern": "resource_allocation",
+      "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
         "good_administration"
@@ -1255,7 +1253,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.8
     },
     {
       "@type": "RiskRecord",
@@ -1264,7 +1262,7 @@
       "sourceId": "AIAAIC2078",
       "title": "Brian Cranston voice, likeness used without consent to train Sora video generation tool",
       "annexDomain": "unknown",
-      "systemPattern": "unknown",
+      "systemPattern": "llm_decision_support",
       "rightsImpacted": [
         "privacy_data_protection"
       ],
@@ -1286,10 +1284,11 @@
         "good_administration"
       ],
       "harmsIdentified": [
-        "misinformation_error"
+        "misinformation_error",
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1298,7 +1297,7 @@
       "sourceId": "AIAAIC2003",
       "title": "White House chief of staff targeted in AI-powered security breach",
       "annexDomain": "employment",
-      "systemPattern": "surveillance_monitor",
+      "systemPattern": "unknown",
       "rightsImpacted": [
         "privacy_data_protection"
       ],
@@ -1306,7 +1305,7 @@
         "privacy_breach"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.3
     },
     {
       "@type": "RiskRecord",
@@ -1315,7 +1314,7 @@
       "sourceId": "AIAAIC1962",
       "title": "Brazilian AI-powered welfare app accused of unfairly denying claims",
       "annexDomain": "essential_services",
-      "systemPattern": "resource_allocation",
+      "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "access_social_protection",
         "non_discrimination",
@@ -1340,10 +1339,10 @@
         "good_administration"
       ],
       "harmsIdentified": [
-        "procedural_unfairness"
+        "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.7
+      "confidence": 0.3
     },
     {
       "@type": "RiskRecord",
@@ -1371,7 +1370,7 @@
       "sourceId": "AIAAIC1855",
       "title": "Taiwanese AI repeats Chinese government line",
       "annexDomain": "unknown",
-      "systemPattern": "misinformation_error",
+      "systemPattern": "llm_decision_support",
       "rightsImpacted": [
         "other"
       ],
@@ -1379,7 +1378,7 @@
         "misinformation_error"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.7
+      "confidence": 0.6
     },
     {
       "@type": "RiskRecord",
@@ -1392,15 +1391,15 @@
       "rightsImpacted": [
         "non_discrimination",
         "privacy_data_protection",
-        "access_social_protection"
+        "access_social_protection",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
-        "privacy_breach",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.85
     },
     {
       "@type": "RiskRecord",
@@ -1419,7 +1418,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1437,7 +1436,7 @@
         "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.6
     },
     {
       "@type": "RiskRecord",
@@ -1455,7 +1454,7 @@
         "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1466,8 +1465,8 @@
       "annexDomain": "essential_services",
       "systemPattern": "not_llm",
       "rightsImpacted": [
-        "non_discrimination",
         "access_social_protection",
+        "non_discrimination",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -1486,14 +1485,13 @@
       "annexDomain": "essential_services",
       "systemPattern": "not_llm",
       "rightsImpacted": [
-        "non_discrimination",
-        "access_social_protection"
+        "other"
       ],
       "harmsIdentified": [
-        "unfair_exclusion"
+        "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.7
+      "confidence": 0.2
     },
     {
       "@type": "RiskRecord",
@@ -1504,8 +1502,8 @@
       "annexDomain": "essential_services",
       "systemPattern": "not_llm",
       "rightsImpacted": [
-        "non_discrimination",
         "access_social_protection",
+        "non_discrimination",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -1513,7 +1511,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1531,7 +1529,7 @@
         "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1549,7 +1547,7 @@
         "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.6
     },
     {
       "@type": "RiskRecord",
@@ -1560,9 +1558,9 @@
       "annexDomain": "essential_services",
       "systemPattern": "not_llm",
       "rightsImpacted": [
-        "non_discrimination",
         "access_social_protection",
-        "good_administration"
+        "good_administration",
+        "non_discrimination"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
@@ -1580,14 +1578,14 @@
       "annexDomain": "essential_services",
       "systemPattern": "not_llm",
       "rightsImpacted": [
-        "non_discrimination",
-        "access_social_protection"
+        "access_social_protection",
+        "non_discrimination"
       ],
       "harmsIdentified": [
         "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.7
+      "confidence": 0.6
     },
     {
       "@type": "RiskRecord",
@@ -1598,14 +1596,14 @@
       "annexDomain": "essential_services",
       "systemPattern": "not_llm",
       "rightsImpacted": [
-        "non_discrimination",
-        "access_social_protection"
+        "access_social_protection",
+        "non_discrimination"
       ],
       "harmsIdentified": [
         "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1623,7 +1621,7 @@
         "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1634,8 +1632,8 @@
       "annexDomain": "essential_services",
       "systemPattern": "not_llm",
       "rightsImpacted": [
-        "non_discrimination",
-        "access_social_protection"
+        "access_social_protection",
+        "non_discrimination"
       ],
       "harmsIdentified": [
         "unfair_exclusion"
@@ -1653,7 +1651,6 @@
       "systemPattern": "not_llm",
       "rightsImpacted": [
         "access_social_protection",
-        "non_discrimination",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -1661,7 +1658,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1672,8 +1669,8 @@
       "annexDomain": "essential_services",
       "systemPattern": "not_llm",
       "rightsImpacted": [
-        "non_discrimination",
         "access_social_protection",
+        "non_discrimination",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -1681,7 +1678,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1692,14 +1689,14 @@
       "annexDomain": "essential_services",
       "systemPattern": "not_llm",
       "rightsImpacted": [
-        "non_discrimination",
-        "good_administration"
+        "good_administration",
+        "non_discrimination"
       ],
       "harmsIdentified": [
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.6
+      "confidence": 0.3
     },
     {
       "@type": "RiskRecord",
@@ -1710,15 +1707,13 @@
       "annexDomain": "essential_services",
       "systemPattern": "not_llm",
       "rightsImpacted": [
-        "good_administration",
-        "privacy_data_protection"
+        "other"
       ],
       "harmsIdentified": [
-        "procedural_unfairness",
-        "privacy_breach"
+        "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.6
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -1738,7 +1733,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.6
     },
     {
       "@type": "RiskRecord",
@@ -1751,15 +1746,15 @@
       "rightsImpacted": [
         "privacy_data_protection",
         "non_discrimination",
-        "good_administration",
-        "access_social_protection"
+        "access_social_protection",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.6
     },
     {
       "@type": "RiskRecord",
@@ -1771,10 +1766,11 @@
       "systemPattern": "not_llm",
       "rightsImpacted": [
         "non_discrimination",
+        "access_social_protection",
         "privacy_data_protection"
       ],
       "harmsIdentified": [
-        "other"
+        "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.6
@@ -1795,7 +1791,7 @@
         "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1852,7 +1848,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.8
     },
     {
       "@type": "RiskRecord",
@@ -1861,7 +1857,7 @@
       "sourceId": "AIAAIC1321",
       "title": "Deepfake CFO scams finance worker for USD 25 million",
       "annexDomain": "essential_services",
-      "systemPattern": "unknown",
+      "systemPattern": "llm_decision_support",
       "rightsImpacted": [
         "other"
       ],
@@ -1869,7 +1865,7 @@
         "misinformation_error"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.6
+      "confidence": 0.8
     },
     {
       "@type": "RiskRecord",
@@ -1886,7 +1882,7 @@
         "privacy_breach"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.6
+      "confidence": 0.3
     },
     {
       "@type": "RiskRecord",
@@ -1895,7 +1891,7 @@
       "sourceId": "AIAAIC1270",
       "title": "Singapore PM Lee Hsien Loong crypto promotion deepfake",
       "annexDomain": "essential_services",
-      "systemPattern": "misinformation_error",
+      "systemPattern": "llm_decision_support",
       "rightsImpacted": [
         "other"
       ],
@@ -1903,7 +1899,7 @@
         "misinformation_error"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1912,7 +1908,7 @@
       "sourceId": "AIAAIC1285",
       "title": "Deepfake Tom Hanks dental ad insurance promotion",
       "annexDomain": "essential_services",
-      "systemPattern": "unknown",
+      "systemPattern": "llm_decision_support",
       "rightsImpacted": [
         "other"
       ],
@@ -1920,7 +1916,7 @@
         "misinformation_error"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.6
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -1932,7 +1928,8 @@
       "systemPattern": "llm_assisted_screening",
       "rightsImpacted": [
         "non_discrimination",
-        "privacy_data_protection"
+        "privacy_data_protection",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
@@ -1948,7 +1945,7 @@
       "sourceId": "AIAAIC2114",
       "title": "Facebook job ad algorithm ruled sexist by French regulator",
       "annexDomain": "employment",
-      "systemPattern": "profiling_scoring",
+      "systemPattern": "not_llm",
       "rightsImpacted": [
         "non_discrimination",
         "good_administration"
@@ -1968,15 +1965,16 @@
       "annexDomain": "essential_services",
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
-        "good_administration",
-        "non_discrimination"
+        "access_social_protection",
+        "non_discrimination",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
-        "misinformation_error"
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.9
     },
     {
       "@type": "RiskRecord",
@@ -1985,7 +1983,7 @@
       "sourceId": "AIAAIC1745",
       "title": "Starship robot knocks over Arizona State University employee",
       "annexDomain": "employment",
-      "systemPattern": "unknown",
+      "systemPattern": "not_llm",
       "rightsImpacted": [
         "other"
       ],
@@ -1993,7 +1991,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.6
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -2002,7 +2000,7 @@
       "sourceId": "AIAAIC1720",
       "title": "TennCare automated system accused of illegally denying Medicaid",
       "annexDomain": "essential_services",
-      "systemPattern": "profiling_scoring",
+      "systemPattern": "classification_triage",
       "rightsImpacted": [
         "access_social_protection",
         "good_administration"
@@ -2021,16 +2019,15 @@
       "sourceId": "AIAAIC042",
       "title": "Facebook illegally lets housing ads exclude ethnic minorities",
       "annexDomain": "essential_services",
-      "systemPattern": "profiling_scoring",
+      "systemPattern": "not_llm",
       "rightsImpacted": [
-        "non_discrimination",
-        "good_administration"
+        "non_discrimination"
       ],
       "harmsIdentified": [
         "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.8
     },
     {
       "@type": "RiskRecord",
@@ -2042,8 +2039,8 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
-        "good_administration",
-        "access_social_protection"
+        "access_social_protection",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
@@ -2069,7 +2066,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.9
     },
     {
       "@type": "RiskRecord",
@@ -2081,11 +2078,10 @@
       "systemPattern": "surveillance_monitor",
       "rightsImpacted": [
         "privacy_data_protection",
-        "good_administration"
+        "non_discrimination"
       ],
       "harmsIdentified": [
-        "privacy_breach",
-        "procedural_unfairness"
+        "privacy_breach"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.9
@@ -2097,8 +2093,9 @@
       "sourceId": "AIAAIC1450",
       "title": "MEP files lawsuit to release iBorderCtrl lie detection system documents",
       "annexDomain": "essential_services",
-      "systemPattern": "surveillance_monitor",
+      "systemPattern": "profiling_scoring",
       "rightsImpacted": [
+        "non_discrimination",
         "privacy_data_protection",
         "good_administration"
       ],
@@ -2106,7 +2103,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -2121,8 +2118,7 @@
         "privacy_data_protection"
       ],
       "harmsIdentified": [
-        "unfair_exclusion",
-        "procedural_unfairness"
+        "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.9
@@ -2136,15 +2132,15 @@
       "annexDomain": "employment",
       "systemPattern": "surveillance_monitor",
       "rightsImpacted": [
-        "privacy_data_protection",
-        "non_discrimination"
+        "non_discrimination",
+        "privacy_data_protection"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.8
     },
     {
       "@type": "RiskRecord",
@@ -2156,7 +2152,7 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
-        "good_administration"
+        "access_social_protection"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
@@ -2175,6 +2171,7 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
+        "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -2194,6 +2191,7 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
+        "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -2201,7 +2199,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.95
     },
     {
       "@type": "RiskRecord",
@@ -2213,6 +2211,7 @@
       "systemPattern": "not_llm",
       "rightsImpacted": [
         "non_discrimination",
+        "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -2231,10 +2230,10 @@
       "annexDomain": "essential_services",
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
-        "good_administration"
+        "good_administration",
+        "access_social_protection"
       ],
       "harmsIdentified": [
-        "misinformation_error",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
@@ -2250,6 +2249,7 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
+        "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -2274,7 +2274,7 @@
         "privacy_breach"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.85
     },
     {
       "@type": "RiskRecord",
@@ -2283,14 +2283,13 @@
       "sourceId": "AIAAIC0264",
       "title": "UK passport check interprets lips as open mouth",
       "annexDomain": "essential_services",
-      "systemPattern": "surveillance_monitor",
+      "systemPattern": "classification_triage",
       "rightsImpacted": [
         "non_discrimination",
-        "privacy_data_protection"
+        "good_administration"
       ],
       "harmsIdentified": [
-        "misinformation_error",
-        "procedural_unfairness"
+        "unfair_exclusion"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.85
@@ -2313,7 +2312,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.9
     },
     {
       "@type": "RiskRecord",
@@ -2324,12 +2323,12 @@
       "annexDomain": "essential_services",
       "systemPattern": "llm_decision_support",
       "rightsImpacted": [
-        "good_administration",
-        "access_social_protection"
+        "access_social_protection",
+        "good_administration"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
-        "misinformation_error"
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.9
@@ -2347,7 +2346,7 @@
         "good_administration"
       ],
       "harmsIdentified": [
-        "misinformation_error",
+        "unfair_exclusion",
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
@@ -2360,7 +2359,7 @@
       "sourceId": "AIAAIC1018",
       "title": "USPS algorithmic system cuts rural letter carrier pay",
       "annexDomain": "employment",
-      "systemPattern": "not_llm",
+      "systemPattern": "resource_allocation",
       "rightsImpacted": [
         "good_administration",
         "non_discrimination"
@@ -2382,6 +2381,7 @@
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
+        "access_social_protection",
         "good_administration"
       ],
       "harmsIdentified": [
@@ -2400,9 +2400,9 @@
       "annexDomain": "essential_services",
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
-        "non_discrimination",
         "privacy_data_protection",
-        "good_administration"
+        "non_discrimination",
+        "access_social_protection"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
@@ -2418,16 +2418,15 @@
       "sourceId": "AIAAIC1945",
       "title": "Spanish police arrest six people for USD 20m AI-powered investment scams",
       "annexDomain": "essential_services",
-      "systemPattern": "unknown",
+      "systemPattern": "llm_decision_support",
       "rightsImpacted": [
         "other"
       ],
       "harmsIdentified": [
-        "misinformation_error",
-        "other"
+        "misinformation_error"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.6
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -2438,13 +2437,15 @@
       "annexDomain": "essential_services",
       "systemPattern": "surveillance_monitor",
       "rightsImpacted": [
-        "privacy_data_protection"
+        "privacy_data_protection",
+        "good_administration"
       ],
       "harmsIdentified": [
-        "privacy_breach"
+        "privacy_breach",
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.8
     },
     {
       "@type": "RiskRecord",
@@ -2459,10 +2460,11 @@
         "good_administration"
       ],
       "harmsIdentified": [
-        "privacy_breach"
+        "privacy_breach",
+        "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.8
     },
     {
       "@type": "RiskRecord",
@@ -2471,8 +2473,9 @@
       "sourceId": "AIAAIC0777",
       "title": "BOSCO electricity subsidy assessment",
       "annexDomain": "essential_services",
-      "systemPattern": "resource_allocation",
+      "systemPattern": "classification_triage",
       "rightsImpacted": [
+        "access_social_protection",
         "non_discrimination",
         "good_administration"
       ],
@@ -2481,7 +2484,7 @@
         "procedural_unfairness"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.9
+      "confidence": 0.85
     },
     {
       "@type": "RiskRecord",
@@ -2492,7 +2495,8 @@
       "annexDomain": "essential_services",
       "systemPattern": "surveillance_monitor",
       "rightsImpacted": [
-        "privacy_data_protection"
+        "privacy_data_protection",
+        "good_administration"
       ],
       "harmsIdentified": [
         "privacy_breach"
@@ -2507,13 +2511,13 @@
       "sourceId": "AIAAIC0379",
       "title": "Deepfake romance scammer swindles California widow",
       "annexDomain": "essential_services",
-      "systemPattern": "surveillance_monitor",
+      "systemPattern": "llm_decision_support",
       "rightsImpacted": [
         "privacy_data_protection"
       ],
       "harmsIdentified": [
-        "privacy_breach",
-        "misinformation_error"
+        "misinformation_error",
+        "privacy_breach"
       ],
       "annotationMethod": "hybrid",
       "confidence": 0.7
@@ -2524,12 +2528,12 @@
       "source": "AIAAIC",
       "sourceId": "AIAAIC0339",
       "title": "Poland forced to scrap unemployed worker profiling system",
-      "annexDomain": "employment",
+      "annexDomain": "essential_services",
       "systemPattern": "profiling_scoring",
       "rightsImpacted": [
         "non_discrimination",
         "privacy_data_protection",
-        "good_administration"
+        "access_social_protection"
       ],
       "harmsIdentified": [
         "unfair_exclusion",
@@ -2553,7 +2557,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.2
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2570,7 +2574,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.2
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2587,7 +2591,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.1
+      "confidence": 0.0
     },
     {
       "@type": "RiskRecord",
@@ -2604,7 +2608,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.1
+      "confidence": 0.0
     },
     {
       "@type": "RiskRecord",
@@ -2621,7 +2625,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.2
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2638,7 +2642,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.2
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2655,7 +2659,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.3
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2672,7 +2676,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.2
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2680,7 +2684,7 @@
       "source": "USFED",
       "sourceId": "I-765 - USCIS Facial Recognition through IDENT (1:1 Face Recognition/Validation)",
       "title": "I-765 - USCIS Facial Recognition through IDENT (1:1 Face Recognition/Validation)",
-      "annexDomain": "unknown",
+      "annexDomain": "essential_services",
       "systemPattern": "surveillance_monitor",
       "rightsImpacted": [
         "privacy_data_protection"
@@ -2689,7 +2693,7 @@
         "privacy_breach"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.85
+      "confidence": 0.7
     },
     {
       "@type": "RiskRecord",
@@ -2706,7 +2710,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.5
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2723,7 +2727,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.2
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2740,7 +2744,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.1
+      "confidence": 0.0
     },
     {
       "@type": "RiskRecord",
@@ -2757,7 +2761,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.1
+      "confidence": 0.0
     },
     {
       "@type": "RiskRecord",
@@ -2774,7 +2778,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.2
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2791,7 +2795,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.2
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2800,15 +2804,15 @@
       "sourceId": "Stratification Tool for Opioid Risk Mitigation (STORM) predictive model ",
       "title": "Stratification Tool for Opioid Risk Mitigation (STORM) predictive model ",
       "annexDomain": "unknown",
-      "systemPattern": "profiling_scoring",
+      "systemPattern": "unknown",
       "rightsImpacted": [
-        "unknown"
+        "other"
       ],
       "harmsIdentified": [
-        "unknown"
+        "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.6
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2825,7 +2829,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.3
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2842,7 +2846,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.5
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2859,7 +2863,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.2
+      "confidence": 0.1
     },
     {
       "@type": "RiskRecord",
@@ -2876,7 +2880,7 @@
         "other"
       ],
       "annotationMethod": "hybrid",
-      "confidence": 0.2
+      "confidence": 0.1
     }
   ]
 }

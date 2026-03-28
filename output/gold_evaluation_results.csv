@@ -3,6 +3,6 @@ manual_vs_llm,employment,69,0.6232,0.0447,1.0,0.037,0.0714
 manual_vs_llm,essential_services,69,0.7971,0.5251,0.7778,0.5833,0.6667
 manual_vs_keyword,annex_domain,28,0.5,0.2462,,,
 manual_vs_hybrid,annex_domain,28,0.5,0.2462,,,
-manual_vs_llm_v2,annex_domain,28,0.3929,0.1377,,,
+manual_vs_llm_v2,annex_domain,28,0.4286,0.1765,,,
 manual_vs_keyword_hits,employment,69,0.6957,0.301,,,
 manual_vs_keyword_hits,essential_services,69,0.7391,0.425,,,
