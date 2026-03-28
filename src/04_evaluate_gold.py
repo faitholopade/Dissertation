@@ -1,5 +1,18 @@
+"""Step 04: Evaluate annotations against the manual gold standard.
 
-# Evaluate automated annotations against Label Studio gold standard
+Compares keyword, LLM, and hybrid labels to manually annotated records
+exported from Label Studio. Produces confusion matrices, per-class
+precision/recall, and summary statistics.
+
+Inputs:
+    output/master_annotation_table_llm_v2.csv
+    data/aiaaic/label_studio_export.json
+
+Outputs:
+    output/gold_evaluation_results.csv
+    output/gold_evaluation_summary.csv
+    output/gold_confusion_matrices.txt
+"""
 
 import pandas as pd
 import numpy as np

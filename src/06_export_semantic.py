@@ -1,5 +1,14 @@
+"""Step 06: Export annotated records as semantic JSON-LD.
 
-# Export annotated records to JSON-LD
+Converts the final annotation table into a collection of JSON-LD risk
+records conforming to the FRIA risk schema.
+
+Inputs:
+    output/master_annotation_table_llm_v2.csv
+
+Output:
+    output/risk_records_v2.jsonld
+"""
 
 import pandas as pd
 import json, os, sys

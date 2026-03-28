@@ -1,4 +1,11 @@
-# Alternative rights/harms distribution figures
+"""Step 07b: Generate alternative figure styles.
+
+Produces supplementary distribution figures for rights and harms using
+alternative visual encodings for comparison.
+
+Outputs:
+    figures/fig_*.png  (alternative styles)
+"""
 
 import os, sys, re
 from pathlib import Path

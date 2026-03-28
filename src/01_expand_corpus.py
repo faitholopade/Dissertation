@@ -1,4 +1,15 @@
-# Expand corpus to >=150 records by adding deduplicated AIAAIC entries.
+"""Step 01: Expand the annotation corpus to 150 records.
+
+Merges the initial 90-record master annotation table with additional
+deduplicated AIAAIC incident entries to reach the target corpus size.
+
+Inputs:
+    data/master_annotation_table_v01.csv   (90 records)
+    data/aiaaic/AIAAIC_Repository_Incidents.csv
+
+Output:
+    data/master_annotation_table_v05.csv   (150 records)
+"""
 
 import pandas as pd
 import re, os, sys

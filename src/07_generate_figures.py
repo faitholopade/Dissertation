@@ -1,4 +1,16 @@
-# Generate all dissertation figures.
+"""Step 07: Generate evaluation and analysis figures.
+
+Produces all main dissertation figures including distribution plots,
+confusion matrices, inter-annotator agreement charts, heatmaps, and
+summary visualisations.
+
+Inputs:
+    output/master_annotation_table_llm_v2.csv
+    output/gold_evaluation_results.csv
+
+Outputs:
+    figures/fig_*.png
+"""
 
 import pandas as pd
 import numpy as np

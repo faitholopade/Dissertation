@@ -1,4 +1,16 @@
-# Step 12: Build knowledge graph from the causal-annotated master table
+"""Step 12: Construct the RDF knowledge graph.
+
+Builds an RDF/Turtle knowledge graph from the causal-annotated master
+table, linking incidents to domains, patterns, rights, harms, and
+causal factors using the FRIA risk schema vocabulary.
+
+Inputs:
+    output/master_annotation_table_causal.csv
+
+Outputs:
+    output/knowledge_graph.ttl        (1,351 triples)
+    output/knowledge_graph_summary.csv
+"""
 
 import os, json, re
 from pathlib import Path

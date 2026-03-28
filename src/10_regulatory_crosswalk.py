@@ -1,4 +1,12 @@
-# Regulatory crosswalk for Annex III/4 and III/5a
+"""Step 10: Regulatory crosswalk between rights and AI Act obligations.
+
+Maps fundamental rights categories to corresponding AI Act obligations
+for Annex III categories 4 (employment) and 5a (essential public services).
+
+Outputs:
+    output/regulatory_crosswalk.csv
+    output/regulatory_crosswalk.md
+"""
 
 import json, csv, os
 from pathlib import Path

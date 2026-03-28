@@ -1,4 +1,13 @@
-# FRIA scenario demonstrations for Section 5.4
+"""Step 08: FRIA scenario demonstration and retrieval.
+
+Constructs Fundamental Rights Impact Assessment scenarios for welfare
+and recruitment use cases, then retrieves matching risk records from
+the annotated corpus to demonstrate the framework's practical utility.
+
+Outputs:
+    output/fria_scenario_results.csv
+    output/fria_scenario_summary.txt
+"""
 
 import os, sys, csv, textwrap
 from pathlib import Path

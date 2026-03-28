@@ -1,5 +1,15 @@
+"""Step 05: Define and export the FRIA risk semantic schema.
 
-# Generate schema files (JSON-LD, Turtle, docs) for the FRIA risk ontology
+Generates the ontology schema in JSON-LD and Turtle formats, aligned with
+DPV, DPV-Risk, VAIR, and EU-Rights vocabularies. Also produces schema
+documentation and an example risk record.
+
+Outputs:
+    schema/fria_risk_schema.jsonld
+    schema/fria_risk_schema.ttl
+    schema/example_risk_record.jsonld
+    schema/schema_documentation.md
+"""
 
 import json, os
 

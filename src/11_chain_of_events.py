@@ -1,4 +1,17 @@
-# Step 11: Extract root cause, mitigation, and source type using Claude
+"""Step 11: Causal chain extraction using Claude API.
+
+Extracts root cause, mitigation status, and source type for each record
+using LLM-assisted analysis. Results are cached to prevent duplicate
+API calls across re-runs.
+
+Inputs:
+    output/master_annotation_table_final.csv
+
+Outputs:
+    output/master_annotation_table_causal.csv
+    output/causal_annotation_log.jsonl
+    output/causal_cache.json
+"""
 
 import json, time, os, sys
 from pathlib import Path

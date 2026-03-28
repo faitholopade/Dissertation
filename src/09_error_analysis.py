@@ -1,4 +1,15 @@
-# Error analysis for Section 5.3 (Parts A-D)
+"""Step 09: Error analysis of annotation disagreements.
+
+Analyses disagreements between keyword, LLM, and hybrid methods across
+domain, pattern, rights, and harms dimensions. Produces categorised
+error tables, heatmaps, and a narrative summary report.
+
+Outputs:
+    output/error_analysis_disagreements.csv
+    output/error_analysis_report.txt
+    output/error_analysis_summary.txt
+    output/disagreement_examples.csv
+"""
 
 import os, sys, csv, textwrap
 from pathlib import Path

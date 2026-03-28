@@ -1,4 +1,17 @@
-# Knowledge graph visualisation (interactive HTML + static PNG)
+"""Step 13: Visualise the knowledge graph.
+
+Generates an interactive HTML visualisation (via pyvis) and a static PNG
+of the knowledge graph. Nodes are colour-coded by type and sized by
+connection degree.
+
+Inputs:
+    output/knowledge_graph.ttl
+
+Outputs:
+    figures/fig_knowledge_graph_full.html  (interactive)
+    figures/fig_knowledge_graph_full.png   (static)
+    figures/fig_knowledge_graph.png        (summary view)
+"""
 
 import os, re, json
 from pathlib import Path

@@ -1,4 +1,14 @@
-# Compare keyword vs LLM vs hybrid annotation methods.
+"""Step 03: Compare keyword, LLM, and hybrid annotation methods.
+
+Computes agreement metrics (accuracy, Cohen's kappa) across the three
+annotation strategies to evaluate which produces the most reliable labels.
+
+Inputs:
+    output/master_annotation_table_llm_v2.csv
+
+Output:
+    output/method_comparison_results_v2.csv
+"""
 
 import pandas as pd
 import numpy as np

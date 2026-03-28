@@ -1,4 +1,15 @@
-# LLM-based annotation using Claude API with few-shot prompting
+"""Step 02: LLM-assisted annotation using Claude API.
+
+Classifies each record by Annex III domain, system pattern, fundamental
+rights, and harm categories using few-shot prompting with Claude.
+Responses are cached to avoid redundant API calls on re-runs.
+
+Inputs:
+    data/master_annotation_table_v05.csv
+
+Output:
+    output/master_annotation_table_llm_v2.csv
+"""
 
 import pandas as pd
 import json, os, sys, time, hashlib
