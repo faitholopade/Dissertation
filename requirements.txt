@@ -1,6 +1,4 @@
 # requirements.txt — FRIA Semantic Framework
-# MSc Dissertation — Faith Olopade, Trinity College Dublin
-# Install:  pip install -r requirements.txt
 # Python:   3.12+
 
 # Core data
