@@ -17,15 +17,15 @@
 
 ## Abstract
 
-The EU Artificial Intelligence Act (Regulation 2024/1689) imposes strict obligations on providers and deployers of high-risk AI systems listed in Annex III. However, a systematic, machine-readable mapping between large language model (LLM) risk evidence and fundamental-rights protections remains absent from the compliance toolchain. This project addresses that gap by designing and populating a **reusable semantic framework** that connects application context, LLM usage patterns, risk and harm categories, and fundamental rights for high-risk public-sector applications under Annex III categories 4 (employment) and 5a (essential public services).
+The EU Artificial Intelligence Act (Regulation 2024/1689) imposes strict obligations on providers and deployers of high-risk AI systems listed in Annex III. However, a systematic, machine-readable mapping between large language model (LLM) risk evidence and fundamental rights protections remains absent from the compliance toolchain. This project addresses that gap by designing and populating a **reusable semantic framework** that connects application context, LLM usage patterns, risk and harm categories, and fundamental rights for high-risk public sector applications under Annex III categories 4 (employment) and 5a (essential public services).
 
-The framework is operationalised through a **reproducible 13-step annotation pipeline** that ingests 150 records from three public sources, annotates them via keyword rules, LLM-assisted classification, and hybrid merge, evaluates label quality against a manually annotated gold standard, and exports the results as a linked knowledge graph. A suite of Fundamental Rights Impact Assessment (FRIA) retrieval scenarios and a regulatory crosswalk demonstrate the practical utility of the framework for conformity assessment under the AI Act.
+The framework is operationalised through a **reproducible 13 step annotation pipeline** that ingests 150 records from three public sources, annotates them via keyword rules, LLM assisted classification, and hybrid merge, evaluates label quality against a manually annotated gold standard, and exports the results as a linked knowledge graph. A suite of Fundamental Rights Impact Assessment (FRIA) retrieval scenarios and a regulatory crosswalk demonstrate the practical utility of the framework for conformity assessment under the AI Act.
 
 ---
 
 ## Research Question
 
-> How can a reusable semantic framework be designed and populated to link LLM-related risk evidence with fundamental-rights protections for high-risk public-sector applications (Annex III/4 and Annex III/5a) under the EU AI Act?
+> How can a reusable semantic framework be designed and populated to link LLM related risk evidence with fundamental rights protections for high-risk public sector applications (Annex III/4 and Annex III/5a) under the EU AI Act?
 
 ---
 
@@ -33,7 +33,7 @@ The framework is operationalised through a **reproducible 13-step annotation pip
 
 | Source | Records | Description | URL |
 |--------|---------|-------------|-----|
-| AIAAIC Repository | ~100 | Real-world AI, algorithmic, and automation incidents | https://www.aiaaic.org |
+| AIAAIC Repository | ~100 | Real world AI, algorithmic, and automation incidents | https://www.aiaaic.org |
 | US Federal AI Use Case Inventory | 30 | Government AI use cases filtered to employment and essential public services | https://github.com/ombegov/2024-Federal-AI-Use-Case-Inventory |
 | ECtHR Case Law (HUDOC) | 20 | European Court of Human Rights judgments on non-discrimination and social protection | https://hudoc.echr.coe.int |
 
@@ -43,10 +43,10 @@ The framework is operationalised through a **reproducible 13-step annotation pip
 
 | Vocabulary | Purpose | URI |
 |------------|---------|-----|
-| DPV | Data Privacy Vocabulary — core data-protection concepts | https://w3id.org/dpv/ |
-| DPV-Risk | Risk and harm categories | https://w3id.org/dpv/risk/ |
+| DPV | Data Privacy Vocabulary -  core data protection concepts | https://w3id.org/dpv/ |
+| DPV Risk | Risk and harm categories | https://w3id.org/dpv/risk/ |
 | VAIR | Vocabulary of AI Risks | https://w3id.org/vair/ |
-| EU-Rights | EU Charter of Fundamental Rights concepts | https://w3id.org/dpv/legal/eu/rights/ |
+| EU Rights | EU Charter of Fundamental Rights concepts | https://w3id.org/dpv/legal/eu/rights/ |
 
 ---
 
@@ -155,7 +155,7 @@ data/ecthr/  ──┘         |                                          |
 | `master_annotation_table_causal.csv` | Extended with root cause, mitigation status, and source type |
 | `knowledge_graph.ttl` | RDF/Turtle knowledge graph (194 nodes, 963 edges, 1,351 triples) |
 | `fig_knowledge_graph_full.html` | Interactive, zoomable knowledge graph visualisation |
-| `fria_scenario_results.csv` | FRIA-style retrieval narratives for welfare and recruitment scenarios |
+| `fria_scenario_results.csv` | FRIA style retrieval narratives for welfare and recruitment scenarios |
 | `schema/fria_risk_schema.ttl` | Reusable semantic schema in Turtle |
 | `schema/fria_risk_schema.jsonld` | Reusable semantic schema in JSON-LD |
 | `regulatory_crosswalk.csv` | Mapping between fundamental rights and AI Act obligations |
@@ -238,6 +238,35 @@ start figures/fig_knowledge_graph_full.html
 # macOS
 open figures/fig_knowledge_graph_full.html
 ```
+
+---
+
+## Citation
+
+If you use this framework, pipeline, or dataset in your research, please cite:
+
+```bibtex
+@mastersthesis{olopade2026semantic,
+  author       = {Faith Olopade},
+  title        = {A Reusable Semantic Framework Linking {LLM} Risks to Fundamental Rights Under the {EU AI Act}},
+  school       = {Trinity College Dublin},
+  year         = {2026},
+  type         = {{MSc} Dissertation},
+  department   = {School of Computer Science and Statistics},
+  url          = {https://github.com/faitholopade/Dissertation}
+}
+```
+
+---
+
+## Contact
+
+| | |
+|---|---|
+| **Faith Olopade** | [olopadef@tcd.ie](mailto:olopadef@tcd.ie) |
+| **GitHub** | [github.com/faitholopade](https://github.com/faitholopade) |
+
+For questions about the framework, dataset, or pipeline, please open an [issue](https://github.com/faitholopade/Dissertation/issues) or contact the author by email.
 
 ---
 
