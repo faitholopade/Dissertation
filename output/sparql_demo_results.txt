@@ -1,0 +1,140 @@
+SPARQL QUERY DEMONSTRATION RESULTS
+Knowledge graph: output/knowledge_graph.ttl (1351 triples)
+======================================================================
+
+======================================================================
+Q1: Essential-services incidents involving non-discrimination rights
+======================================================================
+
+Retrieve all incidents classified under the essential services domain that implicate non-discrimination rights. This demonstrates combined domain and rights filtering — a core requirement for Article 27 FRIA evidence retrieval.
+
+SPARQL query:
+PREFIX fria: <https://example.org/fria-kg/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?incident ?label
+WHERE {
+    ?incident a fria:Incident ;
+              rdfs:label ?label ;
+              fria:hasDomain fria:domain_essential_services ;
+              fria:hasRight fria:right_non_discrimination .
+}
+ORDER BY ?label
+
+Results: 60 matches
+
+Incident                                                      Label
+------------------------------------------------------------  ----------------------------------------
+inc_AIAAIC1185                                                AI translations jeopardise US asylum app
+inc_AIAAIC0886                                                Allegheny County child neglect screening
+inc_AIAAIC1578                                                Allegheny child neglect screening system
+inc_AIAAIC1579                                                Allegheny child neglect screening tool m
+inc_AIAAIC053                                                 Arkansas ARChoices Medicaid resource all
+inc_AIAAIC0777                                                BOSCO electricity subsidy assessment
+inc_AIAAIC1962                                                Brazilian AI-powered welfare app accused
+inc_10250_02                                                  CASE OF ALİ TAŞ v. TURKEY
+inc_10319_04                                                  CASE OF ANDRIANOVA AND OTHERS  v. UKRAIN
+inc_10652_02_12373_06_13553_06_21532_05_23003_06_23446_06_25  CASE OF COLLARILE AND OTHERS v. ITALY
+  ... and 50 more
+
+======================================================================
+Q2: Incidents where hybrid method identified profiling/scoring
+======================================================================
+
+Find all incidents whose system pattern is classified as profiling or scoring. This demonstrates pattern-based retrieval, enabling a deployer to locate precedents where algorithmic profiling has been documented.
+
+SPARQL query:
+PREFIX fria: <https://example.org/fria-kg/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?incident ?label ?domain
+WHERE {
+    ?incident a fria:Incident ;
+              rdfs:label ?label ;
+              fria:hasDomain ?domainNode ;
+              fria:hasPattern fria:pattern_profiling_scoring .
+    BIND(STRAFTER(STR(?domainNode), "fria-kg/") AS ?domain)
+}
+ORDER BY ?domain ?label
+
+Results: 47 matches
+
+Incident        Label                                     Domain
+--------------  ----------------------------------------  -------------------------
+inc_AIAAIC0269  Austria AMS employment service job seeke  domain_employment
+inc_AIAAIC2087  Study: Uber dynamic pricing increases pa  domain_employment
+inc_AIAAIC0886  Allegheny County child neglect screening  domain_essential_services
+inc_AIAAIC1578  Allegheny child neglect screening system  domain_essential_services
+inc_AIAAIC1579  Allegheny child neglect screening tool m  domain_essential_services
+inc_AIAAIC0107  Australia Robodebt welfare debt recovery  domain_essential_services
+inc_AIAAIC0350  Australia scraps "robodebt" welfare debt  domain_essential_services
+inc_AIAAIC1962  Brazilian AI-powered welfare app accused  domain_essential_services
+inc_AIAAIC0409  DGFiP tax fraud detection                 domain_essential_services
+inc_AIAAIC2020  DOGE uses faulty AI to cut Veterans Affa  domain_essential_services
+  ... and 37 more
+
+======================================================================
+Q3: Rights implicated by employment-domain incidents, ranked by frequency
+======================================================================
+
+List all fundamental rights implicated by employment-domain incidents, ranked by how frequently they appear. This demonstrates cross-axis aggregation — combining domain and rights axes to answer analytical questions about risk patterns.
+
+SPARQL query:
+PREFIX fria: <https://example.org/fria-kg/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?rightLabel (COUNT(?incident) AS ?count)
+WHERE {
+    ?incident a fria:Incident ;
+              fria:hasDomain fria:domain_employment ;
+              fria:hasRight ?right .
+    BIND(STRAFTER(STR(?right), "fria-kg/") AS ?rightLabel)
+}
+GROUP BY ?rightLabel
+ORDER BY DESC(?count)
+
+Results: 4 matches
+
+Right                            Count
+-----------------------------  -------
+right_non_discrimination            14
+right_privacy_data_protection       12
+right_good_administration            8
+right_other                          1
+
+======================================================================
+Q4: Incidents involving both privacy/data-protection and unfair-exclusion harms
+======================================================================
+
+Retrieve incidents that exhibit both privacy or data-protection harms and unfair-exclusion harms simultaneously. This demonstrates multi-label intersection querying — identifying cases where multiple harm types co-occur.
+
+SPARQL query:
+PREFIX fria: <https://example.org/fria-kg/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?incident ?label ?domain
+WHERE {
+    ?incident a fria:Incident ;
+              rdfs:label ?label ;
+              fria:hasDomain ?domainNode ;
+              fria:hasHarm fria:harm_privacy_breach ;
+              fria:hasHarm fria:harm_unfair_exclusion .
+    BIND(STRAFTER(STR(?domainNode), "fria-kg/") AS ?domain)
+}
+ORDER BY ?label
+
+Results: 12 matches
+
+Incident        Label                                     Domain
+--------------  ----------------------------------------  -------------------------
+inc_AIAAIC0136  Amazon employees, investors protest US g  domain_employment
+inc_AIAAIC0654  ID.me unemployment benefit facial recogn  domain_essential_services
+inc_AIAAIC0890  India Human Efficiency Tracking System s  domain_employment
+inc_AIAAIC0556  NYPD 'digidog' hostage response draws co  domain_unknown
+inc_AIAAIC0652  NYPD Domain Awareness System              domain_unknown
+inc_AIAAIC0410  Netherlands SyRI welfare fraud detection  domain_essential_services
+inc_AIAAIC0554  Netherlands childcare benefits fraud ass  domain_essential_services
+inc_AIAAIC0268  PSZ Syriusz unemployment worker profilin  domain_essential_services
+inc_AIAAIC1820  Report: Denmark AI welfare system "profo  domain_essential_services
+inc_AIAAIC0415  Roermond 'Sensing Project' predictive po  domain_essential_services
+  ... and 2 more
