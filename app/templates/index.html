@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRIA Evidence Retrieval</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .header-bar { background-color: #1a3a5c; color: white; padding: 1.5rem 0; }
+        .header-bar h1 { font-size: 1.5rem; margin: 0; }
+        .header-bar p { margin: 0.25rem 0 0; opacity: 0.8; font-size: 0.9rem; }
+        .query-card { border-left: 4px solid #1a3a5c; }
+        .result-count { font-weight: 600; color: #1a3a5c; }
+        .sparql-pre { background: #f0f0f0; padding: 1rem; border-radius: 4px;
+                      font-size: 0.8rem; max-height: 200px; overflow-y: auto; }
+        table.results-table th { background-color: #1a3a5c; color: white;
+                                  font-size: 0.85rem; }
+        table.results-table td { font-size: 0.85rem; }
+        .badge-domain { background-color: #2C6FAD; }
+        .badge-right { background-color: #4CAF50; }
+        .badge-harm { background-color: #E07B39; }
+        .badge-pattern { background-color: #9C27B0; }
+        footer { color: #666; font-size: 0.8rem; padding: 2rem 0; }
+    </style>
+</head>
+<body>
+
+<div class="header-bar">
+    <div class="container">
+        <h1>FRIA Evidence Retrieval Prototype</h1>
+        <p>Query the AI incident knowledge graph for Fundamental Rights Impact Assessment evidence</p>
+    </div>
+</div>
+
+<div class="container my-4">
+
+    {% if error %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endif %}
+
+    <div class="row">
+        <!-- Structured Query Form -->
+        <div class="col-lg-5 mb-4">
+            <div class="card query-card">
+                <div class="card-body">
+                    <h5 class="card-title">Structured Query</h5>
+                    <form method="POST" action="/query">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Annex III Domain</label>
+                            {% for value, label in domain_options %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="domains"
+                                       value="{{ value }}" id="domain_{{ value }}"
+                                       {% if selected_domains and value in selected_domains %}checked{% endif %}>
+                                <label class="form-check-label" for="domain_{{ value }}">{{ label }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Fundamental Rights</label>
+                            {% for value, label in rights_options %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="rights"
+                                       value="{{ value }}" id="right_{{ value }}"
+                                       {% if selected_rights and value in selected_rights %}checked{% endif %}>
+                                <label class="form-check-label" for="right_{{ value }}">{{ label }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" for="pattern">System Pattern</label>
+                            <select class="form-select" name="pattern" id="pattern">
+                                {% for value, label in pattern_options %}
+                                <option value="{{ value }}"
+                                        {% if selected_pattern and value == selected_pattern %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Query</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Raw SPARQL -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Raw SPARQL</h5>
+                    <form method="POST" action="/sparql">
+                        <div class="mb-3">
+                            <textarea class="form-control font-monospace" name="sparql" rows="8"
+                                      placeholder="PREFIX fria: <https://example.org/fria-kg/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?incident ?label
+WHERE {
+    ?incident a fria:Incident ;
+              rdfs:label ?label .
+}
+LIMIT 10">{{ query_sparql or '' }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-outline-secondary w-100">Run SPARQL</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="col-lg-7">
+            {% if results is not none %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Results
+                        <span class="result-count ms-2">({{ result_count }} records)</span>
+                    </h5>
+
+                    {% if results %}
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover results-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Source</th>
+                                    <th>Domain</th>
+                                    <th>Rights</th>
+                                    <th>Harms</th>
+                                    <th>Pattern</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in results %}
+                                <tr>
+                                    <td>{{ r.label[:60] }}{% if r.label|length > 60 %}...{% endif %}</td>
+                                    <td><span class="badge bg-secondary">{{ r.source }}</span></td>
+                                    <td><span class="badge badge-domain">{{ r.domain }}</span></td>
+                                    <td>
+                                        {% for right in r.rights.split(', ') %}
+                                        <span class="badge badge-right">{{ right }}</span>
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        {% for harm in r.harms.split(', ') %}
+                                        <span class="badge badge-harm">{{ harm }}</span>
+                                        {% endfor %}
+                                    </td>
+                                    <td><span class="badge badge-pattern">{{ r.pattern }}</span></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <p class="text-muted">No matching records found.</p>
+                    {% endif %}
+
+                    {% if query_sparql %}
+                    <details class="mt-3">
+                        <summary class="text-muted" style="cursor: pointer;">View generated SPARQL</summary>
+                        <pre class="sparql-pre mt-2">{{ query_sparql }}</pre>
+                    </details>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <h5 class="text-muted">Select filters and click Query</h5>
+                    <p class="text-muted">
+                        Use the structured form to filter incidents by domain, rights, and pattern,
+                        or write a custom SPARQL query for advanced retrieval.
+                    </p>
+                    <hr>
+                    <div class="text-start">
+                        <h6>About this prototype</h6>
+                        <p class="small text-muted">
+                            This interface demonstrates the queryability of the FRIA knowledge graph,
+                            a semantic representation of 150 AI incident records annotated against the
+                            EU AI Act Annex III framework. The graph encodes four annotation axes:
+                            Annex III domain, fundamental rights, harm types, and system patterns.
+                        </p>
+                        <p class="small text-muted">
+                            Deployers conducting a Fundamental Rights Impact Assessment under
+                            Article 27 of the AI Act can use this interface to retrieve relevant
+                            precedent incidents based on their system's domain and risk profile.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+<footer class="text-center">
+    <p>FRIA Evidence Retrieval Prototype &mdash; MSc Dissertation, Trinity College Dublin</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
