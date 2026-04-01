@@ -7,4 +7,5 @@ __pycache__/
 structure.txt
 finaloutput.txt
 \[BACKUP\]*
-.claude/
+.*
+!.gitignore
