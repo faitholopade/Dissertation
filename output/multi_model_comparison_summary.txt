@@ -7,9 +7,9 @@ Gold standard: 69 records
 -- Method Comparison --
   Keyword          domain_kappa=0.246  domain_unk=26.0%  pattern_unk=61.3%
   Claude Sonnet    domain_kappa=0.176  domain_unk=38.7%  pattern_unk=28.0%
-  GPT-4o-mini      domain_kappa=0.000  domain_unk=100.0%  pattern_unk=100.0%
+  GPT-4o-mini      domain_kappa=0.196  domain_unk=56.7%  pattern_unk=34.7%
   Hybrid           domain_kappa=0.234  domain_unk=22.0%  pattern_unk=14.0%
 
 -- Inter-Model Agreement (Claude vs GPT-4o-mini) --
-  Domain:  agree=0.387, kappa=0.000
-  Pattern: agree=0.280, kappa=0.000
+  Domain:  agree=0.807, kappa=0.667
+  Pattern: agree=0.733, kappa=0.660
