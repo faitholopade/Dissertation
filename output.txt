@@ -1,0 +1,1386 @@
+Existing master: 90 rows
+  Sources: {'AIAAIC': 60, 'ECtHR': 20, 'USFED': 10}
+  Unique titles: 90
+
+AIAAIC CSV: 2121 rows
+  Columns: ['AIAAIC ID#', 'Headline', 'Occurred', 'Country(ies)', 'Sector(s)', 'Deployer(s)', 'Developer(s)', 'System name(s)']
+
+  After dedup: 2055 candidates (removed 66 duplicates)
+  Score distribution of candidates:
+    Score 5: 3
+    Score 4: 5
+    Score 3: 70
+    Score 2: 270
+    Score 1: 295
+
+  Selected 40 new AIAAIC records
+  Score range: 3 - 5
+
+  Selected records:
+    [5] AIAAIC0269   Austria AMS employment service job seeker predictions
+    [5] AIAAIC1055   Netherlands visa applicant over-stay risk assessments
+    [5] AIAAIC0409   DGFiP tax fraud detection
+    [4] AIAAIC1321   Deepfake CFO scams finance worker for USD 25 million
+    [4] AIAAIC1927   AI malware scam "destroys" Disney employee's life
+    [4] AIAAIC1270   Singapore PM Lee Hsien Loong crypto promotion deepfake
+    [4] AIAAIC1285   Deepfake Tom Hanks dental ad insurance promotion
+    [4] AIAAIC0579   HireVue recruitment facial analysis screening
+    [3] AIAAIC2114   Facebook job ad algorithm ruled sexist by French regulator
+    [3] AIAAIC024    Inaccurate test finds most English language test students 'cheated'
+    [3] AIAAIC1745   Starship robot knocks over Arizona State University employee
+    [3] AIAAIC1720   TennCare automated system accused of illegally denying Medicaid
+    [3] AIAAIC042    Facebook illegally lets housing ads exclude ethnic minorities
+    [3] AIAAIC1609   France welfare fraud detection algorithm accused of exacerbating inequ
+    [3] AIAAIC1389   Legal challenge launched against 'discriminatory' sham marriage algori
+    [3] AIAAIC1446   Greece fined for AI-powered asylum centre monitoring system
+    [3] AIAAIC1450   MEP files lawsuit to release iBorderCtrl lie detection system document
+    [3] AIAAIC0253   Aadhaar glitches result in villagers' starvation
+    [3] AIAAIC1510   Youth advocacy worker misidentified by Met Police facial recognition s
+    [3] AIAAIC1551   Danish child protection algorithm criticised for age discrimination
+    [3] AIAAIC1578   Allegheny child neglect screening system unfairly flags Blacks for inv
+    [3] AIAAIC1579   Allegheny child neglect screening tool may harden bias against people 
+    [3] AIAAIC1175   Inaccurate auto translation denies Pashto-speaking refugee asylum
+    [3] AIAAIC1183   Family-Match adoption algorithm fails to live up to promises
+    [3] AIAAIC0265   UK visa applications streaming
+    [3] AIAAIC0267   Atlantic Plaza Towers facial recognition plan blasted as privacy intru
+    [3] AIAAIC0264   UK passport check interprets lips as open mouth
+    [3] AIAAIC2074   US government sued over AI-powered social media surveillance of visa h
+    [3] AIAAIC1265   Asylum claim rejected by French authorities using Google Bard
+    [3] AIAAIC1185   AI translations jeopardise US asylum applications
+    [3] AIAAIC1018   USPS algorithmic system cuts rural letter carrier pay
+    [3] AIAAIC0886   Allegheny County child neglect screening system
+    [3] AIAAIC0863   Microsoft Plataforma Tecnológica de Intervención Social
+    [3] AIAAIC1945   Spanish police arrest six people for USD 20m AI-powered investment sca
+    [3] AIAAIC0793   South Korea immigration shares travellers' facial data without consent
+    [3] AIAAIC0791   Wellington International Airport facial recognition trial is exposed
+    [3] AIAAIC0777   BOSCO electricity subsidy assessment
+    [3] AIAAIC0761   Chinese government facial recognition system hacked by tax fraudsters
+    [3] AIAAIC0379   Deepfake romance scammer swindles California widow
+    [3] AIAAIC0339   Poland forced to scrap unemployed worker profiling system
+
+  Added 40 new AIAAIC records
+  Added 20 new USFED records
+
+============================================================
+[OK] Saved master_annotation_table_v05.csv with 150 records
+============================================================
+
+-- Source distribution --
+source
+AIAAIC    100
+USFED      30
+ECtHR      20
+
+-- Domain distribution --
+annex_domain
+essential_services    95
+unknown               39
+employment            16
+
+-- System pattern distribution --
+system_pattern
+unknown                   92
+not_llm                   25
+profiling_scoring         15
+surveillance_monitor      12
+llm_decision_support       3
+llm_assisted_screening     3
+  Loaded 150 cached predictions
+Loaded 150 rows from data/master_annotation_table_v05.csv
+  [1/150] USFED / Individual Assistance (IA) & Public Assistance (PA -> essential_services | profiling_scoring
+  [2/150] USFED / Policy Analyst Assistant -> essential_services | summary_assistant
+  [3/150] USFED / Conversation Training and Feedback Simulator -> employment | llm_decision_support
+  [4/150] USFED / TSA Contact Center Virtual Assistant -> unknown | chatbot
+  [5/150] USFED / ELIS Evidence Classifier Machine Learning (ML) Tag -> essential_services | classification_triage
+  [6/150] USFED / Automated Change Detection -> unknown | not_llm
+  [7/150] USFED / Linkage and Matching Program (LaMP) -> unknown | not_llm
+  [8/150] USFED / Automating Multilingual Census Data Processing: An -> essential_services | llm_decision_support
+  [9/150] USFED / FAQ for SMaRT -> unknown | not_llm
+  [10/150] USFED / Enriched Citation -> unknown | summary_assistant
+  [11/150] AIAAIC / ID.me unemployment benefit facial recognition -> essential_services | surveillance_monitor
+  [12/150] AIAAIC / Netherlands SyRI welfare fraud detection automatio -> essential_services | profiling_scoring
+  [13/150] AIAAIC / UK government accused of COVID-19 recovery funding -> essential_services | profiling_scoring
+  [14/150] AIAAIC / UK govt Spotlight fund application assessments -> essential_services | profiling_scoring
+  [15/150] AIAAIC / DOGE uses faulty AI to cut Veterans Affairs contra -> essential_services | profiling_scoring
+  [16/150] AIAAIC / UK DWP sued for 'unfair' disability benefits fraud -> essential_services | profiling_scoring
+  [17/150] AIAAIC / Unemployment risk assessment -> essential_services | profiling_scoring
+  [18/150] AIAAIC / Netherlands childcare benefits fraud assessments a -> essential_services | profiling_scoring
+  [19/150] AIAAIC / Rotterdam welfare fraud risk algorithm  -> essential_services | profiling_scoring
+  [20/150] AIAAIC / Michigan MiDAS unemployment insurance fraud detect -> essential_services | profiling_scoring
+  [21/150] AIAAIC / Serbia Social Card excludes thousands of welfare b -> essential_services | classification_triage
+  [22/150] AIAAIC / UK welfare fraud AI system criticised as biased an -> essential_services | profiling_scoring
+  [23/150] AIAAIC / US Veterans Affairs suicide prevention algorithm f -> essential_services | profiling_scoring
+  [24/150] AIAAIC / UK robo review 'unfairly' targets Bulgarians, Pole -> essential_services | profiling_scoring
+  [25/150] AIAAIC / NDIS independent assessments ditched by Australian -> essential_services | profiling_scoring
+  [26/150] AIAAIC / DWP Kickstart "gateway" firms with no trading hist -> essential_services | classification_triage
+  [27/150] AIAAIC / Trelleborg welfare management automation -> essential_services | unknown
+  [28/150] AIAAIC / Inaccuracies reveal child protection worker used C -> essential_services | summary_assistant
+  [29/150] AIAAIC / DWP algorithm wrongly flags 200,000 people for pos -> essential_services | profiling_scoring
+  [30/150] AIAAIC / Flawed' UK welfare algorithm 'pushes people into p -> essential_services | profiling_scoring
+  [31/150] AIAAIC / Thomson Reuters Fraud Detect 'incorrectly' identif -> essential_services | profiling_scoring
+  [32/150] AIAAIC / Samagra Vedika system pilot deprives citizens of r -> essential_services | classification_triage
+  [33/150] AIAAIC / Arkansas ARChoices Medicaid resource allocation sy -> essential_services | resource_allocation
+  [34/150] AIAAIC / PSZ Syriusz unemployment worker profiling -> essential_services | profiling_scoring
+  [35/150] AIAAIC / Thai auntie unable to buy food after Poor Card fac -> essential_services | surveillance_monitor
+  [36/150] AIAAIC / Idaho Medicaid disability Resource Allocation Mode -> essential_services | resource_allocation
+  [37/150] AIAAIC / Roermond 'Sensing Project' predictive policing pil -> unknown | profiling_scoring
+  [38/150] AIAAIC / New Orleans predictive policing -> unknown | profiling_scoring
+  [39/150] AIAAIC / NYPD Domain Awareness System -> unknown | surveillance_monitor
+  [40/150] AIAAIC / Knightscope security robot ignores woman reporting -> unknown | chatbot
+  [41/150] AIAAIC / lllinois ends 'unreliable' child abuse predictive  -> essential_services | profiling_scoring
+  [42/150] AIAAIC / Oregon drops 'unfair' child abuse Safety at Screen -> essential_services | profiling_scoring
+  [43/150] AIAAIC / Australia scraps "robodebt" welfare debt recovery  -> essential_services | profiling_scoring
+  [44/150] AIAAIC / Australia Robodebt welfare debt recovery -> essential_services | profiling_scoring
+  [45/150] AIAAIC / Utah online dispute resolution system benefits len -> essential_services | classification_triage
+  [46/150] AIAAIC / Parivar Pehchan Patra algorithm declares living pe -> essential_services | classification_triage
+  [47/150] AIAAIC / Iarpa Janus Benchmark-C (IJP-C) dataset -> unknown | surveillance_monitor
+  [48/150] AIAAIC / India Human Efficiency Tracking System sanitation  -> employment | surveillance_monitor
+  [49/150] AIAAIC / Amazon employees, investors protest US government  -> unknown | surveillance_monitor
+  [50/150] AIAAIC / Sweden fraud prediction algorithm found to discrim -> essential_services | profiling_scoring
+  [51/150] AIAAIC / North Korea uses AI to covertly place IT workers i -> employment | llm_decision_support
+  [52/150] AIAAIC / Starbucks automated shift scheduling system ruins  -> employment | resource_allocation
+  [53/150] AIAAIC / UK Post Office Horizon payment system -> employment | not_llm
+  [54/150] AIAAIC / NYPD ends Knightscope K5 security robot trial -> unknown | surveillance_monitor
+  [55/150] AIAAIC / Malta ditches 'Safe City' video surveillance progr -> unknown | surveillance_monitor
+  [56/150] AIAAIC / NYPD 'digidog' hostage response draws complaints -> unknown | surveillance_monitor
+  [57/150] AIAAIC / Rikers Island prisoner risk classification system  -> unknown | classification_triage
+  [58/150] AIAAIC / Suzhou algorithmic social 'civility score' withdra -> unknown | profiling_scoring
+  [59/150] AIAAIC / LAPD predictive policing -> unknown | profiling_scoring
+  [60/150] AIAAIC / LAPD 'hot spot' predictive policing -> unknown | profiling_scoring
+  [61/150] AIAAIC / Study: Uber dynamic pricing increases passenger fa -> employment | profiling_scoring
+  [62/150] AIAAIC / Brian Cranston voice, likeness used without consen -> unknown | llm_decision_support
+  [63/150] AIAAIC / Deloitte Australia fined for AI error-strewn gover -> unknown | summary_assistant
+  [64/150] AIAAIC / White House chief of staff targeted in AI-powered  -> unknown | unknown
+  [65/150] AIAAIC / Brazilian AI-powered welfare app accused of unfair -> essential_services | profiling_scoring
+  [66/150] AIAAIC / White House appears to use AI to calculate tariff  -> unknown | not_llm
+  [67/150] AIAAIC / Optifye roasted for shop floor AI surveillance -> employment | surveillance_monitor
+  [68/150] AIAAIC / Taiwanese AI repeats Chinese government line -> unknown | llm_decision_support
+  [69/150] AIAAIC / Report: Denmark AI welfare system "profoundly affe -> essential_services | profiling_scoring
+  [70/150] AIAAIC / Nevada AI student risk model prompts funding contr -> unknown | profiling_scoring
+  [71/150] ECtHR / CASE OF HALMAGIU AND BELLU v. ROMANIA -> essential_services | unknown
+  [72/150] ECtHR / CASE OF TETU v. ROMANIA -> essential_services | unknown
+  [73/150] ECtHR / CASE OF GURGACH v. RUSSIA -> essential_services | unknown
+  [74/150] ECtHR / CASE OF SOCIEDADE AGRICOLA DO AMEIXIAL; S.A v. POR -> unknown | unknown
+  [75/150] ECtHR / CASE OF SERSESCU v. ROMANIA -> essential_services | unknown
+  [76/150] ECtHR / CASE OF MOSOIU AND PASARIN v. ROMANIA -> essential_services | unknown
+  [77/150] ECtHR / CASE OF ALİ TAŞ v. TURKEY -> essential_services | unknown
+  [78/150] ECtHR / CASE OF ANDRIANOVA AND OTHERS  v. UKRAINE -> essential_services | unknown
+  [79/150] ECtHR / CASE OF DICKMANN AND GION v. ROMANIA -> essential_services | unknown
+  [80/150] ECtHR / CASE OF MIGALSKA v. POLAND -> essential_services | unknown
+  [81/150] ECtHR / CASE OF PICHKUR v. UKRAINE -> essential_services | unknown
+  [82/150] ECtHR / CASE OF ZAMMIT AND ATTARD CASSAR v. MALTA -> essential_services | unknown
+  [83/150] ECtHR / CASE OF INDERKINY v. RUSSIA -> essential_services | unknown
+  [84/150] ECtHR / CASE OF VACARENCU v. MOLDOVA -> essential_services | unknown
+  [85/150] ECtHR / CASE OF GIGLI COSTRUZIONI S.R.L. v. ITALY -> unknown | unknown
+  [86/150] ECtHR / CASE OF SHARXHI AND OTHERS v. ALBANIA -> unknown | unknown
+  [87/150] ECtHR / CASE OF ELLIS v. TURKEY -> essential_services | unknown
+  [88/150] ECtHR / CASE OF COLLARILE AND OTHERS v. ITALY -> essential_services | unknown
+  [89/150] ECtHR / CASE OF PAULIK v. SLOVAKIA -> essential_services | unknown
+  [90/150] ECtHR / CASE OF HARRISON v. THE UNITED KINGDOM -> essential_services | unknown
+  [91/150] AIAAIC / Austria AMS employment service job seeker predicti -> employment | profiling_scoring
+  [92/150] AIAAIC / Netherlands visa applicant over-stay risk assessme -> essential_services | profiling_scoring
+  [93/150] AIAAIC / DGFiP tax fraud detection -> essential_services | profiling_scoring
+  [94/150] AIAAIC / Deepfake CFO scams finance worker for USD 25 milli -> unknown | llm_decision_support
+  [95/150] AIAAIC / AI malware scam "destroys" Disney employee's life -> unknown | unknown
+  [96/150] AIAAIC / Singapore PM Lee Hsien Loong crypto promotion deep -> unknown | llm_decision_support
+  [97/150] AIAAIC / Deepfake Tom Hanks dental ad insurance promotion -> unknown | llm_decision_support
+  [98/150] AIAAIC / HireVue recruitment facial analysis screening -> employment | llm_assisted_screening
+  [99/150] AIAAIC / Facebook job ad algorithm ruled sexist by French r -> employment | not_llm
+  [100/150] AIAAIC / Inaccurate test finds most English language test s -> essential_services | profiling_scoring
+  [101/150] AIAAIC / Starship robot knocks over Arizona State Universit -> unknown | not_llm
+  [102/150] AIAAIC / TennCare automated system accused of illegally den -> essential_services | classification_triage
+  [103/150] AIAAIC / Facebook illegally lets housing ads exclude ethnic -> unknown | not_llm
+  [104/150] AIAAIC / France welfare fraud detection algorithm accused o -> essential_services | profiling_scoring
+  [105/150] AIAAIC / Legal challenge launched against 'discriminatory'  -> essential_services | profiling_scoring
+  [106/150] AIAAIC / Greece fined for AI-powered asylum centre monitori -> essential_services | surveillance_monitor
+  [107/150] AIAAIC / MEP files lawsuit to release iBorderCtrl lie detec -> unknown | profiling_scoring
+  [108/150] AIAAIC / Aadhaar glitches result in villagers' starvation -> essential_services | not_llm
+  [109/150] AIAAIC / Youth advocacy worker misidentified by Met Police  -> unknown | surveillance_monitor
+  [110/150] AIAAIC / Danish child protection algorithm criticised for a -> essential_services | profiling_scoring
+  [111/150] AIAAIC / Allegheny child neglect screening system unfairly  -> essential_services | profiling_scoring
+  [112/150] AIAAIC / Allegheny child neglect screening tool may harden  -> essential_services | profiling_scoring
+  [113/150] AIAAIC / Inaccurate auto translation denies Pashto-speaking -> essential_services | not_llm
+  [114/150] AIAAIC / Family-Match adoption algorithm fails to live up t -> essential_services | profiling_scoring
+  [115/150] AIAAIC / UK visa applications streaming -> essential_services | profiling_scoring
+  [116/150] AIAAIC / Atlantic Plaza Towers facial recognition plan blas -> essential_services | surveillance_monitor
+  [117/150] AIAAIC / UK passport check interprets lips as open mouth -> essential_services | classification_triage
+  [118/150] AIAAIC / US government sued over AI-powered social media su -> essential_services | surveillance_monitor
+  [119/150] AIAAIC / Asylum claim rejected by French authorities using  -> essential_services | llm_decision_support
+  [120/150] AIAAIC / AI translations jeopardise US asylum applications -> essential_services | not_llm
+  [121/150] AIAAIC / USPS algorithmic system cuts rural letter carrier  -> employment | resource_allocation
+  [122/150] AIAAIC / Allegheny County child neglect screening system -> essential_services | profiling_scoring
+  [123/150] AIAAIC / Microsoft Plataforma Tecnológica de Intervención S -> essential_services | profiling_scoring
+  [124/150] AIAAIC / Spanish police arrest six people for USD 20m AI-po -> unknown | llm_decision_support
+  [125/150] AIAAIC / South Korea immigration shares travellers' facial  -> unknown | surveillance_monitor
+  [126/150] AIAAIC / Wellington International Airport facial recognitio -> unknown | surveillance_monitor
+  [127/150] AIAAIC / BOSCO electricity subsidy assessment -> essential_services | classification_triage
+  [128/150] AIAAIC / Chinese government facial recognition system hacke -> essential_services | surveillance_monitor
+  [129/150] AIAAIC / Deepfake romance scammer swindles California widow -> unknown | llm_decision_support
+  [130/150] AIAAIC / Poland forced to scrap unemployed worker profiling -> essential_services | profiling_scoring
+  [131/150] USFED / Recovery Engagement and Coordination for Health –  -> unknown | unknown
+  [132/150] USFED / Elastic Machine Learning Threat Detection - Phase  -> unknown | unknown
+  [133/150] USFED / USA Class -> unknown | unknown
+  [134/150] USFED / PINGOO.AI -> unknown | unknown
+  [135/150] USFED / Smart AI Bot Assistant -> unknown | unknown
+  [136/150] USFED / Login.gov -> unknown | unknown
+  [137/150] USFED / PreCheck Touchless Identity Solution (TIS) -> unknown | unknown
+  [138/150] USFED / Credential Authentication Technology with Camera S -> unknown | unknown
+  [139/150] USFED / I-765 - USCIS Facial Recognition through IDENT (1: -> essential_services | surveillance_monitor
+  [140/150] USFED / CESASolarModel -> unknown | unknown
+  [141/150] USFED / EnergyRightDERPortfolioEvaluation -> unknown | unknown
+  [142/150] USFED / GET -> unknown | unknown
+  [143/150] USFED / GMET -> unknown | unknown
+  [144/150] USFED / ICI camera  -> unknown | unknown
+  [145/150] USFED / Hurricane Score -> unknown | unknown
+  [146/150] USFED / Stratification Tool for Opioid Risk Mitigation (ST -> unknown | unknown
+  [147/150] USFED / Care Assessment Needs (CAN) Score -> unknown | unknown
+  [148/150] USFED / Low Probability of False Alarm (Low-Pfa) Algorithm -> unknown | unknown
+  [149/150] USFED / CR intelligent search -> unknown | unknown
+  [150/150] USFED / Materials tracking -> unknown | unknown
+
+[OK] Saved output/master_annotation_table_llm_v2.csv
+
+-- LLM v2 Domain Distribution --
+llm_v2_annex_domain
+essential_services    81
+unknown               58
+employment            11
+
+-- LLM v2 System Pattern Distribution --
+llm_v2_system_pattern
+profiling_scoring         47
+unknown                   42
+surveillance_monitor      18
+llm_decision_support      11
+not_llm                   11
+classification_triage     10
+summary_assistant          4
+resource_allocation        4
+chatbot                    2
+llm_assisted_screening     1
+
+-- Hybrid v2 Domain Distribution --
+hybrid_v2_annex_domain
+essential_services    100
+unknown                33
+employment             17
+
+-- Hybrid v2 System Pattern Distribution --
+hybrid_v2_system_pattern
+profiling_scoring         47
+not_llm                   31
+unknown                   21
+surveillance_monitor      19
+llm_decision_support      11
+classification_triage     10
+summary_assistant          4
+resource_allocation        4
+chatbot                    2
+llm_assisted_screening     1
+
+-- Unknown Rates --
+  Keyword domain: 39/150 (26.0%)
+  LLM v2 domain: 58/150 (38.7%)
+  Hybrid v2 domain: 33/150 (22.0%)
+  Keyword pattern: 92/150 (61.3%)
+  LLM v2 pattern: 42/150 (28.0%)
+  Hybrid v2 pattern: 21/150 (14.0%)
+Loaded 150 rows from output/master_annotation_table_llm_v2.csv
+
+============================================================
+DOMAIN COMPARISONS
+============================================================
+  domain_kw_vs_llm_v2: agree=0.773, kappa=0.588
+
+============================================================
+SYSTEM PATTERN COMPARISONS
+============================================================
+  pattern_kw_vs_llm_v2: agree=0.287, kappa=0.078
+
+============================================================
+DISTRIBUTION SUMMARIES
+============================================================
+
+annex_domain:
+annex_domain
+essential_services    95
+unknown               39
+employment            16
+
+llm_v2_annex_domain:
+llm_v2_annex_domain
+essential_services    81
+unknown               58
+employment            11
+
+hybrid_v2_annex_domain:
+hybrid_v2_annex_domain
+essential_services    100
+unknown                33
+employment             17
+
+system_pattern:
+system_pattern
+unknown                   92
+not_llm                   25
+profiling_scoring         15
+surveillance_monitor      12
+llm_decision_support       3
+llm_assisted_screening     3
+
+llm_v2_system_pattern:
+llm_v2_system_pattern
+profiling_scoring         47
+unknown                   42
+surveillance_monitor      18
+llm_decision_support      11
+not_llm                   11
+classification_triage     10
+summary_assistant          4
+resource_allocation        4
+chatbot                    2
+llm_assisted_screening     1
+
+hybrid_v2_system_pattern:
+hybrid_v2_system_pattern
+profiling_scoring         47
+not_llm                   31
+unknown                   21
+surveillance_monitor      19
+llm_decision_support      11
+classification_triage     10
+summary_assistant          4
+resource_allocation        4
+chatbot                    2
+llm_assisted_screening     1
+
+============================================================
+UNKNOWN RATE COMPARISON (v1 vs v2)
+============================================================
+  domain: v2: 58/150 (38.7%)
+  pattern: v2: 42/150 (28.0%)
+output/method_comparison_results_v2.csv
+[OK] Saved master_annotation_table_final.csv (150 rows)
+============================================================
+GOLD-STANDARD EVALUATION: Manual vs Automated Methods
+============================================================
+
+  Gold data: 69 rows from data/aiaaic/manual_vs_llm_comparison.csv
+  Columns: ['AIAAIC_ID', 'manual_headline', 'manual_annex_employment', 'manual_annex_essential', 'manual_rights', 'kw_score', 'kw_emp_hits', 'kw_ben_hits', 'kw_pub_hits', 'kw_llm_hits', 'llm_annex_employment', 'llm_annex_essential', 'llm_rights', 'llm_confidence', 'llm_rationale_short', 'Summary_links']
+
+  Manual employment col: manual_annex_employment
+  Manual essential col:  manual_annex_essential
+  LLM employment col:    llm_annex_employment
+  LLM essential col:     llm_annex_essential
+  Title col:             manual_headline
+  ID col:                AIAAIC_ID
+
+============================================================
+PART A: Gold (Manual) vs LLM (from comparison file)
+============================================================
+
+  Employment: n=69, agree=0.623, kappa=0.045, F1=0.071
+  Essential:  n=69, agree=0.797, kappa=0.525, F1=0.667
+
+============================================================
+PART B: Gold (Manual) vs Keyword (matched on AIAAIC_ID)
+============================================================
+  Loaded keyword: 90 rows from data/master_annotation_table_v01.csv
+  Loaded hybrid: 150 rows from output/master_annotation_table_final.csv
+  Loaded llm_v2: 150 rows from output/master_annotation_table_llm_v2.csv
+  keyword domain: n=28, agree=0.500, kappa=0.246
+  Confusion matrix (rows=manual, cols=keyword):
+                    employment  essential_services  unknown
+employment                   2                   7        3
+essential_services           2                   8        2
+unknown                      0                   0        4
+
+  hybrid domain: n=28, agree=0.500, kappa=0.246
+  Confusion matrix (rows=manual, cols=hybrid):
+                    employment  essential_services  unknown
+employment                   2                   7        3
+essential_services           2                   8        2
+unknown                      0                   0        4
+
+  llm_v2 domain: n=28, agree=0.429, kappa=0.176
+  Confusion matrix (rows=manual, cols=llm_v2):
+                    employment  essential_services  unknown
+employment                   0                   8        4
+essential_services           0                   8        4
+unknown                      0                   0        4
+
+============================================================
+PART C: Gold (Manual) vs Keyword Hits (from comparison file)
+============================================================
+  Employment (kw_hits>0): n=69, agree=0.696, kappa=0.301
+  Essential (kw_hits>0):  n=69, agree=0.739, kappa=0.425
+
+============================================================
+SUMMARY: All Methods vs Gold Standard
+============================================================
+            comparison          dimension  n  pct_agree  kappa  precision  recall     f1
+         manual_vs_llm         employment 69     0.6232 0.0447     1.0000  0.0370 0.0714
+         manual_vs_llm essential_services 69     0.7971 0.5251     0.7778  0.5833 0.6667
+     manual_vs_keyword       annex_domain 28     0.5000 0.2462        NaN     NaN    NaN
+      manual_vs_hybrid       annex_domain 28     0.5000 0.2462        NaN     NaN    NaN
+      manual_vs_llm_v2       annex_domain 28     0.4286 0.1765        NaN     NaN    NaN
+manual_vs_keyword_hits         employment 69     0.6957 0.3010        NaN     NaN    NaN
+manual_vs_keyword_hits essential_services 69     0.7391 0.4250        NaN     NaN    NaN
+output/gold_evaluation_results.csv
+output/gold_evaluation_summary.csv
+output/gold_confusion_matrices.txt
+schema/fria_risk_schema.jsonld
+schema/fria_risk_schema.ttl
+schema/schema_documentation.md
+schema/example_risk_record.jsonld
+
+  To re-export all records with the new schema, run:
+    python export_semantic_v2.py
+Loaded 150 rows from output/master_annotation_table_llm_v2.csv
+[OK] Wrote 150 JSON-LD records to output/risk_records_v2.jsonld
+Loaded 150 records from output/master_annotation_table_llm_v2.csv
+
+Generating figures from 150 records...
+
+figures/fig_domain_distribution.png
+figures/fig_pattern_distribution.png
+figures/fig_unknown_rates.png
+figures/fig_source_breakdown.png
+figures/fig_kappa_summary.png
+figures/fig_rights_harms_heatmap.png
+  [OK] figures/fig_rights_agreement.png
+  [OK] figures/fig_harms_agreement.png
+figures/fig_pipeline_flow.png
+  [OK] figures/fig_confusion_domain.png
+  [OK] figures/fig_confusion_pattern.png
+
+[OK] Done! All figures saved.
+============================================================
+  STEP 7b: Alternative Rights & Harms Figures
+============================================================
+  Loaded 150 annotated records, 69 gold rows
+  [OK] C:\Users\faith\Downloads\Dissertation\figures\fig_rights_distribution.png
+  [OK] C:\Users\faith\Downloads\Dissertation\figures\fig_harms_distribution.png
+  [OK] C:\Users\faith\Downloads\Dissertation\figures\fig_rights_by_domain.png
+  [OK] C:\Users\faith\Downloads\Dissertation\figures\fig_harms_by_pattern.png
+
+[OK] Alternative figures complete.
+============================================================
+  STEP 8: FRIA-Style Demonstration Scenarios
+============================================================
+  Loaded 150 records from master_annotation_table_final.csv
+
+--------------------------------------------------------------------
+  Scenario A: Welfare / Benefits Eligibility Deployer
+--------------------------------------------------------------------
+  A public-sector body is deploying an AI system to assist in determining eligibility for social welfare benefits (Annex III/5a). Under Article 27, they must conduct a Fundamental Rights Impact Assessment.  The FRIA team queries the framework for precedent incidents where similar profiling/scoring or resource-allocation systems in essential services caused discrimination or denied access.
+
+  Hits: 57 / 150
+| source   | source_id                                                       | title                                                                               | annex_domain       | system_pattern   | rights                                                                                  | harms                                      | hybrid_v2_annex_domain   | hybrid_v2_system_pattern   |
+|:---------|:----------------------------------------------------------------|:------------------------------------------------------------------------------------|:-------------------|:-----------------|:----------------------------------------------------------------------------------------|:-------------------------------------------|:-------------------------|:---------------------------|
+| USFED    | Individual Assistance (IA) & Public Assistance (PA) Projections | Individual Assistance (IA) & Public Assistance (PA) Projections                     | essential_services | unknown          | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | profiling_scoring          |
+| USFED    | ELIS Evidence Classifier Machine Learning (ML) Tagging Solution | ELIS Evidence Classifier Machine Learning (ML) Tagging Solution                     | unknown            | unknown          | other                                                                                   | other                                      | essential_services       | classification_triage      |
+| AIAAIC   | AIAAIC0410                                                      | Netherlands SyRI welfare fraud detection automation                                 | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1647                                                      | UK government accused of COVID-19 recovery funding algorithmic "cultural elitism"   | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0598                                                      | UK govt Spotlight fund application assessments                                      | unknown            | unknown          | non_discrimination                                                                      | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC2020                                                      | DOGE uses faulty AI to cut Veterans Affairs contracts                               | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration                    | misinformation_error;procedural_unfairness | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0826                                                      | UK DWP sued for 'unfair' disability benefits fraud detection algorithm              | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0412                                                      | Unemployment risk assessment                                                        | essential_services | unknown          | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0554                                                      | Netherlands childcare benefits fraud assessments automation                         | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0990                                                      | Rotterdam welfare fraud risk algorithm                                              | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC015                                                       | Michigan MiDAS unemployment insurance fraud detection                               | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0524                                                      | Serbia Social Card excludes thousands of welfare beneficiaries                      | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | classification_triage      |
+| AIAAIC   | AIAAIC1840                                                      | UK welfare fraud AI system criticised as biased and opaque                          | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1509                                                      | US Veterans Affairs suicide prevention algorithm favours white men                  | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1388                                                      | UK robo review 'unfairly' targets Bulgarians, Poles for benefit fraud investigation | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+
+  -> 57 total matching records
+
+  Domain distribution:  {'essential_services': 56, 'employment': 1}
+  Pattern distribution: {'profiling_scoring': 45, 'classification_triage': 9, 'resource_allocation': 2, 'surveillance_monitor': 1}
+  Source breakdown:     {'AIAAIC': 55, 'USFED': 2}
+
+--------------------------------------------------------------------
+  Scenario B: Public-Sector Recruitment AI (Annex III/4)
+--------------------------------------------------------------------
+  A government HR department plans to use an LLM-assisted tool for CV screening and candidate shortlisting (Annex III/4).  They need to surface past incidents of bias or unfair exclusion in employment AI to inform their risk assessment.
+
+  Hits: 17 / 150
+| source   | source_id                                    | title                                                                         | annex_domain       | system_pattern       | rights                                                         | harms                                | hybrid_v2_annex_domain   | hybrid_v2_system_pattern   |
+|:---------|:---------------------------------------------|:------------------------------------------------------------------------------|:-------------------|:---------------------|:---------------------------------------------------------------|:-------------------------------------|:-------------------------|:---------------------------|
+| USFED    | Conversation Training and Feedback Simulator | Conversation Training and Feedback Simulator                                  | employment         | llm_decision_support | non_discrimination;privacy_data_protection                     | other                                | employment               | llm_decision_support       |
+| AIAAIC   | AIAAIC0260                                   | Knightscope security robot ignores woman reporting crime                      | employment         | unknown              | non_discrimination;privacy_data_protection                     | other                                | employment               | chatbot                    |
+| AIAAIC   | AIAAIC0890                                   | India Human Efficiency Tracking System sanitation worker surveillance         | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration | unfair_exclusion;privacy_breach      | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC0136                                   | Amazon employees, investors protest US government Rekognition sales           | employment         | unknown              | non_discrimination;privacy_data_protection                     | unfair_exclusion;privacy_breach      | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC1986                                   | North Korea uses AI to covertly place IT workers in western tech companies    | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration | procedural_unfairness                | employment               | llm_decision_support       |
+| AIAAIC   | AIAAIC025                                    | Starbucks automated shift scheduling system ruins employees' lives            | employment         | unknown              | non_discrimination;privacy_data_protection                     | other                                | employment               | resource_allocation        |
+| AIAAIC   | AIAAIC0612                                   | UK Post Office Horizon payment system                                         | employment         | unknown              | non_discrimination;privacy_data_protection                     | other                                | employment               | not_llm                    |
+| AIAAIC   | AIAAIC2087                                   | Study: Uber dynamic pricing increases passenger fares, lowers driver earnings | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration | procedural_unfairness                | employment               | profiling_scoring          |
+| AIAAIC   | AIAAIC2003                                   | White House chief of staff targeted in AI-powered security breach             | employment         | unknown              | non_discrimination;privacy_data_protection                     | privacy_breach                       | employment               | unknown                    |
+| AIAAIC   | AIAAIC1935                                   | White House appears to use AI to calculate tariff rates                       | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration | procedural_unfairness                | employment               | not_llm                    |
+| AIAAIC   | AIAAIC1923                                   | Optifye roasted for shop floor AI surveillance                                | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration | privacy_breach;procedural_unfairness | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC0269                                   | Austria AMS employment service job seeker predictions                         | essential_services | profiling_scoring    | non_discrimination                                             | other                                | employment               | profiling_scoring          |
+| AIAAIC   | AIAAIC0579                                   | HireVue recruitment facial analysis screening                                 | essential_services | surveillance_monitor | non_discrimination;privacy_data_protection                     | other                                | employment               | llm_assisted_screening     |
+| AIAAIC   | AIAAIC2114                                   | Facebook job ad algorithm ruled sexist by French regulator                    | employment         | profiling_scoring    | non_discrimination;good_administration                         | other                                | employment               | not_llm                    |
+| AIAAIC   | AIAAIC1510                                   | Youth advocacy worker misidentified by Met Police facial recognition system   | employment         | surveillance_monitor | other                                                          | other                                | employment               | surveillance_monitor       |
+
+  -> 17 total matching records
+
+  Domain distribution:  {'employment': 16, 'essential_services': 1}
+  Pattern distribution: {'surveillance_monitor': 4, 'not_llm': 3, 'profiling_scoring': 3, 'llm_decision_support': 2, 'resource_allocation': 2, 'chatbot': 1, 'unknown': 1, 'llm_assisted_screening': 1}
+  Source breakdown:     {'AIAAIC': 16, 'USFED': 1}
+
+--------------------------------------------------------------------
+  Scenario C: Surveillance / Biometric Monitoring in Public Services
+--------------------------------------------------------------------
+  A city council is evaluating facial-recognition cameras for public housing security.  They need evidence of surveillance harms, privacy breaches, and disproportionate monitoring in public-sector or essential-service contexts.
+
+  Hits: 24 / 150
+| source   | source_id   | title                                                                     | annex_domain       | system_pattern       | rights                                                              | harms                                | hybrid_v2_annex_domain   | hybrid_v2_system_pattern   |
+|:---------|:------------|:--------------------------------------------------------------------------|:-------------------|:---------------------|:--------------------------------------------------------------------|:-------------------------------------|:-------------------------|:---------------------------|
+| AIAAIC   | AIAAIC0654  | ID.me unemployment benefit facial recognition                             | essential_services | unknown              | access_social_protection;privacy_data_protection;non_discrimination | unfair_exclusion;privacy_breach      | essential_services       | surveillance_monitor       |
+| AIAAIC   | AIAAIC1481  | Thai auntie unable to buy food after Poor Card facial recognition failure | essential_services | unknown              | access_social_protection;privacy_data_protection                    | other                                | essential_services       | surveillance_monitor       |
+| AIAAIC   | AIAAIC0652  | NYPD Domain Awareness System                                              | unknown            | unknown              | non_discrimination                                                  | unfair_exclusion;privacy_breach      | unknown                  | surveillance_monitor       |
+| AIAAIC   | AIAAIC0939  | Iarpa Janus Benchmark-C (IJP-C) dataset                                   | unknown            | unknown              | other                                                               | privacy_breach                       | unknown                  | surveillance_monitor       |
+| AIAAIC   | AIAAIC0890  | India Human Efficiency Tracking System sanitation worker surveillance     | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration      | unfair_exclusion;privacy_breach      | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC0136  | Amazon employees, investors protest US government Rekognition sales       | employment         | unknown              | non_discrimination;privacy_data_protection                          | unfair_exclusion;privacy_breach      | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC1326  | NYPD ends Knightscope K5 security robot trial                             | unknown            | unknown              | other                                                               | privacy_breach                       | unknown                  | surveillance_monitor       |
+| AIAAIC   | AIAAIC1051  | Malta ditches 'Safe City' video surveillance programme                    | unknown            | unknown              | good_administration                                                 | privacy_breach;procedural_unfairness | unknown                  | surveillance_monitor       |
+| AIAAIC   | AIAAIC0556  | NYPD 'digidog' hostage response draws complaints                          | unknown            | unknown              | non_discrimination                                                  | unfair_exclusion;privacy_breach      | unknown                  | surveillance_monitor       |
+| AIAAIC   | AIAAIC1923  | Optifye roasted for shop floor AI surveillance                            | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration      | privacy_breach;procedural_unfairness | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC1927  | AI malware scam "destroys" Disney employee's life                         | essential_services | surveillance_monitor | privacy_data_protection                                             | other                                | essential_services       | surveillance_monitor       |
+| AIAAIC   | AIAAIC0579  | HireVue recruitment facial analysis screening                             | essential_services | surveillance_monitor | non_discrimination;privacy_data_protection                          | other                                | employment               | llm_assisted_screening     |
+| AIAAIC   | AIAAIC024   | Inaccurate test finds most English language test students 'cheated'       | essential_services | surveillance_monitor | good_administration                                                 | misinformation_error                 | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1446  | Greece fined for AI-powered asylum centre monitoring system               | essential_services | surveillance_monitor | privacy_data_protection                                             | other                                | essential_services       | surveillance_monitor       |
+| AIAAIC   | AIAAIC1450  | MEP files lawsuit to release iBorderCtrl lie detection system documents   | essential_services | surveillance_monitor | non_discrimination;good_administration                              | other                                | essential_services       | profiling_scoring          |
+
+  -> 24 total matching records
+
+  Domain distribution:  {'essential_services': 14, 'unknown': 5, 'employment': 5}
+  Pattern distribution: {'surveillance_monitor': 19, 'profiling_scoring': 2, 'llm_assisted_screening': 1, 'not_llm': 1, 'llm_decision_support': 1}
+  Source breakdown:     {'AIAAIC': 23, 'USFED': 1}
+
+--------------------------------------------------------------------
+  Scenario D: LLM Decision-Support for Case Workers
+--------------------------------------------------------------------
+  A social-services agency wants to deploy an LLM chatbot to help case workers draft eligibility summaries.  The deployer needs incidents where LLM-based, chatbot, or summary-assistant systems caused errors, misinformation, or procedural unfairness.
+
+  Hits: 21 / 150
+| source   | source_id                                                                                                                                            | title                                                                                                                                                | annex_domain       | system_pattern         | rights                                                                                  | harms                                      | hybrid_v2_annex_domain   | hybrid_v2_system_pattern   |
+|:---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------|:-----------------------|:----------------------------------------------------------------------------------------|:-------------------------------------------|:-------------------------|:---------------------------|
+| USFED    | Policy Analyst Assistant                                                                                                                             | Policy Analyst Assistant                                                                                                                             | essential_services | unknown                | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | summary_assistant          |
+| USFED    | Conversation Training and Feedback Simulator                                                                                                         | Conversation Training and Feedback Simulator                                                                                                         | employment         | llm_decision_support   | non_discrimination;privacy_data_protection                                              | other                                      | employment               | llm_decision_support       |
+| USFED    | TSA Contact Center Virtual Assistant                                                                                                                 | TSA Contact Center Virtual Assistant                                                                                                                 | unknown            | unknown                | other                                                                                   | other                                      | unknown                  | chatbot                    |
+| USFED    | Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipeline for Efficient Language Detection and Translation for Short-Text | Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipeline for Efficient Language Detection and Translation for Short-Text | essential_services | unknown                | access_social_protection;privacy_data_protection;good_administration                    | misinformation_error                       | essential_services       | llm_decision_support       |
+| USFED    | FAQ for SMaRT                                                                                                                                        | FAQ for SMaRT                                                                                                                                        | essential_services | llm_assisted_screening | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | not_llm                    |
+| USFED    | Enriched Citation                                                                                                                                    | Enriched Citation                                                                                                                                    | unknown            | unknown                | other                                                                                   | other                                      | unknown                  | summary_assistant          |
+| AIAAIC   | AIAAIC1768                                                                                                                                           | Inaccuracies reveal child protection worker used ChatGPT to draft court report                                                                       | essential_services | llm_decision_support   | access_social_protection;privacy_data_protection                                        | privacy_breach;misinformation_error        | essential_services       | summary_assistant          |
+| AIAAIC   | AIAAIC0268                                                                                                                                           | PSZ Syriusz unemployment worker profiling                                                                                                            | essential_services | llm_assisted_screening | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0260                                                                                                                                           | Knightscope security robot ignores woman reporting crime                                                                                             | employment         | unknown                | non_discrimination;privacy_data_protection                                              | other                                      | employment               | chatbot                    |
+| AIAAIC   | AIAAIC0887                                                                                                                                           | Oregon drops 'unfair' child abuse Safety at Screening tool                                                                                           | essential_services | llm_assisted_screening | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1986                                                                                                                                           | North Korea uses AI to covertly place IT workers in western tech companies                                                                           | employment         | unknown                | non_discrimination;privacy_data_protection;good_administration                          | procedural_unfairness                      | employment               | llm_decision_support       |
+| AIAAIC   | AIAAIC2078                                                                                                                                           | Brian Cranston voice, likeness used without consent to train Sora video generation tool                                                              | unknown            | unknown                | good_administration                                                                     | procedural_unfairness                      | unknown                  | llm_decision_support       |
+| AIAAIC   | AIAAIC2049                                                                                                                                           | Deloitte Australia fined for AI error-strewn government report                                                                                       | unknown            | unknown                | good_administration                                                                     | misinformation_error;procedural_unfairness | unknown                  | summary_assistant          |
+| AIAAIC   | AIAAIC1855                                                                                                                                           | Taiwanese AI repeats Chinese government line                                                                                                         | unknown            | unknown                | other                                                                                   | other                                      | unknown                  | llm_decision_support       |
+| AIAAIC   | AIAAIC1321                                                                                                                                           | Deepfake CFO scams finance worker for USD 25 million                                                                                                 | essential_services | unknown                | good_administration                                                                     | other                                      | essential_services       | llm_decision_support       |
+
+  -> 21 total matching records
+
+  Domain distribution:  {'essential_services': 12, 'unknown': 5, 'employment': 4}
+  Pattern distribution: {'llm_decision_support': 11, 'summary_assistant': 4, 'chatbot': 2, 'profiling_scoring': 2, 'not_llm': 1, 'llm_assisted_screening': 1}
+  Source breakdown:     {'AIAAIC': 15, 'USFED': 6}
+
+--------------------------------------------------------------------
+  Scenario E: Profiling & Scoring — Cross-Domain Thematic Review
+--------------------------------------------------------------------
+  A national AI regulator is conducting a thematic review of all profiling/scoring systems across Annex III domains to identify systemic discrimination patterns and common failure modes.
+
+  Hits: 50 / 150
+| source   | source_id                                                       | title                                                                               | annex_domain       | system_pattern   | rights                                                                                  | harms                                      | hybrid_v2_annex_domain   | hybrid_v2_system_pattern   |
+|:---------|:----------------------------------------------------------------|:------------------------------------------------------------------------------------|:-------------------|:-----------------|:----------------------------------------------------------------------------------------|:-------------------------------------------|:-------------------------|:---------------------------|
+| USFED    | Individual Assistance (IA) & Public Assistance (PA) Projections | Individual Assistance (IA) & Public Assistance (PA) Projections                     | essential_services | unknown          | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0410                                                      | Netherlands SyRI welfare fraud detection automation                                 | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1647                                                      | UK government accused of COVID-19 recovery funding algorithmic "cultural elitism"   | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0598                                                      | UK govt Spotlight fund application assessments                                      | unknown            | unknown          | non_discrimination                                                                      | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC2020                                                      | DOGE uses faulty AI to cut Veterans Affairs contracts                               | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration                    | misinformation_error;procedural_unfairness | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0826                                                      | UK DWP sued for 'unfair' disability benefits fraud detection algorithm              | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0412                                                      | Unemployment risk assessment                                                        | essential_services | unknown          | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0554                                                      | Netherlands childcare benefits fraud assessments automation                         | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0990                                                      | Rotterdam welfare fraud risk algorithm                                              | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC015                                                       | Michigan MiDAS unemployment insurance fraud detection                               | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1840                                                      | UK welfare fraud AI system criticised as biased and opaque                          | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1509                                                      | US Veterans Affairs suicide prevention algorithm favours white men                  | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1388                                                      | UK robo review 'unfairly' targets Bulgarians, Poles for benefit fraud investigation | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0605                                                      | NDIS independent assessments ditched by Australian government                       | unknown            | unknown          | non_discrimination                                                                      | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1576                                                      | DWP algorithm wrongly flags 200,000 people for possible fraud and error             | essential_services | unknown          | access_social_protection;privacy_data_protection                                        | misinformation_error                       | essential_services       | profiling_scoring          |
+
+  -> 50 total matching records
+
+  Domain distribution:  {'essential_services': 46, 'employment': 3, 'unknown': 1}
+  Pattern distribution: {'profiling_scoring': 47, 'not_llm': 1, 'classification_triage': 1, 'surveillance_monitor': 1}
+  Source breakdown:     {'AIAAIC': 49, 'USFED': 1}
+====================================================================
+  FRIA-STYLE DEMONSTRATION SCENARIOS
+  Dataset: 150 records
+====================================================================
+
+--------------------------------------------------------------------
+  Scenario A: Welfare / Benefits Eligibility Deployer
+  Annex Reference: Annex III/5(a)
+--------------------------------------------------------------------
+  A public-sector body is deploying an AI system to assist in
+  determining eligibility for social welfare benefits (Annex
+  III/5a). Under Article 27, they must conduct a Fundamental Rights
+  Impact Assessment.  The FRIA team queries the framework for
+  precedent incidents where similar profiling/scoring or resource-
+  allocation systems in essential services caused discrimination or
+  denied access.
+
+  Hits: 57 / 150
+
+| source   | source_id                                                       | title                                                                               | annex_domain       | system_pattern   | rights                                                                                  | harms                                      | hybrid_v2_annex_domain   | hybrid_v2_system_pattern   |
+|:---------|:----------------------------------------------------------------|:------------------------------------------------------------------------------------|:-------------------|:-----------------|:----------------------------------------------------------------------------------------|:-------------------------------------------|:-------------------------|:---------------------------|
+| USFED    | Individual Assistance (IA) & Public Assistance (PA) Projections | Individual Assistance (IA) & Public Assistance (PA) Projections                     | essential_services | unknown          | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | profiling_scoring          |
+| USFED    | ELIS Evidence Classifier Machine Learning (ML) Tagging Solution | ELIS Evidence Classifier Machine Learning (ML) Tagging Solution                     | unknown            | unknown          | other                                                                                   | other                                      | essential_services       | classification_triage      |
+| AIAAIC   | AIAAIC0410                                                      | Netherlands SyRI welfare fraud detection automation                                 | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1647                                                      | UK government accused of COVID-19 recovery funding algorithmic "cultural elitism"   | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0598                                                      | UK govt Spotlight fund application assessments                                      | unknown            | unknown          | non_discrimination                                                                      | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC2020                                                      | DOGE uses faulty AI to cut Veterans Affairs contracts                               | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration                    | misinformation_error;procedural_unfairness | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0826                                                      | UK DWP sued for 'unfair' disability benefits fraud detection algorithm              | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0412                                                      | Unemployment risk assessment                                                        | essential_services | unknown          | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0554                                                      | Netherlands childcare benefits fraud assessments automation                         | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0990                                                      | Rotterdam welfare fraud risk algorithm                                              | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC015                                                       | Michigan MiDAS unemployment insurance fraud detection                               | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0524                                                      | Serbia Social Card excludes thousands of welfare beneficiaries                      | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | classification_triage      |
+| AIAAIC   | AIAAIC1840                                                      | UK welfare fraud AI system criticised as biased and opaque                          | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1509                                                      | US Veterans Affairs suicide prevention algorithm favours white men                  | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1388                                                      | UK robo review 'unfairly' targets Bulgarians, Poles for benefit fraud investigation | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+
+  -> 57 total matching records
+
+  Domain distribution:  {'essential_services': 56, 'employment': 1}
+  Pattern distribution: {'profiling_scoring': 45, 'classification_triage': 9, 'resource_allocation': 2, 'surveillance_monitor': 1}
+  Source breakdown:     {'AIAAIC': 55, 'USFED': 2}
+
+--------------------------------------------------------------------
+  Scenario B: Public-Sector Recruitment AI (Annex III/4)
+  Annex Reference: Annex III/4(a)
+--------------------------------------------------------------------
+  A government HR department plans to use an LLM-assisted tool for
+  CV screening and candidate shortlisting (Annex III/4).  They need
+  to surface past incidents of bias or unfair exclusion in
+  employment AI to inform their risk assessment.
+
+  Hits: 17 / 150
+
+| source   | source_id                                    | title                                                                         | annex_domain       | system_pattern       | rights                                                         | harms                                | hybrid_v2_annex_domain   | hybrid_v2_system_pattern   |
+|:---------|:---------------------------------------------|:------------------------------------------------------------------------------|:-------------------|:---------------------|:---------------------------------------------------------------|:-------------------------------------|:-------------------------|:---------------------------|
+| USFED    | Conversation Training and Feedback Simulator | Conversation Training and Feedback Simulator                                  | employment         | llm_decision_support | non_discrimination;privacy_data_protection                     | other                                | employment               | llm_decision_support       |
+| AIAAIC   | AIAAIC0260                                   | Knightscope security robot ignores woman reporting crime                      | employment         | unknown              | non_discrimination;privacy_data_protection                     | other                                | employment               | chatbot                    |
+| AIAAIC   | AIAAIC0890                                   | India Human Efficiency Tracking System sanitation worker surveillance         | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration | unfair_exclusion;privacy_breach      | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC0136                                   | Amazon employees, investors protest US government Rekognition sales           | employment         | unknown              | non_discrimination;privacy_data_protection                     | unfair_exclusion;privacy_breach      | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC1986                                   | North Korea uses AI to covertly place IT workers in western tech companies    | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration | procedural_unfairness                | employment               | llm_decision_support       |
+| AIAAIC   | AIAAIC025                                    | Starbucks automated shift scheduling system ruins employees' lives            | employment         | unknown              | non_discrimination;privacy_data_protection                     | other                                | employment               | resource_allocation        |
+| AIAAIC   | AIAAIC0612                                   | UK Post Office Horizon payment system                                         | employment         | unknown              | non_discrimination;privacy_data_protection                     | other                                | employment               | not_llm                    |
+| AIAAIC   | AIAAIC2087                                   | Study: Uber dynamic pricing increases passenger fares, lowers driver earnings | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration | procedural_unfairness                | employment               | profiling_scoring          |
+| AIAAIC   | AIAAIC2003                                   | White House chief of staff targeted in AI-powered security breach             | employment         | unknown              | non_discrimination;privacy_data_protection                     | privacy_breach                       | employment               | unknown                    |
+| AIAAIC   | AIAAIC1935                                   | White House appears to use AI to calculate tariff rates                       | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration | procedural_unfairness                | employment               | not_llm                    |
+| AIAAIC   | AIAAIC1923                                   | Optifye roasted for shop floor AI surveillance                                | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration | privacy_breach;procedural_unfairness | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC0269                                   | Austria AMS employment service job seeker predictions                         | essential_services | profiling_scoring    | non_discrimination                                             | other                                | employment               | profiling_scoring          |
+| AIAAIC   | AIAAIC0579                                   | HireVue recruitment facial analysis screening                                 | essential_services | surveillance_monitor | non_discrimination;privacy_data_protection                     | other                                | employment               | llm_assisted_screening     |
+| AIAAIC   | AIAAIC2114                                   | Facebook job ad algorithm ruled sexist by French regulator                    | employment         | profiling_scoring    | non_discrimination;good_administration                         | other                                | employment               | not_llm                    |
+| AIAAIC   | AIAAIC1510                                   | Youth advocacy worker misidentified by Met Police facial recognition system   | employment         | surveillance_monitor | other                                                          | other                                | employment               | surveillance_monitor       |
+
+  -> 17 total matching records
+
+  Domain distribution:  {'employment': 16, 'essential_services': 1}
+  Pattern distribution: {'surveillance_monitor': 4, 'not_llm': 3, 'profiling_scoring': 3, 'llm_decision_support': 2, 'resource_allocation': 2, 'chatbot': 1, 'unknown': 1, 'llm_assisted_screening': 1}
+  Source breakdown:     {'AIAAIC': 16, 'USFED': 1}
+
+--------------------------------------------------------------------
+  Scenario C: Surveillance / Biometric Monitoring in Public Services
+  Annex Reference: Annex III/1 (Biometrics) + Annex III/5(a)
+--------------------------------------------------------------------
+  A city council is evaluating facial-recognition cameras for public
+  housing security.  They need evidence of surveillance harms,
+  privacy breaches, and disproportionate monitoring in public-sector
+  or essential-service contexts.
+
+  Hits: 24 / 150
+
+| source   | source_id   | title                                                                     | annex_domain       | system_pattern       | rights                                                              | harms                                | hybrid_v2_annex_domain   | hybrid_v2_system_pattern   |
+|:---------|:------------|:--------------------------------------------------------------------------|:-------------------|:---------------------|:--------------------------------------------------------------------|:-------------------------------------|:-------------------------|:---------------------------|
+| AIAAIC   | AIAAIC0654  | ID.me unemployment benefit facial recognition                             | essential_services | unknown              | access_social_protection;privacy_data_protection;non_discrimination | unfair_exclusion;privacy_breach      | essential_services       | surveillance_monitor       |
+| AIAAIC   | AIAAIC1481  | Thai auntie unable to buy food after Poor Card facial recognition failure | essential_services | unknown              | access_social_protection;privacy_data_protection                    | other                                | essential_services       | surveillance_monitor       |
+| AIAAIC   | AIAAIC0652  | NYPD Domain Awareness System                                              | unknown            | unknown              | non_discrimination                                                  | unfair_exclusion;privacy_breach      | unknown                  | surveillance_monitor       |
+| AIAAIC   | AIAAIC0939  | Iarpa Janus Benchmark-C (IJP-C) dataset                                   | unknown            | unknown              | other                                                               | privacy_breach                       | unknown                  | surveillance_monitor       |
+| AIAAIC   | AIAAIC0890  | India Human Efficiency Tracking System sanitation worker surveillance     | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration      | unfair_exclusion;privacy_breach      | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC0136  | Amazon employees, investors protest US government Rekognition sales       | employment         | unknown              | non_discrimination;privacy_data_protection                          | unfair_exclusion;privacy_breach      | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC1326  | NYPD ends Knightscope K5 security robot trial                             | unknown            | unknown              | other                                                               | privacy_breach                       | unknown                  | surveillance_monitor       |
+| AIAAIC   | AIAAIC1051  | Malta ditches 'Safe City' video surveillance programme                    | unknown            | unknown              | good_administration                                                 | privacy_breach;procedural_unfairness | unknown                  | surveillance_monitor       |
+| AIAAIC   | AIAAIC0556  | NYPD 'digidog' hostage response draws complaints                          | unknown            | unknown              | non_discrimination                                                  | unfair_exclusion;privacy_breach      | unknown                  | surveillance_monitor       |
+| AIAAIC   | AIAAIC1923  | Optifye roasted for shop floor AI surveillance                            | employment         | unknown              | non_discrimination;privacy_data_protection;good_administration      | privacy_breach;procedural_unfairness | employment               | surveillance_monitor       |
+| AIAAIC   | AIAAIC1927  | AI malware scam "destroys" Disney employee's life                         | essential_services | surveillance_monitor | privacy_data_protection                                             | other                                | essential_services       | surveillance_monitor       |
+| AIAAIC   | AIAAIC0579  | HireVue recruitment facial analysis screening                             | essential_services | surveillance_monitor | non_discrimination;privacy_data_protection                          | other                                | employment               | llm_assisted_screening     |
+| AIAAIC   | AIAAIC024   | Inaccurate test finds most English language test students 'cheated'       | essential_services | surveillance_monitor | good_administration                                                 | misinformation_error                 | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1446  | Greece fined for AI-powered asylum centre monitoring system               | essential_services | surveillance_monitor | privacy_data_protection                                             | other                                | essential_services       | surveillance_monitor       |
+| AIAAIC   | AIAAIC1450  | MEP files lawsuit to release iBorderCtrl lie detection system documents   | essential_services | surveillance_monitor | non_discrimination;good_administration                              | other                                | essential_services       | profiling_scoring          |
+
+  -> 24 total matching records
+
+  Domain distribution:  {'essential_services': 14, 'unknown': 5, 'employment': 5}
+  Pattern distribution: {'surveillance_monitor': 19, 'profiling_scoring': 2, 'llm_assisted_screening': 1, 'not_llm': 1, 'llm_decision_support': 1}
+  Source breakdown:     {'AIAAIC': 23, 'USFED': 1}
+
+--------------------------------------------------------------------
+  Scenario D: LLM Decision-Support for Case Workers
+  Annex Reference: Annex III/5(a)
+--------------------------------------------------------------------
+  A social-services agency wants to deploy an LLM chatbot to help
+  case workers draft eligibility summaries.  The deployer needs
+  incidents where LLM-based, chatbot, or summary-assistant systems
+  caused errors, misinformation, or procedural unfairness.
+
+  Hits: 21 / 150
+
+| source   | source_id                                                                                                                                            | title                                                                                                                                                | annex_domain       | system_pattern         | rights                                                                                  | harms                                      | hybrid_v2_annex_domain   | hybrid_v2_system_pattern   |
+|:---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------|:-----------------------|:----------------------------------------------------------------------------------------|:-------------------------------------------|:-------------------------|:---------------------------|
+| USFED    | Policy Analyst Assistant                                                                                                                             | Policy Analyst Assistant                                                                                                                             | essential_services | unknown                | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | summary_assistant          |
+| USFED    | Conversation Training and Feedback Simulator                                                                                                         | Conversation Training and Feedback Simulator                                                                                                         | employment         | llm_decision_support   | non_discrimination;privacy_data_protection                                              | other                                      | employment               | llm_decision_support       |
+| USFED    | TSA Contact Center Virtual Assistant                                                                                                                 | TSA Contact Center Virtual Assistant                                                                                                                 | unknown            | unknown                | other                                                                                   | other                                      | unknown                  | chatbot                    |
+| USFED    | Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipeline for Efficient Language Detection and Translation for Short-Text | Automating Multilingual Census Data Processing: An AI and Transformer-Based Pipeline for Efficient Language Detection and Translation for Short-Text | essential_services | unknown                | access_social_protection;privacy_data_protection;good_administration                    | misinformation_error                       | essential_services       | llm_decision_support       |
+| USFED    | FAQ for SMaRT                                                                                                                                        | FAQ for SMaRT                                                                                                                                        | essential_services | llm_assisted_screening | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | not_llm                    |
+| USFED    | Enriched Citation                                                                                                                                    | Enriched Citation                                                                                                                                    | unknown            | unknown                | other                                                                                   | other                                      | unknown                  | summary_assistant          |
+| AIAAIC   | AIAAIC1768                                                                                                                                           | Inaccuracies reveal child protection worker used ChatGPT to draft court report                                                                       | essential_services | llm_decision_support   | access_social_protection;privacy_data_protection                                        | privacy_breach;misinformation_error        | essential_services       | summary_assistant          |
+| AIAAIC   | AIAAIC0268                                                                                                                                           | PSZ Syriusz unemployment worker profiling                                                                                                            | essential_services | llm_assisted_screening | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0260                                                                                                                                           | Knightscope security robot ignores woman reporting crime                                                                                             | employment         | unknown                | non_discrimination;privacy_data_protection                                              | other                                      | employment               | chatbot                    |
+| AIAAIC   | AIAAIC0887                                                                                                                                           | Oregon drops 'unfair' child abuse Safety at Screening tool                                                                                           | essential_services | llm_assisted_screening | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1986                                                                                                                                           | North Korea uses AI to covertly place IT workers in western tech companies                                                                           | employment         | unknown                | non_discrimination;privacy_data_protection;good_administration                          | procedural_unfairness                      | employment               | llm_decision_support       |
+| AIAAIC   | AIAAIC2078                                                                                                                                           | Brian Cranston voice, likeness used without consent to train Sora video generation tool                                                              | unknown            | unknown                | good_administration                                                                     | procedural_unfairness                      | unknown                  | llm_decision_support       |
+| AIAAIC   | AIAAIC2049                                                                                                                                           | Deloitte Australia fined for AI error-strewn government report                                                                                       | unknown            | unknown                | good_administration                                                                     | misinformation_error;procedural_unfairness | unknown                  | summary_assistant          |
+| AIAAIC   | AIAAIC1855                                                                                                                                           | Taiwanese AI repeats Chinese government line                                                                                                         | unknown            | unknown                | other                                                                                   | other                                      | unknown                  | llm_decision_support       |
+| AIAAIC   | AIAAIC1321                                                                                                                                           | Deepfake CFO scams finance worker for USD 25 million                                                                                                 | essential_services | unknown                | good_administration                                                                     | other                                      | essential_services       | llm_decision_support       |
+
+  -> 21 total matching records
+
+  Domain distribution:  {'essential_services': 12, 'unknown': 5, 'employment': 4}
+  Pattern distribution: {'llm_decision_support': 11, 'summary_assistant': 4, 'chatbot': 2, 'profiling_scoring': 2, 'not_llm': 1, 'llm_assisted_screening': 1}
+  Source breakdown:     {'AIAAIC': 15, 'USFED': 6}
+
+--------------------------------------------------------------------
+  Scenario E: Profiling & Scoring — Cross-Domain Thematic Review
+  Annex Reference: Cross-domain (Annex III/4 + III/5a)
+--------------------------------------------------------------------
+  A national AI regulator is conducting a thematic review of all
+  profiling/scoring systems across Annex III domains to identify
+  systemic discrimination patterns and common failure modes.
+
+  Hits: 50 / 150
+
+| source   | source_id                                                       | title                                                                               | annex_domain       | system_pattern   | rights                                                                                  | harms                                      | hybrid_v2_annex_domain   | hybrid_v2_system_pattern   |
+|:---------|:----------------------------------------------------------------|:------------------------------------------------------------------------------------|:-------------------|:-----------------|:----------------------------------------------------------------------------------------|:-------------------------------------------|:-------------------------|:---------------------------|
+| USFED    | Individual Assistance (IA) & Public Assistance (PA) Projections | Individual Assistance (IA) & Public Assistance (PA) Projections                     | essential_services | unknown          | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0410                                                      | Netherlands SyRI welfare fraud detection automation                                 | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1647                                                      | UK government accused of COVID-19 recovery funding algorithmic "cultural elitism"   | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0598                                                      | UK govt Spotlight fund application assessments                                      | unknown            | unknown          | non_discrimination                                                                      | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC2020                                                      | DOGE uses faulty AI to cut Veterans Affairs contracts                               | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration                    | misinformation_error;procedural_unfairness | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0826                                                      | UK DWP sued for 'unfair' disability benefits fraud detection algorithm              | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0412                                                      | Unemployment risk assessment                                                        | essential_services | unknown          | access_social_protection;privacy_data_protection                                        | other                                      | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0554                                                      | Netherlands childcare benefits fraud assessments automation                         | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion;privacy_breach            | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0990                                                      | Rotterdam welfare fraud risk algorithm                                              | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC015                                                       | Michigan MiDAS unemployment insurance fraud detection                               | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1840                                                      | UK welfare fraud AI system criticised as biased and opaque                          | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1509                                                      | US Veterans Affairs suicide prevention algorithm favours white men                  | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1388                                                      | UK robo review 'unfairly' targets Bulgarians, Poles for benefit fraud investigation | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC0605                                                      | NDIS independent assessments ditched by Australian government                       | unknown            | unknown          | non_discrimination                                                                      | unfair_exclusion                           | essential_services       | profiling_scoring          |
+| AIAAIC   | AIAAIC1576                                                      | DWP algorithm wrongly flags 200,000 people for possible fraud and error             | essential_services | unknown          | access_social_protection;privacy_data_protection                                        | misinformation_error                       | essential_services       | profiling_scoring          |
+
+  -> 50 total matching records
+
+  Domain distribution:  {'essential_services': 46, 'employment': 3, 'unknown': 1}
+  Pattern distribution: {'profiling_scoring': 47, 'not_llm': 1, 'classification_triage': 1, 'surveillance_monitor': 1}
+  Source breakdown:     {'AIAAIC': 49, 'USFED': 1}
+
+====================================================================
+  SCENARIO HIT SUMMARY
+====================================================================
+    Scenario A (Welfare / Benefits Eligibility Deployer   )   57 hits
+    Scenario B (Public-Sector Recruitment AI (Annex III/4))   17 hits
+    Scenario C (Surveillance / Biometric Monitoring in Pub)   24 hits
+    Scenario D (LLM Decision-Support for Case Workers     )   21 hits
+    Scenario E (Profiling & Scoring — Cross-Domain Themati)   50 hits
+
+  Total unique records surfaced: 103 / 150
+  Coverage: 68.7%
+  [OK] C:\Users\faith\Downloads\Dissertation\output\fria_scenario_results.csv
+  [OK] C:\Users\faith\Downloads\Dissertation\output\fria_scenario_summary.txt
+  [OK] C:\Users\faith\Downloads\Dissertation\figures\fig_fria_scenario_hits.png
+
+[OK] FRIA demonstration complete.
+============================================================
+  STEP 9: Error Analysis (Section 5.3)
+============================================================
+  Gold:    69 rows from manual_vs_llm_comparison.csv
+  Keyword: 90 rows
+  LLM v2:  150 rows
+  Hybrid:  150 rows
+
+  Part A: 129 total disagreements across 4 methods
+
+====================================================================
+  PART B: KEYWORD vs LLM — FULL-TABLE ANALYSIS (150 rows)
+====================================================================
+
+  CONFUSION MATRIX: Annex Domain (rows=keyword, cols=LLM)
+  --------------------------------------------------
+                    employment  essential_services  unknown
+employment                   9                   1        6
+essential_services           2                  74       19
+unknown                      0                   6       33
+
+  Classification report (keyword=reference, LLM=prediction):
+                    precision    recall  f1-score   support
+
+        employment       0.82      0.56      0.67        16
+essential_services       0.91      0.78      0.84        95
+           unknown       0.57      0.85      0.68        39
+
+          accuracy                           0.77       150
+         macro avg       0.77      0.73      0.73       150
+      weighted avg       0.81      0.77      0.78       150
+
+  Cohen's kappa (domain): 0.588
+
+  Domain disagreements: 34 / 150
+    Title:   ELIS Evidence Classifier Machine Learning (ML) Tagging Solution
+    Keyword: unknown  |  LLM: essential_services
+    Desc:    To enable end users to navigate directly to the page(s) containing evidence documents of interest instead of sifting thr...
+
+    Title:   FAQ for SMaRT
+    Keyword: essential_services  |  LLM: unknown
+    Desc:    The purpose of the FAQ search tool is to find the correct Census Bureau-provided answers to common questions from the pu...
+
+    Title:   UK govt Spotlight fund application assessments
+    Keyword: unknown  |  LLM: essential_services
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/uk-government-spotlight-algorithm Accur...
+
+    Title:   NDIS independent assessments ditched by Australian government
+    Keyword: unknown  |  LLM: essential_services
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/ndis-independent-assessments-robo-plann...
+
+    Title:   DWP Kickstart "gateway" firms with no trading history approved by algorithm
+    Keyword: unknown  |  LLM: essential_services
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/dwp-kickstart-gateway-firms-with-no-tra...
+
+    Title:   Roermond 'Sensing Project' predictive policing pilot
+    Keyword: essential_services  |  LLM: unknown
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/roermond-sensing-project-predictive-pol...
+
+    Title:   New Orleans predictive policing
+    Keyword: essential_services  |  LLM: unknown
+    Desc:    Privacy/surveillance  New Orleans predictive policing...
+
+    Title:   Knightscope security robot ignores woman reporting crime
+    Keyword: employment  |  LLM: unknown
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/knightscope-hp-robocop-ignores-woman-re...
+
+    Title:   Parivar Pehchan Patra algorithm declares living people dead
+    Keyword: unknown  |  LLM: essential_services
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/parivar-pehchan-patra-declares-living-p...
+
+    Title:   Amazon employees, investors protest US government Rekognition sales
+    Keyword: employment  |  LLM: unknown
+    Desc:    https://www.aiaaic.org/aiaaic-repository/ai-algorithmic-and-automation-incidents/amazon-employees-protest-us-govt-rekogn...
+
+
+  CONFUSION MATRIX: System Pattern (rows=keyword, cols=LLM)
+  --------------------------------------------------
+                        chatbot  classification_triage  llm_assisted_screening  llm_decision_support  not_llm  profiling_scoring  resource_allocation  summary_assistant  surveillance_monitor  unknown
+chatbot                       0                      0                       0                     0        0                  0                    0                  0                     0        0
+classification_triage         0                      0                       0                     0        0                  0                    0                  0                     0        0
+llm_assisted_screening        0                      0                       0                     0        1                  2                    0                  0                     0        0
+llm_decision_support          0                      0                       0                     2        0                  0                    0                  1                     0        0
+not_llm                       0                      1                       0                     0        2                  1                    1                  0                     0       20
+profiling_scoring             0                      1                       0                     0        1                 12                    0                  0                     1        0
+resource_allocation           0                      0                       0                     0        0                  0                    0                  0                     0        0
+summary_assistant             0                      0                       0                     0        0                  0                    0                  0                     0        0
+surveillance_monitor          0                      0                       1                     1        1                  2                    0                  0                     6        1
+unknown                       2                      8                       0                     8        6                 30                    3                  3                    11       21
+
+  Classification report (system pattern):
+                        precision    recall  f1-score   support
+
+               chatbot       0.00      0.00      0.00         0
+ classification_triage       0.00      0.00      0.00         0
+llm_assisted_screening       0.00      0.00      0.00         3
+  llm_decision_support       0.18      0.67      0.29         3
+               not_llm       0.18      0.08      0.11        25
+     profiling_scoring       0.26      0.80      0.39        15
+   resource_allocation       0.00      0.00      0.00         0
+     summary_assistant       0.00      0.00      0.00         0
+  surveillance_monitor       0.33      0.50      0.40        12
+               unknown       0.50      0.23      0.31        92
+
+              accuracy                           0.29       150
+             macro avg       0.15      0.23      0.15       150
+          weighted avg       0.39      0.29      0.29       150
+
+  Cohen's kappa (pattern): 0.078
+
+====================================================================
+  PER-LABEL AGREEMENT: Rights
+====================================================================
+  privacy_data_protection         agree=0.693  both=31  kw_only=31  llm_only=15
+  non_discrimination              agree=0.820  both=66  kw_only=10  llm_only=17
+  access_social_protection        agree=0.833  both=54  kw_only=16  llm_only=9
+  good_administration             agree=0.673  both=34  kw_only=7  llm_only=42
+  other                           agree=0.887  both=26  kw_only=10  llm_only=7
+
+====================================================================
+  PER-LABEL AGREEMENT: Harms
+====================================================================
+  unfair_exclusion                agree=0.600  both=24  kw_only=5  llm_only=55
+  privacy_breach                  agree=0.860  both=14  kw_only=12  llm_only=9
+  misinformation_error            agree=0.900  both=3  kw_only=7  llm_only=8
+  procedural_unfairness           agree=0.547  both=21  kw_only=17  llm_only=51
+  other                           agree=0.673  both=30  kw_only=44  llm_only=5
+
+====================================================================
+  QUALITATIVE ERROR THEMES (for Section 5.3 discussion)
+====================================================================
+
+  2. Under-classification / Missed domains (42 instances)
+     The automated method labelled 'unknown' when the manual
+     annotator identified a clear Annex III domain.  Common causes:
+     sparse incident descriptions and implicit rather than explicit
+     domain language (e.g. 'public assistance' not 'welfare').
+
+  3. Domain boundary confusion (16 instances)
+     Employment <-> essential services swaps.  Reflects genuine
+     ambiguity at the Annex III boundary — e.g. a government HR
+     tool could fall under Annex III/4 or Annex III/5a.
+
+  4. Partial match — dual-domain records (24 instances)
+     Manual annotator marked BOTH employment AND essential services
+     but automated method only predicted one.  Suggests the LLM
+     defaults to a single-label framing.
+
+  5. Rights label disagreements (78 instances)
+     Most common pattern: LLM predicts 'OTHER' where manual found
+     specific rights (NON-DISCRIMINATION, PRIVACY), or LLM adds
+     extra rights categories the manual annotator did not flag.
+  [OK] C:\Users\faith\Downloads\Dissertation\output\error_analysis_disagreements.csv
+  [OK] C:\Users\faith\Downloads\Dissertation\output\confusion_matrix_domain.csv
+  [OK] C:\Users\faith\Downloads\Dissertation\output\confusion_matrix_pattern.csv
+  [OK] C:\Users\faith\Downloads\Dissertation\output\disagreement_examples.csv
+  [OK] C:\Users\faith\Downloads\Dissertation\output\error_analysis_rights.csv
+  [OK] C:\Users\faith\Downloads\Dissertation\output\error_analysis_harms.csv
+  [OK] C:\Users\faith\Downloads\Dissertation\output\error_analysis_report.txt
+  [OK] C:\Users\faith\Downloads\Dissertation\figures\fig_error_categories.png
+  [OK] C:\Users\faith\Downloads\Dissertation\figures\fig_error_heatmap.png
+
+[OK] Error analysis complete.
+   Part A: 129 gold-vs-automated disagreements
+   Part B: Full-table confusion matrices + 34 domain disagreements
+   Part C: Per-label rights (5 labels) + harms (5 labels)
+   Part D: Qualitative themes synthesised
+============================================================
+  STEP 10: Regulatory Crosswalk (Objective 1)
+============================================================
+  [OK] C:\Users\faith\Downloads\Dissertation\output\regulatory_crosswalk.csv
+  [OK] C:\Users\faith\Downloads\Dissertation\output\regulatory_crosswalk.md
+  [OK] C:\Users\faith\Downloads\Dissertation\schema\crosswalk_glossary.json
+
+  Crosswalk: 8 rows mapping Annex III obligations -> rights
+  Glossary:  16 normalised terms
+
+[OK] Regulatory crosswalk complete.
+Working directory: C:\Users\faith\Downloads\Dissertation
+Loaded 150 rows from master_annotation_table_final.csv
+Loaded 150 cached causal annotations
+  1/150  USFED   Individual Assistance (IA) & Public Assistance (PA   -> unknown
+  2/150  USFED   Policy Analyst Assistant                             -> unknown
+  3/150  USFED   Conversation Training and Feedback Simulator         -> unknown
+  4/150  USFED   TSA Contact Center Virtual Assistant                 -> unknown
+  5/150  USFED   ELIS Evidence Classifier Machine Learning (ML) Tag   -> unknown
+  6/150  USFED   Automated Change Detection                           -> unknown
+  7/150  USFED   Linkage and Matching Program (LaMP)                  -> unknown
+  8/150  USFED   Automating Multilingual Census Data Processing: An   -> unknown
+  9/150  USFED   FAQ for SMaRT                                        -> unknown
+  10/150  USFED   Enriched Citation                                    -> unknown
+  11/150  AIAAIC  ID.me unemployment benefit facial recognition        -> unknown
+  12/150  AIAAIC  Netherlands SyRI welfare fraud detection automatio   -> context_of_use
+  13/150  AIAAIC  UK government accused of COVID-19 recovery funding   -> unknown
+  14/150  AIAAIC  UK govt Spotlight fund application assessments       -> unknown
+  15/150  AIAAIC  DOGE uses faulty AI to cut Veterans Affairs contra   -> technology_failure
+  16/150  AIAAIC  UK DWP sued for 'unfair' disability benefits fraud   -> context_of_use
+  17/150  AIAAIC  Unemployment risk assessment                         -> unknown
+  18/150  AIAAIC  Netherlands childcare benefits fraud assessments a   -> technology_failure
+  19/150  AIAAIC  Rotterdam welfare fraud risk algorithm               -> unknown
+  20/150  AIAAIC  Michigan MiDAS unemployment insurance fraud detect   -> technology_failure
+  21/150  AIAAIC  Serbia Social Card excludes thousands of welfare b   -> unknown
+  22/150  AIAAIC  UK welfare fraud AI system criticised as biased an   -> data_quality
+  23/150  AIAAIC  US Veterans Affairs suicide prevention algorithm f   -> data_quality
+  24/150  AIAAIC  UK robo review 'unfairly' targets Bulgarians, Pole   -> data_quality
+  25/150  AIAAIC  NDIS independent assessments ditched by Australian   -> unknown
+  26/150  AIAAIC  DWP Kickstart "gateway" firms with no trading hist   -> technology_failure
+  27/150  AIAAIC  Trelleborg welfare management automation             -> unknown
+  28/150  AIAAIC  Inaccuracies reveal child protection worker used C   -> human_error
+  29/150  AIAAIC  DWP algorithm wrongly flags 200,000 people for pos   -> technology_failure
+  30/150  AIAAIC  Flawed' UK welfare algorithm 'pushes people into p   -> technology_failure
+  31/150  AIAAIC  Thomson Reuters Fraud Detect 'incorrectly' identif   -> technology_failure
+  32/150  AIAAIC  Samagra Vedika system pilot deprives citizens of r   -> technology_failure
+  33/150  AIAAIC  Arkansas ARChoices Medicaid resource allocation sy   -> unknown
+  34/150  AIAAIC  PSZ Syriusz unemployment worker profiling            -> technology_failure
+  35/150  AIAAIC  Thai auntie unable to buy food after Poor Card fac   -> technology_failure
+  36/150  AIAAIC  Idaho Medicaid disability Resource Allocation Mode   -> unknown
+  37/150  AIAAIC  Roermond 'Sensing Project' predictive policing pil   -> unknown
+  38/150  AIAAIC  New Orleans predictive policing                      -> unknown
+  39/150  AIAAIC  NYPD Domain Awareness System                         -> unknown
+  40/150  AIAAIC  Knightscope security robot ignores woman reporting   -> technology_failure
+  41/150  AIAAIC  lllinois ends 'unreliable' child abuse predictive    -> technology_failure
+  42/150  AIAAIC  Oregon drops 'unfair' child abuse Safety at Screen   -> technology_failure
+  43/150  AIAAIC  Australia scraps "robodebt" welfare debt recovery    -> technology_failure
+  44/150  AIAAIC  Australia Robodebt welfare debt recovery             -> technology_failure
+  45/150  AIAAIC  Utah online dispute resolution system benefits len   -> unknown
+  46/150  AIAAIC  Parivar Pehchan Patra algorithm declares living pe   -> technology_failure
+  47/150  AIAAIC  Iarpa Janus Benchmark-C (IJP-C) dataset              -> unknown
+  48/150  AIAAIC  India Human Efficiency Tracking System sanitation    -> unknown
+  49/150  AIAAIC  Amazon employees, investors protest US government    -> unknown
+  50/150  AIAAIC  Sweden fraud prediction algorithm found to discrim   -> data_quality
+  51/150  AIAAIC  North Korea uses AI to covertly place IT workers i   -> human_error
+  52/150  AIAAIC  Starbucks automated shift scheduling system ruins    -> context_of_use
+  53/150  AIAAIC  UK Post Office Horizon payment system                -> technology_failure
+  54/150  AIAAIC  NYPD ends Knightscope K5 security robot trial        -> unknown
+  55/150  AIAAIC  Malta ditches 'Safe City' video surveillance progr   -> unknown
+  56/150  AIAAIC  NYPD 'digidog' hostage response draws complaints     -> unknown
+  57/150  AIAAIC  Rikers Island prisoner risk classification system    -> technology_failure
+  58/150  AIAAIC  Suzhou algorithmic social 'civility score' withdra   -> context_of_use
+  59/150  AIAAIC  LAPD predictive policing                             -> unknown
+  60/150  AIAAIC  LAPD 'hot spot' predictive policing                  -> unknown
+  61/150  AIAAIC  Study: Uber dynamic pricing increases passenger fa   -> unknown
+  62/150  AIAAIC  Brian Cranston voice, likeness used without consen   -> policy_gap
+  63/150  AIAAIC  Deloitte Australia fined for AI error-strewn gover   -> technology_failure
+  64/150  AIAAIC  White House chief of staff targeted in AI-powered    -> unknown
+  65/150  AIAAIC  Brazilian AI-powered welfare app accused of unfair   -> technology_failure
+  66/150  AIAAIC  White House appears to use AI to calculate tariff    -> unknown
+  67/150  AIAAIC  Optifye roasted for shop floor AI surveillance       -> unknown
+  68/150  AIAAIC  Taiwanese AI repeats Chinese government line         -> data_quality
+  69/150  AIAAIC  Report: Denmark AI welfare system "profoundly affe   -> unknown
+  70/150  AIAAIC  Nevada AI student risk model prompts funding contr   -> unknown
+  71/150  ECtHR   CASE OF HALMAGIU AND BELLU v. ROMANIA                -> unknown
+  72/150  ECtHR   CASE OF TETU v. ROMANIA                              -> unknown
+  73/150  ECtHR   CASE OF GURGACH v. RUSSIA                            -> unknown
+  74/150  ECtHR   CASE OF SOCIEDADE AGRICOLA DO AMEIXIAL; S.A v. POR   -> unknown
+  75/150  ECtHR   CASE OF SERSESCU v. ROMANIA                          -> unknown
+  76/150  ECtHR   CASE OF MOSOIU AND PASARIN v. ROMANIA                -> unknown
+  77/150  ECtHR   CASE OF ALİ TAŞ v. TURKEY                            -> unknown
+  78/150  ECtHR   CASE OF ANDRIANOVA AND OTHERS  v. UKRAINE            -> unknown
+  79/150  ECtHR   CASE OF DICKMANN AND GION v. ROMANIA                 -> unknown
+  80/150  ECtHR   CASE OF MIGALSKA v. POLAND                           -> unknown
+  81/150  ECtHR   CASE OF PICHKUR v. UKRAINE                           -> unknown
+  82/150  ECtHR   CASE OF ZAMMIT AND ATTARD CASSAR v. MALTA            -> unknown
+  83/150  ECtHR   CASE OF INDERKINY v. RUSSIA                          -> unknown
+  84/150  ECtHR   CASE OF VACARENCU v. MOLDOVA                         -> unknown
+  85/150  ECtHR   CASE OF GIGLI COSTRUZIONI S.R.L. v. ITALY            -> unknown
+  86/150  ECtHR   CASE OF SHARXHI AND OTHERS v. ALBANIA                -> unknown
+  87/150  ECtHR   CASE OF ELLIS v. TURKEY                              -> unknown
+  88/150  ECtHR   CASE OF COLLARILE AND OTHERS v. ITALY                -> unknown
+  89/150  ECtHR   CASE OF PAULIK v. SLOVAKIA                           -> unknown
+  90/150  ECtHR   CASE OF HARRISON v. THE UNITED KINGDOM               -> unknown
+  91/150  AIAAIC  Austria AMS employment service job seeker predicti   -> data_quality
+  92/150  AIAAIC  Netherlands visa applicant over-stay risk assessme   -> unknown
+  93/150  AIAAIC  DGFiP tax fraud detection                            -> unknown
+  94/150  AIAAIC  Deepfake CFO scams finance worker for USD 25 milli   -> technology_failure
+  95/150  AIAAIC  AI malware scam "destroys" Disney employee's life    -> unknown
+  96/150  AIAAIC  Singapore PM Lee Hsien Loong crypto promotion deep   -> technology_failure
+  97/150  AIAAIC  Deepfake Tom Hanks dental ad insurance promotion     -> technology_failure
+  98/150  AIAAIC  HireVue recruitment facial analysis screening        -> context_of_use
+  99/150  AIAAIC  Facebook job ad algorithm ruled sexist by French r   -> technology_failure
+  100/150  AIAAIC  Inaccurate test finds most English language test s   -> technology_failure
+  101/150  AIAAIC  Starship robot knocks over Arizona State Universit   -> technology_failure
+  102/150  AIAAIC  TennCare automated system accused of illegally den   -> technology_failure
+  103/150  AIAAIC  Facebook illegally lets housing ads exclude ethnic   -> technology_failure
+  104/150  AIAAIC  France welfare fraud detection algorithm accused o   -> data_quality
+  105/150  AIAAIC  Legal challenge launched against 'discriminatory'    -> context_of_use
+  106/150  AIAAIC  Greece fined for AI-powered asylum centre monitori   -> unknown
+  107/150  AIAAIC  MEP files lawsuit to release iBorderCtrl lie detec   -> unknown
+  108/150  AIAAIC  Aadhaar glitches result in villagers' starvation     -> technology_failure
+  109/150  AIAAIC  Youth advocacy worker misidentified by Met Police    -> technology_failure
+  110/150  AIAAIC  Danish child protection algorithm criticised for a   -> technology_failure
+  111/150  AIAAIC  Allegheny child neglect screening system unfairly    -> data_quality
+  112/150  AIAAIC  Allegheny child neglect screening tool may harden    -> data_quality
+  113/150  AIAAIC  Inaccurate auto translation denies Pashto-speaking   -> technology_failure
+  114/150  AIAAIC  Family-Match adoption algorithm fails to live up t   -> technology_failure
+  115/150  AIAAIC  UK visa applications streaming                       -> data_quality
+  116/150  AIAAIC  Atlantic Plaza Towers facial recognition plan blas   -> unknown
+  117/150  AIAAIC  UK passport check interprets lips as open mouth      -> technology_failure
+  118/150  AIAAIC  US government sued over AI-powered social media su   -> policy_gap
+  119/150  AIAAIC  Asylum claim rejected by French authorities using    -> context_of_use
+  120/150  AIAAIC  AI translations jeopardise US asylum applications    -> technology_failure
+  121/150  AIAAIC  USPS algorithmic system cuts rural letter carrier    -> unknown
+  122/150  AIAAIC  Allegheny County child neglect screening system      -> technology_failure
+  123/150  AIAAIC  Microsoft Plataforma Tecnológica de Intervención S   -> unknown
+  124/150  AIAAIC  Spanish police arrest six people for USD 20m AI-po   -> human_error
+  125/150  AIAAIC  South Korea immigration shares travellers' facial    -> policy_gap
+  126/150  AIAAIC  Wellington International Airport facial recognitio   -> unknown
+  127/150  AIAAIC  BOSCO electricity subsidy assessment                 -> unknown
+  128/150  AIAAIC  Chinese government facial recognition system hacke   -> technology_failure
+  129/150  AIAAIC  Deepfake romance scammer swindles California widow   -> human_error
+  130/150  AIAAIC  Poland forced to scrap unemployed worker profiling   -> technology_failure
+  131/150  USFED   Recovery Engagement and Coordination for Health –    -> unknown
+  132/150  USFED   Elastic Machine Learning Threat Detection - Phase    -> unknown
+  133/150  USFED   USA Class                                            -> unknown
+  134/150  USFED   PINGOO.AI                                            -> unknown
+  135/150  USFED   Smart AI Bot Assistant                               -> unknown
+  136/150  USFED   Login.gov                                            -> unknown
+  137/150  USFED   PreCheck Touchless Identity Solution (TIS)           -> unknown
+  138/150  USFED   Credential Authentication Technology with Camera S   -> unknown
+  139/150  USFED   I-765 - USCIS Facial Recognition through IDENT (1:   -> unknown
+  140/150  USFED   CESASolarModel                                       -> unknown
+  141/150  USFED   EnergyRightDERPortfolioEvaluation                    -> unknown
+  142/150  USFED   GET                                                  -> unknown
+  143/150  USFED   GMET                                                 -> unknown
+  144/150  USFED   ICI camera                                           -> unknown
+  145/150  USFED   Hurricane Score                                      -> unknown
+  146/150  USFED   Stratification Tool for Opioid Risk Mitigation (ST   -> unknown
+  147/150  USFED   Care Assessment Needs (CAN) Score                    -> unknown
+  148/150  USFED   Low Probability of False Alarm (Low-Pfa) Algorithm   -> unknown
+  149/150  USFED   CR intelligent search                                -> unknown
+  150/150  USFED   Materials tracking                                   -> unknown
+
+Saved master_annotation_table_causal.csv  (150 rows, 21 cols)
+
+-- Root Cause Distribution --
+root_cause
+unknown               88
+technology_failure    38
+data_quality          10
+context_of_use         7
+human_error            4
+policy_gap             3
+
+-- Source Type Distribution --
+source_type
+news_article            98
+government_inventory    30
+court_case              21
+regulator_opinion        1
+
+Records with mitigation reported: 12/150 (8.0%)
+output/causal_summary.csv
+Working directory: C:\Users\faith\Downloads\Dissertation
+STEP 12  Knowledge Graph Construction
+  Loaded 150 rows from master_annotation_table_causal.csv
+
+  Graph:  193 nodes, 965 edges
+
+  -- Node types --
+    FundamentalRight     285
+    HarmType             177
+    Incident             150
+    AnnexDomain          150
+    SourceType           150
+    SystemPattern        129
+    RootCause            62
+    Mitigation           12
+
+  -- Edge types --
+    hasRight             285
+    hasHarm              177
+    hasDomain            150
+    hasSourceType        150
+    hasPattern           129
+    hasRootCause         62
+    hasMitigation        12
+  knowledge_graph.ttl  (1351 triples)
+  knowledge_graph_summary.csv
+  fig_knowledge_graph.png
+
+Knowledge graph complete.
+Loading knowledge graph...
+  Loaded 1351 triples
+
+Running Q1: Essential-services incidents involving non-discrimination rights...
+  60 results
+
+Running Q2: Incidents where hybrid method identified profiling/scoring...
+  47 results
+
+Running Q3: Rights implicated by employment-domain incidents, ranked by frequency...
+  4 results
+
+Running Q4: Incidents involving both privacy/data-protection and unfair-exclusion harms...
+  12 results
+
+[OK] Saved output/sparql_demo_results.txt
+============================================================
+MULTI-MODEL LLM COMPARISON: GPT-4o-mini vs Claude Sonnet
+============================================================
+
+[WARN] OPENAI_API_KEY not set.
+  Set it with: export OPENAI_API_KEY='sk-...'
+  Will proceed with cached results if available.
+
+  Loaded 150 records from output/master_annotation_table_final.csv
+  Loaded 69 gold standard records from data/aiaaic/manual_vs_llm_comparison.csv
+  Loaded 150 cached GPT-4o-mini predictions
+
+-- GPT-4o-mini Annotation --
+  Cache hits: 150, API calls: 0
+
+-- Computing Metrics --
+  Keyword vs gold: n=28, kappa=0.246
+  Claude vs gold:  n=28, kappa=0.176
+  GPT vs gold:     n=28, kappa=0.196
+  Hybrid vs gold:  n=28, kappa=0.234
+
+  Inter-model agreement (Claude vs GPT-4o-mini):
+    Domain:  agree=0.807, kappa=0.667
+    Pattern: agree=0.733, kappa=0.660
+
+-- Saving Results --
+  [OK] output/multi_model_comparison.csv
+  [OK] output/multi_model_comparison_summary.txt
+
+-- Generating Figures --
+  [OK] figures/fig_multi_model_kappa.png
+  [OK] figures/fig_multi_model_unknown_rates.png
+
+-- GPT-4o-mini Domain Distribution --
+gpt_annex_domain
+unknown               85
+essential_services    54
+employment            11
+
+-- GPT-4o-mini Pattern Distribution --
+gpt_system_pattern
+unknown                   52
+profiling_scoring         43
+surveillance_monitor      21
+not_llm                   17
+llm_decision_support       4
+summary_assistant          3
+classification_triage      3
+resource_allocation        3
+chatbot                    2
+misinformation_error       1
+llm_assisted_screening     1
+
+[OK] Multi-model comparison complete.
+Working directory: C:\Users\faith\Downloads\Dissertation
+
+============================================================
+  STEP 0: Checking required files
+============================================================
+  [OK] src/01_expand_corpus.py                            Corpus expansion
+  [OK] src/02_llm_annotate.py                             LLM annotation
+  [OK] src/03_compare_methods.py                          Method comparison
+  [OK] src/04_evaluate_gold.py                            Gold-standard evaluation
+  [OK] src/05_schema_definition.py                        Schema generation
+  [OK] src/06_export_semantic.py                          JSON-LD export
+  [OK] src/07_generate_figures.py                         Figure generation
+  [OK] src/14_sparql_demo.py                              SPARQL query demo
+  [OK] src/15_multi_model_comparison.py                   Multi-model comparison
+  [OK] data/master_annotation_table_v01.csv               Original 90-row master table
+  [OK] data/master_annotation_table_v05.csv               Expanded 150-row master table
+  [OK] data/aiaaic/AIAAIC_Repository_Incidents.csv        Full AIAAIC incidents
+  [OK] data/aiaaic/manual_vs_llm_comparison.csv           Gold-standard annotations
+
+============================================================
+  STEP 1: Expand corpus to 150 records
+============================================================
+
+============================================================
+  STEP 2: LLM annotation (uses cache)
+============================================================
+
+============================================================
+  STEP 3: Compare keyword vs LLM methods
+============================================================
+
+============================================================
+  STEP 4: Gold-standard evaluation
+============================================================
+
+============================================================
+  STEP 5: Generate schema artefacts
+============================================================
+
+============================================================
+  STEP 6: Export JSON-LD records
+============================================================
+
+============================================================
+  STEP 7: Generate dissertation figures
+============================================================
+
+============================================================
+  STEP 7b: Alternative rights & harms figures
+============================================================
+
+============================================================
+  STEP 8: FRIA-style demonstration scenarios
+============================================================
+
+============================================================
+  STEP 9: Error analysis
+============================================================
+
+============================================================
+  STEP 10: Regulatory crosswalk
+============================================================
+
+============================================================
+  STEP 11: Chain-of-events + mitigation extraction
+============================================================
+
+============================================================
+  STEP 12: Knowledge graph construction
+============================================================
+
+============================================================
+  STEP 14: SPARQL query demonstrations
+============================================================
+
+============================================================
+  STEP 15: Multi-model LLM comparison
+============================================================
+
+============================================================
+  PIPELINE COMPLETE
+============================================================
+  [OK] STEP 1: Expand corpus to 150 records
+  [OK] STEP 2: LLM annotation (uses cache)
+  [OK] STEP 3: Compare keyword vs LLM methods
+  [OK] STEP 4: Gold-standard evaluation
+  [OK] STEP 5: Generate schema artefacts
+  [OK] STEP 6: Export JSON-LD records
+  [OK] STEP 7: Generate dissertation figures
+  [OK] STEP 7b: Alternative rights & harms figures
+  [OK] STEP 8: FRIA-style demonstration scenarios
+  [OK] STEP 9: Error analysis
+  [OK] STEP 10: Regulatory crosswalk
+  [OK] STEP 11: Chain-of-events + mitigation extraction
+  [OK] STEP 12: Knowledge graph construction
+  [OK] STEP 14: SPARQL query demonstrations
+  [OK] STEP 15: Multi-model LLM comparison
+
+  Output files:
+    [OK] output/master_annotation_table_final.csv
+    [OK] output/master_annotation_table_llm_v2.csv
+    [OK] output/gold_evaluation_summary.csv
+    [OK] output/risk_records_v2.jsonld
+    [OK] schema/fria_risk_schema.jsonld
+    [OK] schema/fria_risk_schema.ttl
+    [OK] output/master_annotation_table_causal.csv
+    [OK] output/causal_summary.csv
+    [OK] output/causal_annotation_log.jsonl
+    [OK] output/knowledge_graph.ttl
+    [OK] output/knowledge_graph_summary.csv
+    [OK] output/sparql_demo_results.txt
+    [OK] output/multi_model_comparison.csv
+    [OK] output/multi_model_comparison_summary.txt
+    [OK] figures/ (22 PNGs)
+
+[OK] All done! Your dissertation artefacts are ready.
