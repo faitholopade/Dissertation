@@ -1,0 +1,31 @@
+\subsection{Prototype Query Interface}
+\label{subsec:flask-prototype}
+
+To demonstrate the practical queryability of the knowledge graph beyond
+command-line SPARQL, a lightweight web-based query interface was developed
+as a proof-of-concept. The prototype, implemented as a Flask application
+backed by RDFLib, provides two query modalities: a structured form with
+dropdown and checkbox filters for Annex~III domain, fundamental rights,
+and system pattern; and a raw SPARQL textarea for advanced users.
+
+The structured query mode translates user selections into SPARQL queries
+dynamically, abstracting the graph's namespace and predicate structure
+from the end user. A deployer conducting a Fundamental Rights Impact
+Assessment under Article~27 can, for example, select ``Employment'' and
+``Non-discrimination'' to retrieve all precedent incidents where
+employment-domain AI systems implicated non-discrimination rights. Results
+are displayed in a tabular format showing the incident title, source type,
+domain, rights, harms, and system pattern for each matching record.
+
+This prototype serves as evidence toward the Article~27(5) goal of
+automated tooling to support FRIA compliance. While the current
+implementation is minimal --- it does not include authentication, pagination,
+or integration with external incident databases --- it demonstrates that the
+semantic representation developed in this work is directly amenable to
+deployment as a queryable evidence base. The transition from a static
+knowledge graph to an interactive retrieval tool requires no schema
+modification, confirming that the RDF/Turtle representation is both
+machine-readable and operationally useful. Future work could extend this
+prototype to incorporate federated SPARQL queries across multiple
+knowledge graphs, or to integrate with existing AI risk management
+platforms.
