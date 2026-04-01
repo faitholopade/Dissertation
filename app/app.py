@@ -25,9 +25,6 @@ except ImportError:
     print("[WARN] rdflib not installed. Run: pip install rdflib")
     sys.exit(1)
 
-# ---------------------------------------------------------------------------
-# Configuration
-# ---------------------------------------------------------------------------
 
 TTL_PATH = os.path.join(os.path.dirname(__file__), "..", "output", "knowledge_graph.ttl")
 FRIA = rdflib.Namespace("https://example.org/fria-kg/")
@@ -65,9 +62,6 @@ SOURCE_LABELS = {
     "srctype_regulator_opinion": "Regulator Opinion",
 }
 
-# ---------------------------------------------------------------------------
-# App setup
-# ---------------------------------------------------------------------------
 
 app = Flask(__name__)
 graph = None
@@ -99,9 +93,6 @@ def shorten_uri(uri):
     return s
 
 
-# ---------------------------------------------------------------------------
-# Routes
-# ---------------------------------------------------------------------------
 
 @app.route("/")
 def index():

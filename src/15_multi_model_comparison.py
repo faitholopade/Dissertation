@@ -28,9 +28,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
-# ---------------------------------------------------------------------------
-# Configuration
-# ---------------------------------------------------------------------------
 
 MASTER_PATH = "output/master_annotation_table_final.csv"
 GOLD_PATH = "data/aiaaic/manual_vs_llm_comparison.csv"
@@ -58,9 +55,6 @@ COLORS = {
     "hybrid": "#4CAF50",
 }
 
-# ---------------------------------------------------------------------------
-# Prompt (identical to src/02_llm_annotate.py)
-# ---------------------------------------------------------------------------
 
 SYSTEM_PROMPT = """You are an expert legal-technical annotator for an MSc dissertation on the EU AI Act.
 Your task is to classify AI incident/use-case records against the EU AI Act Annex III framework.
@@ -187,9 +181,6 @@ Description: The Dutch government used SyRI (System Risk Indication) to detect w
 ]
 
 
-# ---------------------------------------------------------------------------
-# Caching
-# ---------------------------------------------------------------------------
 
 cache = {}
 
@@ -210,9 +201,6 @@ def save_cache(key, result):
         f.write(json.dumps({"key": key, "result": result}) + "\n")
 
 
-# ---------------------------------------------------------------------------
-# OpenAI annotation
-# ---------------------------------------------------------------------------
 
 def annotate_record_openai(client, title, description, source=""):
     """Annotate a single record using GPT-4o-mini."""
@@ -256,9 +244,6 @@ Description: {description[:1500]}"""
         }
 
 
-# ---------------------------------------------------------------------------
-# Metrics
-# ---------------------------------------------------------------------------
 
 def safe_kappa(y1, y2):
     try:
@@ -287,9 +272,6 @@ def normalise_binary(val):
     return "no"
 
 
-# ---------------------------------------------------------------------------
-# Gold-standard matching
-# ---------------------------------------------------------------------------
 
 def match_gold(gold_df, auto_df, auto_domain_col):
     """Match gold standard records to auto-annotated records by title."""
@@ -325,9 +307,6 @@ def match_gold(gold_df, auto_df, auto_domain_col):
     return gold_domains, auto_domains
 
 
-# ---------------------------------------------------------------------------
-# Figures
-# ---------------------------------------------------------------------------
 
 def plot_kappa_comparison(metrics, output_path):
     """Grouped bar chart comparing kappa across methods."""
@@ -398,9 +377,6 @@ def plot_unknown_rates(metrics, output_path):
     print(f"  [OK] {output_path}")
 
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
 
 def main():
     print("=" * 60)
@@ -433,9 +409,7 @@ def main():
     # Load cache
     load_cache()
 
-    # -----------------------------------------------------------------------
     # Run GPT-4o-mini annotation
-    # -----------------------------------------------------------------------
     print(f"\n-- GPT-4o-mini Annotation --")
 
     client = None
@@ -486,9 +460,7 @@ def main():
     df["gpt_harms"] = [r.get("harms", "other") for r in gpt_results]
     df["gpt_confidence"] = [r.get("confidence", 0) for r in gpt_results]
 
-    # -----------------------------------------------------------------------
     # Compute metrics
-    # -----------------------------------------------------------------------
     print(f"\n-- Computing Metrics --")
 
     metrics = []
@@ -588,9 +560,7 @@ def main():
     print(f"    Domain:  agree={inter_model['domain_agree']:.3f}, kappa={inter_model['domain_kappa']:.3f}")
     print(f"    Pattern: agree={inter_model['pattern_agree']:.3f}, kappa={inter_model['pattern_kappa']:.3f}")
 
-    # -----------------------------------------------------------------------
     # Save results
-    # -----------------------------------------------------------------------
     print(f"\n-- Saving Results --")
 
     # Save annotated CSV
@@ -624,17 +594,13 @@ def main():
         f.write("\n".join(summary_lines))
     print(f"  [OK] {OUTPUT_TXT}")
 
-    # -----------------------------------------------------------------------
     # Figures
-    # -----------------------------------------------------------------------
     print(f"\n-- Generating Figures --")
     os.makedirs("figures", exist_ok=True)
     plot_kappa_comparison(metrics, FIG_KAPPA)
     plot_unknown_rates(metrics, FIG_UNKNOWN)
 
-    # -----------------------------------------------------------------------
     # Distribution summary
-    # -----------------------------------------------------------------------
     print(f"\n-- GPT-4o-mini Domain Distribution --")
     print(df["gpt_annex_domain"].value_counts().to_string())
     print(f"\n-- GPT-4o-mini Pattern Distribution --")
