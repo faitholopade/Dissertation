@@ -34,7 +34,7 @@ import matplotlib.patches as mpatches
 
 MASTER_PATH = "output/master_annotation_table_final.csv"
 GOLD_PATH = "data/aiaaic/manual_vs_llm_comparison.csv"
-CACHE_FILE = "gpt4o_mini_predictions_cache.jsonl"
+CACHE_FILE = "output/gpt4o_mini_predictions_cache.jsonl"
 OUTPUT_CSV = "output/multi_model_comparison.csv"
 OUTPUT_TXT = "output/multi_model_comparison_summary.txt"
 FIG_KAPPA = "figures/fig_multi_model_kappa.png"

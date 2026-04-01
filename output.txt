@@ -1198,6 +1198,19 @@ STEP 12  Knowledge Graph Construction
   fig_knowledge_graph.png
 
 Knowledge graph complete.
+Working directory: C:\Users\faith\Downloads\Dissertation
+STEP 13  Visual Knowledge Graph
+  Loaded 150 rows from master_annotation_table_causal.csv
+  Graph: 193 nodes, 965 edges
+
+  Building interactive HTML graph...
+  fig_knowledge_graph_full.html  (open in browser)
+
+  Building static PNG...
+  fig_knowledge_graph_full.png  (250 DPI)
+
+  Done! HTML: C:\Users\faith\Downloads\Dissertation\figures\fig_knowledge_graph_full.html
+  PNG: C:\Users\faith\Downloads\Dissertation\figures\fig_knowledge_graph_full.png
 Loading knowledge graph...
   Loaded 1351 triples
 
@@ -1280,6 +1293,7 @@ Working directory: C:\Users\faith\Downloads\Dissertation
   [OK] src/05_schema_definition.py                        Schema generation
   [OK] src/06_export_semantic.py                          JSON-LD export
   [OK] src/07_generate_figures.py                         Figure generation
+  [OK] src/13_visualise_knowledge_graph.py                Knowledge graph visualisation
   [OK] src/14_sparql_demo.py                              SPARQL query demo
   [OK] src/15_multi_model_comparison.py                   Multi-model comparison
   [OK] data/master_annotation_table_v01.csv               Original 90-row master table
@@ -1340,6 +1354,10 @@ Working directory: C:\Users\faith\Downloads\Dissertation
 ============================================================
 
 ============================================================
+  STEP 13: Knowledge graph visualisation
+============================================================
+
+============================================================
   STEP 14: SPARQL query demonstrations
 ============================================================
 
@@ -1363,6 +1381,7 @@ Working directory: C:\Users\faith\Downloads\Dissertation
   [OK] STEP 10: Regulatory crosswalk
   [OK] STEP 11: Chain-of-events + mitigation extraction
   [OK] STEP 12: Knowledge graph construction
+  [OK] STEP 13: Knowledge graph visualisation
   [OK] STEP 14: SPARQL query demonstrations
   [OK] STEP 15: Multi-model LLM comparison
 
@@ -1378,9 +1397,15 @@ Working directory: C:\Users\faith\Downloads\Dissertation
     [OK] output/causal_annotation_log.jsonl
     [OK] output/knowledge_graph.ttl
     [OK] output/knowledge_graph_summary.csv
+    [OK] figures/fig_knowledge_graph_full.html
     [OK] output/sparql_demo_results.txt
     [OK] output/multi_model_comparison.csv
     [OK] output/multi_model_comparison_summary.txt
     [OK] figures/ (22 PNGs)
+
+  Flask query interface:
+Loading knowledge graph from C:\Users\faith\Downloads\Dissertation\output\knowledge_graph.ttl...
+  Loaded 1351 triples
+    [OK] app/ (GET / returned 200)
 
 [OK] All done! Your dissertation artefacts are ready.

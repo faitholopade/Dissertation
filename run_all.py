@@ -18,6 +18,7 @@ required_files = {
     "src/05_schema_definition.py":  "Schema generation",
     "src/06_export_semantic.py":    "JSON-LD export",
     "src/07_generate_figures.py":   "Figure generation",
+    "src/13_visualise_knowledge_graph.py": "Knowledge graph visualisation",
     "src/14_sparql_demo.py":           "SPARQL query demo",
     "src/15_multi_model_comparison.py": "Multi-model comparison",
 }
@@ -63,6 +64,7 @@ steps = [
     ("STEP 10: Regulatory crosswalk",               "src/10_regulatory_crosswalk.py"),
     ("STEP 11: Chain-of-events + mitigation extraction", "src/11_chain_of_events.py"),
     ("STEP 12: Knowledge graph construction",        "src/12_knowledge_graph.py"),
+    ("STEP 13: Knowledge graph visualisation",       "src/13_visualise_knowledge_graph.py"),
     ("STEP 14: SPARQL query demonstrations",         "src/14_sparql_demo.py"),
     ("STEP 15: Multi-model LLM comparison",          "src/15_multi_model_comparison.py"),
 ]
@@ -111,6 +113,7 @@ outputs = [
     "output/causal_annotation_log.jsonl",
     "output/knowledge_graph.ttl",
     "output/knowledge_graph_summary.csv",
+    "figures/fig_knowledge_graph_full.html",
     "output/sparql_demo_results.txt",
     "output/multi_model_comparison.csv",
     "output/multi_model_comparison_summary.txt",
@@ -120,5 +123,18 @@ for f in outputs:
 
 fig_count = len([f for f in os.listdir("figures") if f.endswith(".png")])
 print(f"    {'[OK]' if fig_count >= 13 else '[FAIL]'} figures/ ({fig_count} PNGs)")
+
+# Flask app smoke test
+print(f"\n  Flask query interface:")
+try:
+    sys.path.insert(0, os.path.join(ROOT, "app"))
+    from app import app, load_graph
+    load_graph()
+    with app.test_client() as c:
+        r = c.get("/")
+        ok = r.status_code == 200
+    print(f"    {'[OK]' if ok else '[FAIL]'} app/ (GET / returned {r.status_code})")
+except Exception as e:
+    print(f"    [WARN] app/ smoke test failed: {e}")
 
 print(f"\n[OK] All done! Your dissertation artefacts are ready.")

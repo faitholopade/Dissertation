@@ -244,11 +244,8 @@ export OPENAI_API_KEY="sk-..."         # Optional: for multi-model comparison (S
 ### 4. Run the pipeline
 
 ```bash
-# Steps 01-15 (including SPARQL demo and multi-model comparison)
+# Steps 01-15
 python run_all.py
-
-# Step 13 (knowledge graph visualisation, run separately)
-python src/13_visualise_knowledge_graph.py
 
 # Flask query interface (optional)
 cd app && pip install -r requirements.txt && python app.py
