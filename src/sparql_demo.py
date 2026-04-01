@@ -1,4 +1,4 @@
-"""SPARQL query demonstrations against the FRIA knowledge graph.
+"""Step 14: SPARQL query demonstrations against the FRIA knowledge graph.
 
 Loads the existing knowledge graph (output/knowledge_graph.ttl) and runs
 four queries that demonstrate the queryability claims made in the
@@ -9,7 +9,6 @@ Inputs:
 
 Outputs:
     output/sparql_demo_results.txt
-    chapters/sparql_demo_section.tex
 """
 
 import os, sys
@@ -25,7 +24,6 @@ from tabulate import tabulate
 
 TTL_PATH = "output/knowledge_graph.ttl"
 OUTPUT_PATH = "output/sparql_demo_results.txt"
-TEX_PATH = "chapters/sparql_demo_section.tex"
 
 FRIA = rdflib.Namespace("https://example.org/fria-kg/")
 
@@ -178,84 +176,9 @@ def format_query_block(query_spec, rows):
     return "\n".join(lines)
 
 
-def generate_latex(query_results):
-    """Generate a LaTeX snippet for the SPARQL demonstration subsection."""
-    lines = []
-    lines.append(r"\subsection{SPARQL Query Demonstration}")
-    lines.append(r"\label{subsec:sparql-demo}")
-    lines.append("")
-    lines.append(
-        r"To validate the queryability of the knowledge graph, four SPARQL queries "
-        r"were executed against the RDF representation. Each query targets a distinct "
-        r"retrieval pattern relevant to FRIA evidence gathering under Article~27 of "
-        r"the AI Act. Table~\ref{tab:sparql-summary} summarises the results."
-    )
-    lines.append("")
-
-    # Summary table
-    lines.append(r"\begin{table}[htbp]")
-    lines.append(r"\centering")
-    lines.append(r"\caption{SPARQL query demonstration results}")
-    lines.append(r"\label{tab:sparql-summary}")
-    lines.append(r"\begin{tabular}{clr}")
-    lines.append(r"\toprule")
-    lines.append(r"Query & Retrieval pattern & Results \\")
-    lines.append(r"\midrule")
-    for qid, spec, rows in query_results:
-        title_short = spec["title"][:55]
-        lines.append(f"{qid} & {title_short} & {len(rows)} \\\\")
-    lines.append(r"\bottomrule")
-    lines.append(r"\end{tabular}")
-    lines.append(r"\end{table}")
-    lines.append("")
-
-    # Individual query listings and interpretation
-    interpretations = {
-        "Q1": (
-            r"Query~1 demonstrates combined filtering across domain and rights axes. "
-            r"The {} results confirm that the graph structure supports the "
-            r"retrieval pattern most directly required by Article~27(1)(a): identifying "
-            r"precedent incidents within a specific high-risk domain that implicate a "
-            r"particular fundamental right."
-        ),
-        "Q2": (
-            r"Query~2 retrieves incidents by system pattern, returning {} records "
-            r"classified as profiling or scoring systems. This pattern-based retrieval "
-            r"enables deployers to locate precedents involving similar AI architectures, "
-            r"supporting the risk-by-analogy reasoning that underpins impact assessment."
-        ),
-        "Q3": (
-            r"Query~3 aggregates rights across employment-domain incidents, demonstrating "
-            r"cross-axis analytical capability. The ranked output reveals which fundamental "
-            r"rights are most frequently implicated in employment AI systems, providing "
-            r"quantitative evidence for FRIA prioritisation decisions."
-        ),
-        "Q4": (
-            r"Query~4 identifies incidents exhibiting both privacy breach and unfair "
-            r"exclusion harms simultaneously, returning {} records. This multi-label "
-            r"intersection query demonstrates that the graph's multi-valued harm "
-            r"annotations support compound risk identification --- a capability not "
-            r"available in flat tabular representations."
-        ),
-    }
-
-    for qid, spec, rows in query_results:
-        lines.append(r"\paragraph{" + spec["title"] + "}")
-        lines.append("")
-        lines.append(r"\begin{lstlisting}[language=SPARQL,basicstyle=\ttfamily\footnotesize,breaklines=true,caption={" + spec["title"] + r"}]")
-        lines.append(spec["sparql"].strip())
-        lines.append(r"\end{lstlisting}")
-        lines.append("")
-        interp = interpretations[qid].format(len(rows))
-        lines.append(interp)
-        lines.append("")
-
-    return "\n".join(lines)
-
-
 def main():
     if not os.path.exists(TTL_PATH):
-        print(f"⚠  Knowledge graph not found at {TTL_PATH}")
+        print(f"[WARN] Knowledge graph not found at {TTL_PATH}")
         sys.exit(1)
 
     print("Loading knowledge graph...")
@@ -285,13 +208,6 @@ def main():
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         f.write(full_output)
     print(f"\n[OK] Saved {OUTPUT_PATH}")
-
-    # Save LaTeX snippet
-    os.makedirs(os.path.dirname(TEX_PATH), exist_ok=True)
-    latex = generate_latex(query_results)
-    with open(TEX_PATH, "w", encoding="utf-8") as f:
-        f.write(latex)
-    print(f"[OK] Saved {TEX_PATH}")
 
 
 if __name__ == "__main__":

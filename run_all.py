@@ -14,6 +14,8 @@ required_files = {
     "src/05_schema_definition.py":  "Schema generation",
     "src/06_export_semantic.py":    "JSON-LD export",
     "src/07_generate_figures.py":   "Figure generation",
+    "src/sparql_demo.py":           "SPARQL query demo",
+    "src/multi_model_comparison.py": "Multi-model comparison",
 }
 
 required_data = {
@@ -57,6 +59,8 @@ steps = [
     ("STEP 10: Regulatory crosswalk",               "src/10_regulatory_crosswalk.py"),
     ("STEP 11: Chain-of-events + mitigation extraction", "src/11_chain_of_events.py"),
     ("STEP 12: Knowledge graph construction",        "src/12_knowledge_graph.py"),
+    ("STEP 14: SPARQL query demonstrations",         "src/sparql_demo.py"),
+    ("STEP 15: Multi-model LLM comparison",          "src/multi_model_comparison.py"),
 ]
 
 results = []
@@ -103,11 +107,14 @@ outputs = [
     "output/causal_annotation_log.jsonl",
     "output/knowledge_graph.ttl",
     "output/knowledge_graph_summary.csv",
+    "output/sparql_demo_results.txt",
+    "output/multi_model_comparison.csv",
+    "output/multi_model_comparison_summary.txt",
 ]
 for f in outputs:
     print(f"    {'[OK]' if os.path.exists(f) else '[FAIL]'} {f}")
 
 fig_count = len([f for f in os.listdir("figures") if f.endswith(".png")])
-print(f"    {'[OK]' if fig_count >= 11 else '[FAIL]'} figures/ ({fig_count} PNGs)")
+print(f"    {'[OK]' if fig_count >= 13 else '[FAIL]'} figures/ ({fig_count} PNGs)")
 
 print(f"\n[OK] All done! Your dissertation artefacts are ready.")

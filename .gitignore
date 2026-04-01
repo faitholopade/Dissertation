@@ -8,3 +8,4 @@ structure.txt
 output*.txt
 finaloutput.txt
 \[BACKUP\]*
+.claude/

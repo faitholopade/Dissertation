@@ -1,8 +1,8 @@
-"""Multi-model LLM comparison: GPT-4o-mini vs Claude Sonnet.
+"""Step 15: Multi-model LLM comparison (GPT-4o-mini vs Claude Sonnet).
 
 Runs the same annotation prompt on GPT-4o-mini and compares results
 against Claude Sonnet predictions and the manual gold standard.
-Produces comparison metrics, figures, and a LaTeX snippet.
+Produces comparison metrics and figures.
 
 Inputs:
     output/master_annotation_table_final.csv
@@ -14,7 +14,6 @@ Outputs:
     output/multi_model_comparison_summary.txt
     figures/fig_multi_model_kappa.png
     figures/fig_multi_model_unknown_rates.png
-    chapters/multi_model_section.tex
 """
 
 import pandas as pd
@@ -40,8 +39,6 @@ OUTPUT_CSV = "output/multi_model_comparison.csv"
 OUTPUT_TXT = "output/multi_model_comparison_summary.txt"
 FIG_KAPPA = "figures/fig_multi_model_kappa.png"
 FIG_UNKNOWN = "figures/fig_multi_model_unknown_rates.png"
-TEX_PATH = "chapters/multi_model_section.tex"
-
 MODEL = "gpt-4o-mini"
 
 plt.rcParams.update({
@@ -402,115 +399,6 @@ def plot_unknown_rates(metrics, output_path):
 
 
 # ---------------------------------------------------------------------------
-# LaTeX generation
-# ---------------------------------------------------------------------------
-
-def generate_latex(metrics, inter_model):
-    """Generate LaTeX snippet for the multi-model comparison subsection."""
-    lines = []
-    lines.append(r"\subsection{Multi-Model Comparison}")
-    lines.append(r"\label{subsec:multi-model}")
-    lines.append("")
-    lines.append(
-        r"To assess whether the annotation findings are specific to Claude Sonnet "
-        r"or generalisable across large language models, the same prompt and "
-        r"classification schema were applied using OpenAI GPT-4o-mini. "
-        r"Table~\ref{tab:multi-model-comparison} presents a summary comparison "
-        r"across all annotation methods."
-    )
-    lines.append("")
-
-    # Comparison table
-    lines.append(r"\begin{table}[htbp]")
-    lines.append(r"\centering")
-    lines.append(r"\caption{Multi-method annotation comparison}")
-    lines.append(r"\label{tab:multi-model-comparison}")
-    lines.append(r"\begin{tabular}{lcccc}")
-    lines.append(r"\toprule")
-    lines.append(r"Method & Domain $\kappa$ & Domain unknown & Pattern unknown & $n$ \\")
-    lines.append(r"\midrule")
-    for m in metrics:
-        dk = m.get("domain_kappa_vs_gold", float("nan"))
-        dk_str = f"{dk:.3f}" if not np.isnan(dk) else "---"
-        du = m.get("domain_unknown_rate", 0)
-        pu = m.get("pattern_unknown_rate", 0)
-        n = m.get("n", 150)
-        lines.append(
-            f"{m['method']} & {dk_str} & {du:.1%} & {pu:.1%} & {n} \\\\"
-        )
-    lines.append(r"\bottomrule")
-    lines.append(r"\end{tabular}")
-    lines.append(r"\end{table}")
-    lines.append("")
-
-    # Figures
-    lines.append(r"\begin{figure}[htbp]")
-    lines.append(r"\centering")
-    lines.append(r"\includegraphics[width=0.85\textwidth]{figures/fig_multi_model_kappa.png}")
-    lines.append(r"\caption{Cohen's $\kappa$ agreement with gold standard across annotation methods}")
-    lines.append(r"\label{fig:multi-model-kappa}")
-    lines.append(r"\end{figure}")
-    lines.append("")
-    lines.append(r"\begin{figure}[htbp]")
-    lines.append(r"\centering")
-    lines.append(r"\includegraphics[width=0.85\textwidth]{figures/fig_multi_model_unknown_rates.png}")
-    lines.append(r"\caption{Unknown classification rates by method and axis}")
-    lines.append(r"\label{fig:multi-model-unknown}")
-    lines.append(r"\end{figure}")
-    lines.append("")
-
-    # Analysis paragraphs
-    # Find GPT and Claude metrics
-    gpt_m = next((m for m in metrics if "GPT" in m["method"]), None)
-    claude_m = next((m for m in metrics if "Claude" in m["method"]), None)
-
-    if gpt_m and claude_m:
-        gpt_k = gpt_m.get("domain_kappa_vs_gold", float("nan"))
-        claude_k = claude_m.get("domain_kappa_vs_gold", float("nan"))
-        inter_k = inter_model.get("domain_kappa", float("nan"))
-
-        lines.append(
-            r"The results indicate that both LLMs produce broadly comparable domain "
-            r"classifications. GPT-4o-mini achieves a domain $\kappa$ of "
-            + (f"{gpt_k:.3f}" if not np.isnan(gpt_k) else "---")
-            + r" against the gold standard, compared to Claude Sonnet's "
-            + (f"{claude_k:.3f}" if not np.isnan(claude_k) else "---")
-            + r". The inter-model agreement ($\kappa = "
-            + (f"{inter_k:.3f}" if not np.isnan(inter_k) else "---")
-            + r"$) suggests that both models interpret the classification schema "
-            r"in a consistent manner, lending support to the hypothesis that the "
-            r"annotation framework is robust to the choice of underlying LLM."
-        )
-        lines.append("")
-        lines.append(
-            r"The unknown rates for GPT-4o-mini on the domain axis ("
-            + f"{gpt_m.get('domain_unknown_rate', 0):.1%}"
-            + r") and pattern axis ("
-            + f"{gpt_m.get('pattern_unknown_rate', 0):.1%}"
-            + r") are comparable to those observed for Claude Sonnet, indicating "
-            r"that classification uncertainty is driven primarily by the inherent "
-            r"ambiguity of the task rather than model-specific limitations. In "
-            r"particular, employment-domain classification remains challenging for "
-            r"both models, consistent with the observation that Annex~III(4) "
-            r"boundaries are less clearly delineated in incident descriptions than "
-            r"those of Annex~III(5a)."
-        )
-        lines.append("")
-        lines.append(
-            r"These findings strengthen the external validity of the framework. "
-            r"The consistency across two distinct model families --- Anthropic Claude "
-            r"and OpenAI GPT --- suggests that the classification schema captures "
-            r"genuine semantic distinctions in the incident data, rather than "
-            r"artefacts of a particular model's training distribution. This is a "
-            r"necessary (though not sufficient) condition for the framework's "
-            r"adoption as a reusable FRIA evidence-gathering tool."
-        )
-        lines.append("")
-
-    return "\n".join(lines)
-
-
-# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -743,16 +631,6 @@ def main():
     os.makedirs("figures", exist_ok=True)
     plot_kappa_comparison(metrics, FIG_KAPPA)
     plot_unknown_rates(metrics, FIG_UNKNOWN)
-
-    # -----------------------------------------------------------------------
-    # LaTeX
-    # -----------------------------------------------------------------------
-    print(f"\n-- Generating LaTeX --")
-    os.makedirs(os.path.dirname(TEX_PATH), exist_ok=True)
-    latex = generate_latex(metrics, inter_model)
-    with open(TEX_PATH, "w", encoding="utf-8") as f:
-        f.write(latex)
-    print(f"  [OK] {TEX_PATH}")
 
     # -----------------------------------------------------------------------
     # Distribution summary
