@@ -8,6 +8,7 @@ numpy==1.26.4
 
 # LLM annotation (Steps 02, 11)
 anthropic==0.42.0
+openai>=1.0.0
 
 # Evaluation metrics (Steps 03, 04)
 scikit-learn==1.5.2
@@ -23,3 +24,6 @@ networkx==3.4.2
 
 # Interactive KG visualisation (Step 13)
 pyvis==0.3.2
+
+# Flask query interface (app/)
+flask>=3.0.0
