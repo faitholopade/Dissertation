@@ -15,7 +15,7 @@ import pandas as pd
 import re, os, sys
 
 if not os.path.exists("data/master_annotation_table_v01.csv"):
-    print("⚠ master_annotation_table.csv not found!")
+    print("[WARN] master_annotation_table.csv not found!")
     sys.exit(1)
 
 master = pd.read_csv("data/master_annotation_table_v01.csv", encoding="utf-8")
@@ -32,7 +32,7 @@ if not os.path.exists(aiaaic_path):
     if matches:
         aiaaic_path = matches[0]
     else:
-        print("⚠ AIAAIC incidents CSV not found!")
+        print("[WARN] AIAAIC incidents CSV not found!")
         sys.exit(1)
 
 aiaaic = pd.read_csv(aiaaic_path, header=1, encoding="utf-8",
@@ -109,7 +109,7 @@ target = 40
 expansion = candidates.head(target)
 
 print(f"\n  Selected {len(expansion)} new AIAAIC records")
-print(f"  Score range: {expansion['_score'].min()} – {expansion['_score'].max()}")
+print(f"  Score range: {expansion['_score'].min()} - {expansion['_score'].max()}")
 print(f"\n  Selected records:")
 for i, (_, row) in enumerate(expansion.iterrows()):
     print(f"    [{row['_score']}] {str(row['AIAAIC ID#']):12s} {str(row['Headline'])[:70]}")

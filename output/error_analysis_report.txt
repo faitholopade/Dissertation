@@ -8,156 +8,156 @@
 ====================================================================
 
   Method: LLM_gold_file  (81 disagreements)
-  ──────────────────────────────────────────────────
+  --------------------------------------------------
     [31] LLM_gold_rights_over_under
          AIAAIC2125      Chinese hackers use Anthropic AI agent to attack foreig
-           manual: PRIVACY  →  pred: OTHER
+           manual: PRIVACY  ->  pred: OTHER
          AIAAIC2125      Chinese hackers use Anthropic AI agent to attack foreig
-           manual: PRIVACY  →  pred: OTHER
+           manual: PRIVACY  ->  pred: OTHER
          AIAAIC2125      Chinese hackers use Anthropic AI agent to attack foreig
-           manual: PRIVACY  →  pred: OTHER
+           manual: PRIVACY  ->  pred: OTHER
          ... and 28 more
     [16] LLM_gold_rights_over
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: OTHER  →  pred: NON_DISCRIMINATION;OTHER
+           manual: OTHER  ->  pred: NON_DISCRIMINATION;OTHER
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: OTHER  →  pred: NON_DISCRIMINATION;OTHER
+           manual: OTHER  ->  pred: NON_DISCRIMINATION;OTHER
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: NON_DISCRIMINATION  →  pred: NON_DISCRIMINATION;OTHER
+           manual: NON_DISCRIMINATION  ->  pred: NON_DISCRIMINATION;OTHER
          ... and 13 more
     [15] LLM_gold_misses_employment
          AIAAIC2054      Claude Opus 4 AI agent blackmails supervisor to prevent
-           manual: employment  →  pred: unknown
+           manual: employment  ->  pred: unknown
          AIAAIC2054      Claude Opus 4 AI agent blackmails supervisor to prevent
-           manual: employment  →  pred: unknown
+           manual: employment  ->  pred: unknown
          AIAAIC2054      Claude Opus 4 AI agent blackmails supervisor to prevent
-           manual: employment  →  pred: unknown
+           manual: employment  ->  pred: unknown
          ... and 12 more
     [ 8] LLM_gold_misses_essential_services
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: essential_services  →  pred: unknown
+           manual: essential_services  ->  pred: unknown
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: essential_services  →  pred: unknown
+           manual: essential_services  ->  pred: unknown
          AIAAIC1642      Utah online dispute resolution system benefits lenders 
-           manual: essential_services  →  pred: unknown
+           manual: essential_services  ->  pred: unknown
          ... and 5 more
     [ 5] LLM_gold_partial_match
          AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          AIAAIC1647      UK government accused of COVID-19 recovery funding algo
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          ... and 2 more
     [ 4] LLM_gold_domain_swap
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: employment  →  pred: essential_services
+           manual: employment  ->  pred: essential_services
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: employment  →  pred: essential_services
+           manual: employment  ->  pred: essential_services
          AIAAIC1768      Inaccuracies reveal child protection worker used ChatGP
-           manual: employment  →  pred: essential_services
+           manual: employment  ->  pred: essential_services
          ... and 1 more
     [ 2] LLM_gold_misses_both
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: both  →  pred: unknown
+           manual: both  ->  pred: unknown
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: both  →  pred: unknown
+           manual: both  ->  pred: unknown
 
   Method: LLM_v2  (16 disagreements)
-  ──────────────────────────────────────────────────
+  --------------------------------------------------
     [ 5] LLM_v2_partial_match
          AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          AIAAIC1647      UK government accused of COVID-19 recovery funding algo
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          ... and 2 more
     [ 4] LLM_v2_misses_essential_services
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: essential_services  →  pred: unknown
+           manual: essential_services  ->  pred: unknown
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: essential_services  →  pred: unknown
+           manual: essential_services  ->  pred: unknown
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: essential_services  →  pred: unknown
+           manual: essential_services  ->  pred: unknown
          ... and 1 more
     [ 3] LLM_v2_domain_swap
          AIAAIC1648      DWP Kickstart "gateway" firms with no trading history a
-           manual: employment  →  pred: essential_services
+           manual: employment  ->  pred: essential_services
          AIAAIC1768      Inaccuracies reveal child protection worker used ChatGP
-           manual: employment  →  pred: essential_services
+           manual: employment  ->  pred: essential_services
          AIAAIC1768      Inaccuracies reveal child protection worker used ChatGP
-           manual: employment  →  pred: essential_services
+           manual: employment  ->  pred: essential_services
     [ 2] LLM_v2_misses_employment
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: employment  →  pred: unknown
+           manual: employment  ->  pred: unknown
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: employment  →  pred: unknown
+           manual: employment  ->  pred: unknown
     [ 2] LLM_v2_misses_both
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: both  →  pred: unknown
+           manual: both  ->  pred: unknown
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: both  →  pred: unknown
+           manual: both  ->  pred: unknown
 
   Method: hybrid  (16 disagreements)
-  ──────────────────────────────────────────────────
+  --------------------------------------------------
     [ 7] hybrid_partial_match
          AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          AIAAIC1647      UK government accused of COVID-19 recovery funding algo
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          ... and 4 more
     [ 5] hybrid_domain_swap
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: essential_services  →  pred: employment
+           manual: essential_services  ->  pred: employment
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: essential_services  →  pred: employment
+           manual: essential_services  ->  pred: employment
          AIAAIC1648      DWP Kickstart "gateway" firms with no trading history a
-           manual: employment  →  pred: essential_services
+           manual: employment  ->  pred: essential_services
          ... and 2 more
     [ 2] hybrid_misses_essential_services
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: essential_services  →  pred: unknown
+           manual: essential_services  ->  pred: unknown
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: essential_services  →  pred: unknown
+           manual: essential_services  ->  pred: unknown
     [ 2] hybrid_misses_employment
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: employment  →  pred: unknown
+           manual: employment  ->  pred: unknown
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: employment  →  pred: unknown
+           manual: employment  ->  pred: unknown
 
   Method: keyword  (16 disagreements)
-  ──────────────────────────────────────────────────
+  --------------------------------------------------
     [ 7] keyword_partial_match
          AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          AIAAIC2020      DOGE uses faulty AI to cut Veterans Affairs contracts
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          AIAAIC1647      UK government accused of COVID-19 recovery funding algo
-           manual: both  →  pred: essential_services
+           manual: both  ->  pred: essential_services
          ... and 4 more
     [ 4] keyword_domain_swap
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: essential_services  →  pred: employment
+           manual: essential_services  ->  pred: employment
          AIAAIC1935      White House appears to use AI to calculate tariff rates
-           manual: essential_services  →  pred: employment
+           manual: essential_services  ->  pred: employment
          AIAAIC1768      Inaccuracies reveal child protection worker used ChatGP
-           manual: employment  →  pred: essential_services
+           manual: employment  ->  pred: essential_services
          ... and 1 more
     [ 3] keyword_misses_employment
          AIAAIC1648      DWP Kickstart "gateway" firms with no trading history a
-           manual: employment  →  pred: unknown
+           manual: employment  ->  pred: unknown
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: employment  →  pred: unknown
+           manual: employment  ->  pred: unknown
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: employment  →  pred: unknown
+           manual: employment  ->  pred: unknown
     [ 2] keyword_misses_essential_services
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: essential_services  →  pred: unknown
+           manual: essential_services  ->  pred: unknown
          AIAAIC2049      Deloitte Australia fined for AI error-strewn government
-           manual: essential_services  →  pred: unknown
+           manual: essential_services  ->  pred: unknown
 
   Error category distribution (all methods combined):
      31  LLM_gold_rights_over_under
@@ -186,7 +186,7 @@
 ====================================================================
 
   CONFUSION MATRIX: Annex Domain (rows=keyword, cols=LLM)
-  ──────────────────────────────────────────────────
+  --------------------------------------------------
                     employment  essential_services  unknown
 employment                   9                   1        6
 essential_services           2                  74       19
@@ -203,7 +203,7 @@ essential_services       0.91      0.78      0.84        95
          macro avg       0.77      0.73      0.73       150
       weighted avg       0.81      0.77      0.78       150
 
-  Cohen's κ (domain): 0.588
+  Cohen's kappa (domain): 0.588
 
   Domain disagreements: 34 / 150
     Title:   ELIS Evidence Classifier Machine Learning (ML) Tagging Solution
@@ -248,7 +248,7 @@ essential_services       0.91      0.78      0.84        95
 
 
   CONFUSION MATRIX: System Pattern (rows=keyword, cols=LLM)
-  ──────────────────────────────────────────────────
+  --------------------------------------------------
                         chatbot  classification_triage  llm_assisted_screening  llm_decision_support  not_llm  profiling_scoring  resource_allocation  summary_assistant  surveillance_monitor  unknown
 chatbot                       0                      0                       0                     0        0                  0                    0                  0                     0        0
 classification_triage         0                      0                       0                     0        0                  0                    0                  0                     0        0
@@ -279,7 +279,7 @@ llm_assisted_screening       0.00      0.00      0.00         3
              macro avg       0.15      0.23      0.15       150
           weighted avg       0.39      0.29      0.29       150
 
-  Cohen's κ (pattern): 0.078
+  Cohen's kappa (pattern): 0.078
 
 ====================================================================
   PER-LABEL AGREEMENT: Rights
@@ -310,7 +310,7 @@ llm_assisted_screening       0.00      0.00      0.00         3
      domain language (e.g. 'public assistance' not 'welfare').
 
   3. Domain boundary confusion (16 instances)
-     Employment ↔ essential services swaps.  Reflects genuine
+     Employment <-> essential services swaps.  Reflects genuine
      ambiguity at the Annex III boundary — e.g. a government HR
      tool could fall under Annex III/4 or Annex III/5a.
 

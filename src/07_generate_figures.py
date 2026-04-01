@@ -53,7 +53,7 @@ def load_data():
             df = pd.read_csv(path)
             print(f"Loaded {len(df)} records from {path}")
             return df
-    print("⚠ No annotation table found!")
+    print("[WARN] No annotation table found!")
     sys.exit(1)
 
 
@@ -182,7 +182,7 @@ def fig_unknown_rates(df):
 
 def fig_confusion_heatmap(df, kw_col, llm_col, title, filename):
     if kw_col not in df.columns or llm_col not in df.columns:
-        print(f"  ⚠ Skipping {filename}: columns not found")
+        print(f"  [WARN] Skipping {filename}: columns not found")
         return
 
     from sklearn.metrics import confusion_matrix as cm_func
@@ -237,7 +237,7 @@ def fig_kappa_summary(df):
             if "kappa" in edf.columns:
                 for _, row in edf.iterrows():
                     label = row.get("label", row.get("Dimension", ""))
-                    kappa = row.get("kappa", row.get("Cohen's κ", 0))
+                    kappa = row.get("kappa", row.get("Cohen's kappa", 0))
                     try:
                         kappa = float(kappa)
                     except (ValueError, TypeError):
@@ -271,7 +271,7 @@ def fig_kappa_summary(df):
                     pass
 
     if not eval_data:
-        print("  ⚠ No evaluation data for kappa summary")
+        print("  [WARN] No evaluation data for kappa summary")
         return
 
     edf = pd.DataFrame(eval_data)
@@ -288,9 +288,9 @@ def fig_kappa_summary(df):
 
     for bar, val in zip(bars, edf["kappa"]):
         ax.text(max(val + 0.02, 0.02), bar.get_y() + bar.get_height()/2,
-                f"κ={val:.3f}", va="center", fontsize=9)
+                f"kappa={val:.3f}", va="center", fontsize=9)
 
-    ax.set_xlabel("Cohen's κ")
+    ax.set_xlabel("Cohen's kappa")
     ax.set_title("Inter-Method Agreement (Cohen's Kappa) Across Dimensions")
     ax.legend(loc="lower right", fontsize=9)
     ax.set_xlim(-0.4, 1.0)
@@ -360,7 +360,7 @@ def fig_rights_harms_heatmap(df):
                     cooc[ri, hi] += 1
 
     if cooc.sum() == 0:
-        print("  ⚠ No co-occurrence data for rights×harms heatmap")
+        print("  [WARN] No co-occurrence data for rights×harms heatmap")
         return
 
     fig, ax = plt.subplots(figsize=(9, 6))
@@ -439,7 +439,7 @@ def fig_agreement_bars(df, dimension="rights"):
         plt.close()
         print(f"  [OK] {filename}")
     else:
-        print(f"  ⚠ Insufficient data for {filename}")
+        print(f"  [WARN] Insufficient data for {filename}")
 
 
 def fig_pipeline_flow():
@@ -451,9 +451,9 @@ def fig_pipeline_flow():
     boxes = [
         (0.5, 1.5, "Data\nSources", "#E8F5E9", "AIAAIC\nUSFED\nECtHR"),
         (2.8, 1.5, "Keyword\nFilter", "#E3F2FD", "Employment\nBenefits\nPublic sector"),
-        (5.1, 1.5, "Annotation\nTable", "#FFF3E0", f"≥150 records\n6 dimensions"),
+        (5.1, 1.5, "Annotation\nTable", "#FFF3E0", f">=150 records\n6 dimensions"),
         (7.4, 1.5, "LLM\nAnnotation", "#F3E5F5", "GPT-4o\nFew-shot\nJSON mode"),
-        (9.7, 1.5, "Hybrid\nMerge", "#E8EAF6", "KW ∪ LLM\nReduce unknowns"),
+        (9.7, 1.5, "Hybrid\nMerge", "#E8EAF6", "KW U LLM\nReduce unknowns"),
         (12.0, 1.5, "Evaluation\n& Export", "#FFEBEE", "Gold eval\nJSON-LD\nFigures"),
     ]
 

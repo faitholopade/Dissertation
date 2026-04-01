@@ -25,7 +25,7 @@ try:
     HAS_SKLEARN = True
 except ImportError:
     HAS_SKLEARN = False
-    print("  ⚠  sklearn not available — Part B metrics will be limited")
+    print("  [WARN]  sklearn not available — Part B metrics will be limited")
 
 
 BASE = Path(__file__).resolve().parent.parent
@@ -246,7 +246,7 @@ def part_b_full_table(df, report):
             labels=domain_labels, title="Annex Domain",
         )
         log(f"\n  CONFUSION MATRIX: Annex Domain (rows=keyword, cols=LLM)")
-        log(f"  {'─' * 50}")
+        log(f"  {'-' * 50}")
         log(cm_domain.to_string())
 
         cr = classification_report(
@@ -257,7 +257,7 @@ def part_b_full_table(df, report):
         log(cr)
 
         kappa = cohen_kappa_score(df["annex_domain"], df[llm_dom_col])
-        log(f"  Cohen's κ (domain): {kappa:.3f}")
+        log(f"  Cohen's kappa (domain): {kappa:.3f}")
 
         disag = analyse_disagreements(df, "annex_domain", llm_dom_col)
         log(f"\n  Domain disagreements: {len(disag)} / {len(df)}")
@@ -279,7 +279,7 @@ def part_b_full_table(df, report):
             labels=pattern_labels, title="System Pattern",
         )
         log(f"\n  CONFUSION MATRIX: System Pattern (rows=keyword, cols=LLM)")
-        log(f"  {'─' * 50}")
+        log(f"  {'-' * 50}")
         log(cm_pattern.to_string())
 
         cr2 = classification_report(
@@ -290,14 +290,14 @@ def part_b_full_table(df, report):
         log(cr2)
 
         kappa2 = cohen_kappa_score(df["system_pattern"], df[llm_pat_col])
-        log(f"  Cohen's κ (pattern): {kappa2:.3f}")
+        log(f"  Cohen's kappa (pattern): {kappa2:.3f}")
 
     return cm_domain, cm_pattern, disag
 
 
 def rights_harms_analysis(df, kw_col, llm_col, all_labels, name, report):
     if kw_col not in df.columns or llm_col not in df.columns:
-        report.append(f"\n  ⚠  Skipping {name} — columns not found")
+        report.append(f"\n  [WARN]  Skipping {name} — columns not found")
         return pd.DataFrame()
 
     def log(msg):
@@ -364,7 +364,7 @@ def part_d_themes(error_counter, report):
 
     if swap:
         log(f"\n  3. Domain boundary confusion ({swap} instances)")
-        log("     Employment ↔ essential services swaps.  Reflects genuine")
+        log("     Employment <-> essential services swaps.  Reflects genuine")
         log("     ambiguity at the Annex III boundary — e.g. a government HR")
         log("     tool could fall under Annex III/4 or Annex III/5a.")
 
@@ -387,7 +387,7 @@ def make_figures(error_counter, disagreements):
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
     except ImportError:
-        print("  ⚠  matplotlib not available — skipping figures")
+        print("  [WARN]  matplotlib not available — skipping figures")
         return
 
     FIG_DIR.mkdir(parents=True, exist_ok=True)
@@ -480,7 +480,7 @@ def main():
 
     for method, items in sorted(by_method.items()):
         report.append(f"\n  Method: {method}  ({len(items)} disagreements)")
-        report.append(f"  {'─' * 50}")
+        report.append(f"  {'-' * 50}")
         by_cat = defaultdict(list)
         for item in items:
             by_cat[item["error_category"]].append(item)
@@ -488,7 +488,7 @@ def main():
             report.append(f"    [{len(cat_items):2d}] {cat}")
             for ci in cat_items[:3]:
                 report.append(f"         {ci['record_id']:14s}  {ci['title'][:55]}")
-                report.append(f"           manual: {ci['manual_label']}  →  pred: {ci['predicted_label']}")
+                report.append(f"           manual: {ci['manual_label']}  ->  pred: {ci['predicted_label']}")
             if len(cat_items) > 3:
                 report.append(f"         ... and {len(cat_items) - 3} more")
 

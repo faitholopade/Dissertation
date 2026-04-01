@@ -18,7 +18,7 @@ try:
     from anthropic import Anthropic
     client = Anthropic()
 except ImportError:
-    print("⚠  anthropic package not installed. Run: pip install anthropic")
+    print("[WARN]  anthropic package not installed. Run: pip install anthropic")
     sys.exit(1)
 
 MODEL = "claude-sonnet-4-20250514"
@@ -45,7 +45,7 @@ Your task is to classify AI incident/use-case records against the EU AI Act Anne
 
 CLASSIFICATION SCHEMA:
 
-1. annex_domain (SINGLE LABEL – pick the BEST fit):
+1. annex_domain (SINGLE LABEL - pick the BEST fit):
    - "employment": The AI system is used for recruitment, selection, CV screening, candidate
      evaluation, workplace monitoring, performance evaluation, task allocation, promotion/termination
      decisions, or any other worker management function (Annex III(4)).
@@ -57,7 +57,7 @@ CLASSIFICATION SCHEMA:
      decisions, or welfare fraud detection that affects eligibility (Annex III(5a)).
    - "unknown": Only if genuinely impossible to determine from the available text.
 
-2. system_pattern (SINGLE LABEL – pick the BEST fit):
+2. system_pattern (SINGLE LABEL - pick the BEST fit):
    - "llm_decision_support": System uses a large language model or generative AI to assist,
      inform, or automate decisions. Look for: ChatGPT, GPT, Gemini, Claude, LLM, generative AI,
      AI-powered chatbot providing substantive advice, AI-generated risk assessments.
@@ -190,7 +190,7 @@ Description: {description[:1500]}"""
         return result
 
     except Exception as e:
-        print(f"  ⚠ API error: {e}")
+        print(f"  [WARN] API error: {e}")
         time.sleep(2)
         return {
             "annex_domain": "unknown", "system_pattern": "unknown",
@@ -205,7 +205,7 @@ def main():
             print(f"Loaded {len(df)} rows from {path}")
             break
     else:
-        print("⚠  No master annotation table found!")
+        print("[WARN]  No master annotation table found!")
         sys.exit(1)
 
     title_col = "title" if "title" in df.columns else df.columns[0]

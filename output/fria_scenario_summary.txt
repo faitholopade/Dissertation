@@ -35,7 +35,7 @@
 | AIAAIC   | AIAAIC1509                                                      | US Veterans Affairs suicide prevention algorithm favours white men                  | essential_services | unknown          | access_social_protection;privacy_data_protection;non_discrimination                     | unfair_exclusion                           | essential_services       | profiling_scoring          |
 | AIAAIC   | AIAAIC1388                                                      | UK robo review 'unfairly' targets Bulgarians, Poles for benefit fraud investigation | essential_services | unknown          | access_social_protection;privacy_data_protection;good_administration;non_discrimination | unfair_exclusion;procedural_unfairness     | essential_services       | profiling_scoring          |
 
-  → 57 total matching records
+  -> 57 total matching records
 
   Domain distribution:  {'essential_services': 56, 'employment': 1}
   Pattern distribution: {'profiling_scoring': 45, 'classification_triage': 9, 'resource_allocation': 2, 'surveillance_monitor': 1}
@@ -70,7 +70,7 @@
 | AIAAIC   | AIAAIC2114                                   | Facebook job ad algorithm ruled sexist by French regulator                    | employment         | profiling_scoring    | non_discrimination;good_administration                         | other                                | employment               | not_llm                    |
 | AIAAIC   | AIAAIC1510                                   | Youth advocacy worker misidentified by Met Police facial recognition system   | employment         | surveillance_monitor | other                                                          | other                                | employment               | surveillance_monitor       |
 
-  → 17 total matching records
+  -> 17 total matching records
 
   Domain distribution:  {'employment': 16, 'essential_services': 1}
   Pattern distribution: {'surveillance_monitor': 4, 'not_llm': 3, 'profiling_scoring': 3, 'llm_decision_support': 2, 'resource_allocation': 2, 'chatbot': 1, 'unknown': 1, 'llm_assisted_screening': 1}
@@ -105,7 +105,7 @@
 | AIAAIC   | AIAAIC1446  | Greece fined for AI-powered asylum centre monitoring system               | essential_services | surveillance_monitor | privacy_data_protection                                             | other                                | essential_services       | surveillance_monitor       |
 | AIAAIC   | AIAAIC1450  | MEP files lawsuit to release iBorderCtrl lie detection system documents   | essential_services | surveillance_monitor | non_discrimination;good_administration                              | other                                | essential_services       | profiling_scoring          |
 
-  → 24 total matching records
+  -> 24 total matching records
 
   Domain distribution:  {'essential_services': 14, 'unknown': 5, 'employment': 5}
   Pattern distribution: {'surveillance_monitor': 19, 'profiling_scoring': 2, 'llm_assisted_screening': 1, 'not_llm': 1, 'llm_decision_support': 1}
@@ -140,7 +140,7 @@
 | AIAAIC   | AIAAIC1855                                                                                                                                           | Taiwanese AI repeats Chinese government line                                                                                                         | unknown            | unknown                | other                                                                                   | other                                      | unknown                  | llm_decision_support       |
 | AIAAIC   | AIAAIC1321                                                                                                                                           | Deepfake CFO scams finance worker for USD 25 million                                                                                                 | essential_services | unknown                | good_administration                                                                     | other                                      | essential_services       | llm_decision_support       |
 
-  → 21 total matching records
+  -> 21 total matching records
 
   Domain distribution:  {'essential_services': 12, 'unknown': 5, 'employment': 4}
   Pattern distribution: {'llm_decision_support': 11, 'summary_assistant': 4, 'chatbot': 2, 'profiling_scoring': 2, 'not_llm': 1, 'llm_assisted_screening': 1}
@@ -174,7 +174,7 @@
 | AIAAIC   | AIAAIC0605                                                      | NDIS independent assessments ditched by Australian government                       | unknown            | unknown          | non_discrimination                                                                      | unfair_exclusion                           | essential_services       | profiling_scoring          |
 | AIAAIC   | AIAAIC1576                                                      | DWP algorithm wrongly flags 200,000 people for possible fraud and error             | essential_services | unknown          | access_social_protection;privacy_data_protection                                        | misinformation_error                       | essential_services       | profiling_scoring          |
 
-  → 50 total matching records
+  -> 50 total matching records
 
   Domain distribution:  {'essential_services': 46, 'employment': 3, 'unknown': 1}
   Pattern distribution: {'profiling_scoring': 47, 'not_llm': 1, 'classification_triage': 1, 'surveillance_monitor': 1}

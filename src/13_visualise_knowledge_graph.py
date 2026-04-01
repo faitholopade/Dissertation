@@ -205,7 +205,7 @@ def export_html(G, outpath):
     legend_html = '<div style="position:fixed;top:10px;right:10px;background:rgba(0,0,0,0.7);padding:12px;border-radius:8px;z-index:999;">'
     legend_html += '<b style="color:white;font-size:14px;">FRIA Knowledge Graph</b><br>'
     for ntype, style in NODE_STYLE.items():
-        legend_html += f'<span style="color:{style["color"]};font-size:12px;">● {ntype}</span><br>'
+        legend_html += f'<span style="color:{style["color"]};font-size:12px;">* {ntype}</span><br>'
     legend_html += '<br><span style="color:#aaa;font-size:10px;">Scroll to zoom · Drag to pan · Click nodes to explore</span>'
     legend_html += '</div>'
 
@@ -248,7 +248,7 @@ def export_html_standalone(G, outpath):
         })
 
     legend_items = "".join(
-        f'<span style="color:{s["color"]}">● {t}</span><br>'
+        f'<span style="color:{s["color"]}">* {t}</span><br>'
         for t, s in NODE_STYLE.items()
     )
 

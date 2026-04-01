@@ -34,7 +34,7 @@ def export():
             print(f"Loaded {len(df)} rows from {path}")
             break
     else:
-        print("⚠ No annotation table found!")
+        print("[WARN] No annotation table found!")
         sys.exit(1)
 
     context = load_context()

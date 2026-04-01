@@ -71,7 +71,7 @@ root_cause — the PRIMARY factor that led to the incident or risk. Pick ONE:
   • policy_gap           — absence of regulation, unclear rules, legal loophole
   • unknown              — text does not contain enough information to determine
 
-mitigation_reported — a SHORT (≤30 words) summary of any corrective action,
+mitigation_reported — a SHORT (<=30 words) summary of any corrective action,
   company response, regulatory action, or system withdrawal mentioned.
   If nothing is mentioned, return exactly "none_reported".
 

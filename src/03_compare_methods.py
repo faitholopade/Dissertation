@@ -56,7 +56,7 @@ def main():
             print(f"Loaded {len(df)} rows from {path}")
             break
     else:
-        print("⚠ No LLM-annotated table found!")
+        print("[WARN] No LLM-annotated table found!")
         sys.exit(1)
 
     results = []
@@ -73,7 +73,7 @@ def main():
         if c1 in df.columns and c2 in df.columns:
             r = compare_single(df, c1, c2, label)
             results.append(r)
-            print(f"  {label}: agree={r['pct_agree']:.3f}, κ={r['kappa']:.3f}")
+            print(f"  {label}: agree={r['pct_agree']:.3f}, kappa={r['kappa']:.3f}")
 
     print("\n" + "=" * 60)
     print("SYSTEM PATTERN COMPARISONS")
@@ -87,7 +87,7 @@ def main():
         if c1 in df.columns and c2 in df.columns:
             r = compare_single(df, c1, c2, label)
             results.append(r)
-            print(f"  {label}: agree={r['pct_agree']:.3f}, κ={r['kappa']:.3f}")
+            print(f"  {label}: agree={r['pct_agree']:.3f}, kappa={r['kappa']:.3f}")
 
     print("\n" + "=" * 60)
     print("DISTRIBUTION SUMMARIES")
@@ -113,7 +113,7 @@ def main():
                 unk = (df[col] == "unknown").sum()
                 rates[label] = f"{unk}/{len(df)} ({unk/len(df):.1%})"
         if rates:
-            print(f"  {dim}: " + " → ".join(f"{k}: {v}" for k, v in rates.items()))
+            print(f"  {dim}: " + " -> ".join(f"{k}: {v}" for k, v in rates.items()))
 
     results_df = pd.DataFrame(results)
     results_df.to_csv("output/method_comparison_results_v2.csv", index=False)

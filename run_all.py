@@ -18,8 +18,8 @@ required_files = {
     "src/05_schema_definition.py":  "Schema generation",
     "src/06_export_semantic.py":    "JSON-LD export",
     "src/07_generate_figures.py":   "Figure generation",
-    "src/sparql_demo.py":           "SPARQL query demo",
-    "src/multi_model_comparison.py": "Multi-model comparison",
+    "src/14_sparql_demo.py":           "SPARQL query demo",
+    "src/15_multi_model_comparison.py": "Multi-model comparison",
 }
 
 required_data = {
@@ -63,8 +63,8 @@ steps = [
     ("STEP 10: Regulatory crosswalk",               "src/10_regulatory_crosswalk.py"),
     ("STEP 11: Chain-of-events + mitigation extraction", "src/11_chain_of_events.py"),
     ("STEP 12: Knowledge graph construction",        "src/12_knowledge_graph.py"),
-    ("STEP 14: SPARQL query demonstrations",         "src/sparql_demo.py"),
-    ("STEP 15: Multi-model LLM comparison",          "src/multi_model_comparison.py"),
+    ("STEP 14: SPARQL query demonstrations",         "src/14_sparql_demo.py"),
+    ("STEP 15: Multi-model LLM comparison",          "src/15_multi_model_comparison.py"),
 ]
 
 results = []

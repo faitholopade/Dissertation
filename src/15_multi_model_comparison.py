@@ -67,7 +67,7 @@ Your task is to classify AI incident/use-case records against the EU AI Act Anne
 
 CLASSIFICATION SCHEMA:
 
-1. annex_domain (SINGLE LABEL – pick the BEST fit):
+1. annex_domain (SINGLE LABEL - pick the BEST fit):
    - "employment": The AI system is used for recruitment, selection, CV screening, candidate
      evaluation, workplace monitoring, performance evaluation, task allocation, promotion/termination
      decisions, or any other worker management function (Annex III(4)).
@@ -79,7 +79,7 @@ CLASSIFICATION SCHEMA:
      decisions, or welfare fraud detection that affects eligibility (Annex III(5a)).
    - "unknown": Only if genuinely impossible to determine from the available text.
 
-2. system_pattern (SINGLE LABEL – pick the BEST fit):
+2. system_pattern (SINGLE LABEL - pick the BEST fit):
    - "llm_decision_support": System uses a large language model or generative AI to assist,
      inform, or automate decisions. Look for: ChatGPT, GPT, Gemini, Claude, LLM, generative AI,
      AI-powered chatbot providing substantive advice, AI-generated risk assessments.
@@ -344,7 +344,7 @@ def plot_kappa_comparison(metrics, output_path):
                                                   for m in metrics], edgecolor="black",
                   linewidth=0.5)
 
-    ax.set_ylabel("Cohen's κ (vs gold standard)")
+    ax.set_ylabel("Cohen's kappa (vs gold standard)")
     ax.set_title("Domain Classification Agreement with Gold Standard")
     ax.set_xticks(x)
     ax.set_xticklabels(methods, rotation=15, ha="right")

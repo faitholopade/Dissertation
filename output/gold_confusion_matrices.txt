@@ -1,8 +1,8 @@
 GOLD-STANDARD EVALUATION REPORT
 ============================================================
 
-Employment (manual vs LLM): agree=0.623, κ=0.045, F1=0.071
-Essential (manual vs LLM): agree=0.797, κ=0.525, F1=0.667
+Employment (manual vs LLM): agree=0.623, kappa=0.045, F1=0.071
+Essential (manual vs LLM): agree=0.797, kappa=0.525, F1=0.667
 
 Full results:
             comparison          dimension  n  pct_agree  kappa  precision  recall     f1

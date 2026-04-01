@@ -1,4 +1,4 @@
-# FRIA Risk Record Schema – Design Documentation
+# FRIA Risk Record Schema - Design Documentation
 
 ## Purpose
 This schema defines a lightweight ontology for representing AI risk records
@@ -20,47 +20,47 @@ Assessments (FRIA).
 
 ```
 dpv-risk:RiskAssessment
-  └── fria:RiskRecord
-        ├── fria:annexDomain → fria:AnnexDomain
-        │     ├── fria:Employment (Annex III(4))
-        │     └── fria:EssentialServices (Annex III(5a))
-        ├── fria:systemPattern → fria:SystemPattern
-        │     ├── fria:LLMDecisionSupport
-        │     ├── fria:LLMAssistedScreening
-        │     ├── fria:Chatbot
-        │     ├── fria:SummaryAssistant
-        │     ├── fria:SurveillanceMonitor
-        │     ├── fria:ProfilingScoring
-        │     ├── fria:ClassificationTriage
-        │     ├── fria:ResourceAllocation
-        │     └── fria:TraditionalML
-        ├── fria:rightsImpacted → dpv:Right
-        │     ├── dpv-rights:A21-NonDiscrimination
-        │     ├── dpv-rights:A8-ProtectionOfPersonalData
-        │     ├── dpv-rights:A34-SocialSecurityAndAssistance
-        │     └── dpv-rights:A41-RightToGoodAdministration
-        ├── fria:harmsIdentified → dpv-risk:Harm
-        │     ├── dpv-risk:Discrimination (unfair_exclusion)
-        │     ├── dpv-risk:DataBreach (privacy_breach)
-        │     ├── dpv-risk:MisinformationDissemination
-        │     └── dpv-risk:ViolationOfRights (procedural_unfairness)
-        └── fria:annotationMethod → fria:AnnotationMethod
-              ├── fria:KeywordAnnotation
-              ├── fria:LLMAnnotation
-              ├── fria:HybridAnnotation
-              └── fria:ManualAnnotation
+  +-- fria:RiskRecord
+        +-- fria:annexDomain -> fria:AnnexDomain
+        |     +-- fria:Employment (Annex III(4))
+        |     +-- fria:EssentialServices (Annex III(5a))
+        +-- fria:systemPattern -> fria:SystemPattern
+        |     +-- fria:LLMDecisionSupport
+        |     +-- fria:LLMAssistedScreening
+        |     +-- fria:Chatbot
+        |     +-- fria:SummaryAssistant
+        |     +-- fria:SurveillanceMonitor
+        |     +-- fria:ProfilingScoring
+        |     +-- fria:ClassificationTriage
+        |     +-- fria:ResourceAllocation
+        |     +-- fria:TraditionalML
+        +-- fria:rightsImpacted -> dpv:Right
+        |     +-- dpv-rights:A21-NonDiscrimination
+        |     +-- dpv-rights:A8-ProtectionOfPersonalData
+        |     +-- dpv-rights:A34-SocialSecurityAndAssistance
+        |     +-- dpv-rights:A41-RightToGoodAdministration
+        +-- fria:harmsIdentified -> dpv-risk:Harm
+        |     +-- dpv-risk:Discrimination (unfair_exclusion)
+        |     +-- dpv-risk:DataBreach (privacy_breach)
+        |     +-- dpv-risk:MisinformationDissemination
+        |     +-- dpv-risk:ViolationOfRights (procedural_unfairness)
+        +-- fria:annotationMethod -> fria:AnnotationMethod
+              +-- fria:KeywordAnnotation
+              +-- fria:LLMAnnotation
+              +-- fria:HybridAnnotation
+              +-- fria:ManualAnnotation
 ```
 
 ## Vocabulary Alignment
 
 | Schema Concept | DPV Equivalent | VAIR Equivalent | EU AI Act Reference |
 |---|---|---|---|
-| `fria:Employment` | – | `vair:Employment` | Annex III(4) |
-| `fria:EssentialServices` | – | `vair:EssentialServices` | Annex III(5a) |
-| `fria:rightsImpacted` | `dpv:hasRight` | – | Art. 27 FRIA |
+| `fria:Employment` | - | `vair:Employment` | Annex III(4) |
+| `fria:EssentialServices` | - | `vair:EssentialServices` | Annex III(5a) |
+| `fria:rightsImpacted` | `dpv:hasRight` | - | Art. 27 FRIA |
 | `fria:harmsIdentified` | `dpv-risk:hasRisk` | `vair:hasHarm` | Recital 48 |
-| `fria:ProfilingScoring` | `dpv-tech:Profiling` | – | Art. 6(2) |
-| `fria:SurveillanceMonitor` | `dpv-tech:Surveillance` | – | Annex III(1) |
+| `fria:ProfilingScoring` | `dpv-tech:Profiling` | - | Art. 6(2) |
+| `fria:SurveillanceMonitor` | `dpv-tech:Surveillance` | - | Annex III(1) |
 
 ## Data Sources Modelled
 

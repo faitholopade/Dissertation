@@ -72,7 +72,7 @@ def main():
 
     gold_path = find_gold_file()
     if not gold_path:
-        print("⚠ Could not find manual_vs_llm_comparison.csv!")
+        print("[WARN] Could not find manual_vs_llm_comparison.csv!")
         print("  Searched current directory and subdirectories.")
         sys.exit(1)
 
@@ -133,8 +133,8 @@ def main():
             "n": len(m), "pct_agree": round(pa, 4), "kappa": round(k, 4),
             "precision": round(p, 4), "recall": round(r, 4), "f1": round(f, 4),
         })
-        print(f"\n  Employment: n={len(m)}, agree={pa:.3f}, κ={k:.3f}, F1={f:.3f}")
-        report_lines.append(f"Employment (manual vs LLM): agree={pa:.3f}, κ={k:.3f}, F1={f:.3f}")
+        print(f"\n  Employment: n={len(m)}, agree={pa:.3f}, kappa={k:.3f}, F1={f:.3f}")
+        report_lines.append(f"Employment (manual vs LLM): agree={pa:.3f}, kappa={k:.3f}, F1={f:.3f}")
 
     if manual_ess_col and llm_ess_col:
         m = gold[manual_ess_col].apply(normalise_binary)
@@ -153,8 +153,8 @@ def main():
             "n": len(m), "pct_agree": round(pa, 4), "kappa": round(k, 4),
             "precision": round(p, 4), "recall": round(r, 4), "f1": round(f, 4),
         })
-        print(f"  Essential:  n={len(m)}, agree={pa:.3f}, κ={k:.3f}, F1={f:.3f}")
-        report_lines.append(f"Essential (manual vs LLM): agree={pa:.3f}, κ={k:.3f}, F1={f:.3f}")
+        print(f"  Essential:  n={len(m)}, agree={pa:.3f}, kappa={k:.3f}, F1={f:.3f}")
+        report_lines.append(f"Essential (manual vs LLM): agree={pa:.3f}, kappa={k:.3f}, F1={f:.3f}")
 
     print("\n" + "=" * 60)
     print("PART B: Gold (Manual) vs Keyword (matched on AIAAIC_ID)")
@@ -175,7 +175,7 @@ def main():
     def match_and_compare(gold_df, auto_df, auto_name, gold_id_col, auto_id_col,
                           manual_emp, manual_ess, auto_domain_col):
         if gold_id_col is None or auto_domain_col not in auto_df.columns:
-            print(f"  ⚠ Cannot match: missing columns")
+            print(f"  [WARN] Cannot match: missing columns")
             return []
 
         auto_id = None
@@ -220,7 +220,7 @@ def main():
             auto_domains.append(auto_domain)
 
         if len(gold_domains) < 3:
-            print(f"  ⚠ Only {len(gold_domains)} matches found for {auto_name}")
+            print(f"  [WARN] Only {len(gold_domains)} matches found for {auto_name}")
             return []
 
         pa = pct_agree(gold_domains, auto_domains)
@@ -230,7 +230,7 @@ def main():
             "comparison": f"manual_vs_{auto_name}", "dimension": "annex_domain",
             "n": len(gold_domains), "pct_agree": round(pa, 4), "kappa": round(k, 4),
         }
-        print(f"  {auto_name} domain: n={len(gold_domains)}, agree={pa:.3f}, κ={k:.3f}")
+        print(f"  {auto_name} domain: n={len(gold_domains)}, agree={pa:.3f}, kappa={k:.3f}")
 
         labels = sorted(set(gold_domains + auto_domains))
         cm = confusion_matrix(gold_domains, auto_domains, labels=labels)
@@ -281,7 +281,7 @@ def main():
             "comparison": f"manual_vs_{auto_name}", "dimension": "annex_domain",
             "n": len(gold_domains), "pct_agree": round(pa, 4), "kappa": round(k, 4),
         }
-        print(f"  {auto_name} domain (title-matched): n={len(gold_domains)}, agree={pa:.3f}, κ={k:.3f}")
+        print(f"  {auto_name} domain (title-matched): n={len(gold_domains)}, agree={pa:.3f}, kappa={k:.3f}")
         return [result]
 
     for auto_name, domain_col_options in [
@@ -318,7 +318,7 @@ def main():
             "comparison": "manual_vs_keyword_hits", "dimension": "employment",
             "n": len(m_emp), "pct_agree": round(pa, 4), "kappa": round(k, 4),
         })
-        print(f"  Employment (kw_hits>0): n={len(m_emp)}, agree={pa:.3f}, κ={k:.3f}")
+        print(f"  Employment (kw_hits>0): n={len(m_emp)}, agree={pa:.3f}, kappa={k:.3f}")
 
     if "kw_ben_hits" in gold.columns and manual_ess_col:
         kw_ess = (gold["kw_ben_hits"] > 0).map({True: "yes", False: "no"})
@@ -330,7 +330,7 @@ def main():
             "comparison": "manual_vs_keyword_hits", "dimension": "essential_services",
             "n": len(m_ess), "pct_agree": round(pa, 4), "kappa": round(k, 4),
         })
-        print(f"  Essential (kw_hits>0):  n={len(m_ess)}, agree={pa:.3f}, κ={k:.3f}")
+        print(f"  Essential (kw_hits>0):  n={len(m_ess)}, agree={pa:.3f}, kappa={k:.3f}")
 
     print("\n" + "=" * 60)
     print("SUMMARY: All Methods vs Gold Standard")
@@ -348,12 +348,12 @@ def main():
         for col in ["precision", "recall", "f1"]:
             if col in summary_df.columns:
                 summary_df[col] = summary_df[col].apply(
-                    lambda x: f"{x:.3f}" if pd.notna(x) else "–")
+                    lambda x: f"{x:.3f}" if pd.notna(x) else "-")
 
         summary_df.to_csv("output/gold_evaluation_summary.csv", index=False, encoding="utf-8")
         print("output/gold_evaluation_summary.csv")
     else:
-        print("⚠ No evaluation results produced!")
+        print("[WARN] No evaluation results produced!")
         print("  Check that gold file columns match expected format.")
 
     with open("output/gold_confusion_matrices.txt", "w", encoding="utf-8") as f:

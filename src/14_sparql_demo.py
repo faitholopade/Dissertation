@@ -17,7 +17,7 @@ from collections import defaultdict
 try:
     import rdflib
 except ImportError:
-    print("⚠  rdflib not installed. Run: pip install rdflib")
+    print("[WARN]  rdflib not installed. Run: pip install rdflib")
     sys.exit(1)
 
 from tabulate import tabulate

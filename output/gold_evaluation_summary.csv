@@ -1,8 +1,8 @@
 comparison,dimension,n,pct_agree,kappa,precision,recall,f1
 manual_vs_llm,employment,69,62.3%,0.045,1.000,0.037,0.071
 manual_vs_llm,essential_services,69,79.7%,0.525,0.778,0.583,0.667
-manual_vs_keyword,annex_domain,28,50.0%,0.246,–,–,–
-manual_vs_hybrid,annex_domain,28,50.0%,0.246,–,–,–
-manual_vs_llm_v2,annex_domain,28,42.9%,0.176,–,–,–
-manual_vs_keyword_hits,employment,69,69.6%,0.301,–,–,–
-manual_vs_keyword_hits,essential_services,69,73.9%,0.425,–,–,–
+manual_vs_keyword,annex_domain,28,50.0%,0.246,-,-,-
+manual_vs_hybrid,annex_domain,28,50.0%,0.246,-,-,-
+manual_vs_llm_v2,annex_domain,28,42.9%,0.176,-,-,-
+manual_vs_keyword_hits,employment,69,69.6%,0.301,-,-,-
+manual_vs_keyword_hits,essential_services,69,73.9%,0.425,-,-,-

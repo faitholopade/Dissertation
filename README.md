@@ -71,8 +71,8 @@ Step  Script                          Output
  11   11_chain_of_events.py           master_annotation_table_causal.csv
  12   12_knowledge_graph.py           knowledge_graph.ttl
  13   13_visualise_knowledge_graph.py  fig_knowledge_graph_full.html, .png
- 14   sparql_demo.py                  sparql_demo_results.txt
- 15   multi_model_comparison.py       multi_model_comparison.csv, figures
+ 14   14_sparql_demo.py               sparql_demo_results.txt
+ 15   15_multi_model_comparison.py    multi_model_comparison.csv, figures
 ```
 
 ```
@@ -126,8 +126,8 @@ data/ecthr/  ──┘         |                                          |
 │   ├── 01_expand_corpus.py
 │   ├── ...
 │   ├── 13_visualise_knowledge_graph.py
-│   ├── sparql_demo.py
-│   └── multi_model_comparison.py
+│   ├── 14_sparql_demo.py
+│   └── 15_multi_model_comparison.py
 │
 ├── schema/                           # Semantic schema definitions
 │   ├── fria_risk_schema.ttl          # Turtle format

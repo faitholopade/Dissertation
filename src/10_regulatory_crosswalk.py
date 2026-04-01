@@ -27,7 +27,7 @@ CROSSWALK = [
         "right_2_privacy_dp": "EU Charter Art. 8 (Data protection); GDPR Art. 22 (Automated individual decision-making); GDPR Art. 9 (Special categories)",
         "risk_indicators_privacy": "Processing of special-category data (health, ethnicity) inferred from CV; profiling without valid legal basis; lack of transparency about automated scoring",
         "fria_question": "Does the system produce or influence decisions on hiring, shortlisting, or candidate ranking? Could outputs correlate with protected characteristics?",
-        "schema_mapping": "annex_domain=employment; system_pattern∈{profiling_scoring, llm_assisted_screening}; rights∈{NON-DISCRIMINATION, PRIVACY}",
+        "schema_mapping": "annex_domain=employment; system_pattern in {profiling_scoring, llm_assisted_screening}; rights in {NON-DISCRIMINATION, PRIVACY}",
         "mitigation_examples": "Bias audit on training data; disparate-impact testing; human review of shortlists; DPIA; Art. 22 safeguards (right to explanation, human intervention)",
     },
     {
@@ -39,7 +39,7 @@ CROSSWALK = [
         "right_2_privacy_dp": "EU Charter Art. 8; GDPR Art. 5(1)(b) (Purpose limitation); GDPR Art. 6 (Lawfulness of processing)",
         "risk_indicators_privacy": "Continuous behavioural monitoring exceeding stated purpose; keystroke / productivity tracking; sentiment analysis of communications",
         "fria_question": "Does the system monitor, evaluate, or score workers in ways that affect employment terms? Is monitoring proportionate to a legitimate aim?",
-        "schema_mapping": "annex_domain=employment; system_pattern∈{surveillance_monitor, profiling_scoring}; rights∈{NON-DISCRIMINATION, PRIVACY, FAIR-WORKING-CONDITIONS}",
+        "schema_mapping": "annex_domain=employment; system_pattern in {surveillance_monitor, profiling_scoring}; rights in {NON-DISCRIMINATION, PRIVACY, FAIR-WORKING-CONDITIONS}",
         "mitigation_examples": "Proportionality review of monitoring scope; worker consultation (GDPR Art. 88); algorithmic impact assessment; opt-out for non-essential tracking",
     },
     {
@@ -51,7 +51,7 @@ CROSSWALK = [
         "right_2_privacy_dp": "EU Charter Art. 7 (Private life); Art. 8; GDPR Art. 35 (DPIA); ePrivacy Directive (electronic communications monitoring)",
         "risk_indicators_privacy": "Workplace surveillance scope creep; processing of biometric data; lack of data minimisation; no clear retention policy",
         "fria_question": "Is worker monitoring continuous or event-based? Are workers informed about data collected and how evaluations are derived?",
-        "schema_mapping": "annex_domain=employment; system_pattern=surveillance_monitor; rights∈{PRIVACY, NON-DISCRIMINATION}",
+        "schema_mapping": "annex_domain=employment; system_pattern=surveillance_monitor; rights in {PRIVACY, NON-DISCRIMINATION}",
         "mitigation_examples": "Data minimisation by design; time-limited retention; worker notification and DPIA; union/works-council consultation",
     },
     {
@@ -59,11 +59,11 @@ CROSSWALK = [
         "annex_domain": "essential_services",
         "obligation_scope": "AI by public authorities to evaluate eligibility for essential public assistance benefits and services, including healthcare services",
         "right_1_nondiscrimination": "EU Charter Art. 21 (Non-discrimination); Art. 34 (Social security / social assistance); Art. 35 (Healthcare); Racial Equality Directive 2000/43/EC Art. 3(1)(e)",
-        "risk_indicators_nondiscrimination": "Proxy discrimination in eligibility scoring (e.g., postal code → ethnicity); under-representation of minority applicants in training data; algorithmic exclusion of vulnerable groups",
+        "risk_indicators_nondiscrimination": "Proxy discrimination in eligibility scoring (e.g., postal code -> ethnicity); under-representation of minority applicants in training data; algorithmic exclusion of vulnerable groups",
         "right_2_privacy_dp": "EU Charter Art. 8; GDPR Art. 9 (Health data, social-benefit data as special category); GDPR Art. 22",
         "risk_indicators_privacy": "Processing sensitive welfare/health data; automated profiling for fraud detection without human review; data linkage across agencies beyond original purpose",
         "fria_question": "Does the system determine, score, or rank individuals for eligibility for public benefits or healthcare access? Could errors lead to wrongful denial of essential services?",
-        "schema_mapping": "annex_domain=essential_services; system_pattern∈{profiling_scoring, resource_allocation, classification_triage}; rights∈{NON-DISCRIMINATION, PRIVACY, SOCIAL-PROTECTION}",
+        "schema_mapping": "annex_domain=essential_services; system_pattern in {profiling_scoring, resource_allocation, classification_triage}; rights in {NON-DISCRIMINATION, PRIVACY, SOCIAL-PROTECTION}",
         "mitigation_examples": "Fairness testing across demographic groups; human-in-the-loop for denial decisions; appeal/remedy mechanism; DPIA with special-category data assessment; transparent eligibility criteria",
     },
     {
@@ -75,7 +75,7 @@ CROSSWALK = [
         "right_2_privacy_dp": "EU Charter Art. 8; GDPR Art. 5(1)(d) (Accuracy); GDPR Art. 16 (Right to rectification)",
         "risk_indicators_privacy": "Inaccurate records leading to wrongful revocation; data quality issues in linked administrative databases; no mechanism for subjects to correct errors",
         "fria_question": "Can the system revoke or reduce benefits without individual human review? Is there an accessible appeals process for affected individuals?",
-        "schema_mapping": "annex_domain=essential_services; system_pattern∈{profiling_scoring, resource_allocation}; rights∈{NON-DISCRIMINATION, PRIVACY, EFFECTIVE-REMEDY}",
+        "schema_mapping": "annex_domain=essential_services; system_pattern in {profiling_scoring, resource_allocation}; rights in {NON-DISCRIMINATION, PRIVACY, EFFECTIVE-REMEDY}",
         "mitigation_examples": "Mandatory human review before revocation; accessible appeals process; data accuracy audits; redress fund; regular bias monitoring",
     },
     {
@@ -87,7 +87,7 @@ CROSSWALK = [
         "right_2_privacy_dp": "EU Charter Art. 8; GDPR Art. 22; GDPR Art. 15 (Right of access)",
         "risk_indicators_privacy": "Opaque scoring models; use of social-media or location data without consent; inability to understand or contest a credit decision",
         "fria_question": "Does the credit scoring model use features that could proxy for protected characteristics? Can individuals obtain a meaningful explanation?",
-        "schema_mapping": "annex_domain=essential_services; system_pattern=profiling_scoring; rights∈{NON-DISCRIMINATION, PRIVACY}",
+        "schema_mapping": "annex_domain=essential_services; system_pattern=profiling_scoring; rights in {NON-DISCRIMINATION, PRIVACY}",
         "mitigation_examples": "Feature audit for proxy variables; explainability report per Art. 22(3); alternative data opt-out; regular disparate-impact testing",
     },
     {
@@ -99,7 +99,7 @@ CROSSWALK = [
         "right_2_privacy_dp": "EU Charter Art. 8; GDPR Art. 9(2)(h) (Health data); Solvency II data requirements",
         "risk_indicators_privacy": "Inference of health status from behavioural data; use of wearable/IoT health data without explicit consent; secondary use of claims data",
         "fria_question": "Could the pricing model create access barriers to insurance for vulnerable groups? Is health data processed with explicit consent and clear purpose limitation?",
-        "schema_mapping": "annex_domain=essential_services; system_pattern=profiling_scoring; rights∈{NON-DISCRIMINATION, PRIVACY, HEALTHCARE-ACCESS}",
+        "schema_mapping": "annex_domain=essential_services; system_pattern=profiling_scoring; rights in {NON-DISCRIMINATION, PRIVACY, HEALTHCARE-ACCESS}",
         "mitigation_examples": "Actuarial fairness audit; prohibition of genetic data use; DPIA for health-data processing; purpose limitation enforcement; consumer disclosure",
     },
     {
@@ -111,7 +111,7 @@ CROSSWALK = [
         "right_2_privacy_dp": "EU Charter Art. 8; ePrivacy Directive (location data); GDPR Art. 6(1)(d) (Vital interests)",
         "risk_indicators_privacy": "Location tracking of callers; recording and profiling of emergency communications; retention of sensitive call content beyond operational need",
         "fria_question": "Could triage errors lead to delayed emergency response for specific demographic groups? Is caller data retained proportionately?",
-        "schema_mapping": "annex_domain=essential_services; system_pattern∈{classification_triage, resource_allocation}; rights∈{RIGHT-TO-LIFE, NON-DISCRIMINATION, PRIVACY}",
+        "schema_mapping": "annex_domain=essential_services; system_pattern in {classification_triage, resource_allocation}; rights in {RIGHT-TO-LIFE, NON-DISCRIMINATION, PRIVACY}",
         "mitigation_examples": "Multi-language / multi-accent testing; performance monitoring by caller demographics; minimal data retention; human escalation protocol",
     },
 ]
@@ -150,7 +150,7 @@ def save_csv():
 def save_markdown():
     OUT_MD.parent.mkdir(parents=True, exist_ok=True)
     lines = []
-    lines.append("# Regulatory Crosswalk: AI Act Annex III/4 & III/5a → Fundamental Rights\n")
+    lines.append("# Regulatory Crosswalk: AI Act Annex III/4 & III/5a -> Fundamental Rights\n")
     lines.append("*Regulatory crosswalk table for dissertation Appendix.*\n")
 
     lines.append("## Crosswalk Table\n")
@@ -193,7 +193,7 @@ def main():
     save_markdown()
     save_glossary()
 
-    print(f"\n  Crosswalk: {len(CROSSWALK)} rows mapping Annex III obligations → rights")
+    print(f"\n  Crosswalk: {len(CROSSWALK)} rows mapping Annex III obligations -> rights")
     print(f"  Glossary:  {len(GLOSSARY)} normalised terms")
     print("\n[OK] Regulatory crosswalk complete.")
 

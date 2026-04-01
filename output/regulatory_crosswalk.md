@@ -1,4 +1,4 @@
-# Regulatory Crosswalk: AI Act Annex III/4 & III/5a → Fundamental Rights
+# Regulatory Crosswalk: AI Act Annex III/4 & III/5a -> Fundamental Rights
 
 *Regulatory crosswalk table for dissertation Appendix.*
 
@@ -15,7 +15,7 @@
 | **Privacy / data-protection provisions** | EU Charter Art. 8 (Data protection); GDPR Art. 22 (Automated individual decision-making); GDPR Art. 9 (Special categories) |
 | **Privacy risk indicators** | Processing of special-category data (health, ethnicity) inferred from CV; profiling without valid legal basis; lack of transparency about automated scoring |
 | **FRIA guiding question** | Does the system produce or influence decisions on hiring, shortlisting, or candidate ranking? Could outputs correlate with protected characteristics? |
-| **Schema mapping** | `annex_domain=employment; system_pattern∈{profiling_scoring, llm_assisted_screening}; rights∈{NON-DISCRIMINATION, PRIVACY}` |
+| **Schema mapping** | `annex_domain=employment; system_pattern in {profiling_scoring, llm_assisted_screening}; rights in {NON-DISCRIMINATION, PRIVACY}` |
 | **Mitigation examples** | Bias audit on training data; disparate-impact testing; human review of shortlists; DPIA; Art. 22 safeguards (right to explanation, human intervention) |
 
 ### Annex III/4(b) — Employment
@@ -29,7 +29,7 @@
 | **Privacy / data-protection provisions** | EU Charter Art. 8; GDPR Art. 5(1)(b) (Purpose limitation); GDPR Art. 6 (Lawfulness of processing) |
 | **Privacy risk indicators** | Continuous behavioural monitoring exceeding stated purpose; keystroke / productivity tracking; sentiment analysis of communications |
 | **FRIA guiding question** | Does the system monitor, evaluate, or score workers in ways that affect employment terms? Is monitoring proportionate to a legitimate aim? |
-| **Schema mapping** | `annex_domain=employment; system_pattern∈{surveillance_monitor, profiling_scoring}; rights∈{NON-DISCRIMINATION, PRIVACY, FAIR-WORKING-CONDITIONS}` |
+| **Schema mapping** | `annex_domain=employment; system_pattern in {surveillance_monitor, profiling_scoring}; rights in {NON-DISCRIMINATION, PRIVACY, FAIR-WORKING-CONDITIONS}` |
 | **Mitigation examples** | Proportionality review of monitoring scope; worker consultation (GDPR Art. 88); algorithmic impact assessment; opt-out for non-essential tracking |
 
 ### Annex III/4(c) — Employment
@@ -43,7 +43,7 @@
 | **Privacy / data-protection provisions** | EU Charter Art. 7 (Private life); Art. 8; GDPR Art. 35 (DPIA); ePrivacy Directive (electronic communications monitoring) |
 | **Privacy risk indicators** | Workplace surveillance scope creep; processing of biometric data; lack of data minimisation; no clear retention policy |
 | **FRIA guiding question** | Is worker monitoring continuous or event-based? Are workers informed about data collected and how evaluations are derived? |
-| **Schema mapping** | `annex_domain=employment; system_pattern=surveillance_monitor; rights∈{PRIVACY, NON-DISCRIMINATION}` |
+| **Schema mapping** | `annex_domain=employment; system_pattern=surveillance_monitor; rights in {PRIVACY, NON-DISCRIMINATION}` |
 | **Mitigation examples** | Data minimisation by design; time-limited retention; worker notification and DPIA; union/works-council consultation |
 
 ### Annex III/5(a)-i — Essential Services
@@ -53,11 +53,11 @@
 | Dimension | Detail |
 |-----------|--------|
 | **Non-discrimination provisions** | EU Charter Art. 21 (Non-discrimination); Art. 34 (Social security / social assistance); Art. 35 (Healthcare); Racial Equality Directive 2000/43/EC Art. 3(1)(e) |
-| **Non-discrimination risk indicators** | Proxy discrimination in eligibility scoring (e.g., postal code → ethnicity); under-representation of minority applicants in training data; algorithmic exclusion of vulnerable groups |
+| **Non-discrimination risk indicators** | Proxy discrimination in eligibility scoring (e.g., postal code -> ethnicity); under-representation of minority applicants in training data; algorithmic exclusion of vulnerable groups |
 | **Privacy / data-protection provisions** | EU Charter Art. 8; GDPR Art. 9 (Health data, social-benefit data as special category); GDPR Art. 22 |
 | **Privacy risk indicators** | Processing sensitive welfare/health data; automated profiling for fraud detection without human review; data linkage across agencies beyond original purpose |
 | **FRIA guiding question** | Does the system determine, score, or rank individuals for eligibility for public benefits or healthcare access? Could errors lead to wrongful denial of essential services? |
-| **Schema mapping** | `annex_domain=essential_services; system_pattern∈{profiling_scoring, resource_allocation, classification_triage}; rights∈{NON-DISCRIMINATION, PRIVACY, SOCIAL-PROTECTION}` |
+| **Schema mapping** | `annex_domain=essential_services; system_pattern in {profiling_scoring, resource_allocation, classification_triage}; rights in {NON-DISCRIMINATION, PRIVACY, SOCIAL-PROTECTION}` |
 | **Mitigation examples** | Fairness testing across demographic groups; human-in-the-loop for denial decisions; appeal/remedy mechanism; DPIA with special-category data assessment; transparent eligibility criteria |
 
 ### Annex III/5(a)-ii — Essential Services
@@ -71,7 +71,7 @@
 | **Privacy / data-protection provisions** | EU Charter Art. 8; GDPR Art. 5(1)(d) (Accuracy); GDPR Art. 16 (Right to rectification) |
 | **Privacy risk indicators** | Inaccurate records leading to wrongful revocation; data quality issues in linked administrative databases; no mechanism for subjects to correct errors |
 | **FRIA guiding question** | Can the system revoke or reduce benefits without individual human review? Is there an accessible appeals process for affected individuals? |
-| **Schema mapping** | `annex_domain=essential_services; system_pattern∈{profiling_scoring, resource_allocation}; rights∈{NON-DISCRIMINATION, PRIVACY, EFFECTIVE-REMEDY}` |
+| **Schema mapping** | `annex_domain=essential_services; system_pattern in {profiling_scoring, resource_allocation}; rights in {NON-DISCRIMINATION, PRIVACY, EFFECTIVE-REMEDY}` |
 | **Mitigation examples** | Mandatory human review before revocation; accessible appeals process; data accuracy audits; redress fund; regular bias monitoring |
 
 ### Annex III/5(a)-iii — Essential Services
@@ -85,7 +85,7 @@
 | **Privacy / data-protection provisions** | EU Charter Art. 8; GDPR Art. 22; GDPR Art. 15 (Right of access) |
 | **Privacy risk indicators** | Opaque scoring models; use of social-media or location data without consent; inability to understand or contest a credit decision |
 | **FRIA guiding question** | Does the credit scoring model use features that could proxy for protected characteristics? Can individuals obtain a meaningful explanation? |
-| **Schema mapping** | `annex_domain=essential_services; system_pattern=profiling_scoring; rights∈{NON-DISCRIMINATION, PRIVACY}` |
+| **Schema mapping** | `annex_domain=essential_services; system_pattern=profiling_scoring; rights in {NON-DISCRIMINATION, PRIVACY}` |
 | **Mitigation examples** | Feature audit for proxy variables; explainability report per Art. 22(3); alternative data opt-out; regular disparate-impact testing |
 
 ### Annex III/5(a)-iv — Essential Services
@@ -99,7 +99,7 @@
 | **Privacy / data-protection provisions** | EU Charter Art. 8; GDPR Art. 9(2)(h) (Health data); Solvency II data requirements |
 | **Privacy risk indicators** | Inference of health status from behavioural data; use of wearable/IoT health data without explicit consent; secondary use of claims data |
 | **FRIA guiding question** | Could the pricing model create access barriers to insurance for vulnerable groups? Is health data processed with explicit consent and clear purpose limitation? |
-| **Schema mapping** | `annex_domain=essential_services; system_pattern=profiling_scoring; rights∈{NON-DISCRIMINATION, PRIVACY, HEALTHCARE-ACCESS}` |
+| **Schema mapping** | `annex_domain=essential_services; system_pattern=profiling_scoring; rights in {NON-DISCRIMINATION, PRIVACY, HEALTHCARE-ACCESS}` |
 | **Mitigation examples** | Actuarial fairness audit; prohibition of genetic data use; DPIA for health-data processing; purpose limitation enforcement; consumer disclosure |
 
 ### Annex III/5(a)-v — Essential Services
@@ -113,7 +113,7 @@
 | **Privacy / data-protection provisions** | EU Charter Art. 8; ePrivacy Directive (location data); GDPR Art. 6(1)(d) (Vital interests) |
 | **Privacy risk indicators** | Location tracking of callers; recording and profiling of emergency communications; retention of sensitive call content beyond operational need |
 | **FRIA guiding question** | Could triage errors lead to delayed emergency response for specific demographic groups? Is caller data retained proportionately? |
-| **Schema mapping** | `annex_domain=essential_services; system_pattern∈{classification_triage, resource_allocation}; rights∈{RIGHT-TO-LIFE, NON-DISCRIMINATION, PRIVACY}` |
+| **Schema mapping** | `annex_domain=essential_services; system_pattern in {classification_triage, resource_allocation}; rights in {RIGHT-TO-LIFE, NON-DISCRIMINATION, PRIVACY}` |
 | **Mitigation examples** | Multi-language / multi-accent testing; performance monitoring by caller demographics; minimal data retention; human escalation protocol |
 
 ## Normalised Glossary

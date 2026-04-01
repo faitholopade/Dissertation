@@ -126,8 +126,8 @@ def _show(subset, report):
     table = subset[cols].head(15).to_markdown(index=False)
     print(table)
     report.append(table)
-    report.append(f"\n  → {len(subset)} total matching records\n")
-    print(f"\n  → {len(subset)} total matching records\n")
+    report.append(f"\n  -> {len(subset)} total matching records\n")
+    print(f"\n  -> {len(subset)} total matching records\n")
 
 
 def _show_distributions(subset, report):
@@ -262,9 +262,9 @@ def run_scenarios(df):
         # Wrap narrative nicely
         for line in textwrap.wrap(sc["narrative"], width=66):
             report.append(f"  {line}")
-        print(f"\n{'─' * 68}")
+        print(f"\n{'-' * 68}")
         print(f"  Scenario {sc['id']}: {sc['name']}")
-        print(f"{'─' * 68}")
+        print(f"{'-' * 68}")
         print(f"  {sc['narrative']}\n")
 
         # Primary query
@@ -326,7 +326,7 @@ def make_figure(counts):
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
     except ImportError:
-        print("  ⚠  matplotlib not available — skipping figure")
+        print("  [WARN]  matplotlib not available — skipping figure")
         return
 
     FIG_OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -369,7 +369,7 @@ def main():
         all_hits_df.to_csv(OUT_CSV, index=False)
         print(f"  [OK] {OUT_CSV}")
     else:
-        print("  ⚠  No hits to save")
+        print("  [WARN]  No hits to save")
 
     # Save text report
     OUT_TXT.write_text(report_text, encoding="utf-8")

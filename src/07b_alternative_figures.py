@@ -74,7 +74,7 @@ def fig_rights_distribution(df, gold):
                 rights_counts["SOCIAL PROTECTION (kw-inferred)"] = int((gold["kw_ben_hits"].fillna(0) > 0).sum())
 
     if not rights_counts:
-        print("  ⚠  No rights data found – cannot generate rights distribution")
+        print("  [WARN]  No rights data found - cannot generate rights distribution")
         return
 
     labels, values = zip(*rights_counts.most_common())
@@ -128,7 +128,7 @@ def fig_harms_distribution(df, gold):
                     harms_counts[harm] += 1
 
     if not harms_counts:
-        print("  ⚠  No harms data found – cannot generate harms distribution")
+        print("  [WARN]  No harms data found - cannot generate harms distribution")
         return
 
     labels, values = zip(*harms_counts.most_common())
@@ -147,7 +147,7 @@ def fig_harms_distribution(df, gold):
 
 def fig_rights_by_domain(gold):
     if not {"manual_annex_employment", "manual_annex_essential", "manual_rights"}.issubset(gold.columns):
-        print("  ⚠  Skipping rights × domain (missing columns)")
+        print("  [WARN]  Skipping rights × domain (missing columns)")
         return
 
     rows = []
@@ -162,7 +162,7 @@ def fig_rights_by_domain(gold):
                 rows.append({"domain": domain, "right": right[:30]})
 
     if not rows:
-        print("  ⚠  No rights × domain pairs found")
+        print("  [WARN]  No rights × domain pairs found")
         return
 
     rdf = pd.DataFrame(rows)
@@ -193,7 +193,7 @@ def fig_harms_by_pattern(df):
             break
 
     if not dom_col or not pat_col:
-        print("  ⚠  Skipping harms × pattern heatmap (missing columns)")
+        print("  [WARN]  Skipping harms × pattern heatmap (missing columns)")
         return
 
     ct = pd.crosstab(df[pat_col], df[dom_col])
