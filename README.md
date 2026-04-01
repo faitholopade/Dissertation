@@ -19,7 +19,7 @@
 
 The EU Artificial Intelligence Act (Regulation 2024/1689) imposes strict obligations on providers and deployers of high-risk AI systems listed in Annex III. However, a systematic, machine-readable mapping between large language model (LLM) risk evidence and fundamental rights protections remains absent from the compliance toolchain. This project addresses that gap by designing and populating a **reusable semantic framework** that connects application context, LLM usage patterns, risk and harm categories, and fundamental rights for high-risk public sector applications under Annex III categories 4 (employment) and 5a (essential public services).
 
-The framework is operationalised through a **reproducible 13 step annotation pipeline** that ingests 150 records from three public sources, annotates them via keyword rules, LLM assisted classification, and hybrid merge, evaluates label quality against a manually annotated gold standard, and exports the results as a linked knowledge graph. A suite of Fundamental Rights Impact Assessment (FRIA) retrieval scenarios and a regulatory crosswalk demonstrate the practical utility of the framework for conformity assessment under the AI Act.
+The framework is operationalised through a **reproducible 15-step annotation pipeline** that ingests 150 records from three public sources, annotates them via keyword rules, LLM assisted classification, and hybrid merge, evaluates label quality against a manually annotated gold standard, and exports the results as a linked knowledge graph. A suite of Fundamental Rights Impact Assessment (FRIA) retrieval scenarios and a regulatory crosswalk demonstrate the practical utility of the framework for conformity assessment under the AI Act.
 
 ---
 
@@ -52,7 +52,7 @@ The framework is operationalised through a **reproducible 13 step annotation pip
 
 ## Pipeline Architecture
 
-The pipeline is organised as 13 sequential steps, each implemented as a standalone Python script in `src/`.
+The pipeline is organised as 15 sequential steps, each implemented as a standalone Python script in `src/`.
 
 ```
 Step  Script                          Output
@@ -71,6 +71,8 @@ Step  Script                          Output
  11   11_chain_of_events.py           master_annotation_table_causal.csv
  12   12_knowledge_graph.py           knowledge_graph.ttl
  13   13_visualise_knowledge_graph.py  fig_knowledge_graph_full.html, .png
+ 14   sparql_demo.py                  sparql_demo_results.txt
+ 15   multi_model_comparison.py       multi_model_comparison.csv, figures
 ```
 
 ```
@@ -94,6 +96,12 @@ data/ecthr/  ──┘         |                                          |
                                                                     |
                                                                     v
                                                       13_visualise_knowledge_graph
+                                                                    |
+                                                                    v
+                                                         14_sparql_demo
+                                                                    |
+                                                                    v
+                                                      15_multi_model_comparison
 ```
 
 ---
@@ -114,10 +122,12 @@ data/ecthr/  ──┘         |                                          |
 │   ├── master_annotation_table_v01.csv
 │   └── master_annotation_table_v05.csv
 │
-├── src/                              # Pipeline scripts (steps 01-13)
+├── src/                              # Pipeline scripts (steps 01-15)
 │   ├── 01_expand_corpus.py
 │   ├── ...
-│   └── 13_visualise_knowledge_graph.py
+│   ├── 13_visualise_knowledge_graph.py
+│   ├── sparql_demo.py
+│   └── multi_model_comparison.py
 │
 ├── schema/                           # Semantic schema definitions
 │   ├── fria_risk_schema.ttl          # Turtle format
@@ -134,7 +144,12 @@ data/ecthr/  ──┘         |                                          |
 │   ├── regulatory_crosswalk.csv
 │   └── ...
 │
-├── figures/                          # Generated visualisations
+├── app/                              # Flask query interface prototype
+│   ├── app.py
+│   ├── templates/
+│   └── requirements.txt
+│
+├── figures/                          # Generated visualisations (22 PNGs)
 │   ├── fig_knowledge_graph_full.html # Interactive knowledge graph
 │   └── *.png
 │
@@ -159,6 +174,10 @@ data/ecthr/  ──┘         |                                          |
 | `schema/fria_risk_schema.ttl` | Reusable semantic schema in Turtle |
 | `schema/fria_risk_schema.jsonld` | Reusable semantic schema in JSON-LD |
 | `regulatory_crosswalk.csv` | Mapping between fundamental rights and AI Act obligations |
+| `sparql_demo_results.txt` | SPARQL query demonstration results (4 queries) |
+| `multi_model_comparison.csv` | GPT-4o-mini vs Claude Sonnet annotation comparison |
+| `fig_multi_model_kappa.png` | Multi-model kappa agreement chart |
+| `fig_multi_model_unknown_rates.png` | Unknown rate comparison across methods |
 
 ---
 
@@ -178,7 +197,8 @@ Detailed evaluation results are generated by `04_evaluate_gold.py` and `03_compa
 
 | Aspect | Detail |
 |--------|--------|
-| **LLM** | Claude claude-sonnet-4-20250514 via Anthropic API |
+| **LLM (primary)** | Claude claude-sonnet-4-20250514 via Anthropic API |
+| **LLM (comparison)** | OpenAI GPT-4o-mini via OpenAI API |
 | **Temperature** | 0 (deterministic) |
 | **Prompt logs** | `output/llm_predictions_cache_v2.jsonl`, `output/causal_annotation_log.jsonl` |
 | **Cache layer** | Prevents duplicate API calls across re-runs |
@@ -209,24 +229,29 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Set environment variable
+### 3. Set environment variables
 
 ```bash
 # Windows PowerShell
 $env:ANTHROPIC_API_KEY = "sk-ant-..."
+$env:OPENAI_API_KEY = "sk-..."        # Optional: for multi-model comparison (Step 15)
 
 # macOS / Linux
 export ANTHROPIC_API_KEY="sk-ant-..."
+export OPENAI_API_KEY="sk-..."         # Optional: for multi-model comparison (Step 15)
 ```
 
 ### 4. Run the pipeline
 
 ```bash
-# Steps 01-12
+# Steps 01-15 (including SPARQL demo and multi-model comparison)
 python run_all.py
 
-# Step 13 (knowledge graph visualisation)
+# Step 13 (knowledge graph visualisation, run separately)
 python src/13_visualise_knowledge_graph.py
+
+# Flask query interface (optional)
+cd app && pip install -r requirements.txt && python app.py
 ```
 
 ### 5. View the interactive knowledge graph
@@ -284,4 +309,3 @@ You are free to share and adapt this material for any purpose, provided appropri
 - **AIAAIC** for maintaining the public AI incident repository
 - **W3C Data Privacy Vocabularies and Controls Community Group** for the Data Privacy Vocabulary (DPV)
 - **ADAPT Centre** for the VAIR ontology and FRIA framework
-- **Claude** (Anthropic) was used as an assistive tool for repository organisation and cleanup tasks

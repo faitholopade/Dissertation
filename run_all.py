@@ -4,6 +4,10 @@ import subprocess, sys, os
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
+
+# Ensure child processes use UTF-8 encoding (avoids cp1252 failures on Windows)
+os.environ.setdefault("PYTHONIOENCODING", "utf-8")
+
 print(f"Working directory: {ROOT}\n")
 
 required_files = {
@@ -38,7 +42,7 @@ for path, desc in {**required_files, **required_data}.items():
         all_ok = False
 
 if not all_ok:
-    print("\n⚠ Some files are missing! Fix before running.")
+    print("\n[WARN] Some files are missing! Fix before running.")
     sys.exit(1)
 
 if "--check" in sys.argv:
@@ -46,7 +50,7 @@ if "--check" in sys.argv:
     sys.exit(0)
 
 steps = [
-    ("STEP 1: Expand corpus → 150 records",        "src/01_expand_corpus.py"),
+    ("STEP 1: Expand corpus to 150 records",         "src/01_expand_corpus.py"),
     ("STEP 2: LLM annotation (uses cache)",         "src/02_llm_annotate.py"),
     ("STEP 3: Compare keyword vs LLM methods",      "src/03_compare_methods.py"),
     ("STEP 4: Gold-standard evaluation",            "src/04_evaluate_gold.py"),
@@ -70,7 +74,7 @@ for desc, script in steps:
     print(f"{'=' * 60}")
 
     if not os.path.exists(script):
-        print(f"\n⚠ {script} not found – skipping")
+        print(f"\n[WARN] {script} not found - skipping")
         results.append((desc, False))
         continue
 
@@ -83,7 +87,7 @@ for desc, script in steps:
     results.append((desc, success))
 
     if not success:
-        print(f"\n⚠ {script} failed with exit code {result.returncode}")
+        print(f"\n[WARN] {script} failed with exit code {result.returncode}")
         print("  Stopping pipeline. Fix the error above and re-run.")
         sys.exit(1)
 
