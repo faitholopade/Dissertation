@@ -26,3 +26,6 @@ pipeline outputs.
 - `v1_schema.py` — original schema definition
 - `v1_run_pipeline.bat` — Windows batch runner
 - `v1_*.csv`, `v1_*.jsonl`, `v1_*.jsonld`, `v1_*.txt` — v1 output data
+- `v0_aiaaic/` — original AIAAIC data directory (now in `data/aiaaic/`)
+- `v0_ecthr/` — original ECtHR data directory (now in `data/ecthr/`)
+- `v0_usfed/` — original US Federal data directory (now in `data/usfed/`)
