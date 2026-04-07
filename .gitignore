@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 .env
 **/llm_predictions_cache*.jsonl
+**/gpt4o_mini_predictions_cache.jsonl
 *.tmp
 .venv/
 structure.txt
