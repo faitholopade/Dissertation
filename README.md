@@ -1,4 +1,4 @@
-# A Reusable Semantic Framework Linking LLM Risks to Fundamental Rights Under the EU AI Act
+# A Reusable Semantic Web-based Framework Linking LLM Risks to Fundamental Rights Under the EU AI Act
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
@@ -11,21 +11,21 @@
 | **Co-supervisor** | Dr Delaram Golpayegani |
 | **Affiliation** | School of Computer Science and Statistics, Trinity College Dublin |
 | **Programme** | MSc Computer Science |
-| **Date** | 2026 |
+| **Date** | April 2026 |
 
 ---
 
 ## Abstract
 
-The EU Artificial Intelligence Act (Regulation 2024/1689) imposes strict obligations on providers and deployers of high-risk AI systems listed in Annex III. However, a systematic, machine-readable mapping between large language model (LLM) risk evidence and fundamental rights protections remains absent from the compliance toolchain. This project addresses that gap by designing and populating a **reusable semantic framework** that connects application context, LLM usage patterns, risk and harm categories, and fundamental rights for high-risk public sector applications under Annex III categories 4 (employment) and 5a (essential public services).
+The EU Artificial Intelligence Act (Regulation 2024/1689) imposes strict obligations on providers and deployers of high-risk AI systems listed in Annex III. However, a systematic, machine-readable mapping between large language model (LLM) risk evidence and fundamental rights protections remains absent from the compliance toolchain. This project addresses that gap by designing and populating a reusable Semantic web-based framework that connects application context, LLM usage patterns, risk and harm categories, and fundamental rights for high-risk public sector applications under Annex III categories 4 (employment) and 5a (essential public services).
 
-The framework is operationalised through a **reproducible 15-step annotation pipeline** that ingests 150 records from three public sources, annotates them via keyword rules, LLM assisted classification, and hybrid merge, evaluates label quality against a manually annotated gold standard, and exports the results as a linked knowledge graph. A suite of Fundamental Rights Impact Assessment (FRIA) retrieval scenarios and a regulatory crosswalk demonstrate the practical utility of the framework for conformity assessment under the AI Act.
+The framework is operationalised through a reproducible 15 step annotation pipeline that ingests 150 records from three public sources, annotates them via keyword rules, LLM assisted classification, and hybrid merge, evaluates label quality against a manually annotated gold standard, and exports the results as a linked knowledge graph. A suite of Fundamental Rights Impact Assessment (FRIA) retrieval scenarios and a regulatory crosswalk demonstrate the practical utility of the framework for conformity assessment under the AI Act.
 
 ---
 
 ## Research Question
 
-> How can a reusable semantic framework be designed and populated to link LLM related risk evidence with fundamental rights protections for high-risk public sector applications (Annex III/4 and Annex III/5a) under the EU AI Act?
+> How can a reusable Semantic web-based framework be designed and populated to link LLM related risk evidence with fundamental rights protections for high-risk public sector applications (Annex III/4 and Annex III/5a) under the EU AI Act?
 
 ---
 
@@ -168,11 +168,11 @@ data/ecthr/  ──┘         |                                          |
 |--------|-------------|
 | `master_annotation_table_final.csv` | 150 records with keyword, LLM, and hybrid labels across domain, pattern, rights, and harms |
 | `master_annotation_table_causal.csv` | Extended with root cause, mitigation status, and source type |
-| `knowledge_graph.ttl` | RDF/Turtle knowledge graph (194 nodes, 963 edges, 1,351 triples) |
+| `knowledge_graph.ttl` | RDF/Turtle knowledge graph (193 nodes, 965 edges, 1,351 triples) |
 | `fig_knowledge_graph_full.html` | Interactive, zoomable knowledge graph visualisation |
-| `fria_scenario_results.csv` | FRIA style retrieval narratives for welfare and recruitment scenarios |
-| `schema/fria_risk_schema.ttl` | Reusable semantic schema in Turtle |
-| `schema/fria_risk_schema.jsonld` | Reusable semantic schema in JSON-LD |
+| `fria_scenario_results.csv` | FRIA evidence retrieval results across five deployer scenarios |
+| `schema/fria_risk_schema.ttl` | Reusable Semantic Web-based schema in Turtle (RDF) |
+| `schema/fria_risk_schema.jsonld` | Reusable Semantic Web-based schema in JSON-LD |
 | `regulatory_crosswalk.csv` | Mapping between fundamental rights and AI Act obligations |
 | `sparql_demo_results.txt` | SPARQL query demonstration results (4 queries) |
 | `multi_model_comparison.csv` | GPT-4o-mini vs Claude Sonnet annotation comparison |
@@ -183,11 +183,14 @@ data/ecthr/  ──┘         |                                          |
 
 ## Evaluation Summary
 
-| Metric | Keyword | LLM | Hybrid |
-|--------|---------|-----|--------|
-| Domain accuracy | ~60% | ~72% | ~78% |
-| Unknown rate | high | low | low |
-| Cohen's kappa (domain) | -- | ~0.55 | ~0.65 |
+| Metric | Keyword | LLM (Claude Sonnet) | LLM (GPT-4o-mini) | Hybrid |
+|--------|---------|---------------------|-------------------|--------|
+| Domain kappa (vs gold) | 0.246 | 0.176 | 0.196 | 0.234 |
+| Domain unknown rate | 26.0% | 38.7% | 56.7% | 22.0% |
+| Pattern unknown rate | 61.3% | 28.0% | 34.7% | 14.0% |
+| Essential services kappa | — | 0.525 | — | — |
+| Employment kappa | — | 0.045 | — | — |
+| FRIA coverage | — | — | — | 68.7% (103/150) |
 
 Detailed evaluation results are generated by `04_evaluate_gold.py` and `03_compare_methods.py`. Confusion matrices and inter-annotator agreement figures are available in `figures/` and `output/`.
 
@@ -197,7 +200,7 @@ Detailed evaluation results are generated by `04_evaluate_gold.py` and `03_compa
 
 | Aspect | Detail |
 |--------|--------|
-| **LLM (primary)** | Claude claude-sonnet-4-20250514 via Anthropic API |
+| **LLM (primary)** | Claude Sonnet (claude-sonnet-4-20250514) via Anthropic API |
 | **LLM (comparison)** | OpenAI GPT-4o-mini via OpenAI API |
 | **Temperature** | 0 (deterministic) |
 | **Prompt logs** | `output/llm_predictions_cache_v2.jsonl`, `output/causal_annotation_log.jsonl` |
@@ -270,7 +273,7 @@ If you use this framework, pipeline, or dataset in your research, please cite:
 ```bibtex
 @mastersthesis{olopade2026semantic,
   author       = {Faith Olopade},
-  title        = {A Reusable Semantic Framework Linking {LLM} Risks to Fundamental Rights Under the {EU AI Act}},
+  title        = {A Reusable {Semantic Web}-based Framework Linking {LLM} Risks to Fundamental Rights Under the {EU AI Act}},
   school       = {Trinity College Dublin},
   year         = {2026},
   type         = {{MSc} Dissertation},
