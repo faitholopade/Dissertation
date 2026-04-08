@@ -1,6 +1,6 @@
 # A Reusable Semantic Web-based Framework Linking LLM Risks to Fundamental Rights Under the EU AI Act
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![License: CC BY 4.0](https://img.shields.io/badge/Data-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) [![License: MIT](https://img.shields.io/badge/Code-MIT-green.svg)](https://mit-license.org/)
 
 **MSc Computer Science Dissertation — Trinity College Dublin, 2026**
 
@@ -111,7 +111,8 @@ data/ecthr/  ──┘         |                                          |
 ```
 .
 ├── README.md
-├── LICENSE                           # CC BY 4.0
+├── LICENSE_DATA                      # CC BY 4.0 (schema artefacts and annotated data)
+├── LICENSE_CODE                      # MIT Licence (pipeline source code)
 ├── requirements.txt
 ├── run_all.py                        # Orchestrate steps 01-15
 │
@@ -297,7 +298,9 @@ For questions about the framework, dataset, or pipeline, please open an [issue](
 
 ## License
 
-This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+Schema artefacts and annotated data are licensed under the [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/) (see `LICENSE_DATA`).
+
+The pipeline source code (`src/`, `app/`, `run_all.py`) is licensed under the [MIT License](https://mit-license.org/) (see `LICENSE_CODE`).
 
 You are free to share and adapt this material for any purpose, provided appropriate attribution is given. See [LICENSE](LICENSE) for full terms.
 
