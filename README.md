@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | **Author** | Faith Olopade ([olopadef@tcd.ie](mailto:olopadef@tcd.ie)) |
-| **Supervisor** | Dr David Lewis |
+| **Supervisor** | Prof David Lewis |
 | **Co-supervisor** | Dr Delaram Golpayegani |
 | **Affiliation** | School of Computer Science and Statistics, Trinity College Dublin |
 | **Programme** | MSc Computer Science |
