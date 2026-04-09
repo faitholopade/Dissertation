@@ -1,6 +1,6 @@
 # requirements.txt — FRIA Semantic Framework
 # Python:   3.12+
-# Tested:   March 2026
+# Tested:   April 2026
 
 # Core data
 pandas==2.2.3
@@ -8,7 +8,7 @@ numpy==1.26.4
 
 # LLM annotation (Steps 02, 11)
 anthropic==0.42.0
-openai>=1.0.0
+openai== 2.1.0
 
 # Evaluation metrics (Steps 03, 04)
 scikit-learn==1.5.2
