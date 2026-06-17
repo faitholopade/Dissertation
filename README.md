@@ -18,7 +18,7 @@
 > at the 5th European Conference on Algorithmic Fairness (ECAF '26)**, as
 > *"A Reusable Semantic Web Framework for Evidence-Grounded Fundamental Rights
 > Impact Assessments under the EU AI Act."*
-> [[paper]](PUBLIC_LINK) · [[reviews]](https://openreview.net/forum?id=QouOwr3uQk)
+> [[paper]](https://github.com/faitholopade/Dissertation/blob/main/docs/14_A_Reusable_Semantic_Web_Fra.pdf) · [[reviews]](https://openreview.net/forum?id=QouOwr3uQk)
 
 ## Abstract
 
