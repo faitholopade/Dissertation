@@ -14,6 +14,11 @@
 | **Date** | April 2026 |
 
 ---
+> **A condensed version of this dissertation was accepted for full presentation
+> at the 5th European Conference on Algorithmic Fairness (ECAF '26)**, as
+> *"A Reusable Semantic Web Framework for Evidence-Grounded Fundamental Rights
+> Impact Assessments under the EU AI Act."*
+> [[paper]](PUBLIC_LINK) · [[reviews]](https://openreview.net/forum?id=QouOwr3uQk)
 
 ## Abstract
 
@@ -283,6 +288,15 @@ If you use this framework, pipeline, or dataset in your research, please cite:
 }
 ```
 
+```bibtex
+@inproceedings{olopade2026fria,
+  author    = {Faith Olopade},
+  title     = {A Reusable {Semantic Web} Framework for Evidence-Grounded
+               Fundamental Rights Impact Assessments under the {EU AI Act}},
+  booktitle = {Proceedings of the 5th European Conference on Algorithmic Fairness (ECAF '26)},
+  year      = {2026}
+}
+```
 ---
 
 ## Contact
